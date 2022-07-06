@@ -6,11 +6,7 @@ using UnityEngine;
 public enum GellWallDirection
 {
     UP,
-    UPLEFT,
-    UPRIGHT,
     DOWN,
-    DOWNLEFT,
-    DOWNRIGHT,
     LEFT,
     RIGHT
 }
@@ -24,87 +20,117 @@ public class TestGellWall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Ball tb = collision.gameObject.GetComponent<Ball>();
+
+        //if (tb != null)
+        //{
+
+        //    Vector3 vec = Vector3.zero;
+
+        //    switch (wallDirection)
+        //    {
+        //        case GellWallDirection.UP:
+        //            vec = Vector3.up;
+        //            break;
+        //        case GellWallDirection.UPLEFT:
+        //            vec.Set(-1f, 1f, 0f);
+        //            break;
+        //        case GellWallDirection.UPRIGHT:
+        //            vec.Set(1f, 1f, 0f);
+        //            break;
+        //        case GellWallDirection.DOWN:
+        //            vec = Vector3.down;
+        //            break;
+        //        case GellWallDirection.DOWNLEFT:
+        //            vec.Set(-1f, -1f, 0f);
+        //            break;
+        //        case GellWallDirection.DOWNRIGHT:
+        //            vec.Set(1f, -1f, 0f);
+        //            break;
+        //        case GellWallDirection.LEFT:
+        //            vec = Vector3.left;
+        //            break;
+        //        case GellWallDirection.RIGHT:
+        //            vec = Vector3.right;
+        //            break;
+
+        //    }
+
+        //    tb.transform.position = transform.position;
+        //    tb.rigid.velocity = vec * 5;
+        //}
+
         Ball tb = collision.gameObject.GetComponent<Ball>();
-       
+
         if (tb != null)
         {
 
             Vector3 vec = Vector3.zero;
+            Vector3 vec2 = tb.rigid.velocity;
+
+            //print(collision.contacts[0].normal);
+            tb.transform.position = transform.position;
+            vec = Vector3.Cross(Vector3.forward, vec2).normalized;
+
+            int co = 1;
 
             switch (wallDirection)
             {
                 case GellWallDirection.UP:
-                    vec = Vector3.up;
-                    break;
-                case GellWallDirection.UPLEFT:
-                    vec.Set(-1f, 1f, 0f);
-                    break;
-                case GellWallDirection.UPRIGHT:
-                    vec.Set(1f, 1f, 0f);
-                    break;
-                case GellWallDirection.DOWN:
-                    vec = Vector3.down;
-                    break;
-                case GellWallDirection.DOWNLEFT:
-                    vec.Set(-1f, -1f, 0f);
-                    break;
-                case GellWallDirection.DOWNRIGHT:
-                    vec.Set(1f, -1f, 0f);
-                    break;
-                case GellWallDirection.LEFT:
-                    vec = Vector3.left;
-                    break;
                 case GellWallDirection.RIGHT:
-                    vec = Vector3.right;
+                    co = -1;
                     break;
-
             }
 
-            tb.transform.position = transform.position;
-            tb.rigid.velocity = vec * 5;
+            tb.rigid.velocity = vec * 5 * co;
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Ball tb = collision.gameObject.GetComponent<Ball>();
 
-        if(tb != null)
+        if (tb != null)
         {
 
             Vector3 vec = Vector3.zero;
+            Vector3 vec2 = tb.rigid.velocity;
 
-            switch (wallDirection)
-            {
-                case GellWallDirection.UP:
-                    vec = Vector3.up;   
-                    break;
-                case GellWallDirection.UPLEFT:
-                    vec.Set(-1f, 1f, 0f);
-                    break;
-                case GellWallDirection.UPRIGHT:
-                    vec.Set(1f, 1f, 0f);
-                    break;
-                case GellWallDirection.DOWN:
-                    vec = Vector3.down;
-                    break;
-                case GellWallDirection.DOWNLEFT:
-                    vec.Set(-1f, -1f, 0f);
-                    break;
-                case GellWallDirection.DOWNRIGHT:
-                    vec.Set(1f, -1f, 0f);
-                    break;
-                case GellWallDirection.LEFT:
-                    vec = Vector3.left;
-                    break;
-                case GellWallDirection.RIGHT:
-                    vec = Vector3.right;
-                    break;
-              
-            }
-
+            //print(collision.contacts[0].normal);
             tb.transform.position = transform.position;
+            vec = Vector3.Cross(Vector3.forward, vec2).normalized;
+
+            if (Mathf.Abs(vec.x) < Mathf.Abs(vec.y))
+            {
+                if (vec.x > 0)
+                {
+                    vec = Vector2.right;
+                }
+                else
+                {
+                    vec = Vector2.left;
+                }
+            }
+            else if (Mathf.Abs(vec.x) > Mathf.Abs(vec.y))
+            {
+                if (vec.y > 0)
+                {
+                    vec = Vector2.up;
+                }
+                else
+                {
+                    vec = Vector2.down;
+                }
+            }
+            //else
+            //{
+            //    vec = vec2;
+            //}
+
+            print(vec);
             tb.rigid.velocity = vec * 5;
         }
     }
+
 }
