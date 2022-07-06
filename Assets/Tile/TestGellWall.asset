@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d5751a2c961df945a34295ccf5e576d, type: 3}
-  m_Name: TestWall
+  m_Name: TestGellWall
   m_EditorClassIdentifier: 
   m_Cells:
   - m_Tile: {fileID: 0}
@@ -37,4 +37,4 @@ MonoBehaviour:
   m_CanChangeZPosition: 0
   m_FloodFillContiguousOnly: 1
   m_Anchor: {x: 0.5, y: 0.5, z: 0.5}
-  m_Prefab: {fileID: 1840948506014648209, guid: 36cf12a2c4d2bb84fba4df40802c65a7, type: 3}
+  m_Prefab: {fileID: 6711743432114333961, guid: 629d3c2063876d348a291a9b2d1951b9, type: 3}

@@ -9,7 +9,7 @@ public class TestAirFlow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        TestBall tb = collision.gameObject.GetComponent<TestBall>();
+        Ball tb = collision.gameObject.GetComponent<Ball>();
 
         if (tb != null)
         {
