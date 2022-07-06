@@ -6,7 +6,7 @@ public class TestShooter : MonoBehaviour
 {
     public Vector2 shootDir;
 
-    public TestBall ball;
+    public Ball ball;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class TestShooter : MonoBehaviour
 
     public void Shoot()
     {
-        TestBall ball2 = Instantiate(ball);
+        Ball ball2 = Instantiate(ball);
         ball2.transform.position = this.transform.position;
         Vector2 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
