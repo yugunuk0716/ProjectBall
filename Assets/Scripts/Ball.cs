@@ -34,7 +34,6 @@ public class Ball : MonoBehaviour
         anim.SetFloat("MoveX", Mathf.Abs(dir.x));
        
         anim.SetFloat("MoveY", Mathf.Abs(dir.y));
-        print(dir);
         anim.SetBool("isMoving", true);
         rigid.velocity = dir * power;
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))

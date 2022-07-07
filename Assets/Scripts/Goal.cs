@@ -25,6 +25,9 @@ public class Goal : ObjectTile
 
         if (tb != null)
         {
+            if (isChecked)
+                return;
+
             tb.rigid.velocity = Vector3.zero;
             //tb.transform.position = transform.position;
             Destroy(tb.gameObject);
@@ -35,5 +38,11 @@ public class Goal : ObjectTile
         }
     }
 
+    public void ResetFlag()
+    {
+        srC.sprite = flagSprite[0];
+        sr.color = Color.yellow;
+        isChecked = false;
+    }
 
 }
