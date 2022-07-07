@@ -8,12 +8,6 @@ public class TestShooter : MonoBehaviour
 
     public Ball ball;
 
-    private void Update()
-    {
-       
-    }
-
-
     public void Shoot()
     {
         Ball ball2 = Instantiate(ball);
