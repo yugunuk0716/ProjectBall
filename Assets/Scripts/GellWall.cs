@@ -12,7 +12,7 @@ public enum GellWallDirection
 }
 
 
-public class TestGellWall : MonoBehaviour
+public class GellWall : MonoBehaviour
 {
 
     public GellWallDirection wallDirection;

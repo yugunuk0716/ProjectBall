@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestAirFlow : MonoBehaviour
+public class Teleporter : MonoBehaviour
 {
-    public float flowAmount;
 
+    public Teleporter pairTeleporter;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,11 +13,11 @@ public class TestAirFlow : MonoBehaviour
 
         if (tb != null)
         {
-            if (tb.afCool + tb.afLastTime < Time.time)
+            if(tb.tpCool + tb.tpLastTime < Time.time)
             {
-
-                tb.afLastTime = Time.time;
-                tb.rigid.velocity *= flowAmount;
+              
+                tb.tpLastTime = Time.time;
+                tb.transform.position = pairTeleporter.transform.position;
             }
         }
     }

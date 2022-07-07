@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestShooter : MonoBehaviour
+public class Shooter : MonoBehaviour
 {
     public Vector2 shootDir;
 

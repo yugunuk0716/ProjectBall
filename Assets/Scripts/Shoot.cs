@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestShoot : MonoBehaviour
+public class Shoot : MonoBehaviour
 {
-    public TestShooter shooter;
-    public TestShooter curShooter;
+    public Shooter shooter;
+    public Shooter curShooter;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class TestShoot : MonoBehaviour
 
     public void SpawnShooter()
     {
-        TestShooter _shooter = Instantiate(shooter);
+        Shooter _shooter = Instantiate(shooter);
 
       
 
