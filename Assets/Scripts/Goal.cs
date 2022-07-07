@@ -6,10 +6,17 @@ public class Goal : MonoBehaviour
 {
 
     private SpriteRenderer sr;
+    private SpriteRenderer srC;
+
+    public List<Sprite> flagSprite;
+
+    
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        srC = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        srC.sprite = flagSprite[0];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +29,7 @@ public class Goal : MonoBehaviour
             //tb.transform.position = transform.position;
             Destroy(tb.gameObject);
             sr.color = Color.green;
+            srC.sprite = flagSprite[1];
         }
     }
 
