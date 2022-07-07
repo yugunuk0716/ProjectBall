@@ -1782,6 +1782,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalList: []
+  limitTime: 1
+  firstTime: 0
 --- !u!1 &2026085527
 GameObject:
   m_ObjectHideFlags: 0

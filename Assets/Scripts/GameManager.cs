@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public List<Goal> goalList = new List<Goal>();
 
     public float limitTime = 1f;
