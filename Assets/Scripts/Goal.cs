@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goal : MonoBehaviour
+public class Goal : ObjectTile
 {
 
     private SpriteRenderer sr;
@@ -10,7 +10,7 @@ public class Goal : MonoBehaviour
 
     public List<Sprite> flagSprite;
 
-    
+    public bool isChecked;
 
     private void Awake()
     {
@@ -30,6 +30,8 @@ public class Goal : MonoBehaviour
             Destroy(tb.gameObject);
             sr.color = Color.green;
             srC.sprite = flagSprite[1];
+            isChecked = true;
+            GameManager.Instance.CheckClear();
         }
     }
 

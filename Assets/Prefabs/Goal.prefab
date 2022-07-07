@@ -209,3 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c86ac7512516941a4061eea76ee05a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myType: 2
+  flagSprite: []
+  isChecked: 0

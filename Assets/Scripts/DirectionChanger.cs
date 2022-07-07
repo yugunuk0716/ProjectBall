@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirectionChanger : MonoBehaviour
+public class DirectionChanger : ObjectTile
 {
     public GellWallDirection wallDirection;
 

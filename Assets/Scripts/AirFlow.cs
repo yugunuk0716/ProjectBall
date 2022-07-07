@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirFlow : MonoBehaviour
+public class AirFlow : ObjectTile
 {
     public float flowAmount;
 
