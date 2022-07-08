@@ -12,6 +12,7 @@ public class NodeClass
     public string sprite;
     public float x;
     public float y;
+    public TileType tile;
 
     public List<NodeClass> data;
 }
