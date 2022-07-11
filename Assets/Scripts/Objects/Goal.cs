@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Goal : ObjectTile
 {
 
@@ -9,6 +11,8 @@ public class Goal : ObjectTile
     private SpriteRenderer srC;
 
     public List<Sprite> flagSprite;
+
+    public ObjectTileInfo goalInfo;
 
     public bool isChecked;
 
@@ -18,6 +22,16 @@ public class Goal : ObjectTile
         srC = transform.GetChild(0).GetComponent<SpriteRenderer>();
         srC.sprite = flagSprite[0];
     }
+
+    public override string ParseTileInfo()
+    {
+        goalInfo.tileType = (int)myType;
+
+        string s = $"{{\"tileType\":" + "\"" + goalInfo.tileType + "\"" + "}";
+
+        return s;
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

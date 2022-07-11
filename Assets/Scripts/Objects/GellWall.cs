@@ -11,11 +11,30 @@ public enum GellWallDirection
     RIGHT
 }
 
+[System.Serializable]
+public class MirrorInfo : ObjectTileInfo
+{
+    public int wallDirection;
+}
+
+
 
 public class GellWall : ObjectTile
 {
 
     public GellWallDirection wallDirection;
+
+    public MirrorInfo mirrorInfo = new MirrorInfo();
+
+    public override string ParseTileInfo()
+    {
+        mirrorInfo.tileType = (int)myType;
+        mirrorInfo.wallDirection = (int)wallDirection;
+
+        string s = $"{{\"type\":" + "\"" + mirrorInfo.tileType + "\"" + ", \"wallDirection\":" + "\"" + mirrorInfo.wallDirection + "\"}";
+
+        return s;
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)

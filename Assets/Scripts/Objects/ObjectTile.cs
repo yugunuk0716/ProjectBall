@@ -17,7 +17,7 @@ public enum TileType
 [System.Serializable]
 public class ObjectTileInfo
 {
-    public TileType tileType;
+    public int tileType;
 }
 
 

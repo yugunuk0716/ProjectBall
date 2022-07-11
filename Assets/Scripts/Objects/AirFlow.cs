@@ -16,10 +16,10 @@ public class AirFlow : ObjectTile
 
     public override string ParseTileInfo()
     {
-        airFlowInfo.tileType = myType;
+        airFlowInfo.tileType = (int)myType;
         airFlowInfo.flowAmount = flowAmount;
 
-        string s = $"{{\"type\":" + "\"" + airFlowInfo.tileType + "\"" + ", \"flowAmount\":" + "\"" + airFlowInfo.flowAmount + "\"" + "}";
+        string s = $"{{\"tileType\":" + "\"" + airFlowInfo.tileType + "\"" + ", \"flowAmount\":" + "\"" + airFlowInfo.flowAmount + "\"}";
 
         return s;
     }
