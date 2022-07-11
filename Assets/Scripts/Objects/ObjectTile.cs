@@ -14,10 +14,22 @@ public enum TileType
 
 }
 
+[System.Serializable]
+public class ObjectTileInfo
+{
+    public TileType tileType;
+}
+
+
 public class ObjectTile : MonoBehaviour
 {
-    
     public TileType myType;
+
+
+    public virtual string ParseTileInfo()
+    {
+        return string.Empty;
+    }
 
 
 }

@@ -2,9 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class AirFlowInfo : ObjectTileInfo
+{
+    public float flowAmount;
+}
+
 public class AirFlow : ObjectTile
 {
     public float flowAmount;
+
+    public AirFlowInfo airFlowInfo = new AirFlowInfo();
+
+    public override string ParseTileInfo()
+    {
+        airFlowInfo.tileType = myType;
+        airFlowInfo.flowAmount = flowAmount;
+
+        string s = $"{{\"type\":" + "\"" + airFlowInfo.tileType + "\"" + ", \"flowAmount\":" + "\"" + airFlowInfo.flowAmount + "\"" + "}";
+
+        return s;
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)

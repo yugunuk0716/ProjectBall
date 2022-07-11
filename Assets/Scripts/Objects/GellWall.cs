@@ -42,7 +42,7 @@ public class GellWall : ObjectTile
                     break;
             }
 
-            tb.Move(vec, 5);
+            tb.Move(vec * co, 5);
         }
 
     }
