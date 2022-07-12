@@ -21,10 +21,19 @@ public enum TileDirection
     RIGHT
 }
 
+[System.Serializable]
+public class ObjectTileInfo
+{
+    public int tileType;
+}
 
 public class ObjectTile : MonoBehaviour
 {
     public TileType myType;
     public TileDirection myDirection;
 
+    public virtual string ParseTileInfo()
+    {
+        return string.Empty;
+    }
 }

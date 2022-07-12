@@ -19,7 +19,7 @@ public class StageManager : MonoBehaviour
             dicPrefabs.Add(tile.myType, tile);
         }
 
-        SetStage();
+        //SetStage();
     }
 
 
@@ -32,15 +32,15 @@ public class StageManager : MonoBehaviour
 
         foreach(var item in stageData.data)
         {
-            ObjectTile tile = dicPrefabs[item.tile];
-            Quaternion tileRotation = GetTileRotation(tile.myDirection);
-
-            ObjectTile newTile = Instantiate(tile, new Vector2(item.x, item.y), tileRotation);
-            newTile.name = item.name;
-            if (item.tile.Equals(TileType.Goal))
-            {
-                GameManager.Instance.goalList.Add((Goal)tile); // 골 체크용으로 리스트에 추가.
-            }
+            //ObjectTile tile = dicPrefabs[item.tile];
+            //Quaternion tileRotation = GetTileRotation(tile.myDirection);
+            //
+            //ObjectTile newTile = Instantiate(tile, new Vector2(item.x, item.y), tileRotation);
+            //newTile.name = item.name;
+            //if (item.tile.Equals(TileType.Goal))
+            //{
+            //    GameManager.Instance.goalList.Add((Goal)tile); // 골 체크용으로 리스트에 추가.
+            //}
         }
     }
 

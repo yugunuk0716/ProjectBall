@@ -12,10 +12,14 @@ public class NodeClass
     public string sprite;
     public float x;
     public float y;
-    public TileType tile;
+
+    public string tileInfo; //이 타일 인포를 각각 TileObject를 상속받고 있는 스크립트에서 해체해서 쓰면 될 듯
 
     public List<NodeClass> data;
 }
+
+
+
 
 public class EditManager : MonoBehaviour
 {
@@ -112,7 +116,7 @@ public class EditManager : MonoBehaviour
                 currentObj = MakeNode(node, parent);
                 foreach (var child in node.data)
                 {
-                    ParseNode(child as NodeClass, currentObj);
+                    ParseNode(child, currentObj);
                 }
             }
             else
@@ -180,11 +184,6 @@ public class EditManager : MonoBehaviour
         return obj;
     }
 
-    private void Parse(string str)
-    {
-        int idx = 0;
-        ParseNode(str, idx);
-    }
 
     public bool ParseNode(string str, int idx)
     {
@@ -270,10 +269,13 @@ public class EditManager : MonoBehaviour
         string result = SetIndent(indent) + "{";
         result += $"\"name\":\"{node.transform.name}\", \"data\":[\n";
 
+       
+
         for (int i = 0; i < node.transform.childCount; i++)
         {
             Transform tr = node.transform.GetChild(i);
             SpriteRenderer sr = tr.GetComponent<SpriteRenderer>();
+            ObjectTile tile = tr.GetComponent<ObjectTile>();
             if (sr != null)
             {
                 if (i > 0)
@@ -282,7 +284,15 @@ public class EditManager : MonoBehaviour
                 }
 
                 result += SetIndent(indent + 1);
-                result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"}";
+                if(tile != null)
+                {
+                    result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"" + ", \"tileInfo\":" + "[" + tile.ParseTileInfo() + "]}";
+                }
+                else
+                {
+                    print("없음");
+                    result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"}";
+                }
             }
             else
             {
