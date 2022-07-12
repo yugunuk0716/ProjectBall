@@ -3,20 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum GellWallDirection
-{
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
 
 
 public class GellWall : ObjectTile
 {
-
-    public GellWallDirection wallDirection;
-
+    public TileDirection wallDirection;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,7 +15,6 @@ public class GellWall : ObjectTile
 
         if (tb != null)
         {
-
             Vector3 vec = Vector3.zero;
             Vector3 vec2 = tb.rigid.velocity;
 
@@ -32,20 +22,7 @@ public class GellWall : ObjectTile
             tb.transform.position = transform.position;
             vec = Vector3.Cross(Vector3.forward, vec2).normalized;
 
-            int co = 1;
-
-            switch (wallDirection)
-            {
-                case GellWallDirection.UP:
-                case GellWallDirection.RIGHT:
-                    co = -1;
-                    break;
-            }
-
             tb.Move(vec, 5);
         }
-
     }
-
-
 }

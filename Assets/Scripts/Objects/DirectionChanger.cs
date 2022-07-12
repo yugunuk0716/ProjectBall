@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DirectionChanger : ObjectTile
 {
-    public GellWallDirection wallDirection;
+    public TileDirection wallDirection;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,16 +19,16 @@ public class DirectionChanger : ObjectTile
             tb.transform.position = transform.position;
             switch (wallDirection)
             {
-                case GellWallDirection.UP:
+                case TileDirection.UP:
                     vec = Vector2.up;
                     break;
-                case GellWallDirection.RIGHT:
+                case TileDirection.RIGHT:
                     vec = Vector2.right;
                     break;
-                case GellWallDirection.LEFT:
+                case TileDirection.LEFT:
                     vec = Vector2.left;
                     break;
-                case GellWallDirection.DOWN:
+                case TileDirection.DOWN:
                     vec = Vector2.down;
                     break;
             }
