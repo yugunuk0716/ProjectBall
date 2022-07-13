@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class DirectionChangerInfo : ObjectTileInfo
 {
-    public int wallDirection;
+    public GellWallDirection wallDirection;
 }
 
 
@@ -17,19 +17,16 @@ public class DirectionChanger : ObjectTile
 
     public override string ParseTileInfo()
     {
-        directionChangerInfo.tileType = (int)myType;
-        directionChangerInfo.wallDirection = (int)wallDirection;
+        directionChangerInfo.tileType = myType;
+        directionChangerInfo.wallDirection = wallDirection;
 
-        string s = $"{{\"tileType\":" + "\"" + directionChangerInfo.tileType + "\"" + ", \"wallDirection\":" + "\"" + directionChangerInfo.wallDirection + "\"}";
-
-        DirectionChangerInfo dc = JsonUtility.FromJson<DirectionChangerInfo>(s);
-        print(s);
-
-        print((TileType)dc.tileType);
-        print((GellWallDirection)dc.wallDirection);
-        return s;
+        return $"{{\\\"tileType\\\":"  + directionChangerInfo.tileType + ", \\\"wallDirection\\\":" + directionChangerInfo.wallDirection + "}";
     }
 
+    public override void SettingTile(string info)
+    {
+        directionChangerInfo = JsonUtility.FromJson<DirectionChangerInfo>(info);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

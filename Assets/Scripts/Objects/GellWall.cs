@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[System.Serializable]
 public enum GellWallDirection
 {
     UP,
@@ -14,7 +14,7 @@ public enum GellWallDirection
 [System.Serializable]
 public class MirrorInfo : ObjectTileInfo
 {
-    public int wallDirection;
+    public GellWallDirection wallDirection;
 }
 
 
@@ -28,14 +28,18 @@ public class GellWall : ObjectTile
 
     public override string ParseTileInfo()
     {
-        mirrorInfo.tileType = (int)myType;
-        mirrorInfo.wallDirection = (int)wallDirection;
+        mirrorInfo.tileType = myType;
+        mirrorInfo.wallDirection = wallDirection;
 
-        string s = $"{{\"type\":" + "\"" + mirrorInfo.tileType + "\"" + ", \"wallDirection\":" + "\"" + mirrorInfo.wallDirection + "\"}";
-
-        return s;
+        return $"{{\\\"tileType\\\":" + mirrorInfo.tileType  + ", \\\"wallDirection\\\":" +  mirrorInfo.wallDirection + "}";
+        
     }
 
+    public override void SettingTile(string info)
+    {
+        print(info);
+        mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[System.Serializable]
 public enum TileType
 {
     Slow,
@@ -17,7 +17,7 @@ public enum TileType
 [System.Serializable]
 public class ObjectTileInfo
 {
-    public int tileType;
+    public TileType tileType;
 }
 
 
@@ -31,5 +31,9 @@ public class ObjectTile : MonoBehaviour
         return string.Empty;
     }
 
+    public virtual void SettingTile(string info)
+    {
+
+    }
 
 }
