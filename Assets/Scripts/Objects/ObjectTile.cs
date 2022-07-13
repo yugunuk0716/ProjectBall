@@ -13,6 +13,7 @@ public enum TileType
     Wall
 }
 
+[System.Serializable]
 public enum TileDirection
 {
     UP,

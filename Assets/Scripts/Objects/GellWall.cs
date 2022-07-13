@@ -2,19 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public enum GellWallDirection
-{
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
 
 [System.Serializable]
 public class MirrorInfo : ObjectTileInfo
 {
-    public GellWallDirection wallDirection;
+    public TileDirection wallDirection;
 }
 
 
@@ -22,7 +14,7 @@ public class MirrorInfo : ObjectTileInfo
 public class GellWall : ObjectTile
 {
 
-    public GellWallDirection wallDirection;
+    public TileDirection wallDirection;
 
     public MirrorInfo mirrorInfo = new MirrorInfo();
 
@@ -59,8 +51,8 @@ public class GellWall : ObjectTile
 
             switch (wallDirection)
             {
-                case GellWallDirection.UP:
-                case GellWallDirection.RIGHT:
+                case TileDirection.UP:
+                case TileDirection.RIGHT:
                     co = -1;
                     break;
             }

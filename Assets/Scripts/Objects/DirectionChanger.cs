@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class DirectionChangerInfo : ObjectTileInfo
 {
-    public GellWallDirection wallDirection;
+    public TileDirection wallDirection;
 }
 
 
