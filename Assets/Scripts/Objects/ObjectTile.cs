@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[System.Serializable]
 public enum TileType
 {
     Slow,
@@ -13,6 +13,7 @@ public enum TileType
     Wall
 }
 
+[System.Serializable]
 public enum TileDirection
 {
     UP,
@@ -24,10 +25,10 @@ public enum TileDirection
 [System.Serializable]
 public class ObjectTileInfo
 {
-    public int tileType;
+    public TileType tileType;
 }
 
-public class ObjectTile : PoolableMono
+public class ObjectTile : MonoBehaviour
 {
     public TileType myType;
     public TileDirection myDirection;
@@ -37,8 +38,9 @@ public class ObjectTile : PoolableMono
         return string.Empty;
     }
 
-    public override void Reset()
+    public virtual void SettingTile(string info)
     {
-        throw new System.NotImplementedException();
+
     }
+
 }

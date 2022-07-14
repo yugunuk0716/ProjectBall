@@ -25,11 +25,14 @@ public class Goal : ObjectTile
 
     public override string ParseTileInfo()
     {
-        goalInfo.tileType = (int)myType;
+        goalInfo.tileType = myType;
 
-        string s = $"{{\"tileType\":" + "\"" + goalInfo.tileType + "\"" + "}";
+        return $"{{\\\"tileType\\\":" + goalInfo.tileType + "}";
+    }
 
-        return s;
+    public override void SettingTile(string info)
+    {
+        goalInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
     }
 
 
