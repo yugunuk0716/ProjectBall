@@ -25,7 +25,7 @@ public class Goal : ObjectTile
     public override string ParseTileInfo()
     {
 
-        return $"{{\\\"tileType\\\":" + myType + "}";
+        return $"{{\\\"tileType\\\":" + (int)myType + "}";
     }
 
     public override void SettingTile(string info)
@@ -34,7 +34,7 @@ public class Goal : ObjectTile
         info = info.Substring(1, info.Length - 2);
         print(info);
         ObjectTileInfo goalInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
-        myType = goalInfo.tileType;
+        myType = (TileType)goalInfo.tileType;
     }
 
 

@@ -85,6 +85,7 @@ public class EditManager : MonoBehaviour
             if (path.Length != 0)
             {
                 string str = File.ReadAllText(path);
+                print(str);
                 NodeClass stage = new NodeClass();
                 stage = JsonUtility.FromJson<NodeClass>(str);
 

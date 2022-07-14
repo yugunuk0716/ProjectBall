@@ -17,30 +17,30 @@ public class Teleporter : ObjectTile
     public override string ParseTileInfo()
     {
         //
-        return $"{{\\\"tileType\\\":" + myType + ", \\\"portalIndex\\\":"  + portalIndex + "}";
+        return $"{{\\\"tileType\\\":" + (int)myType + ", \\\"portalIndex\\\":"  + portalIndex + "}";
     }
 
     public override void SettingTile(string info)
     {
-        base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
         print(info);
+        base.SettingTile(info);
         TeleporterInfo teleporterInfo = JsonUtility.FromJson<TeleporterInfo>(info);
-        myType = teleporterInfo.tileType;
+        myType = (TileType)teleporterInfo.tileType;
         portalIndex = teleporterInfo.portalIndex;
 
-        foreach (ObjectTile item in StageManager.instance.objectTileList)
-        {
-            Teleporter tp = (Teleporter)item;
+        //foreach (ObjectTile item in StageManager.instance.objectTileList)
+        //{
+        //    Teleporter tp = (Teleporter)item;
 
-            if(tp != null)
-            {
-                if(tp.portalIndex == this.portalIndex && tp != this)
-                {
-                    pairTeleporter = tp;
-                }
-            }
-        }
+        //    if(tp != null)
+        //    {
+        //        if(tp.portalIndex == this.portalIndex && tp != this)
+        //        {
+        //            pairTeleporter = tp;
+        //        }
+        //    }
+        //}
 
     }
 

@@ -10,8 +10,7 @@ public enum TileType
     Goal,
     DirectionChaner,
     Mirror,
-    Wall,
-    Shooter
+    Wall
 }
 
 [System.Serializable]
@@ -26,7 +25,7 @@ public enum TileDirection
 [System.Serializable]
 public class ObjectTileInfo
 {
-    public TileType tileType;
+    public int tileType;
 }
 
 public class ObjectTile : MonoBehaviour

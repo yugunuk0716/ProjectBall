@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class MirrorInfo : ObjectTileInfo
 {
-    public TileDirection wallDirection;
+    public int wallDirection;
 }
 
 
@@ -19,18 +19,18 @@ public class GellWall : ObjectTile
 
     public override string ParseTileInfo()
     {
-        return $"{{\\\"tileType\\\":" + myType + ", \\\"wallDirection\\\":" + wallDirection + "}";
+        return $"{{\\\"tileType\\\":" + (int)myType + ", \\\"wallDirection\\\":" + (int)wallDirection + "}";
         
     }
 
     public override void SettingTile(string info)
     {
-        base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
         print(info);
-        MirrorInfo mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
-        myType = mirrorInfo.tileType;
-        wallDirection = mirrorInfo.wallDirection;
+        base.SettingTile(info);
+        MirrorInfo mirrorInfo = JsonUtility.FromJson<MirrorInfo>("{\"tileType\":Mirror, \"wallDirection\":LEFT}");
+        myType = (TileType)mirrorInfo.tileType;
+        wallDirection = (TileDirection)mirrorInfo.wallDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
