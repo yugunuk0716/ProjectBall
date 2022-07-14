@@ -1,29 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ShooterTile : MonoBehaviour
 {
     public int maxAmmoCount = 10;
     public int curAmmoCount = 0;
 
- 
-
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && false == EventSystem.current.IsPointerOverGameObject())
         {
             Shoot();
         }
     }
-    
 
     public void Shoot()
     {
-        Debug.Log($"{this.name} Shooted");
-
         if (maxAmmoCount <= curAmmoCount)
             return;
 

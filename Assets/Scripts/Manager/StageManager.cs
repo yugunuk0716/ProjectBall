@@ -28,6 +28,7 @@ public class StageManager : MonoBehaviour
         moveStageBtn.onClick.AddListener(() =>
         {
             LoadStage();
+            ClearAllBalls();
         });
         stageIndexInputField.onValueChanged.AddListener(SetStageIndex);
         //foreach ( var tile in objectTileList)
@@ -40,10 +41,16 @@ public class StageManager : MonoBehaviour
         //SetStage();
     }
 
+    public void ClearAllBalls()
+    {
+        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
+    }
+
     public void LoadStage()
     {
         beforeStageObj?.SetActive(false);
         beforeStageObj = stageObjList[stageIndex - 1];
+        GameManager.Instance.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
 
         if (stageObjList.Count >= stageIndex)
         {
@@ -59,6 +66,8 @@ public class StageManager : MonoBehaviour
         debugText.DOComplete();
         debugText.color = new Color(1, 0.5f, 0.5f, 1);
         debugText.DOFade(0, 2);
+
+        GameManager.Instance.ResetGameData();
     }
 
     public void SetStageIndex(string stageIndexStr)
@@ -71,27 +80,18 @@ public class StageManager : MonoBehaviour
     {
         //stageIndex를 가지고 해당하는 파일의 데이터를 불러와 맵 생성하는 그런 녀석을 만들어 볼꺼에요
 
-        TextAsset textAsset = Resources.Load<TextAsset>($"StageData{stageIndex}");
-        NodeClass stageData = JsonUtility.FromJson<NodeClass>(textAsset.text);
 
-        foreach(var item in stageData.data)
-        {
-            //ObjectTile tile = dicPrefabs[item.tile];
-            //Quaternion tileRotation = GetTileRotation(tile.myDirection);
-            //
-            //ObjectTile newTile = Instantiate(tile, new Vector2(item.x, item.y), tileRotation);
-            //newTile.name = item.name;
-            //if (item.tile.Equals(TileType.Goal))
-            //{
-            //    GameManager.Instance.goalList.Add((Goal)tile); // 골 체크용으로 리스트에 추가.
-            //}
-        }
     }
 
     public Quaternion GetTileRotation(TileDirection direction)
     {
         Quaternion quaternion = Quaternion.identity;
-        switch(direction)
+
+        // 근데 이거 쓰려면 up -> left -> Down -> right 순으로 바꿔줘야 해용
+        //quaternion = Quaternion.Euler(0, 90 * (int)direction - 90, 0); 
+
+        /*
+        switch (direction)
         {
             case TileDirection.UP:
                 quaternion = Quaternion.Euler(0, 0, 0);
@@ -106,6 +106,7 @@ public class StageManager : MonoBehaviour
                 quaternion = Quaternion.Euler(0, 270, 0);
                 break;
         }
+        */
 
         return quaternion;
     }
