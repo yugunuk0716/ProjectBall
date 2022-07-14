@@ -27,6 +27,11 @@ public class StageManager : MonoBehaviour
 
     void Start()
     {
+        for(int i = 0; i< stageObjList.Count; i++)
+        {
+            stageObjList[i] = Instantiate(stageObjList[i]);
+            stageObjList[i].gameObject.SetActive(false);
+        }
 
         moveStageBtn.onClick.AddListener(() =>
         {
