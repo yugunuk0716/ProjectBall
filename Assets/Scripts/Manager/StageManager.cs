@@ -48,32 +48,36 @@ public class StageManager : MonoBehaviour
 
     public void LoadStage()
     {
-        beforeStageObj?.SetActive(false);
-        beforeStageObj = stageObjList[stageIndex - 1];
-        GameManager.Instance.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
-
-        if (stageObjList.Count >= stageIndex)
+        if (stageObjList.Count >= stageIndex && stageIndex > 0)
         {
+            beforeStageObj?.SetActive(false);
+            beforeStageObj = stageObjList[stageIndex - 1];
+            GameManager.Instance.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
+
             debugText.text = $"{stageIndex} Stage Loaded";
             stageObjList[stageIndex - 1].SetActive(true);
+
             GameManager.Instance.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
+            GameManager.Instance.ResetGameData();
         }
-        else
+        else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면
         {
-            debugText.text = $"{stageIndex} Stage Not Exist";
+            debugText.text = $"{stageObjList.Count} Stage is last";
+        }
+        else // 0 이하의 맵 번호 입력시?
+        {
+            debugText.text = "Please enter over zero!";
         }
 
         debugText.DOComplete();
         debugText.color = new Color(1, 0.5f, 0.5f, 1);
         debugText.DOFade(0, 2);
 
-        GameManager.Instance.ResetGameData();
     }
 
     public void SetStageIndex(string stageIndexStr)
     {
         int.TryParse(stageIndexStr, out stageIndex);
-        stageIndex = Mathf.Clamp(stageIndex, 1, stageObjList.Count);
     }
 
     public void SetStage()
