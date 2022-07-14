@@ -27,11 +27,12 @@ public class Ball : PoolableMono
     public void Move(Vector2 dir, float power = 5f)
     {
         anim.SetBool("isMoving", false);
-        sr.flipX = dir.x > 0 || dir.y > 0;
         anim.SetFloat("MoveX", Mathf.Abs(dir.x));
         anim.SetFloat("MoveY", Mathf.Abs(dir.y));
-       
         anim.SetBool("isMoving", true);
+
+        sr.flipX = dir.x > 0 || dir.y > 0;
+
         rigid.velocity = dir * power;
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
         {

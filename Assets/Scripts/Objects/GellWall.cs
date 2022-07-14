@@ -39,25 +39,12 @@ public class GellWall : ObjectTile
 
         if (tb != null)
         {
-
-            Vector3 vec = Vector3.zero;
-            Vector3 vec2 = tb.rigid.velocity;
-
-            //print(collision.contacts[0].normal);
-            tb.transform.position = transform.position;
-            vec = Vector3.Cross(Vector3.forward, vec2).normalized;
-
-            int co = 1;
-
-            switch (wallDirection)
-            {
-                case TileDirection.UP:
-                case TileDirection.RIGHT:
-                    co = -1;
-                    break;
-            }
-
-            tb.Move(vec * co, 5);
+            Vector2 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up);
+            if (vec.x != 1) vec.x = 0;
+            if (vec.y != 1) vec.y = 0;
+            
+            Debug.Log($"{vec.x}, {vec.y}");
+            tb.Move(vec, 5);
         }
 
     }
