@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
 
         if(list.Count <= 0 && firstTime + limitTime >= Time.time)
         {
+            StageManager.instance.stageIndex++;
+            StageManager.instance.LoadStage();
             print("Å¬¸®¾î");
             print(Time.time - firstTime);
             firstTime = 0f;

@@ -36,8 +36,6 @@ public class Ball : PoolableMono
         {
             spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-
-
     }
 
     public override void Reset()

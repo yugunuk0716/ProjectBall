@@ -9,7 +9,7 @@ public class Shooter : MonoBehaviour
 
     private void Start()
     {
-        Shoot();
+        //Shoot();
     }
 
     private void Update()
@@ -23,10 +23,13 @@ public class Shooter : MonoBehaviour
 
     public void Shoot()
     {
+        Debug.Log($"{this.name} Shooted");
+
         if (maxAmmoCount <= curAmmoCount)
             return;
 
         Ball ball = PoolManager.Instance.Pop("Ball") as Ball;
+        ball.transform.position = this.transform.position;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고
         Vector2 plusPos = (mousePos - (Vector2)ball.transform.position); // 혹시 슈터 위치 바뀔 수 있으니 위치 빼주기
 
