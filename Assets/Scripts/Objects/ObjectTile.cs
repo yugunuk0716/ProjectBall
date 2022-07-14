@@ -27,7 +27,7 @@ public class ObjectTileInfo
     public int tileType;
 }
 
-public class ObjectTile : MonoBehaviour
+public class ObjectTile : PoolableMono
 {
     public TileType myType;
     public TileDirection myDirection;
@@ -35,5 +35,10 @@ public class ObjectTile : MonoBehaviour
     public virtual string ParseTileInfo()
     {
         return string.Empty;
+    }
+
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
     }
 }

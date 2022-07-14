@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         timerCo = Timer();
+
+        Ball ball = Resources.Load<Ball>("Ball");
+        PoolManager.Instance.CreatePool(ball, null, 10);
     }
 
     public void CheckClear()

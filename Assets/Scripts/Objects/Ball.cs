@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : PoolableMono
 {
     public Rigidbody2D rigid;
     public Animator anim;
@@ -26,14 +26,10 @@ public class Ball : MonoBehaviour
 
     public void Move(Vector2 dir, float power = 5f)
     {
-
         anim.SetBool("isMoving", false);
         sr.flipX = dir.x > 0 || dir.y > 0;
-
-
         anim.SetFloat("MoveX", Mathf.Abs(dir.x));
        
-        anim.SetFloat("MoveY", Mathf.Abs(dir.y));
         anim.SetBool("isMoving", true);
         rigid.velocity = dir * power;
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
@@ -44,5 +40,13 @@ public class Ball : MonoBehaviour
 
     }
 
-    
+    public override void Reset()
+    {
+        anim.SetBool("isMoving", false);
+        sr.flipX = false;
+        anim.SetFloat("MoveX", 0);
+        anim.SetFloat("MoveY", 0);
+        rigid.velocity = Vector2.zero;
+        spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+    }
 }

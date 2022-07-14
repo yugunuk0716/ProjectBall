@@ -16,6 +16,8 @@ public class StageManager : MonoBehaviour
 
         foreach ( var tile in objectTileList)
         {
+            PoolManager.Instance.CreatePool(tile);
+
             dicPrefabs.Add(tile.myType, tile);
         }
 

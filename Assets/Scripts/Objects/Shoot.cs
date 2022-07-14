@@ -2,43 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class Shooter : MonoBehaviour
 {
-    public Shooter shooter;
-    public Shooter curShooter;
-
-    public const int ammoCount = 10;
+    public const int maxAmmoCount = 10;
     public int curAmmoCount = 0;
 
     private void Start()
     {
-        SpawnShooter();
+        Shoot();
     }
-
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(curShooter != null)
-            {
-                curShooter.Shoot();
-            }
-            SpawnShooter();
+            Shoot();
         }
     }
     
 
-    public void SpawnShooter()
+    public void Shoot()
     {
-        if (ammoCount <= curAmmoCount)
+        if (maxAmmoCount <= curAmmoCount)
             return;
-        Shooter _shooter = Instantiate(shooter);
+
+        Ball ball = PoolManager.Instance.Pop("Ball") as Ball;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고
+        Vector2 plusPos = (mousePos - (Vector2)ball.transform.position); // 혹시 슈터 위치 바뀔 수 있으니 위치 빼주기
+
+        // 더 의도와 가까운 방향 남기기.
+        if (Mathf.Abs(plusPos.x) > Mathf.Abs(plusPos.y)) plusPos.y = 0;
+        else plusPos.x = 0;
+
+        ball.Move(plusPos.normalized, 5f);
 
         curAmmoCount++;
-
-        _shooter.transform.position = this.transform.position;
-        curShooter = _shooter;
     }
-    
 }
