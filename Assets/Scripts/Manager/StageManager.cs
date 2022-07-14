@@ -20,10 +20,13 @@ public class StageManager : MonoBehaviour
     public TextMeshProUGUI debugText;
 
     private GameObject beforeStageObj = null;
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
-        instance = this;
 
         moveStageBtn.onClick.AddListener(() =>
         {
