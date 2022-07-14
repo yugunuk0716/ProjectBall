@@ -39,14 +39,21 @@ public class GellWall : ObjectTile
 
         if (tb != null)
         {
-            Vector2 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up);
-            if (vec.x != 1) vec.x = 0;
-            if (vec.y != 1) vec.y = 0;
-            
-            Debug.Log($"{vec.x}, {vec.y}");
+            Vector2 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up).normalized;
+
+            if(Mathf.Abs(tb.rigid.velocity.x) > 0)
+            {
+                vec.x = 0;
+            }
+            else
+            {
+                vec.y = 0;
+            }
+
+            //if (vec.x == 0 && vec.y == 0) vec.y = 1; // up을 기준으로 외적해서 위로 향해야 할 때, 멈춰버리는 듯?
+
             tb.Move(vec, 5);
         }
-
     }
 
 

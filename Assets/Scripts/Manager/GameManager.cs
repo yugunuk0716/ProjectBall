@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
     private static GameManager instance;
     public static GameManager Instance 
     {
@@ -21,6 +20,7 @@ public class GameManager : MonoBehaviour
     public float limitTime = 2f;
     public float firstTime = 0f;
 
+    public ShooterTile shooter = null; 
     public TextMeshProUGUI timer_text;
 
     private float realTime;
@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour
         PoolManager.Instance.CreatePool(ball, null, 25);
     }
 
+    public void ResetGameData()
+    {
+        shooter.curAmmoCount = 0;
+    }
+
     public void CheckClear()
     {
         
@@ -57,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             StageManager.instance.stageIndex++;
             StageManager.instance.LoadStage();
+            StageManager.instance.ClearAllBalls();
             print("Å¬¸®¾î");
             print(Time.time - firstTime);
             firstTime = 0f;
