@@ -4,22 +4,41 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    public Vector2 shootDir;
+    public const int maxAmmoCount = 10;
+    public int curAmmoCount = 0;
 
-    public Ball ball;
+    private void Start()
+    {
+        //Shoot();
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
+    }
+    
 
     public void Shoot()
     {
-        Ball ball2 = Instantiate(ball, transform.position, Quaternion.identity); // 공 만들고
+        Debug.Log($"{this.name} Shooted");
+
+        if (maxAmmoCount <= curAmmoCount)
+            return;
+
+        Ball ball = PoolManager.Instance.Pop("Ball") as Ball;
+        ball.transform.position = this.transform.position;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고
-        Vector2 plusPos = (mousePos - (Vector2)ball2.transform.position); // 혹시 슈터 위치 바뀔 수 있으니 위치 빼주기
+        Vector2 plusPos = (mousePos - (Vector2)ball.transform.position); // 혹시 슈터 위치 바뀔 수 있으니 위치 빼주기
 
         // 더 의도와 가까운 방향 남기기.
         if (Mathf.Abs(plusPos.x) > Mathf.Abs(plusPos.y)) plusPos.y = 0;
         else plusPos.x = 0;
 
-        shootDir = plusPos.normalized; // 정규화해서 shootDir에 할당
-        ball2.Move(shootDir, 5f); 
-        Destroy(this.gameObject);
+        ball.Move(plusPos.normalized, 5f);
+
+        curAmmoCount++;
     }
 }

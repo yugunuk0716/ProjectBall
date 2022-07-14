@@ -31,7 +31,7 @@ public class ObjectTileInfo
 public class ObjectTile : MonoBehaviour
 {
     public TileType myType;
-    public TileDirection myDirection;
+    //public TileDirection myDirection;
 
     public virtual string ParseTileInfo()
     {
@@ -40,7 +40,7 @@ public class ObjectTile : MonoBehaviour
 
     public virtual void SettingTile(string info)
     {
-
+        StageManager.instance.objectTileList.Add(this);
     }
 
 }

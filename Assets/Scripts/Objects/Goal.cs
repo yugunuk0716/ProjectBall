@@ -12,7 +12,6 @@ public class Goal : ObjectTile
 
     public List<Sprite> flagSprite;
 
-    public ObjectTileInfo goalInfo;
 
     public bool isChecked;
 
@@ -25,14 +24,16 @@ public class Goal : ObjectTile
 
     public override string ParseTileInfo()
     {
-        goalInfo.tileType = myType;
 
-        return $"{{\\\"tileType\\\":" + goalInfo.tileType + "}";
+        return $"{{\\\"tileType\\\":" + myType + "}";
     }
 
     public override void SettingTile(string info)
     {
-        goalInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
+        base.SettingTile(info);
+        info = info.Substring(1, info.Length - 2);
+        ObjectTileInfo goalInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
+        myType = goalInfo.tileType;
     }
 
 

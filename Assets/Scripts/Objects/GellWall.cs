@@ -16,21 +16,21 @@ public class GellWall : ObjectTile
 
     public TileDirection wallDirection;
 
-    public MirrorInfo mirrorInfo = new MirrorInfo();
 
     public override string ParseTileInfo()
     {
-        mirrorInfo.tileType = myType;
-        mirrorInfo.wallDirection = wallDirection;
-
-        return $"{{\\\"tileType\\\":" + mirrorInfo.tileType  + ", \\\"wallDirection\\\":" +  mirrorInfo.wallDirection + "}";
+        return $"{{\\\"tileType\\\":" + myType + ", \\\"wallDirection\\\":" + wallDirection + "}";
         
     }
 
     public override void SettingTile(string info)
     {
-        print(info);
-        mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
+        base.SettingTile(info);
+        info = info.Substring(1, info.Length - 2);
+        MirrorInfo mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
+
+        myType = mirrorInfo.tileType;
+        wallDirection = mirrorInfo.wallDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
