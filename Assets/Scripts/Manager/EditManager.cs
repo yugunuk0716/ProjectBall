@@ -16,6 +16,7 @@ public class NodeClass
     public string tileInfo; //이 타일 인포를 각각 TileObject를 상속받고 있는 스크립트에서 해체해서 쓰면 될 듯
 
     public List<NodeClass> data;
+ 
 }
 
 
@@ -31,7 +32,7 @@ public class EditManager : MonoBehaviour
     public GameObject tilePrefab;
     private Sprite[] tileSprites;
 
-
+    
     private void Start()
     {
         instance = this;
@@ -86,6 +87,8 @@ public class EditManager : MonoBehaviour
                 string str = File.ReadAllText(path);
                 NodeClass stage = new NodeClass();
                 stage = JsonUtility.FromJson<NodeClass>(str);
+
+              
                 instance.ParseNode(stage);
             }
 
@@ -137,6 +140,8 @@ public class EditManager : MonoBehaviour
                 obj = Instantiate(dicPrefabs[node.name]);
                 obj.transform.position = new Vector2(node.x, node.y);
                 obj.transform.SetParent(parent.transform);
+                ObjectTile tile = obj.GetComponent<ObjectTile>();
+                tile.SettingTile(node.tileInfo);
             }
             else
             {
@@ -286,7 +291,7 @@ public class EditManager : MonoBehaviour
                 result += SetIndent(indent + 1);
                 if(tile != null)
                 {
-                    result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"" + ", \"tileInfo\":" + "[" + tile.ParseTileInfo() + "]}";
+                    result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"" + ", \"tileInfo\":" + "\"[" + tile.ParseTileInfo() + "]\"}";
                 }
                 else
                 {

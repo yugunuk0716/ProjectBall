@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum GellWallDirection
-{
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
-
 [System.Serializable]
 public class MirrorInfo : ObjectTileInfo
 {
-    public int wallDirection;
+    public TileDirection wallDirection;
 }
 
 
@@ -22,20 +14,24 @@ public class MirrorInfo : ObjectTileInfo
 public class GellWall : ObjectTile
 {
 
-    public GellWallDirection wallDirection;
+    public TileDirection wallDirection;
 
     public MirrorInfo mirrorInfo = new MirrorInfo();
 
     public override string ParseTileInfo()
     {
-        mirrorInfo.tileType = (int)myType;
-        mirrorInfo.wallDirection = (int)wallDirection;
+        mirrorInfo.tileType = myType;
+        mirrorInfo.wallDirection = wallDirection;
 
-        string s = $"{{\"type\":" + "\"" + mirrorInfo.tileType + "\"" + ", \"wallDirection\":" + "\"" + mirrorInfo.wallDirection + "\"}";
-
-        return s;
+        return $"{{\\\"tileType\\\":" + mirrorInfo.tileType  + ", \\\"wallDirection\\\":" +  mirrorInfo.wallDirection + "}";
+        
     }
 
+    public override void SettingTile(string info)
+    {
+        print(info);
+        mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -55,8 +51,8 @@ public class GellWall : ObjectTile
 
             switch (wallDirection)
             {
-                case GellWallDirection.UP:
-                case GellWallDirection.RIGHT:
+                case TileDirection.UP:
+                case TileDirection.RIGHT:
                     co = -1;
                     break;
             }
