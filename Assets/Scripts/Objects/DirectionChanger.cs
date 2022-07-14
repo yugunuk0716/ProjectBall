@@ -13,19 +13,17 @@ public class DirectionChanger : ObjectTile
 {
     public TileDirection wallDirection;
 
-    public DirectionChangerInfo directionChangerInfo = new DirectionChangerInfo();
-
     public override string ParseTileInfo()
     {
-        directionChangerInfo.tileType = myType;
-        directionChangerInfo.wallDirection = wallDirection;
-
-        return $"{{\\\"tileType\\\":"  + directionChangerInfo.tileType + ", \\\"wallDirection\\\":" + directionChangerInfo.wallDirection + "}";
+        return $"{{\\\"tileType\\\":"  + myType + ", \\\"wallDirection\\\":" + wallDirection + "}";
     }
 
     public override void SettingTile(string info)
     {
-        directionChangerInfo = JsonUtility.FromJson<DirectionChangerInfo>(info);
+        info = info.Substring(1, info.Length - 2);
+        DirectionChangerInfo directionChangerInfo = JsonUtility.FromJson<DirectionChangerInfo>(info);
+        myType = directionChangerInfo.tileType;
+        wallDirection = directionChangerInfo.wallDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
