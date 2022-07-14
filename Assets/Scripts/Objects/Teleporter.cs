@@ -16,6 +16,7 @@ public class Teleporter : ObjectTile
 
     public override string ParseTileInfo()
     {
+        //
         return $"{{\\\"tileType\\\":" + myType + ", \\\"portalIndex\\\":"  + portalIndex + "}";
     }
 
