@@ -2,14 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+
+[System.Serializable]
+public class ShooterInfo : ObjectTileInfo
 {
-    public const int maxAmmoCount = 10;
+    public int maxAmmoCount = 10;
+}
+
+public class ShooterTile : ObjectTile
+{
+    public int maxAmmoCount = 10;
     public int curAmmoCount = 0;
 
-    private void Start()
+    public override string ParseTileInfo()
     {
-        //Shoot();
+        return $"{{\\\"tileType\\\":" + myType + ", \\\"maxAmmoCount\\\":" + maxAmmoCount + "}";
+
+    }
+
+    public override void SettingTile(string info)
+    {
+        base.SettingTile(info);
+        info = info.Substring(1, info.Length - 2);
+        print(info);
+        ShooterInfo shooterInfo = JsonUtility.FromJson<ShooterInfo>(info);
+        myType = shooterInfo.tileType;
+        maxAmmoCount = shooterInfo.maxAmmoCount;
     }
 
     private void Update()

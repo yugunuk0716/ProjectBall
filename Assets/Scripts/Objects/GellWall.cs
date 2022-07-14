@@ -27,8 +27,8 @@ public class GellWall : ObjectTile
     {
         base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
+        print(info);
         MirrorInfo mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
-
         myType = mirrorInfo.tileType;
         wallDirection = mirrorInfo.wallDirection;
     }

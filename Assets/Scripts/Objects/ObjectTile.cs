@@ -10,7 +10,8 @@ public enum TileType
     Goal,
     DirectionChaner,
     Mirror,
-    Wall
+    Wall,
+    Shooter
 }
 
 [System.Serializable]
@@ -40,7 +41,8 @@ public class ObjectTile : MonoBehaviour
 
     public virtual void SettingTile(string info)
     {
-        StageManager.instance.objectTileList.Add(this);
+        //StageManager.instance.objectTileList.Add(this);
+  
     }
 
 }

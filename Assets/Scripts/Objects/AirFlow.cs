@@ -14,13 +14,14 @@ public class AirFlow : ObjectTile
 
     public override string ParseTileInfo()
     {
-        return $"{{\\\"tileType\\\":" + myType + ", \\\"flowAmount\\\":"  + flowAmount + "}";
+        return $"{{\\\"tileType\\\":" + myType + ", \\\"flowAmount\\\":" + flowAmount + "}";
     }
 
     public override void SettingTile(string info)
     {
         base.SettingTile(info);
-        info = info.Substring(1, info.Length -2);
+        info = info.Substring(1, info.Length - 2);
+        print(info);
         AirFlowInfo airFlowInfo = JsonUtility.FromJson<AirFlowInfo>(info);
         myType = airFlowInfo.tileType;
         flowAmount = airFlowInfo.flowAmount;
