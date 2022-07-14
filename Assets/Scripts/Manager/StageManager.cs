@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 using System.Linq;
+using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
@@ -43,23 +43,28 @@ public class StageManager : MonoBehaviour
     public void LoadStage()
     {
         beforeStageObj?.SetActive(false);
-        debugText.gameObject.SetActive(true);
+        beforeStageObj = stageObjList[stageIndex - 1];
 
         if (stageObjList.Count >= stageIndex)
         {
-            debugText.text = $"{stageIndex} 스테이지 로드";
+            debugText.text = $"{stageIndex} Stage Loaded";
             stageObjList[stageIndex - 1].SetActive(true);
             GameManager.Instance.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
         }
         else
         {
-            debugText.text = $"{stageIndex}는 존재하지 않습니다";
+            debugText.text = $"{stageIndex} Stage Not Exist";
         }
+
+        debugText.DOComplete();
+        debugText.color = new Color(1, 0.5f, 0.5f, 1);
+        debugText.DOFade(0, 2);
     }
 
     public void SetStageIndex(string stageIndexStr)
     {
         int.TryParse(stageIndexStr, out stageIndex);
+        stageIndex = Mathf.Clamp(stageIndex, 1, stageObjList.Count);
     }
 
     public void SetStage()

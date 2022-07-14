@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         timerCo = Timer();
 
         Ball ball = Resources.Load<Ball>("Ball");
-        PoolManager.Instance.CreatePool(ball, null, 10);
+        PoolManager.Instance.CreatePool(ball, null, 25);
     }
 
     public void CheckClear()
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
             firstTime = Time.time;
             StartCoroutine(timerCo);
             timer_text.text = "Ready";
-            timer_text.color = Color.white;
+            timer_text.color = Color.red;
         }
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
