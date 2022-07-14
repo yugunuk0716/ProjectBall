@@ -20,6 +20,7 @@ public class DirectionChanger : ObjectTile
 
     public override void SettingTile(string info)
     {
+        base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
         DirectionChangerInfo directionChangerInfo = JsonUtility.FromJson<DirectionChangerInfo>(info);
         myType = directionChangerInfo.tileType;

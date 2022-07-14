@@ -19,6 +19,7 @@ public class AirFlow : ObjectTile
 
     public override void SettingTile(string info)
     {
+        base.SettingTile(info);
         info = info.Substring(1, info.Length -2);
         AirFlowInfo airFlowInfo = JsonUtility.FromJson<AirFlowInfo>(info);
         myType = airFlowInfo.tileType;

@@ -25,10 +25,12 @@ public class GellWall : ObjectTile
 
     public override void SettingTile(string info)
     {
+        base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
         MirrorInfo mirrorInfo = JsonUtility.FromJson<MirrorInfo>(info);
 
         myType = mirrorInfo.tileType;
+        wallDirection = mirrorInfo.wallDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
