@@ -289,7 +289,7 @@ public class EditManager : MonoBehaviour
                 }
 
                 result += SetIndent(indent + 1);
-                if(tile != null)
+                if (tile != null)
                 {
                     result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"" + ", \"tileInfo\":" + "\"[" + tile.ParseTileInfo() + "]\"}";
                 }

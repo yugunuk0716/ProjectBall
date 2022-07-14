@@ -12,19 +12,17 @@ public class AirFlow : ObjectTile
 {
     public float flowAmount;
 
-    public AirFlowInfo airFlowInfo = new AirFlowInfo();
-
     public override string ParseTileInfo()
     {
-        airFlowInfo.tileType = myType;
-        airFlowInfo.flowAmount = flowAmount;
-
-        return $"{{\\\"tileType\\\":" + airFlowInfo.tileType+ ", \\\"flowAmount\\\":"  + airFlowInfo.flowAmount + "}";
+        return $"{{\\\"tileType\\\":" + myType + ", \\\"flowAmount\\\":"  + flowAmount + "}";
     }
 
     public override void SettingTile(string info)
     {
-        airFlowInfo = JsonUtility.FromJson<AirFlowInfo>(info);
+        info = info.Substring(1, info.Length -2);
+        AirFlowInfo airFlowInfo = JsonUtility.FromJson<AirFlowInfo>(info);
+        myType = airFlowInfo.tileType;
+        flowAmount = airFlowInfo.flowAmount;
     }
 
 

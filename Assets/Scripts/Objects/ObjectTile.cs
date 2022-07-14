@@ -31,7 +31,7 @@ public class ObjectTileInfo
 public class ObjectTile : MonoBehaviour
 {
     public TileType myType;
-    public TileDirection myDirection;
+    //public TileDirection myDirection;
 
     public virtual string ParseTileInfo()
     {
