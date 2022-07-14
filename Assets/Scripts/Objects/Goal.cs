@@ -30,6 +30,7 @@ public class Goal : ObjectTile
 
     public override void SettingTile(string info)
     {
+        base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
         ObjectTileInfo goalInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
         myType = goalInfo.tileType;
