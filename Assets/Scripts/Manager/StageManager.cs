@@ -61,6 +61,7 @@ public class StageManager : MonoBehaviour
             stageObjList[stageIndex - 1].SetActive(true);
 
             GameManager.Instance.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
+            GameManager.Instance.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
             GameManager.Instance.ResetGameData();
         }
         else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면

@@ -29,20 +29,25 @@ public class Teleporter : ObjectTile
         myType = (TileType)teleporterInfo.tileType;
         portalIndex = teleporterInfo.portalIndex;
 
-        //foreach (ObjectTile item in StageManager.instance.objectTileList)
-        //{
-        //    Teleporter tp = (Teleporter)item;
-
-        //    if(tp != null)
-        //    {
-        //        if(tp.portalIndex == this.portalIndex && tp != this)
-        //        {
-        //            pairTeleporter = tp;
-        //        }
-        //    }
-        //}
+       
 
     }
+
+    public void FindPair()
+    {
+        foreach (Teleporter tp in GameManager.Instance.portalList)
+        {
+
+            if (tp != null)
+            {
+                if (tp.portalIndex == portalIndex && tp != this)
+                {
+                    pairTeleporter = tp;
+                }
+            }
+        }
+    }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)

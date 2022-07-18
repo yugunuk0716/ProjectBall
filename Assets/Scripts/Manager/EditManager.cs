@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-
+using System.Linq;
 
 [System.Serializable]
 public class NodeClass
@@ -118,8 +118,15 @@ public class EditManager : MonoBehaviour
                 GameObject currentObj;
 
                 currentObj = MakeNode(node, parent);
+                int i = 0;
                 foreach (var child in node.data)
                 {
+                    i++;
+                    if(i >= node.data.Count - 1)
+                    {
+                        GameManager.Instance.portalList = GameObject.Find("NewStage").GetComponentsInChildren<Teleporter>().ToList();
+                        GameManager.Instance.portalList.ForEach(portal => { portal.FindPair(); });
+                    }
                     ParseNode(child, currentObj);
                 }
             }
@@ -128,6 +135,8 @@ public class EditManager : MonoBehaviour
                 MakeNode(node, parent);
             }
         }
+
+       
     }
 
     public GameObject MakeNode(NodeClass node, GameObject parent)

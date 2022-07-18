@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
 
     public List<Goal> goalList = new List<Goal>();
+    public List<Teleporter> portalList = new List<Teleporter>();
 
     public float limitTime = 2f;
     public float firstTime = 0f;
