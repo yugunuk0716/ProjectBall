@@ -3,32 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
-public class MirrorInfo : ObjectTileInfo
-{
-    public int wallDirection;
-}
-
 
 
 public class GellWall : ObjectTile
 {
-    public TileDirection wallDirection;
 
     public override string ParseTileInfo()
     {
-        return $"{{\\\"tileType\\\":" + (int)myType + ", \\\"wallDirection\\\":" + (int)wallDirection + "}";
+        return $"{{\\\"tileType\\\":" + (int)myType + "}";
         
     }
 
     public override void SettingTile(string info)
     {
         info = info.Substring(1, info.Length - 2);
-        print(info);
         base.SettingTile(info);
-        MirrorInfo mirrorInfo = JsonUtility.FromJson<MirrorInfo>("{\"tileType\":Mirror, \"wallDirection\":LEFT}");
+        ObjectTileInfo mirrorInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
         myType = (TileType)mirrorInfo.tileType;
-        wallDirection = (TileDirection)mirrorInfo.wallDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
