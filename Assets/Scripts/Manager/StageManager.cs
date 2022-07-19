@@ -5,40 +5,34 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using DG.Tweening;
+using System;
 
-public class StageManager : MonoBehaviour
+public class StageManager : ManagerBase
 {
-    public static StageManager instance;
+    public static StageManager Instance;
     public int stageIndex = 1;
     
     private Dictionary<TileType, ObjectTile> dicPrefabs = new Dictionary<TileType, ObjectTile>();
     public List<ObjectTile> objectTileList = new List<ObjectTile>();
-
-    public Button moveStageBtn;
-    public TMP_InputField stageIndexInputField;
     public List<GameObject> stageObjList = new List<GameObject>();
-    public TextMeshProUGUI debugText;
 
+    public Action<string> SetDebugText;
+    public Action FadeDebugText;
     private GameObject beforeStageObj = null;
+
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
-    void Start()
+    public override void Init()
     {
-        for(int i = 0; i< stageObjList.Count; i++)
+        for (int i = 0; i < stageObjList.Count; i++)
         {
             stageObjList[i] = Instantiate(stageObjList[i]);
             stageObjList[i].gameObject.SetActive(false);
         }
 
-        moveStageBtn.onClick.AddListener(() =>
-        {
-            LoadStage();
-            ClearAllBalls();
-        });
-        stageIndexInputField.onValueChanged.AddListener(SetStageIndex);
         //foreach ( var tile in objectTileList)
         //{
         //    PoolManager.Instance.CreatePool(tile);
@@ -62,7 +56,7 @@ public class StageManager : MonoBehaviour
             beforeStageObj = stageObjList[stageIndex - 1];
             GameManager.Instance.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
 
-            debugText.text = $"{stageIndex} Stage Loaded";
+            SetDebugText($"{stageIndex} Stage Loaded");
             stageObjList[stageIndex - 1].SetActive(true);
 
             GameManager.Instance.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
@@ -71,17 +65,12 @@ public class StageManager : MonoBehaviour
         }
         else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면
         {
-            debugText.text = $"{stageObjList.Count} Stage is last";
+            SetDebugText($"{stageObjList.Count} Stage is last");
         }
         else // 0 이하의 맵 번호 입력시?
         {
-            debugText.text = "Please enter over zero!";
+            SetDebugText("Please enter over zero!");
         }
-
-        debugText.DOComplete();
-        debugText.color = new Color(1, 0.5f, 0.5f, 1);
-        debugText.DOFade(0, 2);
-
     }
 
     public void SetStageIndex(string stageIndexStr)
@@ -122,5 +111,15 @@ public class StageManager : MonoBehaviour
         */
 
         return quaternion;
+    }
+
+    public override void UpdateState(eUpdateState state)
+    {
+        switch (state)
+        {
+            case eUpdateState.Init:
+                Init();
+                break;
+        }
     }
 }

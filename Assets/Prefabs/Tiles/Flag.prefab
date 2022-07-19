@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
   - component: {fileID: 3443093843078767369}
+  - component: {fileID: 5121081455953362200}
   m_Layer: 0
   m_Name: Flag
   m_TagString: Untagged
@@ -114,3 +115,20 @@ PolygonCollider2D:
       - {x: -0.25, y: 0}
       - {x: 0, y: -0.15}
       - {x: 0.25, y: 0}
+--- !u!114 &5121081455953362200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893477038133102498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c86ac7512516941a4061eea76ee05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myType: 2
+  flagSprite:
+  - {fileID: 1578363402, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  - {fileID: -66562601, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  isChecked: 0

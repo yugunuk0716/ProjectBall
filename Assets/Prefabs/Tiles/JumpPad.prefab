@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
   - component: {fileID: 3443093843078767369}
+  - component: {fileID: 4563147185073762501}
   m_Layer: 0
   m_Name: JumpPad
   m_TagString: Untagged
@@ -114,3 +115,17 @@ PolygonCollider2D:
       - {x: -0.25, y: 0}
       - {x: 0, y: -0.15}
       - {x: 0.25, y: 0}
+--- !u!114 &4563147185073762501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893477038133102498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97182844ff5ec2942b2f7f0f6e780dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAmmoCount: 10
+  curAmmoCount: 0
