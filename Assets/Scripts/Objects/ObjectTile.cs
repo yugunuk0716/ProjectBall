@@ -16,10 +16,10 @@ public enum TileType
 [System.Serializable]
 public enum TileDirection
 {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    LEFTUP,
+    LEFTDOWN,
+    RIGHTUP,
+    RIGHTDOWN
 }
 
 [System.Serializable]
@@ -40,7 +40,7 @@ public class ObjectTile : MonoBehaviour
 
     public virtual void SettingTile(string info)
     {
-        StageManager.instance.objectTileList.Add(this);
+        StageManager.Instance.objectTileList.Add(this);
   
     }
 
