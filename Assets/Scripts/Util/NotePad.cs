@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class NotePad : EditorWindow
 {
+
     private string myString;
 
     [MenuItem("Window/NotePad")]
@@ -27,4 +29,6 @@ public class NotePad : EditorWindow
     {
         PlayerPrefs.SetString("data", myString);
     }
+
 }
+#endif

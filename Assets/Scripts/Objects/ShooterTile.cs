@@ -60,8 +60,6 @@ public class ShooterTile : MonoBehaviour
         else if (!isAxisXPositive && !isAxisYPositive) vec = new Vector2(-0.5f, -0.25f);
         else if (!isAxisXPositive && isAxisYPositive) vec = new Vector2(-0.9f, 0.45f);
         else vec = new Vector2(0.9f, -0.45f);
-
-        
         
         return vec.normalized;
     }
