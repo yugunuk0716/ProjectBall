@@ -24,10 +24,10 @@ public class IngameUI : UIBase
 
         moveStageBtn.onClick.AddListener(() =>
         {
-            StageManager.Instance.LoadStage();
-            StageManager.Instance.ClearAllBalls();
+            sm.LoadStage();
+            sm.ClearAllBalls();
         });
-        stageIndexInputField.onValueChanged.AddListener(StageManager.Instance.SetStageIndex);
+        stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }
 
     public void SetTimerText(string textString, Color? color = null)

@@ -53,7 +53,7 @@ public class Goal : ObjectTile
             sr.color = Color.green;
             srC.sprite = flagSprite[1];
             isChecked = true;
-            GameManager.Instance.CheckClear();
+            IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }
     }
 
