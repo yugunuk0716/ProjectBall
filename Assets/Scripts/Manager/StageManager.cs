@@ -59,6 +59,7 @@ public class StageManager : ManagerBase
 
             gm.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
             gm.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
+            gm.portalList.ForEach(portal => portal.FindPair());
             gm.ResetGameData();
         }
         else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면
