@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 216864386902218647}
   - component: {fileID: 3443093843078767369}
   - component: {fileID: 5121081455953362200}
+  - component: {fileID: 4142883834083301727}
   m_Layer: 0
   m_Name: Flag
   m_TagString: Untagged
@@ -111,9 +112,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.15}
-      - {x: -0.25, y: 0}
-      - {x: 0, y: -0.15}
+    - - {x: -0.09330453, y: 0.2166461}
+      - {x: -0.3344184, y: 0.05775994}
+      - {x: 0, y: -0.15000002}
       - {x: 0.25, y: 0}
 --- !u!114 &5121081455953362200
 MonoBehaviour:
@@ -128,7 +129,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 2
-  flagSprite:
-  - {fileID: 1578363402, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -66562601, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  sr: {fileID: 216864386902218647}
+  animator: {fileID: 4142883834083301727}
   isChecked: 0
+--- !u!95 &4142883834083301727
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893477038133102498}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 13c382914977691468752161f9cd0634, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

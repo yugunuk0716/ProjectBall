@@ -38,6 +38,7 @@ public class Goal : ObjectTile
             tb.gameObject.SetActive(false);
             //sr.sprite = changeSprite;
             isChecked = true;
+            animator.SetBool("isClear", true);
             IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }
     }
@@ -46,6 +47,7 @@ public class Goal : ObjectTile
     {
         //sr.sprite = mySprite;
         isChecked = false;
+        animator.SetBool("isClear", false);
     }
 
 }
