@@ -23,7 +23,7 @@ public class ShooterTile : MonoBehaviour
             return;
 
         Ball ball = PoolManager.Instance.Pop("Ball") as Ball;
-        ball.transform.position = this.transform.position;
+        ball.transform.position = transform.position;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고
         Vector2 plusPos = (mousePos - (Vector2)ball.transform.position); // 혹시 슈터 위치 바뀔 수 있으니 위치 빼주기
 
@@ -34,5 +34,11 @@ public class ShooterTile : MonoBehaviour
         ball.Move(plusPos.normalized, 5f);
 
         curAmmoCount++;
+
+
+        //Vector2(-0.9f, 0.45f)
+        //Vector2(0.9f, -0.45f)
+        //Vector2(-0.5f, -0.25f)
+        //Vector2(0.5f, 0.25f)
     }
 }
