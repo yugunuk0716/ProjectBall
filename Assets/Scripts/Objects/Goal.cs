@@ -6,25 +6,13 @@ using UnityEngine;
 
 public class Goal : ObjectTile
 {
-
-    private SpriteRenderer sr;
-    private SpriteRenderer srC;
-
-    public List<Sprite> flagSprite;
-
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] Animator animator;
 
     public bool isChecked;
 
-    private void Awake()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        srC = transform.GetComponent<SpriteRenderer>();
-        srC.sprite = flagSprite[0];
-    }
-
     public override string ParseTileInfo()
     {
-
         return $"{{\\\"tileType\\\":" + (int)myType + "}";
     }
 
@@ -47,10 +35,8 @@ public class Goal : ObjectTile
                 return;
 
             tb.rigid.velocity = Vector3.zero;
-            //tb.transform.position = transform.position;
-            Destroy(tb.gameObject);
-            sr.color = Color.green;
-            srC.sprite = flagSprite[1];
+            tb.gameObject.SetActive(false);
+            //sr.sprite = changeSprite;
             isChecked = true;
             IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }
@@ -58,8 +44,7 @@ public class Goal : ObjectTile
 
     public void ResetFlag()
     {
-        srC.sprite = flagSprite[0];
-        sr.color = Color.yellow;
+        //sr.sprite = mySprite;
         isChecked = false;
     }
 
