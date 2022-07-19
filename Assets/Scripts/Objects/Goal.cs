@@ -18,7 +18,7 @@ public class Goal : ObjectTile
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        srC = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        srC = transform.GetComponent<SpriteRenderer>();
         srC.sprite = flagSprite[0];
     }
 
