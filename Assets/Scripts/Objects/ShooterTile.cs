@@ -45,7 +45,7 @@ public class ShooterTile : MonoBehaviour
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        ball.Move(shootDir, 5f);
+        ball.Move(shootDir, 3.5f);
 
         curAmmoCount++;
         

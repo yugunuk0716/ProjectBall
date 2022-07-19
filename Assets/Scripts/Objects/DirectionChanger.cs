@@ -54,7 +54,7 @@ public class DirectionChanger : ObjectTile
                     break;
             }
 
-            tb.Move(vec, 5);
+            tb.Move(vec, 3.5f);
         }
 
     }

@@ -38,7 +38,7 @@ public class ReflectWall : ObjectTile
                 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.right).normalized;
             }
 
-            tb.Move(vec, 5);
+            tb.Move(vec, 3.5f);
         }
     }
 

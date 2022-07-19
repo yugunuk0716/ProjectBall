@@ -32,7 +32,6 @@ public class ObjectTile : MonoBehaviour
 {
     private void Awake()
     {
-        Debug.Log("포지션 세팅");
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f;
         transform.position = myPos;
