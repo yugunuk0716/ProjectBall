@@ -126,8 +126,9 @@ public class EditManager : MonoBehaviour
                     i++;
                     if(i >= node.data.Count - 1)
                     {
-                        GameManager.Instance.portalList = GameObject.Find("NewStage").GetComponentsInChildren<Teleporter>().ToList();
-                        GameManager.Instance.portalList.ForEach(portal => { portal.FindPair(); });
+                        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+                        gm.portalList = GameObject.Find("NewStage").GetComponentsInChildren<Teleporter>().ToList();
+                        gm.portalList.ForEach(portal => { portal.FindPair(); });
                     }
                     ParseNode(child, currentObj);
                 }

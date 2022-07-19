@@ -35,7 +35,7 @@ public class Teleporter : ObjectTile
 
     public void FindPair()
     {
-        foreach (Teleporter tp in GameManager.Instance.portalList)
+        foreach (Teleporter tp in IsometricManager.Instance.GetManager<GameManager>().portalList)
         {
 
             if (tp != null)

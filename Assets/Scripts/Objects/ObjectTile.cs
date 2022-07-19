@@ -48,7 +48,7 @@ public class ObjectTile : MonoBehaviour
 
     public virtual void SettingTile(string info)
     {
-        StageManager.Instance.objectTileList.Add(this);
+        IsometricManager.Instance.GetManager<StageManager>().objectTileList.Add(this);
   
     }
 
