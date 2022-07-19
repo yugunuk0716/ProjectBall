@@ -96,7 +96,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.2}
@@ -111,9 +111,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.15}
-      - {x: -0.25, y: 0}
-      - {x: 0, y: -0.15}
+    - - {x: -0.16220301, y: 0.2811015}
+      - {x: -0.45663375, y: 0.11220303}
+      - {x: -0.062203024, y: -0.23441844}
       - {x: 0.25, y: 0}
 --- !u!114 &5121081455953362200
 MonoBehaviour:
@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 2
-  flagSprite:
-  - {fileID: 1578363402, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -66562601, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  sr: {fileID: 0}
+  animator: {fileID: 0}
   isChecked: 0
