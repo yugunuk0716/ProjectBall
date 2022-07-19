@@ -26,14 +26,14 @@ public class ShooterTile : MonoBehaviour
         ball.transform.position = this.transform.position;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고
-        Vector2 shootDir = SetVectorScaleOne((mousePos - (Vector2)ball.transform.position).normalized);
+        Vector2 shootDir = GetIsoDir((mousePos - (Vector2)ball.transform.position).normalized);
 
         ball.Move(shootDir, 5f);
 
         curAmmoCount++;
     }
 
-    Vector2 SetVectorScaleOne(Vector2 vec)// 벡터의 특정 방향의 크기를 1 혹은 0으로 만들기
+    Vector2 GetIsoDir(Vector2 vec) // 등각투형에 걸맞는 벡터로..
     {
         bool isAxisXPositive = vec.x > 0;
         bool isAxisYPositive = vec.y > 0;
@@ -43,6 +43,6 @@ public class ShooterTile : MonoBehaviour
         else if (!isAxisXPositive && isAxisYPositive) vec = new Vector2(-0.9f, 0.45f);
         else vec = new Vector2(0.9f, -0.45f);
 
-        return vec;
+        return vec.normalized;
     }
 }
