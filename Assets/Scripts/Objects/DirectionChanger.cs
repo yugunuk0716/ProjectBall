@@ -40,17 +40,17 @@ public class DirectionChanger : ObjectTile
             tb.transform.position = transform.position;
             switch (wallDirection)
             {
-                case TileDirection.UP:
-                    vec = Vector2.up;
+                case TileDirection.LEFTUP:
+                    vec.Set(-0.9f, 0.45f, 0);
                     break;
-                case TileDirection.RIGHT:
-                    vec = Vector2.right;
+                case TileDirection.RIGHTDOWN:
+                    vec.Set(0.9f, -0.45f, 0);
                     break;
-                case TileDirection.LEFT:
-                    vec = Vector2.left;
+                case TileDirection.RIGHTUP:
+                    vec.Set(0.4f, 0.25f, 0);
                     break;
-                case TileDirection.DOWN:
-                    vec = Vector2.down;
+                case TileDirection.LEFTDOWN:
+                    vec.Set(-0.4f, -0.25f, 0);
                     break;
             }
 

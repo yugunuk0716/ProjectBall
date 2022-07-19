@@ -109,6 +109,7 @@ public class EditManager : MonoBehaviour
         if (parent == null)
         {
             parent = new GameObject("NewStage");
+            parent.AddComponent<Grid>();
         }
 
         if (node != null)

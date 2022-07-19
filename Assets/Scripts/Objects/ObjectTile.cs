@@ -16,10 +16,10 @@ public enum TileType
 [System.Serializable]
 public enum TileDirection
 {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
+    LEFTUP,
+    LEFTDOWN,
+    RIGHTUP,
+    RIGHTDOWN
 }
 
 [System.Serializable]
