@@ -9,7 +9,6 @@ using System;
 
 public class StageManager : ManagerBase
 {
-    public static StageManager Instance;
     public int stageIndex = 1;
     
     private Dictionary<TileType, ObjectTile> dicPrefabs = new Dictionary<TileType, ObjectTile>();
@@ -20,16 +19,14 @@ public class StageManager : ManagerBase
     public Action FadeDebugText;
     private GameObject beforeStageObj = null;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     public override void Init()
     {
+        stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
+        Transform gridObj = GameObject.Find("Isometric Palette").transform;
+
         for (int i = 0; i < stageObjList.Count; i++)
         {
-            stageObjList[i] = Instantiate(stageObjList[i]);
+            stageObjList[i] = Instantiate(stageObjList[i], gridObj);
             stageObjList[i].gameObject.SetActive(false);
         }
 
@@ -52,16 +49,18 @@ public class StageManager : ManagerBase
     {
         if (stageObjList.Count >= stageIndex && stageIndex > 0)
         {
+            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
             beforeStageObj?.SetActive(false);
             beforeStageObj = stageObjList[stageIndex - 1];
-            GameManager.Instance.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
+            gm.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
 
             SetDebugText($"{stageIndex} Stage Loaded");
             stageObjList[stageIndex - 1].SetActive(true);
 
-            GameManager.Instance.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
-            GameManager.Instance.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
-            GameManager.Instance.ResetGameData();
+            gm.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
+            gm.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
+            gm.ResetGameData();
         }
         else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면
         {
@@ -71,6 +70,8 @@ public class StageManager : ManagerBase
         {
             SetDebugText("Please enter over zero!");
         }
+
+        FadeDebugText();
     }
 
     public void SetStageIndex(string stageIndexStr)

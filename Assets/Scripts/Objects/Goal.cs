@@ -32,7 +32,6 @@ public class Goal : ObjectTile
     {
         base.SettingTile(info);
         info = info.Substring(1, info.Length - 2);
-        print(info);
         ObjectTileInfo goalInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
         myType = (TileType)goalInfo.tileType;
     }
@@ -53,7 +52,7 @@ public class Goal : ObjectTile
             sr.color = Color.green;
             srC.sprite = flagSprite[1];
             isChecked = true;
-            GameManager.Instance.CheckClear();
+            IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }
     }
 

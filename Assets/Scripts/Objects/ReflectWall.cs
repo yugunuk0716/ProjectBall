@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class GellWall : ObjectTile
+public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
 

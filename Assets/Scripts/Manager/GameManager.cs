@@ -6,15 +6,6 @@ using UnityEngine;
 
 public class GameManager : ManagerBase
 {
-    private static GameManager instance;
-    public static GameManager Instance 
-    {
-        get
-        { 
-            return instance; 
-        }
-    }
-
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
 
@@ -29,7 +20,6 @@ public class GameManager : ManagerBase
 
     public override void Init()
     {
-        instance = this;
         realTime = 0;
 
         timerCo = Timer();
@@ -56,11 +46,10 @@ public class GameManager : ManagerBase
 
         if(list.Count <= 0 && firstTime + limitTime >= Time.time)
         {
-            StageManager.Instance.stageIndex++;
-            StageManager.Instance.LoadStage();
-            StageManager.Instance.ClearAllBalls();
-            print("Å¬¸®¾î");
-            print(Time.time - firstTime);
+            StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+            sm.stageIndex++;
+            sm.LoadStage();
+            sm.ClearAllBalls();
             firstTime = 0f;
             realTime = 0f;
             StopCoroutine(timerCo);
