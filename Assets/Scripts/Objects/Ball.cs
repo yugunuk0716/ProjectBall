@@ -15,6 +15,9 @@ public class Ball : PoolableMono
     public float afCool;
     public float afLastTime;
 
+    public float curActiveTime = 0f;
+    public float maxActiveTime = 15f;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -23,30 +26,29 @@ public class Ball : PoolableMono
         tpCool = 0.5f;
     }
 
+    private void Update()
+    {
+        curActiveTime += Time.deltaTime;
+        if (curActiveTime >= maxActiveTime) gameObject.SetActive(false);
+
+        Vector3 myPos = transform.position;
+        myPos.z = transform.position.y * -0.1f + 1.7f;
+        transform.position = myPos;
+    }
 
     public void Move(Vector2 dir, float power = 5f)
     {
-        //anim.SetBool("isMoving", false);
-        //anim.SetFloat("MoveX", Mathf.Abs(dir.x));
-        //anim.SetFloat("MoveY", Mathf.Abs(dir.y));
-        //anim.SetBool("isMoving", true);
-
         sr.flipX = dir.x > 0 || dir.y > 0;
         rigid.velocity = dir * power;
-
-        //if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
-        //{
-        //    spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        //}
     }
 
     public override void Reset()
     {
-        //anim.SetBool("isMoving", false);
-        //sr.flipX = false;
-        //anim.SetFloat("MoveX", 0);
-        //anim.SetFloat("MoveY", 0);
-        //rigid.velocity = Vector2.zero;
-        //spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        curActiveTime = 0f; // 충돌 안하면 MaxActiveTime뒤 사라지게
     }
 }

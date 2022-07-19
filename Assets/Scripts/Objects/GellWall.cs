@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class GellWall : ObjectTile
 {
+    public bool isHorizontalWall = true;
 
     public override string ParseTileInfo()
     {
         return $"{{\\\"tileType\\\":" + (int)myType + "}";
-        
     }
 
     public override void SettingTile(string info)
@@ -28,18 +28,15 @@ public class GellWall : ObjectTile
 
         if (tb != null)
         {
-            Vector2 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up).normalized;
-           
-            //if(Mathf.Abs(tb.rigid.velocity.x) > 0)
-            //{
-            //    vec.x = 0;
-            //}
-            //else
-            //{
-            //    vec.y = 0;
-            //}
-
-            //if (vec.x == 0 && vec.y == 0) vec.y = 1; // up을 기준으로 외적해서 위로 향해야 할 때, 멈춰버리는 듯?
+            Vector2 vec;
+            if (isHorizontalWall)
+            {
+                 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up).normalized;
+            }
+            else
+            {
+                vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.right).normalized;
+            }
 
             tb.Move(vec, 5);
         }
