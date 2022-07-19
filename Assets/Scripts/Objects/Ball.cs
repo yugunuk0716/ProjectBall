@@ -23,7 +23,7 @@ public class Ball : PoolableMono
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
-        tpCool = 0.5f;
+        tpCool = 0.1f;
     }
 
     private void Update()
