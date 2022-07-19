@@ -23,22 +23,26 @@ public class ShooterTile : MonoBehaviour
             return;
 
         Ball ball = PoolManager.Instance.Pop("Ball") as Ball;
-        ball.transform.position = transform.position;
+        ball.transform.position = this.transform.position;
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고
-        Vector2 plusPos = (mousePos - (Vector2)ball.transform.position); // 혹시 슈터 위치 바뀔 수 있으니 위치 빼주기
+        Vector2 shootDir = SetVectorScaleOne((mousePos - (Vector2)ball.transform.position).normalized);
 
-        // 더 의도와 가까운 방향 남기기.
-        if (Mathf.Abs(plusPos.x) > Mathf.Abs(plusPos.y)) plusPos.y = 0;
-        else plusPos.x = 0;
-
-        ball.Move(plusPos.normalized, 5f);
+        ball.Move(shootDir, 5f);
 
         curAmmoCount++;
+    }
 
+    Vector2 SetVectorScaleOne(Vector2 vec)// 벡터의 특정 방향의 크기를 1 혹은 0으로 만들기
+    {
+        bool isAxisXPositive = vec.x > 0;
+        bool isAxisYPositive = vec.y > 0;
 
-        //Vector2(-0.9f, 0.45f)
-        //Vector2(0.9f, -0.45f)
-        //Vector2(-0.5f, -0.25f)
-        //Vector2(0.5f, 0.25f)
+        if (isAxisXPositive && isAxisYPositive) vec = new Vector2(0.5f, 0.25f);
+        else if (!isAxisXPositive && !isAxisYPositive) vec = new Vector2(-0.5f, -0.25f);
+        else if (!isAxisXPositive && isAxisYPositive) vec = new Vector2(-0.9f, 0.45f);
+        else vec = new Vector2(0.9f, -0.45f);
+
+        return vec;
     }
 }
