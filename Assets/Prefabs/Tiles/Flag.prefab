@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 216864386902218647}
   - component: {fileID: 3443093843078767369}
   - component: {fileID: 5121081455953362200}
+  - component: {fileID: 4142883834083301727}
   m_Layer: 0
   m_Name: Flag
   m_TagString: Untagged
@@ -96,7 +97,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.2}
@@ -111,9 +112,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.16220301, y: 0.2811015}
-      - {x: -0.45663375, y: 0.11220303}
-      - {x: -0.062203024, y: -0.23441844}
+    - - {x: 0, y: 0.15}
+      - {x: -0.25, y: 0}
+      - {x: 0, y: -0.15}
       - {x: 0.25, y: 0}
 --- !u!114 &5121081455953362200
 MonoBehaviour:
@@ -128,6 +129,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 2
-  sr: {fileID: 0}
-  animator: {fileID: 0}
+  sr: {fileID: 216864386902218647}
+  animator: {fileID: 4142883834083301727}
   isChecked: 0
+--- !u!95 &4142883834083301727
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893477038133102498}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 13c382914977691468752161f9cd0634, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
