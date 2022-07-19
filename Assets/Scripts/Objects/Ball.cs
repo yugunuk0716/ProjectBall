@@ -26,27 +26,27 @@ public class Ball : PoolableMono
 
     public void Move(Vector2 dir, float power = 5f)
     {
-        anim.SetBool("isMoving", false);
-        anim.SetFloat("MoveX", Mathf.Abs(dir.x));
-        anim.SetFloat("MoveY", Mathf.Abs(dir.y));
-        anim.SetBool("isMoving", true);
+        //anim.SetBool("isMoving", false);
+        //anim.SetFloat("MoveX", Mathf.Abs(dir.x));
+        //anim.SetFloat("MoveY", Mathf.Abs(dir.y));
+        //anim.SetBool("isMoving", true);
 
         sr.flipX = dir.x > 0 || dir.y > 0;
-
         rigid.velocity = dir * power;
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
-        {
-            spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
+
+        //if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        //{
+        //    spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //}
     }
 
     public override void Reset()
     {
-        anim.SetBool("isMoving", false);
-        sr.flipX = false;
-        anim.SetFloat("MoveX", 0);
-        anim.SetFloat("MoveY", 0);
-        rigid.velocity = Vector2.zero;
-        spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //anim.SetBool("isMoving", false);
+        //sr.flipX = false;
+        //anim.SetFloat("MoveX", 0);
+        //anim.SetFloat("MoveY", 0);
+        //rigid.velocity = Vector2.zero;
+        //spriteObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }

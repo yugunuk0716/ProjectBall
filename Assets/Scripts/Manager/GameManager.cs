@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : ManagerBase
 {
     private static GameManager instance;
     public static GameManager Instance 
@@ -14,26 +15,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public List<Goal> goalList = new List<Goal>();
 
     public float limitTime = 2f;
     public float firstTime = 0f;
+    private float realTime;
 
     public ShooterTile shooter = null; 
-    public TextMeshProUGUI timer_text;
-
-    private float realTime;
+    public Action<string,Color?> SetTimerText;
     private IEnumerator timerCo;
 
-    private void Awake()
+
+    public override void Init()
     {
         instance = this;
         realTime = 0;
-    }
 
-    public void Start()
-    {
         timerCo = Timer();
 
         Ball ball = Resources.Load<Ball>("Ball");
@@ -47,29 +44,26 @@ public class GameManager : MonoBehaviour
 
     public void CheckClear()
     {
-        
         if (firstTime == 0f)
         {
             firstTime = Time.time;
             StartCoroutine(timerCo);
-            timer_text.text = "Ready";
-            timer_text.color = Color.red;
+            SetTimerText("Ready", Color.red);
         }
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
         if(list.Count <= 0 && firstTime + limitTime >= Time.time)
         {
-            StageManager.instance.stageIndex++;
-            StageManager.instance.LoadStage();
-            StageManager.instance.ClearAllBalls();
+            StageManager.Instance.stageIndex++;
+            StageManager.Instance.LoadStage();
+            StageManager.Instance.ClearAllBalls();
             print("Å¬¸®¾î");
             print(Time.time - firstTime);
             firstTime = 0f;
             realTime = 0f;
             StopCoroutine(timerCo);
-            timer_text.text = "Clear";
-            timer_text.color = Color.green;
+            SetTimerText("Clear", Color.green);
         }
        
     }
@@ -91,13 +85,22 @@ public class GameManager : MonoBehaviour
                 firstTime = 0f;
                 realTime = 0f;
                 StopCoroutine(timerCo);
-                timer_text.text = "Reset";
-                timer_text.color = Color.red;
+
+                SetTimerText("Reset", Color.red);
                 yield return new WaitForSeconds(0.2f);
-                timer_text.color = Color.white;
-                timer_text.text = "Ready";
+                SetTimerText("Ready", Color.white);
             }
-            timer_text.text = string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime);
+            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), null);
+        }
+    }
+
+    public override void UpdateState(eUpdateState state)
+    {
+        switch(state)
+        {
+            case eUpdateState.Init:
+                Init();
+                break;
         }
     }
 }
