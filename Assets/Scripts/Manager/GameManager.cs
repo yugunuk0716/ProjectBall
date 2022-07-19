@@ -66,8 +66,6 @@ public class GameManager : ManagerBase
             realTime += Time.deltaTime;
             if(limitTime - realTime <= 0)
             {
-                print("½ÇÆÐ");
-                print(Time.time - firstTime);
                 foreach (Goal goal in goalList)
                 {
                     goal.ResetFlag();
