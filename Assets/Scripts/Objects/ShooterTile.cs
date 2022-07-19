@@ -26,8 +26,8 @@ public class ShooterTile : MonoBehaviour
 
     public void Shoot()
     {
-        //if (maxAmmoCount <= curAmmoCount)
-        //    return;
+        if (maxAmmoCount <= curAmmoCount)
+            return;
 
         if (anim.GetBool("isClick"))
         {
