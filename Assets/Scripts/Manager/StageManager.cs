@@ -21,11 +21,12 @@ public class StageManager : ManagerBase
 
     public override void Init()
     {
-        stageObjList = Resources.LoadAll<GameObject>("").ToList();
+        stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
+        Transform gridObj = GameObject.Find("Isometric Palette").transform;
 
         for (int i = 0; i < stageObjList.Count; i++)
         {
-            stageObjList[i] = Instantiate(stageObjList[i]);
+            stageObjList[i] = Instantiate(stageObjList[i], gridObj);
             stageObjList[i].gameObject.SetActive(false);
         }
 
@@ -70,6 +71,8 @@ public class StageManager : ManagerBase
         {
             SetDebugText("Please enter over zero!");
         }
+
+        FadeDebugText();
     }
 
     public void SetStageIndex(string stageIndexStr)
