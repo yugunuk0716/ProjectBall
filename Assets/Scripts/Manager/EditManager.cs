@@ -35,6 +35,7 @@ public class EditManager : MonoBehaviour
     
     private void Start()
     {
+
         instance = this;
 
         dicPrefabs = new Dictionary<string, GameObject>();
