@@ -28,9 +28,6 @@ public class Teleporter : ObjectTile
         TeleporterInfo teleporterInfo = JsonUtility.FromJson<TeleporterInfo>(info);
         myType = (TileType)teleporterInfo.tileType;
         portalIndex = teleporterInfo.portalIndex;
-
-       
-
     }
 
     public void FindPair()
@@ -48,20 +45,12 @@ public class Teleporter : ObjectTile
         }
     }
 
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void OnTriggerBall(Ball tb)
     {
-        Ball tb = collision.gameObject.GetComponent<Ball>();
-
-        if (tb != null)
+        if (pairTeleporter != null && tb.tpCool + tb.tpLastTime < Time.time)
         {
-            if(tb.tpCool + tb.tpLastTime < Time.time)
-            {
-              
-                tb.tpLastTime = Time.time;
-                tb.transform.position = pairTeleporter.transform.position;
-            }
+            tb.tpLastTime = Time.time;
+            tb.transform.position = pairTeleporter.transform.position;
         }
     }
 }

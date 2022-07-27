@@ -58,6 +58,9 @@ MonoBehaviour:
   afLastTime: 0
   curActiveTime: 0
   maxActiveTime: 15
+  collisionTileType: 1
+  ballState: 1
+  isDestroyer: 0
 --- !u!50 &5550844566456813310
 Rigidbody2D:
   serializedVersion: 4

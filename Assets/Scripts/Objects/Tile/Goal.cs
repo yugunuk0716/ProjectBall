@@ -24,25 +24,6 @@ public class Goal : ObjectTile
         myType = (TileType)goalInfo.tileType;
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Ball tb = collision.gameObject.GetComponent<Ball>();
-
-        if (tb != null)
-        {
-            if (isChecked)
-                return;
-
-            tb.rigid.velocity = Vector3.zero;
-            tb.gameObject.SetActive(false);
-            //sr.sprite = changeSprite;
-            isChecked = true;
-            animator.SetBool("isClear", true);
-            IsometricManager.Instance.GetManager<GameManager>().CheckClear();
-        }
-    }
-
     public void ResetFlag()
     {
         //sr.sprite = mySprite;
@@ -50,4 +31,16 @@ public class Goal : ObjectTile
         animator.SetBool("isClear", false);
     }
 
+    public override void OnTriggerBall(Ball tb)
+    {
+        if (isChecked)
+            return;
+
+        tb.rigid.velocity = Vector3.zero;
+        tb.gameObject.SetActive(false);
+        //sr.sprite = changeSprite;
+        isChecked = true;
+        animator.SetBool("isClear", true);
+        IsometricManager.Instance.GetManager<GameManager>().CheckClear();
+    }
 }

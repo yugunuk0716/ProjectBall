@@ -2,6 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ECollisionTile
+{
+    NoCollision,
+    Teleporter,
+    DirChanger,
+    ReflectWall,
+    BallDestroyer,
+    Goal,
+    AirFlow,
+}
+
+public enum BallState
+{
+    None,
+    Destroy,
+    Ignore,
+}
+
 public class Ball : PoolableMono
 {
     public Rigidbody2D rigid;
@@ -18,12 +36,21 @@ public class Ball : PoolableMono
     public float curActiveTime = 0f;
     public float maxActiveTime = 15f;
 
+    public TileType collisionTileType;
+    public BallState ballState;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         tpCool = 0.1f;
+
+    }
+
+    private void OnEnable()
+    {
+        curActiveTime = 0;
     }
 
     private void Update()
@@ -47,8 +74,15 @@ public class Ball : PoolableMono
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void RemoveSpecialEffect()
     {
-        curActiveTime = 0f; // 충돌 안하면 MaxActiveTime뒤 사라지게
+        this.ballState = BallState.None;
+        OnRemoveSE();
     }
+
+    public virtual void OnRemoveSE()  // RemoveSpecialEffect callback
+    {
+        this.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+    }    
+
 }
