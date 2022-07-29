@@ -45,7 +45,7 @@ public class ShooterTile : MonoBehaviour
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        ball.Move(shootDir, 5f);
+        ball.Move(shootDir, 3.5f);
 
         curAmmoCount++;
         
@@ -60,8 +60,6 @@ public class ShooterTile : MonoBehaviour
         else if (!isAxisXPositive && !isAxisYPositive) vec = new Vector2(-0.5f, -0.25f);
         else if (!isAxisXPositive && isAxisYPositive) vec = new Vector2(-0.9f, 0.45f);
         else vec = new Vector2(0.9f, -0.45f);
-
-        
         
         return vec.normalized;
     }

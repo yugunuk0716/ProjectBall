@@ -9,6 +9,22 @@ public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
 
+    public override void OnTriggerBall(Ball tb)
+    {
+        Debug.Log("½ÇÇà");
+        Vector2 vec;
+        if (isHorizontalWall)
+        {
+            vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up).normalized;
+        }
+        else
+        {
+            vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.right).normalized;
+        }
+
+        tb.Move(vec, 3.5f);
+    }
+
     public override string ParseTileInfo()
     {
         return $"{{\\\"tileType\\\":" + (int)myType + "}";
@@ -20,26 +36,6 @@ public class ReflectWall : ObjectTile
         base.SettingTile(info);
         ObjectTileInfo mirrorInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
         myType = (TileType)mirrorInfo.tileType;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Ball tb = collision.gameObject.GetComponent<Ball>();
-
-        if (tb != null)
-        {
-            Vector2 vec;
-            if (isHorizontalWall)
-            {
-                 vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up).normalized;
-            }
-            else
-            {
-                vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.right).normalized;
-            }
-
-            tb.Move(vec, 5);
-        }
     }
 
 

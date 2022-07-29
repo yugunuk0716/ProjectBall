@@ -59,6 +59,7 @@ public class StageManager : ManagerBase
             stageObjList[stageIndex - 1].SetActive(true);
 
             gm.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
+            gm.goalList.ForEach(x => x.ResetFlag());
             gm.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
             gm.portalList.ForEach(portal => portal.FindPair());
             gm.ResetGameData();

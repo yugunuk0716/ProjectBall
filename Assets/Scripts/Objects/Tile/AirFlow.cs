@@ -12,6 +12,15 @@ public class AirFlow : ObjectTile
 {
     public float flowAmount;
 
+    public override void OnTriggerBall(Ball tb)
+    {
+        if (tb.afCool + tb.afLastTime < Time.time)
+        {
+            tb.afLastTime = Time.time;
+            tb.rigid.velocity *= flowAmount;
+        }
+    }
+
     public override string ParseTileInfo()
     {
         return $"{{\\\"tileType\\\":" + (int)myType + ", \\\"flowAmount\\\":" + flowAmount + "}";
@@ -28,18 +37,5 @@ public class AirFlow : ObjectTile
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Ball tb = collision.gameObject.GetComponent<Ball>();
 
-        if (tb != null)
-        {
-            if (tb.afCool + tb.afLastTime < Time.time)
-            {
-
-                tb.afLastTime = Time.time;
-                tb.rigid.velocity *= flowAmount;
-            }
-        }
-    }
 }

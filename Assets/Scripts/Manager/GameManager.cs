@@ -78,7 +78,7 @@ public class GameManager : ManagerBase
                 yield return new WaitForSeconds(0.2f);
                 SetTimerText("Ready", Color.white);
             }
-            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), null);
+            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.black);
         }
     }
 
