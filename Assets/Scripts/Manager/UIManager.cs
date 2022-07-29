@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIManager : ManagerBase
 {
-    [SerializeField]
-    List<UIBase> uis;
+    [SerializeField] List<UIBase> uis;
+
 
     public override void Init()
     {

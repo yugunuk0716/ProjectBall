@@ -69,7 +69,7 @@ public abstract class ObjectTile : MonoBehaviour
                         break;
 
                     case BallState.Ignore:
-                        return;
+                        break;
                 }
                 tb.GetComponent<Ball>().RemoveSpecialEffect();
             }
