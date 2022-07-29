@@ -9,7 +9,7 @@ public class StageDataSO : ScriptableObject
     public int ballCount;
     public Ball[] balls;
     public float countDown;
-    public TileDirection[] shooterDirections;
+    public TileDirection shooterDirections;
     public string jsonString;
 
 }

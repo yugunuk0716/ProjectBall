@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using DG.Tweening;
+using System.Linq;
 
 public class IngameUI : UIBase
 {
@@ -16,6 +17,7 @@ public class IngameUI : UIBase
     public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
     [SerializeField] GameObject ballControllUIPrefab;    
     
+    
 
     public override void Init()
     {
@@ -25,29 +27,31 @@ public class IngameUI : UIBase
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
-        sm.InitBallControllUIs += (Ball[] Balls) =>
+        sm.InitBallControllUIs += (Ball[] balls) =>
         {
-            List<GameObject> btnList = new List<GameObject>();
+            for(int i = 0; i < parentTrms.Length; i++) parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
 
-            foreach(Ball ball in Balls)
+            for(int i = 0; i< balls.Length; i++)
             {
+                Ball ball = balls[i];
+
                 GameObject newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+                bool isAdded = false;
+
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    bool isAdded = false;
-
                     if(isAdded) // 다시 돌아오려는
                     {
-                        newBallControllUI.transform.parent = parentTrms[0];
+                        newBallControllUI.transform.SetParent(parentTrms[0]);
                         gm.myBallList.Remove(ball);
-                        isAdded = false;
                     }
                     else // 추가 하려는
                     {
-                        newBallControllUI.transform.parent = parentTrms[1];
+                        newBallControllUI.transform.SetParent(parentTrms[1]);
                         gm.myBallList.Add(ball);
-                        isAdded = true;
                     }
+
+                    isAdded = !isAdded;
                 });
             }
         };
