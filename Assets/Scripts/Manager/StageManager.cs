@@ -66,6 +66,7 @@ public class StageManager : ManagerBase
             gm.portalList.ForEach(portal => portal.FindPair());
 
             // 대충 여기서 공 데이터 받아와야겠당
+            InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
 
             gm.ResetGameData();
         }

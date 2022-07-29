@@ -14,7 +14,7 @@ public class IngameUI : UIBase
     public Button moveStageBtn;
 
     public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
-    [SerializeField] BallControllUI ballControllUIPrefab;    
+    [SerializeField] GameObject ballControllUIPrefab;    
     
 
     public override void Init()
@@ -27,24 +27,26 @@ public class IngameUI : UIBase
         sm.FadeDebugText += () => FadeDebugText();
         sm.InitBallControllUIs += (Ball[] Balls) =>
         {
-            List<BallControllUI> btnList = new List<BallControllUI>();
+            List<GameObject> btnList = new List<GameObject>();
 
-            foreach(Ball item in Balls)
+            foreach(Ball ball in Balls)
             {
-                BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
-
+                GameObject newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    if(newBallControllUI.isAdded) // 다시 돌아오려는
+                    bool isAdded = false;
+
+                    if(isAdded) // 다시 돌아오려는
                     {
                         newBallControllUI.transform.parent = parentTrms[0];
-                        gm.myBallList.Remove(newBallControllUI.myBall);
-                        
+                        gm.myBallList.Remove(ball);
+                        isAdded = false;
                     }
                     else // 추가 하려는
                     {
                         newBallControllUI.transform.parent = parentTrms[1];
-                        gm.myBallList.Add(newBallControllUI.myBall);
+                        gm.myBallList.Add(ball);
+                        isAdded = true;
                     }
                 });
             }
