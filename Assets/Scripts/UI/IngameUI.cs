@@ -13,14 +13,42 @@ public class IngameUI : UIBase
     public TextMeshProUGUI timer_text;
     public Button moveStageBtn;
 
+    public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
+    [SerializeField] BallControllUI ballControllUIPrefab;    
+    
 
     public override void Init()
     {
-        IsometricManager.Instance.GetManager<GameManager>().SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
+        sm.InitBallControllUIs += (Ball[] Balls) =>
+        {
+            List<BallControllUI> btnList = new List<BallControllUI>();
+
+            foreach(Ball item in Balls)
+            {
+                BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+
+                newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if(newBallControllUI.isAdded) // 다시 돌아오려는
+                    {
+                        newBallControllUI.transform.parent = parentTrms[0];
+                        gm.myBallList.Remove(newBallControllUI.myBall);
+                        
+                    }
+                    else // 추가 하려는
+                    {
+                        newBallControllUI.transform.parent = parentTrms[1];
+                        gm.myBallList.Add(newBallControllUI.myBall);
+                    }
+                });
+            }
+        };
 
         moveStageBtn.onClick.AddListener(() =>
         {
@@ -29,6 +57,8 @@ public class IngameUI : UIBase
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }
+
+
 
     public void SetTimerText(string textString, Color? color = null)
     {

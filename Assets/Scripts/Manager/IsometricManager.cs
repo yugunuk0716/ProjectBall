@@ -13,9 +13,8 @@ public class IsometricManager : MonoBehaviour
             return instance;
         }
     }
-    public List<ManagerBase> managers;
 
-    [SerializeField]
+    public List<ManagerBase> managers;
 
     private void Awake()
     {
