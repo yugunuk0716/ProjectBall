@@ -30,6 +30,9 @@ public class PoolManager : MonoBehaviour
     {
         if (name == null)
             name = prefab.gameObject.name;
+        else
+            prefab.gameObject.name = name;
+
         Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, transform, count);
         pools.Add(name, pool);
     }

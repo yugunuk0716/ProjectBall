@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : ObjectTile
+public class JumpPad : ObjectTile
 {
     public override void OnTriggerBall(Ball tb)
     {
-        Destroy(tb.gameObject);
     }
+
     public override void Reset()
     {
-
     }
+
 }

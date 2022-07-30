@@ -44,6 +44,10 @@ public class Teleporter : ObjectTile
             }
         }
     }
+    public override void Reset()
+    {
+
+    }
 
     public override void OnTriggerBall(Ball tb)
     {

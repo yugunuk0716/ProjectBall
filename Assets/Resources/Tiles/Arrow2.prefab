@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
   - component: {fileID: 3443093843078767369}
-  - component: {fileID: -1582976513927258022}
+  - component: {fileID: -1890503471907094017}
   m_Layer: 0
-  m_Name: Arrow3
+  m_Name: Arrow2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 183236277, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
+  m_Sprite: {fileID: -340315104, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,11 +111,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.11067134, y: 0.20308743}
-      - {x: -0.3568794, y: 0.022751778}
-      - {x: 0, y: -0.15000002}
-      - {x: 0.25, y: 0}
---- !u!114 &-1582976513927258022
+    - - {x: 0, y: 0.3}
+      - {x: -0.25, y: 0.15}
+      - {x: 0, y: -0.10000001}
+      - {x: 0.25, y: 0.1}
+--- !u!114 &-1890503471907094017
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,5 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7538b3cff602934299cf46c6bc99028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 3
-  wallDirection: 3
+  count: 2
+  myType: 4
+  wallDirection: 0

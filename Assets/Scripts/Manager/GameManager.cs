@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameManager : ManagerBase
 {
@@ -13,8 +14,8 @@ public class GameManager : ManagerBase
     public float firstTime = 0f;
     private float realTime;
 
-    public ShooterTile shooter = null; 
-    public Action<string,Color?> SetTimerText;
+    public ShooterTile shooter = null;
+    public Action<string, Color?> SetTimerText;
     private IEnumerator timerCo;
 
 
@@ -23,6 +24,25 @@ public class GameManager : ManagerBase
         realTime = 0;
 
         timerCo = Timer();
+
+
+        ObjectTile tile = Resources.Load<ObjectTile>("Tiles/Arrow1");
+        PoolManager.Instance.CreatePool(tile, "DirectionChanger", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Flag");
+        PoolManager.Instance.CreatePool(tile, "Goal", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/JumpPad");
+        PoolManager.Instance.CreatePool(tile, "JumpPad", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Portal_Hole");
+        PoolManager.Instance.CreatePool(tile, "Teleporter", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Slow");
+        PoolManager.Instance.CreatePool(tile, "Slow", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Wall1");
+        PoolManager.Instance.CreatePool(tile, "Reflect", 10);
 
         Ball ball = Resources.Load<Ball>("Ball");
         PoolManager.Instance.CreatePool(ball, null, 25);
@@ -44,7 +64,7 @@ public class GameManager : ManagerBase
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
-        if(list.Count <= 0 && firstTime + limitTime >= Time.time)
+        if (list.Count <= 0 && firstTime + limitTime >= Time.time)
         {
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             sm.stageIndex++;
@@ -55,16 +75,16 @@ public class GameManager : ManagerBase
             StopCoroutine(timerCo);
             SetTimerText("Clear", Color.green);
         }
-       
+
     }
 
     public IEnumerator Timer()
     {
-        while(true)
+        while (true)
         {
             yield return null;
             realTime += Time.deltaTime;
-            if(limitTime - realTime <= 0)
+            if (limitTime - realTime <= 0)
             {
                 foreach (Goal goal in goalList)
                 {
@@ -84,7 +104,7 @@ public class GameManager : ManagerBase
 
     public override void UpdateState(eUpdateState state)
     {
-        switch(state)
+        switch (state)
         {
             case eUpdateState.Init:
                 Init();

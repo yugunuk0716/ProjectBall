@@ -43,4 +43,8 @@ public class Goal : ObjectTile
         animator.SetBool("isClear", true);
         IsometricManager.Instance.GetManager<GameManager>().CheckClear();
     }
+    public override void Reset()
+    {
+
+    }
 }
