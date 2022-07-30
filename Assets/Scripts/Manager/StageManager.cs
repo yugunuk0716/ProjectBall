@@ -17,6 +17,8 @@ public class StageManager : ManagerBase
 
     public Action<string> SetDebugText;
     public Action FadeDebugText;
+    public Action<Ball[]> InitBallControllUIs;
+
     private GameObject beforeStageObj = null;
 
     public override void Init()
@@ -62,6 +64,10 @@ public class StageManager : ManagerBase
             gm.goalList.ForEach(x => x.ResetFlag());
             gm.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
             gm.portalList.ForEach(portal => portal.FindPair());
+
+            // 대충 여기서 공 데이터 받아와야겠당
+            InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
+
             gm.ResetGameData();
         }
         else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면

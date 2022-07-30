@@ -16,12 +16,13 @@ public enum TileType
 }
 
 [System.Serializable]
+[System.Flags]
 public enum TileDirection
 {
-    LEFTUP,
-    LEFTDOWN,
-    RIGHTUP,
-    RIGHTDOWN
+    LEFTUP = 1,
+    LEFTDOWN = 2,
+    RIGHTUP = 4,
+    RIGHTDOWN = 8,
 }
 
 [System.Serializable]
@@ -71,7 +72,7 @@ public abstract class ObjectTile : PoolableMono
                         break;
 
                     case BallState.Ignore:
-                        return;
+                        break;
                 }
                 tb.GetComponent<Ball>().RemoveSpecialEffect();
             }

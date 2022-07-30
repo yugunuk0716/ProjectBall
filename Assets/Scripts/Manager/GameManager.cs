@@ -9,6 +9,8 @@ public class GameManager : ManagerBase
 {
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
+    public List<Ball> myBallList = new List<Ball>();
+
 
     public float limitTime = 2f;
     public float firstTime = 0f;

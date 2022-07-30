@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using DG.Tweening;
+using System.Linq;
 
 public class IngameUI : UIBase
 {
@@ -13,14 +14,47 @@ public class IngameUI : UIBase
     public TextMeshProUGUI timer_text;
     public Button moveStageBtn;
 
+    public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
+    [SerializeField] GameObject ballControllUIPrefab;    
+    
+    
 
     public override void Init()
     {
-        IsometricManager.Instance.GetManager<GameManager>().SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
+        sm.InitBallControllUIs += (Ball[] balls) =>
+        {
+            for(int i = 0; i < parentTrms.Length; i++) parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
+
+            for(int i = 0; i< balls.Length; i++)
+            {
+                Ball ball = balls[i];
+
+                GameObject newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+                bool isAdded = false;
+
+                newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if(isAdded) // 다시 돌아오려는
+                    {
+                        newBallControllUI.transform.SetParent(parentTrms[0]);
+                        gm.myBallList.Remove(ball);
+                    }
+                    else // 추가 하려는
+                    {
+                        newBallControllUI.transform.SetParent(parentTrms[1]);
+                        gm.myBallList.Add(ball);
+                    }
+
+                    isAdded = !isAdded;
+                });
+            }
+        };
 
         moveStageBtn.onClick.AddListener(() =>
         {
@@ -29,6 +63,8 @@ public class IngameUI : UIBase
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }
+
+
 
     public void SetTimerText(string textString, Color? color = null)
     {
