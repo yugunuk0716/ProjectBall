@@ -42,6 +42,11 @@ public class DirectionChanger : ObjectTile
         return $"{{\\\"tileType\\\":"  + (int)myType + ", \\\"wallDirection\\\":" + (int)wallDirection + "}";
     }
 
+    public override void Reset()
+    {
+        
+    }
+
     public override void SettingTile(string info)
     {
         info = info.Substring(1, info.Length - 2);

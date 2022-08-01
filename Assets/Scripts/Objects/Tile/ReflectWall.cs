@@ -38,5 +38,8 @@ public class ReflectWall : ObjectTile
         myType = (TileType)mirrorInfo.tileType;
     }
 
+    public override void Reset()
+    {
 
+    }
 }

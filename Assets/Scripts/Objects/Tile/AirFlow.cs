@@ -37,5 +37,8 @@ public class AirFlow : ObjectTile
     }
 
 
+    public override void Reset()
+    {
 
+    }
 }

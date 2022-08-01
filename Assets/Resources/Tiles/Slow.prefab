@@ -127,5 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c3b95455819ad45ad0cf3b9346dc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 0
+  count: 2
+  myType: 1
   flowAmount: 0.5

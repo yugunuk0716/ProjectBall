@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
   - component: {fileID: 3443093843078767369}
-  - component: {fileID: 6158795722642010255}
+  - component: {fileID: -6334541481955293295}
   m_Layer: 0
-  m_Name: Portal_Hole
+  m_Name: Arrow1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1893477038133102498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -447650644, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  m_Sprite: {fileID: 726348105, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -115,7 +115,7 @@ PolygonCollider2D:
       - {x: -0.25, y: 0}
       - {x: 0, y: -0.15}
       - {x: 0.25, y: 0}
---- !u!114 &6158795722642010255
+--- !u!114 &-6334541481955293295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,9 +124,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1893477038133102498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d666f36ab1fe6047a717a0d3c86c1ee, type: 3}
+  m_Script: {fileID: 11500000, guid: c7538b3cff602934299cf46c6bc99028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 1
-  portalIndex: 0
-  pairTeleporter: {fileID: 0}
+  count: 2
+  myType: 4
+  wallDirection: 2

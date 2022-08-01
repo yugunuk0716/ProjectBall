@@ -5,12 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public enum TileType
 {
+    JumpPad,
     Slow,
     Teleporter,
     Goal,
     DirectionChanger,
     Reflect,
-    Wall
+    Wall,
+    None
 }
 
 [System.Serializable]
@@ -29,7 +31,7 @@ public class ObjectTileInfo
     public int tileType;
 }
 
-public abstract class ObjectTile : MonoBehaviour
+public abstract class ObjectTile : PoolableMono
 {
     private void Awake()
     {
