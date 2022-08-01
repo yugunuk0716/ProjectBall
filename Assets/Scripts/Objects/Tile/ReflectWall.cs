@@ -12,9 +12,13 @@ public class ReflectWall : ObjectTile
     public Collider2D[] colliders;
     private Collider2D myCol;
 
+    public Sprite[] sprites;
+    private SpriteRenderer sr;
+
     private void Awake()
     {
         myCol = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public override void OnTriggerBall(Ball tb)
@@ -53,12 +57,14 @@ public class ReflectWall : ObjectTile
         if (dataString.Equals("\\"))
         {
             isHorizontalWall = true;
-            myCol = colliders[0];
+            //myCol = colliders[0];
+            sr.sprite = sprites[0];
         }
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            myCol = colliders[1];
+            //myCol = colliders[1];
+            sr.sprite = sprites[1];
         }
     }
 

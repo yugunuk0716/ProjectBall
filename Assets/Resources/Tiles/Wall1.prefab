@@ -134,3 +134,6 @@ MonoBehaviour:
   colliders:
   - {fileID: 3443093843078767369}
   - {fileID: 3443093843078767369, guid: bcbb173113f048948aa6ba91152a4e7c, type: 3}
+  sprites:
+  - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
+  - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
