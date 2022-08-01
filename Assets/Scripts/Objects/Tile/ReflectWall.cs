@@ -38,6 +38,20 @@ public class ReflectWall : ObjectTile
         myType = (TileType)mirrorInfo.tileType;
     }
 
+    public override void SetDirection()
+    {
+        base.SetDirection();
+
+        if (dataString.Equals("\\"))
+        {
+            isHorizontalWall = true;
+        }
+        else if (dataString.Equals("/"))
+        {
+            isHorizontalWall = false;
+        }
+    }
+
     public override void Reset()
     {
 

@@ -33,6 +33,11 @@ public class ObjectTileInfo
 
 public abstract class ObjectTile : PoolableMono
 {
+
+    public string dataString;
+    public TileType myType;
+
+
     private void Awake()
     {
         Vector3 myPos = transform.position;
@@ -40,7 +45,6 @@ public abstract class ObjectTile : PoolableMono
         transform.position = myPos;
     }
 
-    public TileType myType;
     //public TileDirection myDirection;
 
     public virtual string ParseTileInfo()
@@ -55,6 +59,14 @@ public abstract class ObjectTile : PoolableMono
 
     public abstract void OnTriggerBall(Ball tb); // 공에 무엇을 해줄까요?
 
+
+    public virtual void SetDirection()
+    {
+        if (dataString.Equals(string.Empty))
+        {
+            return;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

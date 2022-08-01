@@ -128,5 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
+  dataString: 
   myType: 4
-  wallDirection: 1
+  wallDirection: 2
+  dirChangerSprites:
+  - {fileID: 726348105, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
+  - {fileID: 1238000679, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
+  - {fileID: -340315104, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
+  - {fileID: 183236277, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
