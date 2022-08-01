@@ -9,6 +9,14 @@ public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
 
+    public Collider2D[] colliders;
+    private Collider2D myCol;
+
+    private void Awake()
+    {
+        myCol = GetComponent<Collider2D>();
+    }
+
     public override void OnTriggerBall(Ball tb)
     {
         Debug.Log("½ÇÇà");
@@ -45,12 +53,12 @@ public class ReflectWall : ObjectTile
         if (dataString.Equals("\\"))
         {
             isHorizontalWall = true;
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            myCol = colliders[0];
         }
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            myCol = colliders[1];
         }
     }
 

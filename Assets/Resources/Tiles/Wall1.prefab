@@ -131,3 +131,6 @@ MonoBehaviour:
   dataString: 
   myType: 5
   isHorizontalWall: 1
+  colliders:
+  - {fileID: 3443093843078767369}
+  - {fileID: 3443093843078767369, guid: bcbb173113f048948aa6ba91152a4e7c, type: 3}
