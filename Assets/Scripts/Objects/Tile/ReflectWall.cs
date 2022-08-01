@@ -50,7 +50,7 @@ public class ReflectWall : ObjectTile
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         }
     }
 
