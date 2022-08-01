@@ -36,7 +36,10 @@ public class ShooterTile : MonoBehaviour
 
         anim.SetBool("isClick", true);
 
-        Ball ball = PoolManager.Instance.Pop("Ball") as Ball;
+        Ball ball = PoolManager.Instance.Pop("Balls/Ball") as Ball;
+
+        Ball copyBall = IsometricManager.Instance.GetManager<GameManager>().myBallList[0]; // 카피 대상
+        ball.Init(copyBall.shootDir, copyBall.collisionTileType, copyBall.ballState);
         ball.transform.position = transform.position;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 마우스 위치 받고

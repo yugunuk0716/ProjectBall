@@ -38,6 +38,7 @@ public class Ball : PoolableMono
 
     public TileType collisionTileType;
     public BallState ballState;
+    public TileDirection shootDir;
 
     private void Awake()
     {
@@ -45,7 +46,6 @@ public class Ball : PoolableMono
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         tpCool = 0.1f;
-
     }
 
     private void OnEnable()
@@ -61,6 +61,13 @@ public class Ball : PoolableMono
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f + 1.7f;
         transform.position = myPos;
+    }
+
+    public void Init(TileDirection dir, TileType targetTileType, BallState ballState)
+    {
+        this.shootDir = dir;
+        this.collisionTileType = targetTileType;
+        this.ballState = ballState;
     }
 
     public void Move(Vector2 dir, float power = 5f)
