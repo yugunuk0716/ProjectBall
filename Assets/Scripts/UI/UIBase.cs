@@ -6,11 +6,8 @@ using TMPro;
 public abstract class UIBase : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-
-    private void Awake()
-    {
-        canvasGroup = gameObject.GetComponent<CanvasGroup>();
-    }
+    
+    protected void GetCanvasGroup() => canvasGroup = gameObject.GetComponent<CanvasGroup>();
 
     public void ScreenOn(bool on)
     {

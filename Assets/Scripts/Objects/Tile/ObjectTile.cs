@@ -12,7 +12,7 @@ public enum TileType
     DirectionChanger,
     Reflect,
     Wall,
-    None
+    None,
 }
 
 [System.Serializable]

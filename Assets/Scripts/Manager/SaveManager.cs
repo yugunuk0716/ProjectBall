@@ -58,6 +58,7 @@ public class SaveManager : MonoBehaviour
 
             if (datas[i].type.Equals(TileType.None))
             {
+
             }
             else
             {

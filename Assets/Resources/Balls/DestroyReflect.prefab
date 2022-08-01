@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5550844566456813310}
   - component: {fileID: 5570874290820779866}
   m_Layer: 0
-  m_Name: Ball
+  m_Name: DestroyReflect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,8 +58,9 @@ MonoBehaviour:
   afLastTime: 0
   curActiveTime: 0
   maxActiveTime: 15
-  collisionTileType: 1
-  ballState: 2
+  collisionTileType: 5
+  ballState: 1
+  shootDir: 0
 --- !u!50 &5550844566456813310
 Rigidbody2D:
   serializedVersion: 4

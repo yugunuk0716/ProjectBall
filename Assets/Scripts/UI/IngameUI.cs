@@ -15,12 +15,15 @@ public class IngameUI : UIBase
     public Button moveStageBtn;
 
     public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
-    [SerializeField] GameObject ballControllUIPrefab;    
-    
-    
+    [SerializeField] GameObject ballControllUIPrefab;
+
+    public SelectDirectionUI selectDirectionUI;
 
     public override void Init()
     {
+        GetCanvasGroup();
+        selectDirectionUI.Init();
+        
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
@@ -29,6 +32,8 @@ public class IngameUI : UIBase
         sm.FadeDebugText += () => FadeDebugText();
         sm.InitBallControllUIs += (Ball[] balls) =>
         {
+            gm.maxBallCount = balls.Length;
+
             for(int i = 0; i < parentTrms.Length; i++) parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
 
             for(int i = 0; i< balls.Length; i++)
@@ -44,11 +49,14 @@ public class IngameUI : UIBase
                     {
                         newBallControllUI.transform.SetParent(parentTrms[0]);
                         gm.myBallList.Remove(ball);
+                        gm.ballUIList.Remove(newBallControllUI);
                     }
                     else // 추가 하려는
                     {
                         newBallControllUI.transform.SetParent(parentTrms[1]);
-                        gm.myBallList.Add(ball);
+                        gm.ballUIList.Add(newBallControllUI);
+                        selectDirectionUI.addBall = ball;
+                        selectDirectionUI.ScreenOn(true);
                     }
 
                     isAdded = !isAdded;

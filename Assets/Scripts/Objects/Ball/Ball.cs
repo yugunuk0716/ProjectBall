@@ -63,13 +63,6 @@ public class Ball : PoolableMono
         transform.position = myPos;
     }
 
-    public void Init(TileDirection dir, TileType targetTileType, BallState ballState)
-    {
-        this.shootDir = dir;
-        this.collisionTileType = targetTileType;
-        this.ballState = ballState;
-    }
-
     public void Move(Vector2 dir, float power = 5f)
     {
         sr.flipX = dir.x > 0 || dir.y > 0;

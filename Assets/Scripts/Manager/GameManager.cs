@@ -10,7 +10,9 @@ public class GameManager : ManagerBase
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<Ball> myBallList = new List<Ball>();
+    public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
 
+    [HideInInspector] public int maxBallCount;
 
     public float limitTime = 2f;
     public float firstTime = 0f;
@@ -46,8 +48,19 @@ public class GameManager : ManagerBase
         tile = Resources.Load<ObjectTile>("Tiles/Wall1");
         PoolManager.Instance.CreatePool(tile, "Reflect", 10);
 
-        Ball ball = Resources.Load<Ball>("Ball");
-        PoolManager.Instance.CreatePool(ball, null, 25);
+        Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
+        PoolManager.Instance.CreatePool(ball, null, 5);
+
+        for (int i = 0; i < Enum.GetNames(typeof(TileType)).Length - 1; i++) // None은 취급안하려구
+        {
+            ball = Resources.Load<Ball>($"Balls/Destroy{(TileType)i}");
+            if(ball != null)
+                PoolManager.Instance.CreatePool(ball, null, 5);
+
+                ball = Resources.Load<Ball>($"Balls/Ignore{(TileType)i}");
+            if (ball != null)
+                PoolManager.Instance.CreatePool(ball, null, 5);
+        }
     }
 
     public void ResetGameData()
