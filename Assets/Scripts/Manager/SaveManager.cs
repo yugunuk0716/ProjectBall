@@ -15,6 +15,9 @@ public class SaveManager : MonoBehaviour
 
     const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv&gid=80333382&range=";
 
+    private string lastString = string.Empty;
+
+
     public void SaveMap()
     {
         BoundsInt bounds = mainMap.cellBounds;
@@ -112,16 +115,21 @@ public class SaveManager : MonoBehaviour
                     }
                     else
                     {
-                        GameObject a = PoolManager.Instance.Pop(type.ToString()).gameObject;
-
+                        ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
+                        //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
+                        a.dataString = lastString;
+                        a.SetDirection();
                         a.transform.position = mainMap.CellToWorld(
                             new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.transform.parent = mainMap.transform;
-                        a.SetActive(true);
+                        a.gameObject.SetActive(true);
                     }
                     yield return null;
                 }
             }
+
+            IsometricManager.Instance.GetManager<GameManager>().portalList.ForEach(p => p.FindPair());
+
         }
     }
 
@@ -131,7 +139,7 @@ public class SaveManager : MonoBehaviour
         data = data.ToUpper().Trim();
 
         TileColors color;
-
+        lastString = data;
         switch (data)
         {
             case "D":

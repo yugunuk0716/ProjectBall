@@ -44,6 +44,17 @@ public class Teleporter : ObjectTile
             }
         }
     }
+
+    public override void SetDirection()
+    {
+        base.SetDirection();
+
+        if (dataString.Contains("TP"))
+        {
+            IsometricManager.Instance.GetManager<GameManager>().portalList.Add(this);
+        }
+    }
+
     public override void Reset()
     {
 

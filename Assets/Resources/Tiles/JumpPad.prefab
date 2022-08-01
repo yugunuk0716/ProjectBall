@@ -196,4 +196,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
+  dataString: 
   myType: 0

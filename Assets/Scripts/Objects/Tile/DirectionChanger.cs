@@ -13,6 +13,17 @@ public class DirectionChanger : ObjectTile
 {
     public TileDirection wallDirection;
 
+    [SerializeField]
+    private Sprite[] dirChangerSprites;
+
+    private SpriteRenderer sr;
+
+    private void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
+
+
     public override void OnTriggerBall(Ball tb)
     {
         Vector3 vec = Vector3.zero;
@@ -40,6 +51,31 @@ public class DirectionChanger : ObjectTile
     public override string ParseTileInfo()
     {
         return $"{{\\\"tileType\\\":"  + (int)myType + ", \\\"wallDirection\\\":" + (int)wallDirection + "}";
+    }
+
+    public override void SetDirection()
+    {
+        base.SetDirection();
+
+        switch (dataString)
+        {
+            case "กๆ":
+                sr.sprite = dirChangerSprites[0];
+                wallDirection = TileDirection.RIGHTUP;
+                break;
+            case "ก็":
+                sr.sprite = dirChangerSprites[1];
+                wallDirection = TileDirection.LEFTDOWN;
+                break;
+            case "ก่":
+                sr.sprite = dirChangerSprites[2];
+                wallDirection = TileDirection.LEFTUP;
+                break;
+            case "ก้":
+                sr.sprite = dirChangerSprites[3];
+                wallDirection = TileDirection.RIGHTDOWN;
+                break;
+        }
     }
 
     public override void Reset()

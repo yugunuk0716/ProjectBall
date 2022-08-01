@@ -9,6 +9,18 @@ public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
 
+    public Collider2D[] colliders;
+    private Collider2D myCol;
+
+    public Sprite[] sprites;
+    private SpriteRenderer sr;
+
+    private void Awake()
+    {
+        myCol = GetComponent<Collider2D>();
+        sr = GetComponent<SpriteRenderer>();
+    }
+
     public override void OnTriggerBall(Ball tb)
     {
         Debug.Log("½ÇÇà");
@@ -36,6 +48,24 @@ public class ReflectWall : ObjectTile
         base.SettingTile(info);
         ObjectTileInfo mirrorInfo = JsonUtility.FromJson<ObjectTileInfo>(info);
         myType = (TileType)mirrorInfo.tileType;
+    }
+
+    public override void SetDirection()
+    {
+        base.SetDirection();
+
+        if (dataString.Equals("\\"))
+        {
+            isHorizontalWall = true;
+            //myCol = colliders[0];
+            sr.sprite = sprites[0];
+        }
+        else if (dataString.Equals("/"))
+        {
+            isHorizontalWall = false;
+            //myCol = colliders[1];
+            sr.sprite = sprites[1];
+        }
     }
 
     public override void Reset()
