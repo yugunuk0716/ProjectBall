@@ -8,9 +8,9 @@ using System.Linq;
 
 public class SaveManager : MonoBehaviour
 {
-    [SerializeField,Header("ÇØ´ç Å¸ÀÏ¸Ê")] private Tilemap mainMap;
-    [SerializeField, Header("½ºÇÁ·¹µå½ÃÆ® ¹üÀ§")] private string range;
-    [SerializeField, Header("Json µ¥ÀÌÅÍ")] private List<LevelData> datas = new List<LevelData>();
+    [SerializeField,Header("í•´ë‹¹ íƒ€ì¼ë§µ")] private Tilemap mainMap;
+    [SerializeField, Header("ìŠ¤í”„ë ˆë“œì‹œíŠ¸ ë²”ìœ„")] private string range;
+    [SerializeField, Header("Json ë°ì´í„°")] private List<LevelData> datas = new List<LevelData>();
     
 
     const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv&gid=80333382&range=";
@@ -116,7 +116,7 @@ public class SaveManager : MonoBehaviour
                     else
                     {
                         ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
-                        //½ºÇÁ¶óÀÌÆ® °¥¾Æ³¢°í ¾Æ·¡ º¯¼öµé ´Ù ¼³Á¤ÇØÁà¾ß´ï
+                        //ìŠ¤í”„ë¼ì´íŠ¸ ê°ˆì•„ë¼ê³  ì•„ë˜ ë³€ìˆ˜ë“¤ ë‹¤ ì„¤ì •í•´ì¤˜ì•¼ëŒ
                         a.dataString = lastString;
                         a.SetDirection();
                         a.transform.position = mainMap.CellToWorld(
@@ -155,10 +155,10 @@ public class SaveManager : MonoBehaviour
                 color = TileColors.Red;
                 break;
 
-            case "¡æ":
-            case "¡ç":
-            case "¡è":
-            case "¡é":
+            case "â†’":
+            case "â†":
+            case "â†‘":
+            case "â†“":
                 color = TileColors.Blue;
                 break;
 

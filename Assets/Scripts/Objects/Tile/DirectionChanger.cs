@@ -59,19 +59,19 @@ public class DirectionChanger : ObjectTile
 
         switch (dataString)
         {
-            case "°Ê":
+            case "‚Üí":
                 sr.sprite = dirChangerSprites[0];
                 wallDirection = TileDirection.RIGHTUP;
                 break;
-            case "°Á":
+            case "‚Üê":
                 sr.sprite = dirChangerSprites[1];
                 wallDirection = TileDirection.LEFTDOWN;
                 break;
-            case "°Ë":
+            case "‚Üë":
                 sr.sprite = dirChangerSprites[2];
                 wallDirection = TileDirection.LEFTUP;
                 break;
-            case "°È":
+            case "‚Üì":
                 sr.sprite = dirChangerSprites[3];
                 wallDirection = TileDirection.RIGHTDOWN;
                 break;
