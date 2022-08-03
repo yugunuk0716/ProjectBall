@@ -24,6 +24,7 @@ public class IsometricManager : MonoBehaviour
 
         managers.Add(gameObject.AddComponent<GameManager>());
         managers.Add(gameObject.AddComponent<StageManager>());
+        managers.Add(gameObject.AddComponent<SaveManager>());
 
 
         UpdateState(eUpdateState.Init);

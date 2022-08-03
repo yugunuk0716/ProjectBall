@@ -23,7 +23,8 @@ public class SaveManagerCustomGUI : Editor
 
         if (GUILayout.Button("Load Map From Spreadsheets"))
         {
-            script.LoadMapSpreadsheets();
+            Debug.Log("오류로 인한 막아둠");
+            //script.LoadMapSpreadsheets();
         }
     }
 }

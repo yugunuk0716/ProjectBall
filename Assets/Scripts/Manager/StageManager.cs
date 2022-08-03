@@ -15,8 +15,6 @@ public class StageManager : ManagerBase
     public Action FadeDebugText;
     public Action<Ball[]> InitBallControllUIs;
 
-    private GameObject beforeStageObj = null;
-
     public override void Init()
     {
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
@@ -34,32 +32,38 @@ public class StageManager : ManagerBase
         PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
-    public void LoadStage()
+    public void LoadStage(string mapRange)
     {
-        if (stageObjList.Count >= stageIndex && stageIndex > 0)
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
+        if (gm.mapRangeStrArray.Length >= stageIndex && stageIndex > 0)
         {
-            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+            SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+            sm.range = mapRange;
+            sm.LoadMapSpreadsheets(() =>
+            {
+                gm.ballUIList.Clear();
+                gm.myBallList.Clear();
 
-            GameObject stageObj = stageObjList[stageIndex - 1];
-            beforeStageObj?.SetActive(false); // 플레이하던 스테이지 꺼주고
-            beforeStageObj = stageObj; // 내가 새로 켤 스테이지를 넣어주고 (끄기 위해)
+                gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
+                gm.goalList.ForEach(x => x.ResetFlag());
+                gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
+                gm.portalList.ForEach(portal => portal.FindPair());
 
-            SetDebugText($"Stage {stageIndex} Loaded");
-            stageObj.SetActive(true); // 플레이할 스테이지 켜주기
+                gm.SetTimerText("Ready", Color.black);
+                gm.StopTimer();
+                gm.isFirstBallNotArrived = true;
+                gm.firstTime = 0f;
+                // 대충 여기서 공 데이터 받아와야겠당
+                InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
 
-            gm.goalList = stageObj.GetComponentsInChildren<Goal>().ToList();
-            gm.goalList.ForEach(x => x.ResetFlag());
-            gm.portalList = stageObj.GetComponentsInChildren<Teleporter>().ToList();
-            gm.portalList.ForEach(portal => portal.FindPair());
+            });
 
-            // 대충 여기서 공 데이터 받아와야겠당
-            InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
-
-            StopCoroutine(gm.timerCo); // 타이머 종료
+           
         }
-        else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면
+        else if(gm.mapRangeStrArray.Length < stageIndex) // 12까지 있는데 13불러오려 하면
         {
-            SetDebugText($"{stageObjList.Count} Stage is last");
+            SetDebugText($"{gm.mapRangeStrArray.Length} Stage is last");
         }
         else // 0 이하의 맵 번호 입력시?
         {

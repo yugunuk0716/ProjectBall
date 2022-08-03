@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using System;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager : ManagerBase
 {
-    [SerializeField,Header("해당 타일맵")] private Tilemap mainMap;
-    [SerializeField, Header("스프레드시트 범위")] private string range;
+    [SerializeField,Header("해당 타일맵")] public Tilemap mainMap;
+    [SerializeField, Header("스프레드시트 범위")] public string range;
     [SerializeField, Header("Json 데이터")] private List<LevelData> datas = new List<LevelData>();
     
 
@@ -76,7 +77,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void LoadMapSpreadsheets()
+    public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
         string data;
         StartCoroutine(Getdata());
@@ -128,8 +129,7 @@ public class SaveManager : MonoBehaviour
                 }
             }
 
-            IsometricManager.Instance.GetManager<GameManager>().portalList.ForEach(p => p.FindPair());
-
+            callback();
         }
     }
 
@@ -233,6 +233,21 @@ public class SaveManager : MonoBehaviour
             }
         }
 
+    }
+
+    public override void Init()
+    {
+        mainMap = GameObject.Find("MainMap").GetComponent<Tilemap>();
+    }
+
+    public override void UpdateState(eUpdateState state)
+    {
+        switch (state)
+        {
+            case eUpdateState.Init:
+                Init();
+                break;
+        }
     }
 }
 

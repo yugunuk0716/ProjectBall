@@ -13,6 +13,7 @@ public class GameManager : ManagerBase
     [HideInInspector] public int maxBallCount;
 
     [HideInInspector] public bool isPlayStarted = false;
+    public bool isFirstBallNotArrived = true;
 
     public float limitTime = 2f;
     public float firstTime = 0f;
@@ -21,11 +22,37 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     [HideInInspector] public IEnumerator timerCo;
 
+    public string[] mapRangeStrArray =
+    {
+        "A10:I18",
+        "L10:T18",
+        "W10:AE18",
+        "AH10:AP18",
+
+        "A21:I29",
+        "L21:T29",
+        "W21:AE29",
+        "AH21:AP29",
+
+        "A33:I41",
+        "L33:T41",
+        "W33:AE41",
+        "AH33:AP41",
+
+        "A44:I52",
+        "L44:T52",
+        "W44:AE52",
+        "AH44:AP52",
+        "A55:I63",
+        "L55:T63",
+        "W55:AE63",
+        "AH55:AP63",
+    };
+
 
     public override void Init()
     {
         realTime = 0;
-
         timerCo = Timer();
 
 
@@ -62,29 +89,30 @@ public class GameManager : ManagerBase
         }
     }
 
+
     public void CheckClear()
     {
-        if (firstTime == 0f)
+        if (firstTime == 0f && isFirstBallNotArrived)
         {
+            isFirstBallNotArrived = false;
             firstTime = Time.time;
             StartCoroutine(timerCo);
-            SetTimerText("Ready", Color.red);
         }
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
-        if (list.Count <= 0 && firstTime + limitTime >= Time.time)
+        if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
+            StopCoroutine(timerCo);
+
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             sm.stageIndex++;
-            sm.LoadStage();
             sm.ClearAllBalls();
             firstTime = 0f;
             realTime = 0f;
-            StopCoroutine(timerCo);
             SetTimerText("Clear", Color.green);
+            sm.LoadStage(mapRangeStrArray[sm.stageIndex]);
         }
-
     }
 
     public IEnumerator Timer()
@@ -101,16 +129,20 @@ public class GameManager : ManagerBase
                 }
                 firstTime = 0f;
                 realTime = 0f;
-                StopCoroutine(timerCo);
+                SetTimerText("Failed", Color.red);
+                yield return new WaitForSeconds(1f);
+                SetTimerText("Press the 'Load' to Play", Color.white);
 
-                SetTimerText("Reset", Color.red);
-                yield return new WaitForSeconds(0.2f);
-                SetTimerText("Ready", Color.white);
+                break;
             }
             SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.black);
         }
     }
 
+    public void StopTimer()
+    {
+         StopCoroutine(timerCo);
+    }
     public override void UpdateState(eUpdateState state)
     {
         switch (state)

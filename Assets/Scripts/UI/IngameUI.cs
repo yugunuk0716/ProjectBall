@@ -75,12 +75,12 @@ public class IngameUI : UIBase
 
         moveStageBtn.onClick.AddListener(() =>
         {
-            sm.LoadStage();
+            sm.LoadStage(gm.mapRangeStrArray[sm.stageIndex]);
             sm.ClearAllBalls();
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }
-
+    
 
 
     public void SetTimerText(string textString, Color? color = null)
