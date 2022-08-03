@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Linq;
-using DG.Tweening;
 using System;
 
 public class StageManager : ManagerBase
@@ -31,15 +28,6 @@ public class StageManager : ManagerBase
             stageObjList[i] = Instantiate(stageObjList[i], gridObj);
             stageObjList[i].gameObject.SetActive(false);
         }
-
-        //foreach ( var tile in objectTileList)
-        //{
-        //    PoolManager.Instance.CreatePool(tile);
-        //
-        //    dicPrefabs.Add(tile.myType, tile);
-        //}
-
-        //SetStage();
     }
 
     public void ClearAllBalls()
@@ -65,16 +53,15 @@ public class StageManager : ManagerBase
             gm.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
             gm.portalList.ForEach(portal => portal.FindPair());
 
-            // ¥Î√Ê ø©±‚º≠ ∞¯ µ•¿Ã≈Õ πﬁæ∆øÕæﬂ∞⁄¥Á
+            // ÎåÄÏ∂© Ïó¨Í∏∞ÏÑú Í≥µ Îç∞Ïù¥ÌÑ∞ Î∞õÏïÑÏôÄÏïºÍ≤†Îãπ
             InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
 
-            gm.ResetGameData();
         }
-        else if(stageObjList.Count < stageIndex) // 12±Ó¡ˆ ¿÷¥¬µ• 13∫“∑Øø¿∑¡ «œ∏È
+        else if(stageObjList.Count < stageIndex) // 12ÍπåÏßÄ ÏûàÎäîÎç∞ 13Î∂àÎü¨Ïò§Î†§ ÌïòÎ©¥
         {
             SetDebugText($"{stageObjList.Count} Stage is last");
         }
-        else // 0 ¿Ã«œ¿« ∏  π¯»£ ¿‘∑¬Ω√?
+        else // 0 Ïù¥ÌïòÏùò Îßµ Î≤àÌò∏ ÏûÖÎ†•Ïãú?
         {
             SetDebugText("Please enter over zero!");
         }
@@ -85,41 +72,6 @@ public class StageManager : ManagerBase
     public void SetStageIndex(string stageIndexStr)
     {
         int.TryParse(stageIndexStr, out stageIndex);
-    }
-
-    public void SetStage()
-    {
-        //stageIndex∏¶ ∞°¡ˆ∞Ì «ÿ¥Á«œ¥¬ ∆ƒ¿œ¿« µ•¿Ã≈Õ∏¶ ∫“∑ØøÕ ∏  ª˝º∫«œ¥¬ ±◊∑± ≥‡ºÆ¿ª ∏∏µÈæÓ ∫º≤®ø°ø‰
-
-
-    }
-
-    public Quaternion GetTileRotation(TileDirection direction)
-    {
-        Quaternion quaternion = Quaternion.identity;
-
-        // ±Ÿµ• ¿Ã∞≈ æ≤∑¡∏È up -> left -> Down -> right º¯¿∏∑Œ πŸ≤„¡‡æﬂ «ÿøÎ
-        //quaternion = Quaternion.Euler(0, 90 * (int)direction - 90, 0); 
-
-        /*
-        switch (direction)
-        {
-            case TileDirection.UP:
-                quaternion = Quaternion.Euler(0, 0, 0);
-                break;
-            case TileDirection.LEFT:
-                quaternion = Quaternion.Euler(0, 90, 0);
-                break;
-            case TileDirection.DOWN:
-                quaternion = Quaternion.Euler(0, 180, 0);
-                break;
-            case TileDirection.RIGHT:
-                quaternion = Quaternion.Euler(0, 270, 0);
-                break;
-        }
-        */
-
-        return quaternion;
     }
 
     public override void UpdateState(eUpdateState state)

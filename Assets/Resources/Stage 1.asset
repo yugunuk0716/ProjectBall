@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballCount: 4
   balls:
-  - {fileID: 5550844566456813297, guid: 01007f3fbbac783428912bbf1254a93b, type: 3}
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
-  - {fileID: 5550844566456813297, guid: 4f30ce7f63fe00c408730d826134379e, type: 3}
-  - {fileID: 5550844566456813297, guid: 6cd8561bafbb71e4fab4a12310e409f2, type: 3}
+  - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
+  - {fileID: 5550844566456813297, guid: c2e19da15a94fd04492ee3b957ed5283, type: 3}
+  - {fileID: 5550844566456813297, guid: 075016d3e268fd642b19aa59f93d6edb, type: 3}
   countDown: 1
   shooterDirections: -1
   jsonString: 

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class ShooterTile : MonoBehaviour
 {
-    public int maxAmmoCount = 10;
-    public int curAmmoCount = 0;
-
     private Animator anim;
 
     private void Awake()
@@ -26,15 +23,13 @@ public class ShooterTile : MonoBehaviour
 
     public void Shoot()
     {
-        if (maxAmmoCount <= curAmmoCount) return;
-
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        if (gm.myBallList.Count < gm.maxBallCount) return;
+        if (gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count) return;
 
-        gm.maxBallCount--; // «œ≥™ ΩÓ∏È ¿Ã¡¶ «œ≥™ ¡Ÿø©¡‡æﬂ ¥Ÿ¿Ω ∞¯¿ª ¥¯¡ÆøÎ
-        GameObject ballControllUI = gm.ballUIList[0];
-        gm.ballUIList.Remove(ballControllUI);
-        Destroy(ballControllUI);
+        if(false == gm.isPlayStarted)
+        {
+            gm.ballUIList.ForEach((x) => x.GetComponent<Button>().interactable = false);
+        }
 
         if (anim.GetBool("isClick"))
         {
@@ -43,38 +38,32 @@ public class ShooterTile : MonoBehaviour
 
         anim.SetBool("isClick", true);
 
-        try
+        Ball copyBall = IsometricManager.Instance.GetManager<GameManager>().myBallList[0]; // Ïã§Ï†ú Îç∞Ïù¥ÌÑ∞Îäî ÏñòÎßå Í∞ÄÏßê.
+        Ball ball = null;
+        if (copyBall.ballState != BallState.None)
         {
-            Ball copyBall = IsometricManager.Instance.GetManager<GameManager>().myBallList[0]; // Ω«¡¶ µ•¿Ã≈Õ¥¬ æÍ∏∏ ∞°¡¸.
-            Ball ball = null;
-            if (copyBall.ballState != BallState.None)
-            {
-                ball = PoolManager.Instance.Pop($"{copyBall.ballState}{copyBall.collisionTileType}") as Ball;
-            }
-            else
-            {
-                ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-            }
-
-            ball.transform.position = transform.position;
-            Vector2 shootDir = GetIsoDir(copyBall.shootDir);
-            Debug.Log("copy" + copyBall.shootDir);
-            anim.SetFloat("MouseX", shootDir.x);
-            anim.SetFloat("MouseY", shootDir.y);
-
-            ball.Move(shootDir, 3.5f);
-
-            curAmmoCount++;
-
-            gm.myBallList.RemoveAt(0);
+            ball = PoolManager.Instance.Pop($"{copyBall.ballState}{copyBall.collisionTileType}") as Ball;
         }
-        catch
+        else
         {
-            Debug.Log("≈◊Ω∫∆ÆøÎ¿∏∑Œ ¿Œµ¶Ω∫ ø°∑Ø∏¶ π´Ω√«’¥œ¥Ÿ.");
+            ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
         }
+
+        ball.transform.position = transform.position;
+        Vector2 shootDir = GetIsoDir(copyBall.shootDir);
+        anim.SetFloat("MouseX", shootDir.x);
+        anim.SetFloat("MouseY", shootDir.y);
+
+        ball.Move(shootDir, 3.5f);
+
+        gm.myBallList.RemoveAt(0);
+        gm.maxBallCount--; // ÌïòÎÇò ÏèòÎ©¥ Ïù¥Ï†ú ÌïòÎÇò Ï§ÑÏó¨Ï§òÏïº Îã§Ïùå Í≥µÏùÑ ÎçòÏ†∏Ïö©
+        GameObject ballControllUI = gm.ballUIList[0];
+        gm.ballUIList.Remove(ballControllUI);
+        Destroy(ballControllUI);
     }
 
-    Vector2 GetIsoDir(TileDirection dir) // µÓ∞¢≈ı«¸ø° ∞…∏¬¥¬ ∫§≈Õ∑Œ..
+    Vector2 GetIsoDir(TileDirection dir) // Îì±Í∞ÅÌà¨ÌòïÏóê Í±∏ÎßûÎäî Î≤°ÌÑ∞Î°ú..
     {
         Vector2 vec = Vector2.zero;
         switch(dir)

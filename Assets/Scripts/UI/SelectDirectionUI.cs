@@ -6,22 +6,25 @@ using UnityEngine.UI;
 public class SelectDirectionUI : MonoBehaviour
 {
     CanvasGroup canvasGroup;
-    [HideInInspector] public Ball addBall; // Ãß°¡ÇÒ °ø.. ¿©±â¼­ °¡Áö°í ÀÖÀ¸¸é ³¯¸ÔÀÌ °¡´ÉÇØ¿©
+    public Ball addBall; // ì¶”ê°€í•  ê³µ.. ì—¬ê¸°ì„œ ê°€ì§€ê³  ìˆìœ¼ë©´ ë‚ ë¨¹ì´ ê°€ëŠ¥í•´ì—¬
 
     public void Init()
     {
         canvasGroup = GetComponent<CanvasGroup>(); 
         Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
 
-        for (int i = 0; i< selectDirectionBtns.Length; i++) // 0¹øÀº Nothing µé¾î°©´Ï´Ù.
+        for (int i = 0; i< selectDirectionBtns.Length; i++) // 0ë²ˆì€ Nothing ë“¤ì–´ê°‘ë‹ˆë‹¤.
         {
             int index = 1;
+
             for (int j = 0; j < i; j++)
                 index <<= 1;
 
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
+                Debug.Log($"{index} : {(TileDirection)(index)}");
                 addBall.shootDir = (TileDirection)(index);
+                Debug.Log($"addBall ë°©í–¥ ì„¸íŒ…, {(TileDirection)(index)}");
                 IsometricManager.Instance.GetManager<GameManager>().myBallList.Add(addBall);
                 ScreenOn(false);
             });

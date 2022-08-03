@@ -1,18 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class GameManager : ManagerBase
 {
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<Ball> myBallList = new List<Ball>();
-    public List<GameObject> ballUIList = new List<GameObject>(); // »èÁ¦½ÃÅ³ UI ¸®½ºÆ®?
+    public List<GameObject> ballUIList = new List<GameObject>(); // ì‚­ì œì‹œí‚¬ UI ë¦¬ìŠ¤íŠ¸?
 
     [HideInInspector] public int maxBallCount;
+
+    [HideInInspector] public bool isPlayStarted = false;
 
     public float limitTime = 2f;
     public float firstTime = 0f;
@@ -51,7 +51,7 @@ public class GameManager : ManagerBase
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
 
-        for (int i = 0; i < Enum.GetNames(typeof(TileType)).Length - 1; i++) // NoneÀº Ãë±Þ¾ÈÇÏ·Á±¸
+        for (int i = 0; i < Enum.GetNames(typeof(TileType)).Length - 1; i++) // Noneì€ ì·¨ê¸‰ì•ˆí•˜ë ¤êµ¬
         {
             ball = Resources.Load<Ball>($"Balls/Destroy{(TileType)i}");
             if(ball != null)
@@ -61,11 +61,6 @@ public class GameManager : ManagerBase
             if (ball != null)
                 PoolManager.Instance.CreatePool(ball, null, 5);
         }
-    }
-
-    public void ResetGameData()
-    {
-        shooter.curAmmoCount = 0;
     }
 
     public void CheckClear()

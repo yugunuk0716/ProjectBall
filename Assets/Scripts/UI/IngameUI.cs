@@ -14,7 +14,7 @@ public class IngameUI : UIBase
     public TextMeshProUGUI timer_text;
     public Button moveStageBtn;
 
-    public Transform[] parentTrms; // 0 Àº »ı¼º À§Ä¡, 1Àº Ãß°¡ÇÏ¸é ÀÌµ¿ÇÒ À§Ä¡
+    public Transform[] parentTrms; // 0 ì€ ìƒì„± ìœ„ì¹˜, 1ì€ ì¶”ê°€í•˜ë©´ ì´ë™í•  ìœ„ì¹˜
     [SerializeField] GameObject ballControllUIPrefab;
 
     public SelectDirectionUI selectDirectionUI;
@@ -38,24 +38,33 @@ public class IngameUI : UIBase
 
             for(int i = 0; i< balls.Length; i++)
             {
-                Ball ball = balls[i];
+                Ball ball = null;
+                if (balls[i].ballState != BallState.None)
+                {
+                    ball = PoolManager.Instance.Pop($"{balls[i].ballState}{balls[i].collisionTileType}") as Ball;
+                }
+                else
+                {
+                    ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+                }
 
                 GameObject newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
                 bool isAdded = false;
 
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    if(isAdded) // ´Ù½Ã µ¹¾Æ¿À·Á´Â
+                    if(isAdded) // ë‹¤ì‹œ ëŒì•„ì˜¤ë ¤ëŠ”
                     {
                         newBallControllUI.transform.SetParent(parentTrms[0]);
                         gm.myBallList.Remove(ball);
                         gm.ballUIList.Remove(newBallControllUI);
                     }
-                    else // Ãß°¡ ÇÏ·Á´Â
+                    else // ì¶”ê°€ í•˜ë ¤ëŠ”
                     {
                         newBallControllUI.transform.SetParent(parentTrms[1]);
                         gm.ballUIList.Add(newBallControllUI);
                         selectDirectionUI.addBall = ball;
+                        Debug.Log($"addBallì„¸íŒ…, {ball.name}");
                         selectDirectionUI.ScreenOn(true);
                     }
 
