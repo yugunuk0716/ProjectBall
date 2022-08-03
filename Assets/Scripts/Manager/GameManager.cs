@@ -111,7 +111,7 @@ public class GameManager : ManagerBase
             firstTime = 0f;
             realTime = 0f;
             SetTimerText("Clear", Color.green);
-            sm.LoadStage(mapRangeStrArray[sm.stageIndex]);
+            sm.LoadStage(mapRangeStrArray[sm.stageIndex-1]);
         }
     }
 
