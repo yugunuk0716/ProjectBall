@@ -94,7 +94,7 @@ public class IngameUI : UIBase
 
     public void SetDebugText(string textString)
     {
-        timer_text.text = textString;
+        debugText.text = textString;
     }
 
     public void FadeDebugText()

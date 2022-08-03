@@ -18,9 +18,8 @@ public class GameManager : ManagerBase
     public float firstTime = 0f;
     private float realTime;
 
-    public ShooterTile shooter = null;
     public Action<string, Color?> SetTimerText;
-    private IEnumerator timerCo;
+    [HideInInspector] public IEnumerator timerCo;
 
 
     public override void Init()

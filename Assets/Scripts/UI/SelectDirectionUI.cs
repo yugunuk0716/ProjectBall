@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SelectDirectionUI : MonoBehaviour
 {
     CanvasGroup canvasGroup;
-    public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
+    [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
 
     public void Init()
     {

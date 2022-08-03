@@ -8,7 +8,6 @@ public class StageManager : ManagerBase
 {
     public int stageIndex = 1;
     
-    private Dictionary<TileType, ObjectTile> dicPrefabs = new Dictionary<TileType, ObjectTile>();
     public List<ObjectTile> objectTileList = new List<ObjectTile>();
     public List<GameObject> stageObjList = new List<GameObject>();
 
@@ -41,21 +40,22 @@ public class StageManager : ManagerBase
         {
             GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-            beforeStageObj?.SetActive(false);
-            beforeStageObj = stageObjList[stageIndex - 1];
-            gm.shooter = stageObjList[stageIndex - 1].GetComponentInChildren<ShooterTile>();
+            GameObject stageObj = stageObjList[stageIndex - 1];
+            beforeStageObj?.SetActive(false); // 플레이하던 스테이지 꺼주고
+            beforeStageObj = stageObj; // 내가 새로 켤 스테이지를 넣어주고 (끄기 위해)
 
-            SetDebugText($"{stageIndex} Stage Loaded");
-            stageObjList[stageIndex - 1].SetActive(true);
+            SetDebugText($"Stage {stageIndex} Loaded");
+            stageObj.SetActive(true); // 플레이할 스테이지 켜주기
 
-            gm.goalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Goal>().ToList();
+            gm.goalList = stageObj.GetComponentsInChildren<Goal>().ToList();
             gm.goalList.ForEach(x => x.ResetFlag());
-            gm.portalList = stageObjList[stageIndex - 1].GetComponentsInChildren<Teleporter>().ToList();
+            gm.portalList = stageObj.GetComponentsInChildren<Teleporter>().ToList();
             gm.portalList.ForEach(portal => portal.FindPair());
 
             // 대충 여기서 공 데이터 받아와야겠당
             InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
 
+            StopCoroutine(gm.timerCo); // 타이머 종료
         }
         else if(stageObjList.Count < stageIndex) // 12까지 있는데 13불러오려 하면
         {
