@@ -75,7 +75,7 @@ public class IngameUI : UIBase
 
         moveStageBtn.onClick.AddListener(() =>
         {
-            sm.LoadStage(gm.mapRangeStrArray[sm.stageIndex]);
+            sm.LoadStage(gm.mapRangeStrArray[sm.stageIndex - 1]);
             sm.ClearAllBalls();
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);

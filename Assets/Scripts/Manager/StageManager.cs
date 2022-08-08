@@ -46,7 +46,7 @@ public class StageManager : ManagerBase
                 gm.myBallList.Clear();
 
                 gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
-                gm.goalList.ForEach(x => x.ResetFlag());
+                gm.goalList.ForEach(x => x.ResetFlag(false));
                 gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
                 gm.portalList.ForEach(portal => portal.FindPair());
 

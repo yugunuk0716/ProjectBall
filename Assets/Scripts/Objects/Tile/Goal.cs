@@ -24,27 +24,27 @@ public class Goal : ObjectTile
         myType = (TileType)goalInfo.tileType;
     }
 
-    public void ResetFlag()
+    public void ResetFlag(bool isClear)
     {
-        //sr.sprite = mySprite;
-        isChecked = false;
-        animator.SetBool("isClear", false);
+        isChecked = isClear;
+        animator.SetBool("isClear", isClear);
     }
 
     public override void OnTriggerBall(Ball tb)
     {
         if (isChecked)
+        {
             return;
+        }
 
         tb.rigid.velocity = Vector3.zero;
         tb.gameObject.SetActive(false);
-        //sr.sprite = changeSprite;
-        isChecked = true;
-        animator.SetBool("isClear", true);
+        ResetFlag(true);
         IsometricManager.Instance.GetManager<GameManager>().CheckClear();
     }
+
     public override void Reset()
     {
-
+        ResetFlag(false);
     }
 }
