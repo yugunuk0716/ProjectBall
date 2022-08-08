@@ -11,8 +11,17 @@ public class TeleporterInfo : ObjectTileInfo
 
 public class Teleporter : ObjectTile
 {
+    [SerializeField]
+    private readonly Sprite[] mySprite;
+    private SpriteRenderer sr;
+
     public int portalIndex;
     public Teleporter pairTeleporter;
+
+    private void Awake()
+    {
+        sr = GetComponentInChildren<SpriteRenderer>();
+    }
 
     public override string ParseTileInfo()
     {
@@ -39,6 +48,15 @@ public class Teleporter : ObjectTile
             {
                 if (tp.portalIndex == portalIndex && tp != this)
                 {
+                    if(mySprite != null)
+                    {
+                        sr.sprite = mySprite[portalIndex];
+                        tp.sr.sprite = mySprite[portalIndex];
+                    }
+                    else
+                    {
+                        Debug.LogError("스프라이트 배열이 비었어 병싄아");
+                    }
                     pairTeleporter = tp;
                 }
             }
