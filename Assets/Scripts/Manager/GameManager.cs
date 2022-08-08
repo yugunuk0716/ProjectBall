@@ -74,6 +74,9 @@ public class GameManager : ManagerBase
         tile = Resources.Load<ObjectTile>("Tiles/Wall1");
         PoolManager.Instance.CreatePool(tile, "Reflect", 10);
 
+        tile = Resources.Load<ObjectTile>("Tiles/None");
+        PoolManager.Instance.CreatePool(tile, "None", 10);
+
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
 

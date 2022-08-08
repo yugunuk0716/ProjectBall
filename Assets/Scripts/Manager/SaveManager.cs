@@ -18,6 +18,8 @@ public class SaveManager : ManagerBase
 
     private string lastString = string.Empty;
 
+    public Dictionary<Vector2, Vector2> TileInfos = new Dictionary<Vector2, Vector2>();
+
 
     public void SaveMap()
     {
@@ -113,6 +115,7 @@ public class SaveManager : ManagerBase
 
                     if (type.Equals(TileType.None))
                     {
+                        ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
                     }
                     else
                     {
@@ -125,6 +128,9 @@ public class SaveManager : ManagerBase
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
                     }
+                    Vector2 worldPoint = mainMap.CellToWorld(pos);
+                    TileInfos.Add(new Vector2(pos.x,pos.y),new Vector2(worldPoint.x, worldPoint.y + 0.25f));
+                    Debug.Log(TileInfos[new Vector2(pos.x, pos.y)]);
                     yield return null;
                 }
             }
