@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5719220033854615490}
-  - component: {fileID: 3443093843078767369}
   - component: {fileID: -1582976513927258022}
   m_Layer: 0
   m_Name: Arrow3
@@ -34,36 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &3443093843078767369
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.008201111, y: 0.21050058}
-      - {x: -0.3538718, y: 0.053921506}
-      - {x: -0.09964786, y: -0.15000002}
-      - {x: 0.2654519, y: -0.14338224}
-      - {x: 0.31643188, y: 0.047451362}
 --- !u!114 &-1582976513927258022
 MonoBehaviour:
   m_ObjectHideFlags: 0

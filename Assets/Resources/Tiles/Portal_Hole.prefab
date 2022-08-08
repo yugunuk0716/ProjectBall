@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
-  - component: {fileID: 3443093843078767369}
   - component: {fileID: 6158795722642010255}
   m_Layer: 0
   m_Name: Portal_Hole
@@ -87,38 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &3443093843078767369
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.08908081, y: 0.065132484}
-      - {x: -0.12847097, y: 0.18829754}
-      - {x: -0.39532614, y: 0.08469489}
-      - {x: -0.20237502, y: -0.09539547}
-      - {x: -0.001992181, y: -0.14153314}
-      - {x: 0.16469711, y: -0.07912513}
-      - {x: 0.15513447, y: -0.017326914}
 --- !u!114 &6158795722642010255
 MonoBehaviour:
   m_ObjectHideFlags: 0

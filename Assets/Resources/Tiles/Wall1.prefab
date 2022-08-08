@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
-  - component: {fileID: 3443093843078767369}
   - component: {fileID: 2714020699549678644}
   m_Layer: 0
   m_Name: Wall1
@@ -86,35 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &3443093843078767369
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.3, y: 0.01}
-      - {x: 0.3, y: -0.01}
-      - {x: -0.3, y: -0.01}
-      - {x: -0.3, y: 0.01}
 --- !u!114 &2714020699549678644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,8 +102,8 @@ MonoBehaviour:
   myType: 5
   isHorizontalWall: 1
   colliders:
-  - {fileID: 3443093843078767369}
-  - {fileID: 3443093843078767369, guid: bcbb173113f048948aa6ba91152a4e7c, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   sprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
   - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
