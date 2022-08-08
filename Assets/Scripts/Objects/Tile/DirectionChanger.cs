@@ -20,7 +20,7 @@ public class DirectionChanger : ObjectTile
 
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
     }
 
 

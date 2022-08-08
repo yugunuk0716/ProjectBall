@@ -125,7 +125,7 @@ public class GameManager : ManagerBase
             {
                 foreach (Goal goal in goalList)
                 {
-                    goal.ResetFlag();
+                    goal.ResetFlag(false);
                 }
                 firstTime = 0f;
                 realTime = 0f;
