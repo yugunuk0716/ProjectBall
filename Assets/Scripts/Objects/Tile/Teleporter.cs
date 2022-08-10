@@ -12,7 +12,7 @@ public class TeleporterInfo : ObjectTileInfo
 public class Teleporter : ObjectTile
 {
     [SerializeField]
-    private readonly Sprite[] mySprite;
+    private Sprite[] mySprite;
     private SpriteRenderer sr;
 
     public int portalIndex;

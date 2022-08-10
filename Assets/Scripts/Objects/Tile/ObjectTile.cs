@@ -57,7 +57,7 @@ public abstract class ObjectTile : PoolableMono
         IsometricManager.Instance.GetManager<StageManager>().objectTileList.Add(this);
     }
 
-    public abstract void OnTriggerBall(Ball tb); // °ø¿¡ ¹«¾ùÀ» ÇØÁÙ±î¿ä?
+    public abstract void OnTriggerBall(Ball tb); // ê³µì— ë¬´ì—‡ì„ í•´ì¤„ê¹Œìš”?
 
 
     public virtual void SetDirection()
@@ -66,6 +66,11 @@ public abstract class ObjectTile : PoolableMono
         {
             return;
         }
+    }
+
+    public virtual void InteractionTile()
+    {
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
