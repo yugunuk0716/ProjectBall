@@ -81,6 +81,7 @@ public class SaveManager : ManagerBase
 
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
+        IsometricManager.Instance.GetManager<GameManager>().tileDict.Clear();
         string data;
         StartCoroutine(Getdata());
 
@@ -127,6 +128,7 @@ public class SaveManager : ManagerBase
                             new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
+                        IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(pos, a);
                     }
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
                     TileInfos.Add(new Vector2(pos.x,pos.y),new Vector2(worldPoint.x, worldPoint.y + 0.25f));
