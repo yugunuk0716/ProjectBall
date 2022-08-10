@@ -15,7 +15,7 @@ public class IngameUI : UIBase
     public Button moveStageBtn;
 
     public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
-    [SerializeField] GameObject ballControllUIPrefab;
+    [SerializeField] BallControllUI ballControllUIPrefab;
 
     public SelectDirectionUI selectDirectionUI;
 
@@ -48,7 +48,7 @@ public class IngameUI : UIBase
                     ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
                 }
 
-                GameObject newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+                BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
                 bool isAdded = false;
 
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
@@ -57,14 +57,13 @@ public class IngameUI : UIBase
                     {
                         newBallControllUI.transform.SetParent(parentTrms[0]);
                         gm.myBallList.Remove(ball);
-                        gm.ballUIList.Remove(newBallControllUI);
+                        gm.ballUIList.Remove(newBallControllUI.gameObject);
                     }
                     else // 추가 하려는
                     {
                         newBallControllUI.transform.SetParent(parentTrms[1]);
-                        gm.ballUIList.Add(newBallControllUI);
+                        gm.ballUIList.Add(newBallControllUI.gameObject);
                         selectDirectionUI.addBall = ball;
-                        Debug.Log($"addBall세팅, {ball.name}");
                         selectDirectionUI.ScreenOn(true);
                     }
 
