@@ -17,6 +17,11 @@ public class ShooterTile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && false == EventSystem.current.IsPointerOverGameObject())
         {
+            if (Input.mousePosition.y < Screen.height / 3)
+            {
+                Debug.Log("하단 1/3을 클릭해야 공이 나가요!");
+                return;
+            }
             Shoot();
         }
     }
@@ -50,7 +55,7 @@ public class ShooterTile : MonoBehaviour
         }
 
         ball.transform.position = transform.position;
-        Vector2 shootDir = GetIsoDir(copyBall.shootDir);
+        Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
@@ -63,27 +68,7 @@ public class ShooterTile : MonoBehaviour
         Destroy(ballControllUI);
     }
 
-    Vector2 GetIsoDir(TileDirection dir) // 등각투형에 걸맞는 벡터로..
-    {
-        Vector2 vec = Vector2.zero;
-        switch(dir)
-        {
-            case TileDirection.RIGHTUP:
-                vec = new Vector2(0.5f, 0.25f);
-                break;
-            case TileDirection.LEFTDOWN:
-                vec = new Vector2(-0.5f, -0.25f);
-                break;
-            case TileDirection.LEFTUP:
-                vec = new Vector2(-0.9f, 0.45f);
-                break;
-            case TileDirection.RIGHTDOWN:
-                vec = new Vector2(0.9f, -0.45f);
-                break;
-        }
-
-        return vec.normalized;
-    }
+    
 
     public void SetEnd()
     {
