@@ -10,6 +10,8 @@ public class GameManager : ManagerBase
     public List<Ball> myBallList = new List<Ball>();
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
 
+    public Dictionary<Vector3Int, ObjectTile> tileDict = new Dictionary<Vector3Int, ObjectTile>();
+
     [HideInInspector] public int maxBallCount;
 
     [HideInInspector] public bool isPlayStarted = false;

@@ -68,6 +68,11 @@ public abstract class ObjectTile : PoolableMono
         }
     }
 
+    public virtual void InteractionTile()
+    {
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Ball tb = collision?.GetComponent<Ball>();
