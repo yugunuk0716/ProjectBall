@@ -101,6 +101,7 @@ MonoBehaviour:
   count: 2
   dataString: 
   myType: 3
+  worldPos: {x: 0, y: 0}
   sr: {fileID: 216864386902218647}
   animator: {fileID: 4142883834083301727}
   isChecked: 0

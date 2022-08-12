@@ -35,6 +35,7 @@ public abstract class ObjectTile : PoolableMono
 {
     public string dataString;
     public TileType myType;
+    public Vector2 worldPos;
 
 
     protected virtual void Awake()

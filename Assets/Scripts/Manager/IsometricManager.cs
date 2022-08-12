@@ -38,16 +38,16 @@ public class IsometricManager : MonoBehaviour
         switch (dir)
         {
             case TileDirection.RIGHTUP:
-                vec = new Vector2(0.5f, 0.25f);
+                vec = new Vector2(1, 0);
                 break;
             case TileDirection.LEFTDOWN:
-                vec = new Vector2(-0.5f, -0.25f);
+                vec = new Vector2(-1, 0);
                 break;
             case TileDirection.LEFTUP:
-                vec = new Vector2(-0.9f, 0.45f);
+                vec = new Vector2(0, 1);
                 break;
             case TileDirection.RIGHTDOWN:
-                vec = new Vector2(0.9f, -0.45f);
+                vec = new Vector2(0,-1);
                 break;
         }
         return vec.normalized;

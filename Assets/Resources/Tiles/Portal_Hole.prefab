@@ -48,6 +48,7 @@ MonoBehaviour:
   count: 2
   dataString: 
   myType: 2
+  worldPos: {x: 0, y: 0}
   mySprite:
   - {fileID: 1987297584, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
   - {fileID: -626176157, guid: e764ce94d0866d443b9a575faf01f299, type: 3}

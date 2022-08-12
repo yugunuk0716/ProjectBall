@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public enum ECollisionTile
 {
@@ -42,6 +43,12 @@ public class Ball : PoolableMono
     public BallState ballState;
     public TileDirection shootDir;
 
+
+
+    public Vector2 direction;
+    public Vector2 myPos;
+    private float speed = 2f;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -65,10 +72,31 @@ public class Ball : PoolableMono
         transform.position = myPos;
     }
 
+    public void SetBall(Vector2 dir, float speed, Vector2 pos)
+    {
+        direction = dir;
+        this.speed = speed;
+        myPos = pos;
+    }
+
     public void Move(Vector2 dir, float power = 5f)
     {
         sr.flipX = dir.x > 0 || dir.y > 0;
         rigid.velocity = dir * power;
+    }
+
+    public void SetMove()
+    {
+        myPos += direction;
+        if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
+        {
+            ObjectTile tile = IsometricManager.Instance.GetManager<GameManager>().tileDict[myPos];
+            transform.DOMove(tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile(this));
+        }
+        else
+        {
+            print(myPos);
+        }
     }
 
     public override void Reset()
