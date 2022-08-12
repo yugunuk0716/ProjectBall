@@ -5,10 +5,10 @@ using DG.Tweening;
 
 public class BallTest : MonoBehaviour
 {
+/*
 
-
-    public Vector3Int direction;
-    public Vector3Int myPos;
+    public Vector2 direction;
+    public Vector2 myPos;
     public float speed = 1f;
 
     void Start()
@@ -22,7 +22,7 @@ public class BallTest : MonoBehaviour
     }
 
 
-    public void SetBall(Vector3Int dir, float speed, Vector3Int pos)
+    public void SetBall(Vector2 dir, float speed, Vector2 pos)
     {
         direction = dir;
         this.speed = speed;
@@ -43,6 +43,6 @@ public class BallTest : MonoBehaviour
             print(myPos);
         }
     }
-
+*/
 
 }

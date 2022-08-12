@@ -101,10 +101,8 @@ MonoBehaviour:
   count: 2
   dataString: 
   myType: 5
+  worldPos: {x: 0, y: 0}
   isHorizontalWall: 1
-  colliders:
-  - {fileID: 0}
-  - {fileID: 0}
   sprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
   - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}

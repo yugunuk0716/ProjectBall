@@ -48,6 +48,7 @@ MonoBehaviour:
   count: 2
   dataString: 
   myType: 4
+  worldPos: {x: 0, y: 0}
   wallDirection: 4
   dirChangerSprites:
   - {fileID: 726348105, guid: 333e992c794798945b1709eb8979b8ba, type: 3}

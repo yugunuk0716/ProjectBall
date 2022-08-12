@@ -54,13 +54,13 @@ public class ShooterTile : ObjectTile
             ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
         }
 
-        ball.transform.position = transform.position;
+        ball.transform.position = transform.position - new Vector3(0,.25f,0);
         Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        //ball.SetBall(shootDir, 0.1f, myKeyPos);
-        //ball.SetMove();
+        ball.SetBall(shootDir, 1f,new Vector2(4,4));
+        ball.SetMove();
 
         gm.myBallList.RemoveAt(0);
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
@@ -76,13 +76,13 @@ public class ShooterTile : ObjectTile
         anim.SetBool("isClick", false);
     }
 
-    public override void OnTriggerBall(Ball tb)
+    public override void Reset()
     {
 
     }
 
-    public override void Reset()
-
+    public override void InteractionTile(Ball tb)
     {
+
     }
 }

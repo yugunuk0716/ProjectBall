@@ -100,3 +100,4 @@ MonoBehaviour:
   count: 2
   dataString: 
   myType: 0
+  worldPos: {x: 0, y: 0}

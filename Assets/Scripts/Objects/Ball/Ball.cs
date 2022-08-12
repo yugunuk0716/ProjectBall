@@ -45,9 +45,9 @@ public class Ball : PoolableMono
 
 
 
-    public Vector3Int direction;
-    public Vector3Int myPos;
-    public float speed = 1f;
+    public Vector2 direction;
+    public Vector2 myPos;
+    private float speed = 2f;
 
     private void Awake()
     {
@@ -72,7 +72,7 @@ public class Ball : PoolableMono
         transform.position = myPos;
     }
 
-    public void SetBall(Vector3Int dir, float speed, Vector3Int pos)
+    public void SetBall(Vector2 dir, float speed, Vector2 pos)
     {
         direction = dir;
         this.speed = speed;
@@ -91,7 +91,7 @@ public class Ball : PoolableMono
         if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
         {
             ObjectTile tile = IsometricManager.Instance.GetManager<GameManager>().tileDict[myPos];
-            transform.DOMove(tile.transform.position, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile());
+            transform.DOMove(tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile(this));
         }
         else
         {

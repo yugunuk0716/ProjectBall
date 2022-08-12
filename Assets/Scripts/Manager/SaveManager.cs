@@ -110,10 +110,8 @@ public class SaveManager : ManagerBase
                     type = GetType(tile);
 
                     ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
-
                     if (type.Equals(TileType.None))
                     {
-
                     }
                     else
                     {
@@ -125,11 +123,11 @@ public class SaveManager : ManagerBase
                             new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
-                        IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(pos, a);
                     }
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
-                    a.myKeyPos = pos;
-                    a.tilePos = new KeyValuePair<Vector3Int, Vector2>(pos, worldPoint);
+                    a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
+                    pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
+                    IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
                     yield return null;
                 }
             }
