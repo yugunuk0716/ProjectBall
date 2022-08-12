@@ -5,24 +5,54 @@ using UnityEngine;
 public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
-
-    public Sprite[] sprites;
+    
+    public Sprite[] horSprites; // 0 기본 1  오른쪽으로  2 왼쪽으로
+    public Sprite[] verSprites; // 0 기본 1  위쪽으로    2 아래쪽으로
     private SpriteRenderer sr;
 
-    private void Awake()
-    {
+    WaitForSeconds changeTerm = new WaitForSeconds(0.15f);
+
+    protected override void Awake()
+    { 
+        base.Awake();
         sr = GetComponent<SpriteRenderer>();
+    }
+
+    IEnumerator ChangeSprite(Sprite[] targetSpriteArray, int targetSpriteIndex)
+    {
+        sr.sprite = targetSpriteArray[targetSpriteIndex];
+        yield return changeTerm;
+        sr.sprite = targetSpriteArray[0];
     }
 
     public override void InteractionTile(Ball tb)
     {
+        StopCoroutine("ChangeSprite");
         if (isHorizontalWall)
         {
-            tb.moveDir = tb.moveDir.y > 0 ? new Vector2Int(-1, 0) : new Vector2Int(1, 0);
+            if(tb.moveDir.y > 0)
+            {
+                tb.moveDir = new Vector2Int(-1, 0);
+                StartCoroutine(ChangeSprite(verSprites, 1));
+            }
+            else
+            {
+                tb.moveDir = new Vector2Int(1, 0);
+                StartCoroutine(ChangeSprite(verSprites, 2));
+            }
         }
         else
         {
-            tb.moveDir = tb.moveDir.x > 0 ? new Vector2Int(0, -1) : new Vector2Int(0, 1);
+            if(tb.moveDir.x > 0)
+            {
+                tb.moveDir = new Vector2Int(0, -1);
+                StartCoroutine(ChangeSprite(horSprites, 1));
+            }
+            else
+            {
+                tb.moveDir = new Vector2Int(0, 1);
+                StartCoroutine(ChangeSprite(horSprites, 2));
+            }
         }
     }
 
@@ -46,12 +76,12 @@ public class ReflectWall : ObjectTile
         if (dataString.Equals("\\"))
         {
             isHorizontalWall = true;
-            sr.sprite = sprites[0];
+            sr.sprite = horSprites[0];
         }
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            sr.sprite = sprites[1];
+            sr.sprite = verSprites[1];
         }
     }
 

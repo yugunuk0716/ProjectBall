@@ -36,10 +36,9 @@ public abstract class ObjectTile : PoolableMono
     public string dataString;
     public TileType myType;
 
-    private Animator anim; 
-    protected virtual void Init()
+
+    protected virtual void Awake()
     {
-        anim = GetComponent<Animator>();
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f;
         transform.position = myPos;

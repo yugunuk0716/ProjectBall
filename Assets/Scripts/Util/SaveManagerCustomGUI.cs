@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(SaveManager))]
 public class SaveManagerCustomGUI : Editor
 {
@@ -28,3 +29,4 @@ public class SaveManagerCustomGUI : Editor
         }
     }
 }
+#endif
