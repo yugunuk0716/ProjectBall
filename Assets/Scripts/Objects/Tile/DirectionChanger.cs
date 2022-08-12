@@ -24,7 +24,7 @@ public class DirectionChanger : ObjectTile
     }
 
 
-    public override void OnTriggerBall(Ball tb)
+    public override void InteractionTile(Ball tb)
     {
         Vector3 vec = Vector3.zero;
 

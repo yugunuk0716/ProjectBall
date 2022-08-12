@@ -37,7 +37,7 @@ public class BallTest : MonoBehaviour
         if (dummy.ContainsKey(myPos))
         {
             ObjectTile tile = dummy[myPos];
-            transform.DOMove(tile.transform.position, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile());
+            transform.DOMove(tile.transform.position, speed).SetEase(Ease.Linear).OnComplete(() => tile.CheckTile(null));
         }
     }
 

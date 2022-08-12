@@ -12,7 +12,7 @@ public class AirFlow : ObjectTile
 {
     public float flowAmount;
 
-    public override void OnTriggerBall(Ball tb)
+    public override void InteractionTile(Ball tb)
     {
         if (tb.afCool + tb.afLastTime < Time.time)
         {

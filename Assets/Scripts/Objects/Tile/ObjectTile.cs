@@ -33,19 +33,17 @@ public class ObjectTileInfo
 
 public abstract class ObjectTile : PoolableMono
 {
-
     public string dataString;
     public TileType myType;
 
-
-    private void Awake()
+    private Animator anim; 
+    protected virtual void Init()
     {
+        anim = GetComponent<Animator>();
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f;
         transform.position = myPos;
     }
-
-    //public TileDirection myDirection;
 
     public virtual string ParseTileInfo()
     {
@@ -57,8 +55,29 @@ public abstract class ObjectTile : PoolableMono
         IsometricManager.Instance.GetManager<StageManager>().objectTileList.Add(this);
     }
 
-    public abstract void OnTriggerBall(Ball tb); // 공에 무엇을 해줄까요?
+    public abstract void InteractionTile(Ball tb); // 공에 무엇을 해줄까요?
 
+    public void CheckTile(Ball tb)
+    {
+        if (tb.collisionTileType == this.myType)
+        {
+            switch (tb.ballState)
+            {
+                case BallState.Destroy:
+                    Destroy(this.gameObject);
+                    InteractionTile(tb);
+                    break;
+
+                case BallState.Ignore:
+                    break;
+            }
+            tb.GetComponent<Ball>().RemoveSpecialEffect();
+        }
+        else
+        {
+            InteractionTile(tb);
+        }
+    }
 
     public virtual void SetDirection()
     {
@@ -66,38 +85,5 @@ public abstract class ObjectTile : PoolableMono
         {
             return;
         }
-    }
-
-    public virtual void InteractionTile()
-    {
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Ball tb = collision?.GetComponent<Ball>();
-
-        if(tb != null)
-        {
-            if (tb.collisionTileType == this.myType)
-            {
-                switch (tb.ballState)
-                {
-                    case BallState.Destroy:
-                        Destroy(this.gameObject);
-                        OnTriggerBall(tb);
-                        break;
-
-                    case BallState.Ignore:
-                        break;
-                }
-                tb.GetComponent<Ball>().RemoveSpecialEffect();
-            }
-            else
-            {
-                OnTriggerBall(tb);
-            }
-        }
-        
     }
 }

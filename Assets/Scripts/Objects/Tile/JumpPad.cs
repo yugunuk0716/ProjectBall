@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpPad : ObjectTile
 {
-    public override void OnTriggerBall(Ball tb)
+    public override void InteractionTile(Ball tb)
     {
     }
 
