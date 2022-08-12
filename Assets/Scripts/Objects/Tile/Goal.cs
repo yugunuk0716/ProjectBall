@@ -30,7 +30,7 @@ public class Goal : ObjectTile
         animator.SetBool("isClear", isClear);
     }
 
-    public override void OnTriggerBall(Ball tb)
+    public override void InteractionTile(Ball tb)
     {
         if (isChecked)
         {

@@ -2,39 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
-
-    public Collider2D[] colliders;
-    private Collider2D myCol;
 
     public Sprite[] sprites;
     private SpriteRenderer sr;
 
     private void Awake()
     {
-        myCol = GetComponent<Collider2D>();
         sr = GetComponent<SpriteRenderer>();
     }
 
-    public override void OnTriggerBall(Ball tb)
+    public override void InteractionTile(Ball tb)
     {
-        Debug.Log("½ÇÇà");
-        Vector2 vec;
         if (isHorizontalWall)
         {
-            vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.up).normalized;
+            tb.moveDir = tb.moveDir.y > 0 ? new Vector2Int(-1, 0) : new Vector2Int(1, 0);
         }
         else
         {
-            vec = Vector2.Reflect(tb.rigid.velocity.normalized, transform.right).normalized;
+            tb.moveDir = tb.moveDir.x > 0 ? new Vector2Int(0, -1) : new Vector2Int(0, 1);
         }
-
-        tb.Move(vec, 3.5f);
     }
 
     public override string ParseTileInfo()
@@ -57,13 +46,11 @@ public class ReflectWall : ObjectTile
         if (dataString.Equals("\\"))
         {
             isHorizontalWall = true;
-            //myCol = colliders[0];
             sr.sprite = sprites[0];
         }
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            //myCol = colliders[1];
             sr.sprite = sprites[1];
         }
     }

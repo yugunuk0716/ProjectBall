@@ -28,6 +28,8 @@ public class Ball : PoolableMono
     public SpriteRenderer sr;
     public GameObject spriteObject;
 
+    public Vector2Int moveDir;
+
     public float tpCool;
     public float tpLastTime;
 

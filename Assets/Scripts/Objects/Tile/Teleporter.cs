@@ -78,7 +78,7 @@ public class Teleporter : ObjectTile
 
     }
 
-    public override void OnTriggerBall(Ball tb)
+    public override void InteractionTile(Ball tb)
     {
         if (pairTeleporter != null && tb.tpCool + tb.tpLastTime < Time.time)
         {

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class IsometricManager : MonoBehaviour
 {
+    
+
     private static IsometricManager instance;
     public static IsometricManager Instance
     {
@@ -30,6 +32,26 @@ public class IsometricManager : MonoBehaviour
         UpdateState(eUpdateState.Init);
     }
 
+    public static Vector2 GetIsoDir(TileDirection dir) // 등각투형에 걸맞는 벡터로..
+    {
+        Vector2 vec = Vector2.zero;
+        switch (dir)
+        {
+            case TileDirection.RIGHTUP:
+                vec = new Vector2(0.5f, 0.25f);
+                break;
+            case TileDirection.LEFTDOWN:
+                vec = new Vector2(-0.5f, -0.25f);
+                break;
+            case TileDirection.LEFTUP:
+                vec = new Vector2(-0.9f, 0.45f);
+                break;
+            case TileDirection.RIGHTDOWN:
+                vec = new Vector2(0.9f, -0.45f);
+                break;
+        }
+        return vec.normalized;
+    }
 
     public void UpdateState(eUpdateState state)
     {
@@ -38,7 +60,6 @@ public class IsometricManager : MonoBehaviour
             item.UpdateState(state);
         }
     }
-
 
     public T GetManager<T>() where T : ManagerBase
     {

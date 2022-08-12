@@ -36,7 +36,7 @@ public class BallTest : MonoBehaviour
         if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
         {
             ObjectTile tile = IsometricManager.Instance.GetManager<GameManager>().tileDict[myPos];
-            transform.DOMove(tile.transform.position, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile());
+            transform.DOMove(tile.transform.position, speed).SetEase(Ease.Linear).OnComplete(() => tile.CheckTile(null));
         }
         else
         {
