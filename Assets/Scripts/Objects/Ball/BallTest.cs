@@ -6,7 +6,6 @@ using DG.Tweening;
 public class BallTest : MonoBehaviour
 {
 
-    public Dictionary<Vector3Int, ObjectTile> dummy = new Dictionary<Vector3Int, ObjectTile>();
 
     public Vector3Int direction;
     public Vector3Int myPos;
@@ -23,7 +22,7 @@ public class BallTest : MonoBehaviour
     }
 
 
-    public void SetDirction(Vector3Int dir, float speed, Vector3Int pos)
+    public void SetBall(Vector3Int dir, float speed, Vector3Int pos)
     {
         direction = dir;
         this.speed = speed;
@@ -34,10 +33,14 @@ public class BallTest : MonoBehaviour
     public void SetMove(float speed)
     {
         myPos += direction;
-        if (dummy.ContainsKey(myPos))
+        if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
         {
-            ObjectTile tile = dummy[myPos];
+            ObjectTile tile = IsometricManager.Instance.GetManager<GameManager>().tileDict[myPos];
             transform.DOMove(tile.transform.position, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile());
+        }
+        else
+        {
+            print(myPos);
         }
     }
 

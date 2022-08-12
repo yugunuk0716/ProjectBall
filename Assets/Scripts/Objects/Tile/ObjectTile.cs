@@ -36,7 +36,8 @@ public abstract class ObjectTile : PoolableMono
 
     public string dataString;
     public TileType myType;
-
+    public Vector3Int myKeyPos;
+    public KeyValuePair<Vector3Int, Vector2> tilePos;
 
     private void Awake()
     {
@@ -70,6 +71,8 @@ public abstract class ObjectTile : PoolableMono
 
     public virtual void InteractionTile()
     {
+
+
 
     }
 
