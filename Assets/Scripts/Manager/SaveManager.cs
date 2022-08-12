@@ -18,9 +18,6 @@ public class SaveManager : ManagerBase
 
     private string lastString = string.Empty;
 
-    public Dictionary<Vector2, Vector2> TileInfos = new Dictionary<Vector2, Vector2>();
-
-
     public void SaveMap()
     {
         BoundsInt bounds = mainMap.cellBounds;
@@ -110,20 +107,20 @@ public class SaveManager : ManagerBase
                     TileType type;
 
                     mainMap.SetTile(pos, tile);
-                    print(tile.name);
                     type = GetType(tile);
 
+                    ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
 
                     if (type.Equals(TileType.None))
                     {
-                        ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
+
                     }
                     else
                     {
-                        ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
                         a.dataString = lastString;
                         a.SetDirection();
+                       
                         a.transform.position = mainMap.CellToWorld(
                             new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.transform.parent = mainMap.transform;
@@ -131,8 +128,8 @@ public class SaveManager : ManagerBase
                         IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(pos, a);
                     }
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
-                    TileInfos.Add(new Vector2(pos.x,pos.y),new Vector2(worldPoint.x, worldPoint.y + 0.25f));
-                    Debug.Log(TileInfos[new Vector2(pos.x, pos.y)]);
+                    a.myKeyPos = pos;
+                    a.tilePos = new KeyValuePair<Vector3Int, Vector2>(pos, worldPoint);
                     yield return null;
                 }
             }

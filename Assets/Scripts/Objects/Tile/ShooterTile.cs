@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShooterTile : MonoBehaviour
+public class ShooterTile : ObjectTile
 {
     private Animator anim;
 
@@ -59,7 +59,8 @@ public class ShooterTile : MonoBehaviour
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        ball.Move(shootDir, 3.5f);
+        //ball.SetBall(shootDir, 0.1f, myKeyPos);
+        //ball.SetMove();
 
         gm.myBallList.RemoveAt(0);
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
@@ -75,4 +76,13 @@ public class ShooterTile : MonoBehaviour
         anim.SetBool("isClick", false);
     }
 
+    public override void OnTriggerBall(Ball tb)
+    {
+
+    }
+
+    public override void Reset()
+
+    {
+    }
 }
