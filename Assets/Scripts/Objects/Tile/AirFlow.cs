@@ -16,8 +16,10 @@ public class AirFlow : ObjectTile
     {
         if (tb.afCool + tb.afLastTime < Time.time)
         {
+            print("에?");
             tb.afLastTime = Time.time;
-            tb.rigid.velocity *= flowAmount;
+            tb.SetBall(tb.direction, tb.speed + flowAmount);
+            tb.SetMove();
         }
     }
 

@@ -28,24 +28,28 @@ public class DirectionChanger : ObjectTile
     {
         Vector3 vec = Vector3.zero;
 
-        tb.transform.position = transform.position;
+        tb.transform.position = transform.position - new Vector3(0, .25f, 0);
         switch (wallDirection)
         {
             case TileDirection.LEFTUP:
-                vec.Set(-0.9f, 0.45f, 0);
+                tb.SetBall(Vector2.up, tb.speed);
+                //vec.Set(-0.9f, 0.45f, 0);
                 break;
             case TileDirection.RIGHTDOWN:
-                vec.Set(0.9f, -0.45f, 0);
+                tb.SetBall(Vector2.down, tb.speed);
+                //vec.Set(0.9f, -0.45f, 0);
                 break;
             case TileDirection.RIGHTUP:
-                vec.Set(0.4f, 0.25f, 0);
+                tb.SetBall(Vector2.right, tb.speed);
+               // vec.Set(0.4f, 0.25f, 0);
                 break;
             case TileDirection.LEFTDOWN:
-                vec.Set(-0.4f, -0.25f, 0);
+                tb.SetBall(Vector2.left, tb.speed);
+               // vec.Set(-0.4f, -0.25f, 0);
                 break;
         }
-
-        tb.Move(vec, 3.5f);
+        tb.SetMove();
+        //tb.Move(vec, 3.5f);
     }
 
     public override string ParseTileInfo()

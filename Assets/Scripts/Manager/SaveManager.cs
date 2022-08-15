@@ -181,7 +181,6 @@ public class SaveManager : ManagerBase
                 else
                 {
                     color = TileColors.Black;
-                    print(data);
                 }
                 break;
         }

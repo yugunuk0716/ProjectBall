@@ -18,12 +18,13 @@ public class ReflectWall : ObjectTile
     {
         if (isHorizontalWall)
         {
-            tb.moveDir = tb.moveDir.y > 0 ? new Vector2Int(-1, 0) : new Vector2Int(1, 0);
+            tb.direction = tb.direction.y > 0 ? new Vector2(1, 0) : new Vector2(-1, 0);
         }
         else
         {
-            tb.moveDir = tb.moveDir.x > 0 ? new Vector2Int(0, -1) : new Vector2Int(0, 1);
+            tb.direction = tb.direction.x > 0 ? new Vector2(0, 1) : new Vector2(0, -1);
         }
+        tb.SetMove();
     }
 
     public override string ParseTileInfo()

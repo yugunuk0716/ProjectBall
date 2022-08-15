@@ -84,6 +84,8 @@ public class Teleporter : ObjectTile
         {
             tb.tpLastTime = Time.time;
             tb.transform.position = pairTeleporter.transform.position;
+            tb.SetPos(worldPos);
+            tb.SetMove();
         }
     }
 }
