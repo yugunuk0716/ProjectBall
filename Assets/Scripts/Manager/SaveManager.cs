@@ -127,6 +127,7 @@ public class SaveManager : ManagerBase
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
                     a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
                     pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
+                    a.index = new Vector2(pos.x, pos.y);
                     IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
                     yield return null;
                 }
