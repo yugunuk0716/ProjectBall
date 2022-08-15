@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e01d1c3b8767b1f46a83546fd5795c04
+guid: cf2ff68f21065f54c8e843f94ab2dd1a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tile_portal_sheet_0
+      name: tile_portalHead_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92e0adbf51f70c14092f12e849bb3955
-      internalID: -1168527036
+      spriteID: a736b92ed0b65ef42913d88962a826a7
+      internalID: 569323019
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile_portal_sheet_1
+      name: tile_portalHead_sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 574626791bca9d848b16c00f3cb72b80
-      internalID: -1345809701
+      spriteID: aa54df7047b608046a605d68d4a60ed1
+      internalID: 64951381
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile_portal_sheet_2
+      name: tile_portalHead_sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db736579bf10289438d7c182001c60eb
-      internalID: -248057563
+      spriteID: c9eee6597c099fa438ab3737fcd126bd
+      internalID: 1332982515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tile_portal_sheet_3
+      name: tile_portalHead_sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -193,8 +193,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97fabfa1ea86d154eba8ee67118a98f8
-      internalID: -1046742164
+      spriteID: b9b067ba077de1840a9db23944deca66
+      internalID: -26725981
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tile_portal_sheet_3: -1046742164
-      tile_portal_sheet_0: -1168527036
-      tile_portal_sheet_2: -248057563
-      tile_portal_sheet_1: -1345809701
+      tile_portalHead_sheet_1: 64951381
+      tile_portalHead_sheet_2: 1332982515
+      tile_portalHead_sheet_3: -26725981
+      tile_portalHead_sheet_0: 569323019
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -49,11 +49,12 @@ MonoBehaviour:
   dataString: 
   myType: 2
   worldPos: {x: 0, y: 0}
+  index: {x: 0, y: 0}
   mySprite:
-  - {fileID: 1987297584, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -626176157, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: 460869391, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: 765875434, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  - {fileID: 569323019, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}
+  - {fileID: 64951381, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}
+  - {fileID: 1332982515, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}
+  - {fileID: -26725981, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}
   portalIndex: 0
   pairTeleporter: {fileID: 0}
 --- !u!1 &7140494023388759910
@@ -129,7 +130,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 765875434, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  m_Sprite: {fileID: 569323019, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

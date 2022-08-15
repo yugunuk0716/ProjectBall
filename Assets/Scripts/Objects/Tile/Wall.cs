@@ -6,7 +6,7 @@ public class Wall : ObjectTile
 {
     public override void InteractionTile(Ball tb)
     {
-        Destroy(tb.gameObject);
+        PoolManager.Instance.Push(tb);
     }
 
     public override void Reset()

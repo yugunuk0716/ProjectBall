@@ -61,7 +61,8 @@ public class ShooterTile : ObjectTile
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        ball.SetBall(shootDir, 1f,new Vector2(4,4));
+        ball.SetBall(shootDir, 0.5f);
+        ball.SetPos(new Vector2(4, 4));
         ball.SetMove();
 
         gm.myBallList.RemoveAt(0);

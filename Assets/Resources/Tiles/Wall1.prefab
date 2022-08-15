@@ -101,6 +101,7 @@ MonoBehaviour:
   dataString: 
   myType: 5
   worldPos: {x: 0, y: 0}
+  index: {x: 0, y: 0}
   isHorizontalWall: 1
   horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}

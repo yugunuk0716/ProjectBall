@@ -36,6 +36,7 @@ public abstract class ObjectTile : PoolableMono
     public string dataString;
     public TileType myType;
     public Vector2 worldPos;
+    public Vector2 index;
 
 
     public void StartTransition() => StartCoroutine(Transition());

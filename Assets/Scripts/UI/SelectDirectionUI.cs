@@ -22,9 +22,7 @@ public class SelectDirectionUI : MonoBehaviour
 
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
-                Debug.Log($"{index} : {(TileDirection)(index)}");
                 addBall.shootDir = (TileDirection)(index);
-                Debug.Log($"addBall 방향 세팅, {(TileDirection)(index)}");
                 IsometricManager.Instance.GetManager<GameManager>().myBallList.Add(addBall);
                 ScreenOn(false);
             });
