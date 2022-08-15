@@ -32,13 +32,12 @@ public class Goal : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
+        PoolManager.Instance.Push(tb);
         if (isChecked)
         {
             return;
         }
 
-        tb.rigid.velocity = Vector3.zero;
-        tb.gameObject.SetActive(false);
         ResetFlag(true);
         IsometricManager.Instance.GetManager<GameManager>().CheckClear();
     }

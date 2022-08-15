@@ -28,8 +28,6 @@ public class Ball : PoolableMono
     public SpriteRenderer sr;
     public GameObject spriteObject;
 
-    public Vector2Int moveDir;
-
     public float tpCool;
     public float tpLastTime;
 
@@ -100,6 +98,8 @@ public class Ball : PoolableMono
         }
         else
         {
+
+            PoolManager.Instance.Push(this);
             print(myPos);
         }
     }

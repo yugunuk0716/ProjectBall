@@ -83,8 +83,8 @@ public class Teleporter : ObjectTile
         if (pairTeleporter != null && tb.tpCool + tb.tpLastTime < Time.time)
         {
             tb.tpLastTime = Time.time;
-            tb.transform.position = pairTeleporter.transform.position;
-            tb.SetPos(worldPos);
+            tb.transform.position = pairTeleporter.transform.position - new Vector3(0, .25f, 0);
+            tb.SetPos(pairTeleporter.index);
             tb.SetMove();
         }
     }

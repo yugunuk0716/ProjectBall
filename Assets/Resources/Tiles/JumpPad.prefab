@@ -123,6 +123,7 @@ MonoBehaviour:
   dataString: 
   myType: 0
   worldPos: {x: 0, y: 0}
+  index: {x: 0, y: 0}
 --- !u!60 &8845006092190290298
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -201,3 +202,4 @@ MonoBehaviour:
   dataString: 
   myType: 0
   worldPos: {x: 0, y: 0}
+  index: {x: 0, y: 0}

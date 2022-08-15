@@ -8,7 +8,7 @@ public class ShooterTile : ObjectTile
 {
     private Animator anim;
 
-    private void Awake()
+    protected override void Awake()
     {
         anim = GetComponent<Animator>();
     }
@@ -59,7 +59,7 @@ public class ShooterTile : ObjectTile
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        ball.SetBall(shootDir, 1f);
+        ball.SetBall(shootDir, 0.5f);
         ball.SetPos(new Vector2(4, 4));
         ball.SetMove();
 

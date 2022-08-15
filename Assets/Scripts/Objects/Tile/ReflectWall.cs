@@ -30,30 +30,32 @@ public class ReflectWall : ObjectTile
         StopCoroutine("ChangeSprite");
         if (isHorizontalWall)
         {
-            if(tb.moveDir.y > 0)
+            if(tb.direction.y > 0)
             {
-                tb.moveDir = new Vector2Int(-1, 0);
+                tb.direction = new Vector2(1, 0);
                 StartCoroutine(ChangeSprite(verSprites, 1));
             }
             else
             {
-                tb.moveDir = new Vector2Int(1, 0);
+                tb.direction = new Vector2(-1, 0);
                 StartCoroutine(ChangeSprite(verSprites, 2));
             }
         }
         else
         {
-            if(tb.moveDir.x > 0)
+            if(tb.direction.x > 0)
             {
-                tb.moveDir = new Vector2Int(0, -1);
+                tb.direction = new Vector2(0, 1);
                 StartCoroutine(ChangeSprite(horSprites, 1));
             }
             else
             {
-                tb.moveDir = new Vector2Int(0, 1);
+                tb.direction = new Vector2(0, -1);
                 StartCoroutine(ChangeSprite(horSprites, 2));
             }
         }
+
+        tb.SetMove();
     }
 
     public override string ParseTileInfo()
