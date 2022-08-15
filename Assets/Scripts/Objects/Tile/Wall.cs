@@ -8,6 +8,7 @@ public class Wall : ObjectTile
     {
         Destroy(tb.gameObject);
     }
+
     public override void Reset()
     {
 

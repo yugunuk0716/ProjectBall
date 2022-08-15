@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
   - component: {fileID: 2714020699549678644}
-  - component: {fileID: 5205615678592279955}
   m_Layer: 0
   m_Name: Wall1
   m_TagString: Untagged
@@ -101,28 +100,12 @@ MonoBehaviour:
   count: 2
   dataString: 
   myType: 5
-  worldPos: {x: 0, y: 0}
   isHorizontalWall: 1
-  sprites:
+  horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
+  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  verSprites:
   - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
---- !u!95 &5205615678592279955
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}

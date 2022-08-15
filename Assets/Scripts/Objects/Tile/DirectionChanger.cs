@@ -18,8 +18,9 @@ public class DirectionChanger : ObjectTile
 
     private SpriteRenderer sr;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
