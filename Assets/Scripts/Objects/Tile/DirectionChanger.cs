@@ -15,8 +15,9 @@ public class DirectionChanger : ObjectTile
 
     [SerializeField]
     private Sprite[] dirChangerSprites;
-
     private SpriteRenderer sr;
+
+    int index = 0;
 
     protected override void Awake()
     {
@@ -57,31 +58,39 @@ public class DirectionChanger : ObjectTile
     public override void SetDirection()
     {
         base.SetDirection();
+        SetDatas();
+    }
 
+    private void SetDatas()
+    {
         switch (dataString)
         {
             case "→":
                 sr.sprite = dirChangerSprites[0];
                 wallDirection = TileDirection.RIGHTUP;
-                break;
-            case "←":
-                sr.sprite = dirChangerSprites[1];
-                wallDirection = TileDirection.LEFTDOWN;
-                break;
-            case "↑":
-                sr.sprite = dirChangerSprites[2];
-                wallDirection = TileDirection.LEFTUP;
+                index = 0;
                 break;
             case "↓":
-                sr.sprite = dirChangerSprites[3];
+                sr.sprite = dirChangerSprites[1];
                 wallDirection = TileDirection.RIGHTDOWN;
+                index = 1;
+                break;
+            case "←":
+                sr.sprite = dirChangerSprites[2];
+                wallDirection = TileDirection.LEFTDOWN;
+                index = 2;
+                break;
+            case "↑":
+                sr.sprite = dirChangerSprites[3];
+                wallDirection = TileDirection.LEFTUP;
+                index = 3;
                 break;
         }
     }
 
     public override void Reset()
     {
-        
+        StopCoroutine("Transition");
     }
 
     public override void SettingTile(string info)
@@ -94,5 +103,18 @@ public class DirectionChanger : ObjectTile
         wallDirection = (TileDirection)directionChangerInfo.wallDirection;
     }
 
+    int[] indexArr = { 4, 8, 2, 1 };
+    public override IEnumerator Transition()
+    {
+        while (true)
+        {
+            index++;
+            if (index == indexArr.Length) index = 0;
+            sr.sprite = dirChangerSprites[index];
+
+            wallDirection = (TileDirection)indexArr[index];
+            yield return new WaitForSeconds(3f);
+        }
+    }
 
 }

@@ -75,7 +75,7 @@ public class Teleporter : ObjectTile
 
     public override void Reset()
     {
-
+        StopCoroutine("Transition");
     }
 
     public override void InteractionTile(Ball tb)
@@ -85,5 +85,10 @@ public class Teleporter : ObjectTile
             tb.tpLastTime = Time.time;
             tb.transform.position = pairTeleporter.transform.position;
         }
+    }
+
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
     }
 }

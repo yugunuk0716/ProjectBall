@@ -13,4 +13,9 @@ public class None : ObjectTile
     {
 
     }
+
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
+    }
 }

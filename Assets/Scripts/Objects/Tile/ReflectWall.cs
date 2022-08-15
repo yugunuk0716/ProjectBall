@@ -18,12 +18,15 @@ public class ReflectWall : ObjectTile
         sr = GetComponent<SpriteRenderer>();
     }
 
+
     IEnumerator ChangeSprite(Sprite[] targetSpriteArray, int targetSpriteIndex)
     {
         sr.sprite = targetSpriteArray[targetSpriteIndex];
         yield return changeTerm;
         sr.sprite = targetSpriteArray[0];
     }
+
+    
 
     public override void InteractionTile(Ball tb)
     {
@@ -81,12 +84,24 @@ public class ReflectWall : ObjectTile
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            sr.sprite = verSprites[1];
+            sr.sprite = verSprites[0];
         }
     }
 
+    
+
     public override void Reset()
     {
+        StopCoroutine("Transition");
+    }
 
+    public override IEnumerator Transition()
+    {
+        while(true)
+        {
+            isHorizontalWall = !isHorizontalWall;
+            sr.sprite = isHorizontalWall ? horSprites[0] : verSprites[0];
+            yield return new WaitForSeconds(3f);
+        }
     }
 }

@@ -46,5 +46,11 @@ public class Goal : ObjectTile
     public override void Reset()
     {
         ResetFlag(false);
+        StopCoroutine("Transition");
+    }
+
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
     }
 }

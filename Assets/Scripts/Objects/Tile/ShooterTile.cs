@@ -8,8 +8,9 @@ public class ShooterTile : ObjectTile
 {
     private Animator anim;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         anim = GetComponent<Animator>();
     }
 
@@ -17,7 +18,8 @@ public class ShooterTile : ObjectTile
     {
         if (Input.GetMouseButtonDown(0) && false == EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.mousePosition.y < Screen.height / 3)
+            Debug.Log($"{Input.mousePosition.y} / {Screen.height}");
+            if (Input.mousePosition.y > Screen.height / 3)
             {
                 Debug.Log("하단 1/3을 클릭해야 공이 나가요!");
                 return;
@@ -84,5 +86,10 @@ public class ShooterTile : ObjectTile
     public override void InteractionTile(Ball tb)
     {
 
+    }
+
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
     }
 }

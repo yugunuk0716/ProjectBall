@@ -11,6 +11,11 @@ public class Wall : ObjectTile
 
     public override void Reset()
     {
+        StopCoroutine("Transition");
+    }
 
+    public override IEnumerator Transition()
+    {
+        yield return null;
     }
 }

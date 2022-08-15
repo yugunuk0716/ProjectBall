@@ -38,6 +38,10 @@ public abstract class ObjectTile : PoolableMono
     public Vector2 worldPos;
 
 
+    public void StartTransition() => StartCoroutine(Transition());
+    public abstract IEnumerator Transition();
+
+
     protected virtual void Awake()
     {
         Vector3 myPos = transform.position;

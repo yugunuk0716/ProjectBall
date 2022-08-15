@@ -12,4 +12,8 @@ public class JumpPad : ObjectTile
     {
     }
 
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
+    }
 }
