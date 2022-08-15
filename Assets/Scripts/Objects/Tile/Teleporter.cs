@@ -18,14 +18,14 @@ public class Teleporter : ObjectTile
     public int portalIndex;
     public Teleporter pairTeleporter;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     public override string ParseTileInfo()
     {
-        //
         return $"{{\\\"tileType\\\":" + (int)myType + ", \\\"portalIndex\\\":"  + portalIndex + "}";
     }
 
@@ -55,7 +55,7 @@ public class Teleporter : ObjectTile
                     }
                     else
                     {
-                        Debug.LogError("스프라이트 배열이 비었어 병싄아");
+                        Debug.LogError("스프라이트 배열이 비었어");
                     }
                     pairTeleporter = tp;
                 }

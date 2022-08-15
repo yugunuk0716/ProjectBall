@@ -38,10 +38,9 @@ public abstract class ObjectTile : PoolableMono
     public Vector2 worldPos;
     public Vector2 index;
 
-    private Animator anim; 
-    protected virtual void Init()
+
+    protected virtual void Awake()
     {
-        anim = GetComponent<Animator>();
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f;
         transform.position = myPos;
