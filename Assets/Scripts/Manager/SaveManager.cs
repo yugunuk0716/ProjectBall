@@ -17,6 +17,7 @@ public class SaveManager : ManagerBase
     const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv&gid=80333382&range=";
 
     private string lastString = string.Empty;
+    private int portalIndex = 0;
 
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
@@ -67,6 +68,12 @@ public class SaveManager : ManagerBase
                     }
                     else
                     {
+                        if (type.Equals(TileType.Teleporter))
+                        {
+                            Teleporter tp = a.GetComponent<Teleporter>();
+                            tp.portalIndex = portalIndex;
+                        }
+
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
                         a.dataString = lastString;
                         a.SetDirection();
@@ -79,7 +86,7 @@ public class SaveManager : ManagerBase
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
                     a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
                     pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
-                    a.index = new Vector2(pos.x, pos.y);
+                    a.keyPos = new Vector2(pos.x, pos.y);
                     IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
                     yield return null;
                 }
@@ -130,6 +137,8 @@ public class SaveManager : ManagerBase
             default:
                 if (data.Contains("TP"))
                 {
+
+                    portalIndex = int.Parse(data.Substring(3));
                     color = TileColors.Purple;
                 }
                 else
