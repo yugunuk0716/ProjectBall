@@ -18,64 +18,6 @@ public class SaveManager : ManagerBase
 
     private string lastString = string.Empty;
 
-    public void SaveMap()
-    {
-        BoundsInt bounds = mainMap.cellBounds;
-
-        LevelDatas levelData = new LevelDatas();
-
-        for (int x = bounds.min.x; x < bounds.max.x; x++)
-        {
-            for (int y = bounds.min.y; y < bounds.max.y; y++)
-            {
-
-                TileBase temp = mainMap.GetTile(new Vector3Int(x, y, 0));
-
-                if (temp != null)
-                {
-                    LevelData data = new LevelData();
-                    data.tile = temp;
-                    data.pos = new Vector3Int(x, y, 0);
-                    data.type = GetType(temp);
-
-                    levelData.datas.Add(data);
-                }
-
-            }
-        }
-
-        string json = JsonUtility.ToJson(levelData, true);
-        File.WriteAllText(Application.dataPath + "/testSave.json", json);
-    }
-
-    public void LoadMapJson()
-    {
-        string json = File.ReadAllText(Application.dataPath + "/testSave.json");
-        datas = new List<LevelData>(JsonUtility.FromJson<LevelDatas>(json).datas);
-
-        ClearTileMap();
-
-        for (int i = 0; i < datas.Count; i++)
-        {
-            mainMap.SetTile(datas[i].pos, datas[i].tile);
-
-            if (datas[i].type.Equals(TileType.None))
-            {
-
-            }
-            else
-            {
-                GameObject a = PoolManager.Instance.Pop(datas[i].type.ToString()).gameObject;
-
-                a.transform.position = mainMap.CellToWorld(
-                    new Vector3Int(datas[i].pos.x + 1, datas[i].pos.y + 1, 0));
-                a.transform.parent = mainMap.transform;
-                a.SetActive(true);
-
-            }
-        }
-    }
-
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
         IsometricManager.Instance.GetManager<GameManager>().tileDict.Clear();
@@ -88,19 +30,24 @@ public class SaveManager : ManagerBase
             yield return www.SendWebRequest();
             ClearTileMap();
             data = www.downloadHandler.text;
-            //print(data);
 
             string[] row = data.Split('\n');
             int rowSize = row.Length;
             int columnSize = row[0].Split('\t').Length;
-            //print(rowSize);
 
             for (int i = 0; i < rowSize; i++)
             {
                 string[] column = row[i].Split('\t');
+
+                
+
                 for (int j = 0; j < columnSize; j++)
                 {
-                    //print(column[j]);
+                    bool isTransitionTile = column[j].Contains("*");
+                    if (isTransitionTile)
+                    {
+                        column[j] = column[j].Substring(1);
+                    }
 
                     TileBase tile = ParseTile(column[j]);
                     Vector3Int pos = new Vector3Int(1 + j, 6 - i, 0);
@@ -110,13 +57,16 @@ public class SaveManager : ManagerBase
                     type = GetType(tile);
 
                     ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
+                    if (isTransitionTile)
+                    {
+                        a.StartTransition();
+                    }
 
                     if (type.Equals(TileType.None))
                     {
                     }
                     else
                     {
-
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
                         a.dataString = lastString;
                         a.SetDirection();
@@ -125,17 +75,11 @@ public class SaveManager : ManagerBase
                             new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
-                        
-                        
                     }
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
                     a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
                     pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
-                    a.keyPos = new Vector2(pos.x, pos.y);
-                    a.myType = type;
-                    a.gridPos = pos;
-                 
-                   
+                    a.index = new Vector2(pos.x, pos.y);
                     IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
                     yield return null;
                 }
@@ -152,6 +96,7 @@ public class SaveManager : ManagerBase
 
         TileColors color;
         lastString = data;
+
         switch (data)
         {
             case "D":

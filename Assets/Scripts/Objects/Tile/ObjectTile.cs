@@ -40,6 +40,10 @@ public abstract class ObjectTile : PoolableMono
     public Vector3Int gridPos;
 
 
+    public void StartTransition() => StartCoroutine(Transition());
+    public abstract IEnumerator Transition();
+
+
     protected virtual void Awake()
     {
         Vector3 myPos = transform.position;

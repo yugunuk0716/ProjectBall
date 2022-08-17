@@ -18,6 +18,7 @@ public class ReflectWall : ObjectTile
         sr = GetComponent<SpriteRenderer>();
     }
 
+
     IEnumerator ChangeSprite(Sprite[] targetSpriteArray, int targetSpriteIndex)
     {
         sr.sprite = targetSpriteArray[targetSpriteIndex];
@@ -25,35 +26,54 @@ public class ReflectWall : ObjectTile
         sr.sprite = targetSpriteArray[0];
     }
 
+    
+
     public override void InteractionTile(Ball tb)
     {
         StopCoroutine("ChangeSprite");
         if (isHorizontalWall)
         {
-            if(tb.direction.y > 0)
+            switch(tb.direction)
             {
-                tb.direction = new Vector2(1, 0);
-                StartCoroutine(ChangeSprite(verSprites, 1));
-            }
-            else
-            {
-                tb.direction = new Vector2(-1, 0);
-                StartCoroutine(ChangeSprite(verSprites, 2));
+                case Vector2 v when v.Equals(Vector2.right):
+                    tb.SetBall(new Vector2(0, -1),0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.down):
+                    tb.SetBall(new Vector2(1, 0), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.left):
+                    tb.SetBall(new Vector2(0, 1), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.up):
+                    tb.SetBall(new Vector2(-1, 0), 0.5f);
+                    break;
             }
         }
         else
         {
-            if(tb.direction.x > 0)
+            switch (tb.direction)
             {
-                tb.direction = new Vector2(0, 1);
-                StartCoroutine(ChangeSprite(horSprites, 1));
-            }
-            else
-            {
-                tb.direction = new Vector2(0, -1);
-                StartCoroutine(ChangeSprite(horSprites, 2));
+                case Vector2 v when v.Equals(Vector2.right):
+                    tb.SetBall(new Vector2(0, 1), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.down):
+                    tb.SetBall(new Vector2(-1, 0), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.left):
+                    tb.SetBall(new Vector2(0, -1), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.up):
+                    tb.SetBall(new Vector2(1, 0), 0.5f);
+                    break;
             }
         }
+        
 
         tb.SetMove();
     }
@@ -83,12 +103,24 @@ public class ReflectWall : ObjectTile
         else if (dataString.Equals("/"))
         {
             isHorizontalWall = false;
-            sr.sprite = verSprites[1];
+            sr.sprite = verSprites[0];
         }
     }
 
+    
+
     public override void Reset()
     {
+        StopCoroutine("Transition");
+    }
 
+    public override IEnumerator Transition()
+    {
+        while(true)
+        {
+            isHorizontalWall = !isHorizontalWall;
+            sr.sprite = isHorizontalWall ? horSprites[0] : verSprites[0];
+            yield return new WaitForSeconds(3f);
+        }
     }
 }

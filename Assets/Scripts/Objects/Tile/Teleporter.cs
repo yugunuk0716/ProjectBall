@@ -75,7 +75,7 @@ public class Teleporter : ObjectTile
 
     public override void Reset()
     {
-
+        StopCoroutine("Transition");
     }
 
     public override void InteractionTile(Ball tb)
@@ -87,5 +87,10 @@ public class Teleporter : ObjectTile
             tb.SetPos(pairTeleporter.keyPos);
             tb.SetMove();
         }
+    }
+
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
     }
 }

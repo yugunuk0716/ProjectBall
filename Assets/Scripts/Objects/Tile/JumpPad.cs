@@ -6,10 +6,15 @@ public class JumpPad : ObjectTile
 {
     public override void InteractionTile(Ball tb)
     {
+        tb.SetMove();
     }
 
     public override void Reset()
     {
     }
 
+    public override IEnumerator Transition()
+    {
+        throw new System.NotImplementedException();
+    }
 }
