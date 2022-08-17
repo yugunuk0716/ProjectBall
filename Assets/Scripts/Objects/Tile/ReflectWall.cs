@@ -33,30 +33,47 @@ public class ReflectWall : ObjectTile
         StopCoroutine("ChangeSprite");
         if (isHorizontalWall)
         {
-            if(tb.direction.y > 0)
+            switch(tb.direction)
             {
-                tb.direction = new Vector2(1, 0);
-                StartCoroutine(ChangeSprite(verSprites, 1));
-            }
-            else
-            {
-                tb.direction = new Vector2(-1, 0);
-                StartCoroutine(ChangeSprite(verSprites, 2));
+                case Vector2 v when v.Equals(Vector2.right):
+                    tb.SetBall(new Vector2(0, -1),0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.down):
+                    tb.SetBall(new Vector2(1, 0), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.left):
+                    tb.SetBall(new Vector2(0, 1), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.up):
+                    tb.SetBall(new Vector2(-1, 0), 0.5f);
+                    break;
             }
         }
         else
         {
-            if(tb.direction.x > 0)
+            switch (tb.direction)
             {
-                tb.direction = new Vector2(0, 1);
-                StartCoroutine(ChangeSprite(horSprites, 1));
-            }
-            else
-            {
-                tb.direction = new Vector2(0, -1);
-                StartCoroutine(ChangeSprite(horSprites, 2));
+                case Vector2 v when v.Equals(Vector2.right):
+                    tb.SetBall(new Vector2(0, 1), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.down):
+                    tb.SetBall(new Vector2(-1, 0), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.left):
+                    tb.SetBall(new Vector2(0, -1), 0.5f);
+                    break;
+
+                case Vector2 v when v.Equals(Vector2.up):
+                    tb.SetBall(new Vector2(1, 0), 0.5f);
+                    break;
             }
         }
+        
 
         tb.SetMove();
     }

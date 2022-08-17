@@ -6,6 +6,7 @@ public class JumpPad : ObjectTile
 {
     public override void InteractionTile(Ball tb)
     {
+        tb.SetMove();
     }
 
     public override void Reset()
