@@ -110,11 +110,13 @@ public class SaveManager : ManagerBase
                     type = GetType(tile);
 
                     ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
+
                     if (type.Equals(TileType.None))
                     {
                     }
                     else
                     {
+
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
                         a.dataString = lastString;
                         a.SetDirection();
@@ -123,11 +125,17 @@ public class SaveManager : ManagerBase
                             new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
+                        
+                        
                     }
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
                     a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
                     pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
-                    a.index = new Vector2(pos.x, pos.y);
+                    a.keyPos = new Vector2(pos.x, pos.y);
+                    a.myType = type;
+                    a.gridPos = pos;
+                 
+                   
                     IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
                     yield return null;
                 }

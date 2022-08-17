@@ -7,10 +7,16 @@ using UnityEngine.UI;
 public class ShooterTile : ObjectTile
 {
     private Animator anim;
+    private JumpPad jumpPad;
 
     protected override void Awake()
     {
         anim = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        jumpPad = GetComponentInParent<JumpPad>();
     }
 
     private void Update()
@@ -54,13 +60,13 @@ public class ShooterTile : ObjectTile
             ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
         }
 
-        ball.transform.position = transform.position - new Vector3(0,.25f,0);
+        ball.transform.position = transform.position - new Vector3(0, .25f, 0);
         Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
         ball.SetBall(shootDir, 0.5f);
-        ball.SetPos(new Vector2(4, 4));
+        ball.SetPos(new Vector2(jumpPad.gridPos.x, jumpPad.gridPos.y));
         ball.SetMove();
 
         gm.myBallList.RemoveAt(0);

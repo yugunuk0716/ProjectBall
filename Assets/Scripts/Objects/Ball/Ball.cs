@@ -92,15 +92,13 @@ public class Ball : PoolableMono
         myPos += direction;
         if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
         {
-            print(direction);
             ObjectTile tile = IsometricManager.Instance.GetManager<GameManager>().tileDict[myPos];
-            transform.DOMove(tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile(this));
+            transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile(this));
         }
         else
         {
 
             PoolManager.Instance.Push(this);
-            print(myPos);
         }
     }
 
