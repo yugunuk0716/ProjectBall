@@ -55,9 +55,6 @@ public class GameManager : ManagerBase
     public override void Init()
     {
         realTime = 0;
-        timerCo = Timer();
-
-
         ObjectTile tile = Resources.Load<ObjectTile>("Tiles/Arrow1");
         PoolManager.Instance.CreatePool(tile, "DirectionChanger", 10);
 
@@ -94,11 +91,22 @@ public class GameManager : ManagerBase
         }
     }
 
+    public void ResetData()
+    {
+        ballUIList.Clear();
+        myBallList.Clear();
+        SetTimerText("Ready", Color.black);
+        realTime = 0f;
+        firstTime = 0f;
+        isFirstBallNotArrived = true;
+        timerCo = Timer();
+    }
 
     public void CheckClear()
     {
-        if (firstTime == 0f && isFirstBallNotArrived)
+        if (isFirstBallNotArrived)
         {
+            Debug.Log("Timer Start");
             isFirstBallNotArrived = false;
             firstTime = Time.time;
             StartCoroutine(timerCo);
@@ -108,13 +116,10 @@ public class GameManager : ManagerBase
 
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
-            StopCoroutine(timerCo);
+            StopTimer();
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             sm.stageIndex++;
-            sm.ClearAllBalls();
-            firstTime = 0f;
-            realTime = 0f;
             SetTimerText("Clear", Color.green);
             sm.LoadStage(mapRangeStrArray[sm.stageIndex-1]);
         }
@@ -122,24 +127,24 @@ public class GameManager : ManagerBase
 
     public IEnumerator Timer()
     {
+        Debug.Log("타이머 코루틴 진입");
         while (true)
         {
-            yield return null;
-            realTime += Time.deltaTime;
+            Debug.Log("타이머 시작");
             if (limitTime - realTime <= 0)
             {
-                foreach (Goal goal in goalList)
-                {
-                    goal.ResetFlag(false);
-                }
-                firstTime = 0f;
-                realTime = 0f;
+                goalList.ForEach((x) => x.ResetFlag(false));
+                StopTimer();
                 SetTimerText("Failed", Color.red);
                 yield return new WaitForSeconds(1f);
                 SetTimerText("Press the 'Load' to Play", Color.white);
 
                 break;
             }
+
+            yield return null;
+            Debug.Log("타이머가 돌고 있나요?");
+            realTime += Time.deltaTime;
             SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.black);
         }
     }
@@ -148,6 +153,7 @@ public class GameManager : ManagerBase
     {
          StopCoroutine(timerCo);
     }
+
     public override void UpdateState(eUpdateState state)
     {
         switch (state)

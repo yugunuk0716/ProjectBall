@@ -24,10 +24,8 @@ public class ShooterTile : ObjectTile
     {
         if (Input.GetMouseButtonDown(0) && false == EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log($"{Input.mousePosition.y} / {Screen.height}");
             if (Input.mousePosition.y > Screen.height / 3)
             {
-                Debug.Log("하단 1/3을 클릭해야 공이 나가요!");
                 return;
             }
             Shoot();
@@ -68,7 +66,6 @@ public class ShooterTile : ObjectTile
         anim.SetFloat("MouseY", shootDir.y);
 
         ball.SetBall(shootDir, 0.5f);
-        print(jumpPad.gridPos);
         ball.SetPos(new Vector2(jumpPad.gridPos.x, jumpPad.gridPos.y));
         ball.SetMove();
 
