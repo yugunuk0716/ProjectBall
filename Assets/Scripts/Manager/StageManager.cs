@@ -25,6 +25,8 @@ public class StageManager : ManagerBase
             stageObjList[i] = Instantiate(stageObjList[i], gridObj);
             stageObjList[i].gameObject.SetActive(false);
         }
+
+        LoadStage(IsometricManager.Instance.GetManager<GameManager>().mapRangeStrArray[0]);
     }
 
     public void ClearAllBalls()
@@ -38,23 +40,19 @@ public class StageManager : ManagerBase
 
         if (gm.mapRangeStrArray.Length >= stageIndex && stageIndex > 0)
         {
+            ClearAllBalls();
+            
+
             SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
             sm.range = mapRange;
             sm.LoadMapSpreadsheets(() =>
             {
-                gm.ballUIList.Clear();
-                gm.myBallList.Clear();
-
+                gm.ResetData();
                 gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
                 gm.goalList.ForEach(x => x.ResetFlag(false));
                 gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
                 gm.portalList.ForEach(portal => portal.FindPair());
 
-                gm.SetTimerText("Ready", Color.black);
-                gm.StopTimer();
-                gm.isFirstBallNotArrived = true;
-                gm.firstTime = 0f;
-                // 대충 여기서 공 데이터 받아와야겠당
                 InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
 
             });
