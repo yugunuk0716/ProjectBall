@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
-using System.Linq;
+using DG.Tweening;
 using System;
 
 public class SaveManager : ManagerBase
@@ -50,9 +50,20 @@ public class SaveManager : ManagerBase
                         column[j] = column[j].Substring(1);
                     }
 
-                    TileBase tile = ParseTile(column[j]);
+                    Tile tile = ParseTile(column[j]);
                     Vector3Int pos = new Vector3Int(1 + j, 6 - i, 0);
                     TileType type;
+
+                    Vector3 tmepVec = pos + new Vector3Int(0, 100, 0);
+
+
+                  /*  yield return DOTween.To(() => tmepVec, x => 
+                    {
+                        tmepVec = x;
+                        tile.transform.SetTRS(tmepVec, Quaternion.identity, Vector3.one);
+                        
+                    }, pos, 3f);*/
+
 
                     mainMap.SetTile(pos, tile);
                     type = GetType(tile);
@@ -89,17 +100,18 @@ public class SaveManager : ManagerBase
                     a.gridPos = pos;
                     a.keyPos = new Vector2(pos.x, pos.y);
                     IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
-                    yield return null;
                 }
+
+                yield return null;
             }
 
             callback();
         }
     }
 
-    public TileBase ParseTile(string data)
+    public Tile ParseTile(string data)
     {
-        TileBase tile;
+        Tile tile;
         data = data.ToUpper().Trim();
 
         TileColors color;
@@ -148,7 +160,7 @@ public class SaveManager : ManagerBase
                 }
                 break;
         }
-        tile = Resources.Load<TileBase>($"IsometricTileAssets/1{color}");
+        tile = Resources.Load<Tile>($"IsometricTileAssets/1{color}");
         tile.name = color.ToString();
         return tile;
     }
