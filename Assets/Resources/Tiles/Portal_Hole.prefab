@@ -49,7 +49,8 @@ MonoBehaviour:
   dataString: 
   myType: 2
   worldPos: {x: 0, y: 0}
-  index: {x: 0, y: 0}
+  keyPos: {x: 0, y: 0}
+  gridPos: {x: 0, y: 0, z: 0}
   mySprite:
   - {fileID: 569323019, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}
   - {fileID: 64951381, guid: cf2ff68f21065f54c8e843f94ab2dd1a, type: 3}

@@ -101,5 +101,6 @@ MonoBehaviour:
   dataString: 
   myType: 1
   worldPos: {x: 0, y: 0}
-  index: {x: 0, y: 0}
+  keyPos: {x: 0, y: 0}
+  gridPos: {x: 0, y: 0, z: 0}
   flowAmount: 0.5

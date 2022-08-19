@@ -68,6 +68,7 @@ public class ShooterTile : ObjectTile
         anim.SetFloat("MouseY", shootDir.y);
 
         ball.SetBall(shootDir, 0.5f);
+        print(jumpPad.gridPos);
         ball.SetPos(new Vector2(jumpPad.gridPos.x, jumpPad.gridPos.y));
         ball.SetMove();
 
