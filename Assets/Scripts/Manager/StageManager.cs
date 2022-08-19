@@ -25,6 +25,8 @@ public class StageManager : ManagerBase
             stageObjList[i] = Instantiate(stageObjList[i], gridObj);
             stageObjList[i].gameObject.SetActive(false);
         }
+
+        LoadStage(IsometricManager.Instance.GetManager<GameManager>().mapRangeStrArray[0]);
     }
 
     public void ClearAllBalls()
