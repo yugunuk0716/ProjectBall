@@ -89,6 +89,11 @@ public class Ball : PoolableMono
 
     public void SetMove()
     {
+        if (!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+        }
+
         myPos += direction;
         if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
         {
@@ -104,7 +109,8 @@ public class Ball : PoolableMono
 
     public override void Reset()
     {
-
+        gameObject.SetActive(false);
+        print(gameObject.activeSelf);
     }
 
     public void RemoveSpecialEffect()
