@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
   - component: {fileID: 2714020699549678644}
+  - component: {fileID: -8147459176515769411}
   m_Layer: 0
   m_Name: Wall1
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_Sprite: {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
   m_Color: {r: 0.5235849, g: 1, b: 0.7537299, a: 1}
   m_FlipX: 0
@@ -112,3 +113,16 @@ MonoBehaviour:
   - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
   - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
   - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+--- !u!114 &-8147459176515769411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893477038133102498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnce: 0

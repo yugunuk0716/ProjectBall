@@ -76,10 +76,9 @@ public class SaveManager : ManagerBase
 
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
                         a.dataString = lastString;
+                        a.transform.position = mainMap.CellToWorld(new Vector3Int(pos.x + 1, pos.y + 1, 0));
                         a.SetDirection();
-                       
-                        a.transform.position = mainMap.CellToWorld(
-                            new Vector3Int(pos.x + 1, pos.y + 1, 0));
+
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
                     }

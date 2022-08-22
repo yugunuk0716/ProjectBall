@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ReflectWall : ObjectTile
 {
@@ -98,6 +99,7 @@ public class ReflectWall : ObjectTile
         if (dataString.Equals("\\"))
         {
             isHorizontalWall = true;
+            transform.Translate(0, -0.15f, 0);
             sr.sprite = horSprites[0];
         }
         else if (dataString.Equals("/"))
@@ -106,8 +108,6 @@ public class ReflectWall : ObjectTile
             sr.sprite = verSprites[0];
         }
     }
-
-    
 
     public override void Reset()
     {
@@ -119,6 +119,7 @@ public class ReflectWall : ObjectTile
         while(true)
         {
             isHorizontalWall = !isHorizontalWall;
+            transform.Translate(new Vector3(0, 0.15f, 0) * (isHorizontalWall ? -1 : 1)) ;
             sr.sprite = isHorizontalWall ? horSprites[0] : verSprites[0];
             yield return new WaitForSeconds(3f);
         }
