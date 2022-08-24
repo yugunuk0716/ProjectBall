@@ -59,6 +59,9 @@ MonoBehaviour:
   collisionTileType: 7
   ballState: 0
   shootDir: 0
+  direction: {x: 0, y: 0}
+  myPos: {x: 0, y: 0}
+  speed: 0.4
 --- !u!1 &7802137078382230432
 GameObject:
   m_ObjectHideFlags: 0
