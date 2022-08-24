@@ -59,6 +59,9 @@ MonoBehaviour:
   collisionTileType: 5
   ballState: 1
   shootDir: 0
+  direction: {x: 0, y: 0}
+  myPos: {x: 0, y: 0}
+  speed: 0.25
 --- !u!1 &7802137078382230432
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,6 +73,8 @@ GameObject:
   - component: {fileID: 3097206104757771022}
   - component: {fileID: 4344911483904682155}
   - component: {fileID: 2398532101133416761}
+  - component: {fileID: 2427510435078759202}
+  - component: {fileID: 3404845930169287506}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -133,7 +138,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: dd73325902412db4d93bd3e803eae667, type: 3}
+  m_Sprite: {fileID: 1927900239, guid: 8bf43409ade744c468dd17d12eb79698, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,3 +169,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2427510435078759202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7802137078382230432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOnce: 0
+--- !u!114 &3404845930169287506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7802137078382230432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fcc656fff625c84da7fe14f0d84a972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
