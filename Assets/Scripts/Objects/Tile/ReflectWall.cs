@@ -37,19 +37,19 @@ public class ReflectWall : ObjectTile
             switch(tb.direction)
             {
                 case Vector2 v when v.Equals(Vector2.right):
-                    tb.SetBall(new Vector2(0, -1),0.5f);
+                    tb.SetBall(Vector2.down, tb.speed);
                     break;
 
                 case Vector2 v when v.Equals(Vector2.down):
-                    tb.SetBall(new Vector2(1, 0), 0.5f);
+                    tb.SetBall(Vector2.right, tb.speed);
                     break;
 
                 case Vector2 v when v.Equals(Vector2.left):
-                    tb.SetBall(new Vector2(0, 1), 0.5f);
+                    tb.SetBall(Vector2.up, tb.speed);
                     break;
 
                 case Vector2 v when v.Equals(Vector2.up):
-                    tb.SetBall(new Vector2(-1, 0), 0.5f);
+                    tb.SetBall(Vector2.left, tb.speed);
                     break;
             }
         }
@@ -58,19 +58,19 @@ public class ReflectWall : ObjectTile
             switch (tb.direction)
             {
                 case Vector2 v when v.Equals(Vector2.right):
-                    tb.SetBall(new Vector2(0, 1), 0.5f);
+                    tb.SetBall(Vector2.up, tb.speed);
                     break;
 
                 case Vector2 v when v.Equals(Vector2.down):
-                    tb.SetBall(new Vector2(-1, 0), 0.5f);
+                    tb.SetBall(Vector2.left, tb.speed);
                     break;
 
                 case Vector2 v when v.Equals(Vector2.left):
-                    tb.SetBall(new Vector2(0, -1), 0.5f);
+                    tb.SetBall(Vector2.down, tb.speed);
                     break;
 
                 case Vector2 v when v.Equals(Vector2.up):
-                    tb.SetBall(new Vector2(1, 0), 0.5f);
+                    tb.SetBall(Vector2.up, tb.speed);
                     break;
             }
         }

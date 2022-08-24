@@ -45,7 +45,7 @@ public class Ball : PoolableMono
 
     public Vector2 direction;
     public Vector2 myPos;
-    public float speed = 2f;
+    public float speed = 0.25f;
 
     private void Awake()
     {
@@ -74,6 +74,7 @@ public class Ball : PoolableMono
     {
         direction = dir;
         this.speed = speed;
+        print(this.speed);
     }
 
     public void SetPos(Vector2 pos)
