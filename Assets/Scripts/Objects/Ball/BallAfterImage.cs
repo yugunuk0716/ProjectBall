@@ -13,7 +13,7 @@ public class BallAfterImage : MonoBehaviour
         SpriteRenderer[] renderers = new SpriteRenderer[20];
 
         parentObj = new GameObject("Test");
-
+        parentObj.transform.position = this.transform.position;
         for (int i = 0; i < renderers.Length; i++)
         {
             SetSprite(i, renderers);
@@ -39,6 +39,7 @@ public class BallAfterImage : MonoBehaviour
         obj.transform.localScale = transform.localScale;
         SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
+        sr.color = Color.clear;
         targetArray[index] = sr;
     }
 
@@ -52,7 +53,7 @@ public class BallAfterImage : MonoBehaviour
                 renderers[i].transform.position = transform.position;
                 renderers[i].color = Color.white;
                 renderers[i].DOFade(0, 1f);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.3f);
             }
         }
     }
@@ -65,8 +66,8 @@ public class BallAfterImage : MonoBehaviour
             {
                 renderers[i].transform.rotation = transform.rotation;
                 renderers[i].color = Color.white;
-                renderers[i].DOFade(0, 2f);
-                yield return new WaitForSeconds(0.1f);
+                renderers[i].DOFade(0, 0.7f);
+                yield return new WaitForSeconds(0.05f);
             }
         }
     }
@@ -76,12 +77,12 @@ public class BallAfterImage : MonoBehaviour
         while(true)
         {
             for (int i = 0; i < renderers.Length; i++) renderers[i].transform.position = this.transform.position;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
     
     void Update()
     {
-        this.transform.Rotate(Vector3.forward * 80 * Time.deltaTime);
+        this.transform.Rotate(Vector3.forward * 150 * Time.deltaTime);
     }
 }
