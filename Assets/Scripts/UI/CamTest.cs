@@ -90,18 +90,30 @@ public class CamTest : MonoBehaviour
 
         Touch t = Input.GetTouch(0);
 
-        switch (t.phase)
+
+        for(int i = 0; i < Input.touchCount; i++)
         {
-            case TouchPhase.Began:
-                vec1 = t.position;
-                break;
-            case TouchPhase.Ended:
-                vec2 = t.position;
-                SetPos();
-                break;
-            case TouchPhase.Canceled:
-                return;
+            t = Input.touches[i];
+
+            switch (t.phase)
+            {
+                case TouchPhase.Began:
+                    vec1 = t.position;
+                    break;
+                case TouchPhase.Ended:
+                    vec2 = t.position;
+                    SetPos();
+                    break;
+                case TouchPhase.Canceled:
+                    return;
+            }
         }
+
+        Debug.LogError(Input.touchCount);
+        Debug.LogError($"vec1: {vec1} \n vec2: {vec2}");
+
+
+        
     }
 
 
