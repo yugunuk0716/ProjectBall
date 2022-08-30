@@ -54,16 +54,23 @@ public class CamTest : MonoBehaviour
         #endregion
 
 
-        CameraZoom();
-              
         
-        CameraMove();
+              
+        if(Input.touchCount == 1)
+        {
+            CameraMove();
+        }
+        else if(Input.touchCount == 2)
+        {
+            CameraZoom();
+        }
+        
         
     }
 
     public void SetPos()
     {
-        Vector3 vec = vec2 - vec1;
+        Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
 
 
