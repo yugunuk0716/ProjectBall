@@ -53,13 +53,12 @@ public class CamTest : MonoBehaviour
 #endif
         #endregion
 
+
+        CameraZoom();
+              
         
-            CameraZoom();
+        CameraMove();
         
-        else
-        {
-            CameraMove();
-        }
     }
 
     public void SetPos()
