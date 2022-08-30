@@ -113,7 +113,6 @@ public class Ball : PoolableMono
     public override void Reset()
     {
         gameObject.SetActive(false);
-        print(gameObject.activeSelf);
     }
 
     public void RemoveSpecialEffect()
