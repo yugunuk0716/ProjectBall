@@ -13,6 +13,8 @@ public class CamTest : MonoBehaviour
 
     private void Update()
     {
+        #region PC Test
+#if UNITY_EDITOR
         if (Input.GetKey(KeyCode.A))
         {
             if(vCam.m_Lens.OrthographicSize < 4f)
@@ -20,7 +22,7 @@ public class CamTest : MonoBehaviour
                 return;
             }
 
-            vCam.m_Lens.OrthographicSize -= 0.05f;
+            vCam.m_Lens.OrthographicSize -= 0.025f;
         }
 
         if (Input.GetKey(KeyCode.D))
@@ -30,7 +32,7 @@ public class CamTest : MonoBehaviour
                 return;
             }
 
-            vCam.m_Lens.OrthographicSize += 0.05f;
+            vCam.m_Lens.OrthographicSize += 0.025f;
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -44,7 +46,17 @@ public class CamTest : MonoBehaviour
             vec2 = Input.mousePosition;
             SetPos();
         }
+#endif
+        #endregion
 
+        if(Input.touches.Length == 2)
+        {
+            CameraZoom();
+        }
+        else
+        {
+            CameraMove();
+        }
     }
 
     public void SetPos()
@@ -56,43 +68,53 @@ public class CamTest : MonoBehaviour
         float x = 0f;
         float y = 0f;
 
-        x = Mathf.Clamp(pos.x + vec.normalized.x * 0.1f, -4.6f, 4.6f);
-        y = Mathf.Clamp(pos.y + vec.normalized.y * 0.1f, -8.4f, 8.4f);
+        x = Mathf.Clamp(pos.x + vec.normalized.x * 0.01f, -4.6f, 4.6f);
+        y = Mathf.Clamp(pos.y + vec.normalized.y * 0.01f, -8.4f, 8.4f);
 
         transform.position = new Vector2(x, y);
-
-        //if(Mathf.Abs(vec.x) > Mathf.Abs(vec.y))
-        //{
-        //    float x = 0f;
-
-        //    if(vec.x  > 0)
-        //    {
-        //        x = Mathf.Clamp(transform.position.x + 0.1f, -4.6f, 4.6f);
-        //    }
-        //    else
-        //    {
-        //        x = Mathf.Clamp(transform.position.x - 0.1f, -4.6f, 4.6f);
-        //    }
-
-        //    transform.position = new Vector2(x, pos.y);
-        //}
-        //else
-        //{
-        //    float y = 0f;
-
-        //    if (vec.y > 0)
-        //    {
-        //        y = Mathf.Clamp(transform.position.y + 0.1f, -8.4f, 8.4f);
-        //    }
-        //    else
-        //    {
-        //        y = Mathf.Clamp(transform.position.y - 0.1f, -8.4f, 8.4f);
-        //    }
-        //    transform.position = new Vector2(pos.x, y);
-        //}
+     
 
     }
 
+    public void CameraMove()
+    {
+
+        if(Input.touches.Length <= 0)
+        {
+            return;
+        }
+
+        Touch t = Input.GetTouch(0);
+
+        switch (t.phase)
+        {
+            case TouchPhase.Began:
+                vec1 = t.position;
+                break;
+            case TouchPhase.Ended:
+                vec2 = t.position;
+                break;
+            case TouchPhase.Canceled:
+                return;
+        }
+    }
+
+
+    public void CameraZoom()
+    {
+        Touch t1 = Input.GetTouch(0);
+        Touch t2 = Input.GetTouch(1);
+
+        Vector2 t1PrevPos = t1.position - t1.deltaPosition;
+        Vector2 t2PrevPos = t2.position - t2.deltaPosition;
+
+        float prevDeltaMagnitude = (t1PrevPos - t2PrevPos).magnitude;
+        float deltaMagnitude = (t1.position - t2.position).magnitude;
+
+        vCam.m_Lens.OrthographicSize += deltaMagnitude * 0.5f;
+        vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
+
+    }
 
 
 }
