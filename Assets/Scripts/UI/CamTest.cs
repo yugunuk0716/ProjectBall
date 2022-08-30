@@ -70,8 +70,15 @@ public class CamTest : MonoBehaviour
         float x = 0f;
         float y = 0f;
 
+#if UNITY_EDITOR
         x = Mathf.Clamp(pos.x + vec.normalized.x * 0.01f, -4.6f, 4.6f);
         y = Mathf.Clamp(pos.y + vec.normalized.y * 0.01f, -8.4f, 8.4f);
+#else
+        x = Mathf.Clamp(pos.x + vec.normalized.x, -4.6f, 4.6f);
+        y = Mathf.Clamp(pos.y + vec.normalized.y, -8.4f, 8.4f);
+#endif
+
+
 
         print($"{x}, {y}");
 
@@ -108,12 +115,6 @@ public class CamTest : MonoBehaviour
                     return;
             }
         }
-
-        Debug.LogError(Input.touchCount);
-        Debug.LogError($"vec1: {vec1} \n vec2: {vec2}");
-
-
-        
     }
 
 
@@ -131,7 +132,7 @@ public class CamTest : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            vCam.m_Lens.OrthographicSize = Mathf.Clamp((prevTouchDeltaMag - touchDeltaMag) * 0.1f, 4f, 8.5f);
+            vCam.m_Lens.OrthographicSize = Mathf.Clamp((prevTouchDeltaMag - touchDeltaMag) * 0.001f, 4f, 8.5f);
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
             {
