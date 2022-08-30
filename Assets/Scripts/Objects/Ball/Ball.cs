@@ -26,6 +26,8 @@ public class Ball : PoolableMono
     public Rigidbody2D rigid;
     public Animator anim;
     public SpriteRenderer sr;
+    public Sprite uiSprite; // UI에 적용할 스프라이트, 공처럼 생김!
+
     public GameObject spriteObject;
 
     public float tpCool;

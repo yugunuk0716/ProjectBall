@@ -50,8 +50,6 @@ public class StageManager : ManagerBase
                 InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
                 IsometricManager.Instance.UpdateState(eUpdateState.Load);
             });
-
-           
         }
         else if(gm.mapRangeStrArray.Length < stageIndex) // 12까지 있는데 13불러오려 하면
         {

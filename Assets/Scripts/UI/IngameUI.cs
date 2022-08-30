@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System;
 using DG.Tweening;
 using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class IngameUI : UIBase
 {
@@ -21,12 +18,19 @@ public class IngameUI : UIBase
 
     public bool isSelectingDirection = false;
 
+    [SerializeField] private Sprite[] abilitySprites;
+
+
     public override void Init()
     {
         Debug.Log("InitCall");
 
         GetCanvasGroup();
-        selectDirectionUI.Init(() => isSelectingDirection = false);
+
+        selectDirectionUI.Init(() =>
+        {
+            isSelectingDirection = false;
+        });
         
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
@@ -53,25 +57,29 @@ public class IngameUI : UIBase
                 }
 
                 BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+                newBallControllUI.SetBallSprites(ball.uiSprite, abilitySprites[(int)ball.ballState]);
                 bool isAdded = false;
 
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
                 {
                     if (isSelectingDirection) return;
 
-                    if(isAdded) // 다시 돌아오려는
+                    if (isAdded) // 다시 돌아오려는
                     {
                         newBallControllUI.transform.SetParent(parentTrms[0]);
                         gm.myBallList.Remove(ball);
                         gm.ballUIList.Remove(newBallControllUI.gameObject);
+                        newBallControllUI.SetDirection(TileDirection.RIGHTDOWN, false);
                     }
                     else // 추가 하려는
                     {
                         newBallControllUI.transform.SetParent(parentTrms[1]);
                         gm.ballUIList.Add(newBallControllUI.gameObject);
                         selectDirectionUI.addBall = ball;
+                        selectDirectionUI.ballControllUI = newBallControllUI;
                         selectDirectionUI.ScreenOn(true);
                         isSelectingDirection = true;
+
                     }
 
                     isAdded = !isAdded;
@@ -81,7 +89,6 @@ public class IngameUI : UIBase
 
         moveStageBtn.onClick.AddListener(() =>
         {
-            Debug.Log("Call");
             sm.LoadStage(gm.mapRangeStrArray[sm.stageIndex - 1]);
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
@@ -112,6 +119,7 @@ public class IngameUI : UIBase
     {
         selectDirectionUI.ScreenOn(false);
         ClearAllBalls();
+        isSelectingDirection = false;
     }
 
     public void ClearAllBalls()
