@@ -11,6 +11,10 @@ public class CamTest : MonoBehaviour
     private Vector2 vec1;
     private Vector2 vec2;
 
+
+    private Vector2 prevT1Pos;
+    private Vector2 prevT2Pos;
+
     private void Update()
     {
         #region PC Test
@@ -49,10 +53,9 @@ public class CamTest : MonoBehaviour
 #endif
         #endregion
 
-        if(Input.touches.Length == 2)
-        {
+        
             CameraZoom();
-        }
+        
         else
         {
             CameraMove();
@@ -71,7 +74,7 @@ public class CamTest : MonoBehaviour
         x = Mathf.Clamp(pos.x + vec.normalized.x * 0.01f, -4.6f, 4.6f);
         y = Mathf.Clamp(pos.y + vec.normalized.y * 0.01f, -8.4f, 8.4f);
 
-        Debug.LogError($"{x}, {y}");
+        print($"{x}, {y}");
 
         transform.position = new Vector2(x, y);
      
@@ -105,19 +108,27 @@ public class CamTest : MonoBehaviour
 
     public void CameraZoom()
     {
-        Touch t1 = Input.GetTouch(0);
-        Touch t2 = Input.GetTouch(1);
+        if (Input.touches.Length == 2)
+        {
 
-        Vector2 t1PrevPos = t1.position - t1.deltaPosition;
-        Vector2 t2PrevPos = t2.position - t2.deltaPosition;
+            Touch t1 = Input.GetTouch(0);
+            Touch t2 = Input.GetTouch(1);
 
-        float prevDeltaMagnitude = (t1PrevPos - t2PrevPos).magnitude;
-        float deltaMagnitude = (t1.position - t2.position).magnitude;
+            Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
+            Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
 
-        vCam.m_Lens.OrthographicSize += deltaMagnitude * 0.5f;
-        vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
+            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-        Debug.LogError($"{t1.position}, {t2.position} ,{deltaMagnitude}");
+            vCam.m_Lens.OrthographicSize = prevTouchDeltaMag - touchDeltaMag;
+
+            if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
+            {
+                prevT1Pos = t1.position;
+                prevT2Pos = t2.position;
+
+            }
+        }
 
     }
 
