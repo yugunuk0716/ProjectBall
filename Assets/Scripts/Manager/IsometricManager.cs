@@ -28,7 +28,6 @@ public class IsometricManager : MonoBehaviour
         managers.Add(gameObject.AddComponent<StageManager>());
         managers.Add(gameObject.AddComponent<SaveManager>());
 
-
         UpdateState(eUpdateState.Init);
     }
 
@@ -55,6 +54,8 @@ public class IsometricManager : MonoBehaviour
 
     public void UpdateState(eUpdateState state)
     {
+        Debug.Log($"UpdateState/{state}");
+
         foreach (var item in managers)
         {
             item.UpdateState(state);

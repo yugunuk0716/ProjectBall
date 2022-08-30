@@ -163,4 +163,9 @@ public class GameManager : ManagerBase
                 break;
         }
     }
+
+    public override void Load()
+    {
+        
+    }
 }

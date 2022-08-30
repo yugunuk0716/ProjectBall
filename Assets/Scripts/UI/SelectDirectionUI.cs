@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class SelectDirectionUI : MonoBehaviour
     CanvasGroup canvasGroup;
     [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
 
-    public void Init()
+    public void Init(Action callback)
     {
         canvasGroup = GetComponent<CanvasGroup>(); 
         Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
@@ -25,6 +26,7 @@ public class SelectDirectionUI : MonoBehaviour
                 addBall.shootDir = (TileDirection)(index);
                 IsometricManager.Instance.GetManager<GameManager>().myBallList.Add(addBall);
                 ScreenOn(false);
+                callback();
             });
         }
     }

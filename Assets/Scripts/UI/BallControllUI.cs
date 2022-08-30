@@ -12,4 +12,9 @@ public class BallControllUI : UIBase
     {
         // 할 거 없음
     }
+
+    public override void Load()
+    {
+        // 할 거 없음
+    }
 }
