@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using DG.Tweening;
 
 public class CamTest : MonoBehaviour
 {
@@ -89,7 +90,7 @@ public class CamTest : MonoBehaviour
 
         print($"{x}, {y}");
 
-        transform.position = new Vector2(x, y);
+        transform.DOMove(new Vector2(x, y), 0.1f);
      
 
     }
@@ -135,11 +136,15 @@ public class CamTest : MonoBehaviour
 
             Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
             Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
+            //Vector2 touchZeroPrevPos = t1.position - prevT1Pos;
+            //Vector2 touchOnePrevPos = t2.position - prevT2Pos;
 
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            vCam.m_Lens.OrthographicSize = Mathf.Clamp((prevTouchDeltaMag - touchDeltaMag) * 0.001f, 4f, 8.5f);
+            vCam.m_Lens.OrthographicSize = (prevTouchDeltaMag - touchDeltaMag) * 0.001f;
+            Debug.LogError((prevTouchDeltaMag - touchDeltaMag) * 0.001f);
+            vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
             {
