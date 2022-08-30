@@ -119,7 +119,7 @@ public class CamTest : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            vCam.m_Lens.OrthographicSize = prevTouchDeltaMag - touchDeltaMag;
+            vCam.m_Lens.OrthographicSize = Mathf.Clamp((prevTouchDeltaMag - touchDeltaMag) * 0.1f, 4f, 8.5f);
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
             {
