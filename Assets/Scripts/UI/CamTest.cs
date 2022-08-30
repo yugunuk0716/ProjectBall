@@ -71,6 +71,8 @@ public class CamTest : MonoBehaviour
         x = Mathf.Clamp(pos.x + vec.normalized.x * 0.01f, -4.6f, 4.6f);
         y = Mathf.Clamp(pos.y + vec.normalized.y * 0.01f, -8.4f, 8.4f);
 
+        Debug.LogError($"{x}, {y}");
+
         transform.position = new Vector2(x, y);
      
 
@@ -93,6 +95,7 @@ public class CamTest : MonoBehaviour
                 break;
             case TouchPhase.Ended:
                 vec2 = t.position;
+                SetPos();
                 break;
             case TouchPhase.Canceled:
                 return;
@@ -113,6 +116,8 @@ public class CamTest : MonoBehaviour
 
         vCam.m_Lens.OrthographicSize += deltaMagnitude * 0.5f;
         vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
+
+        Debug.LogError($"{t1.position}, {t2.position} ,{deltaMagnitude}");
 
     }
 
