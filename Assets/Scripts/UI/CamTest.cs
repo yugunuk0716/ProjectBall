@@ -55,18 +55,18 @@ public class CamTest : MonoBehaviour
         #endregion
 
 
-        
-              
-        if(Input.touchCount == 1)
-        {
-            CameraMove();
-        }
-        else if(Input.touchCount == 2)
+
+        if (Input.touchCount == 2)
         {
             CameraZoom();
         }
-        
-        
+
+        else if (Input.touchCount == 1)
+        {
+            CameraMove();
+        }
+
+
     }
 
     public void SetPos()
@@ -142,10 +142,8 @@ public class CamTest : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            vCam.m_Lens.OrthographicSize += (prevTouchDeltaMag - touchDeltaMag) * 0.001f;
-            Debug.LogError($"보정 전{vCam.m_Lens.OrthographicSize}");
+            vCam.m_Lens.OrthographicSize += (prevTouchDeltaMag - touchDeltaMag) * 0.01f;
             vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
-            Debug.LogError($"보정 후{vCam.m_Lens.OrthographicSize}");
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
             {
