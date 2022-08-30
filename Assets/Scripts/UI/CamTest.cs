@@ -16,6 +16,9 @@ public class CamTest : MonoBehaviour
     private Vector2 prevT1Pos;
     private Vector2 prevT2Pos;
 
+    float camMoveCool = 0.1f;
+    float lastCamMoveTime = 0f;
+    
     private void Update()
     {
         #region PC Test
@@ -56,14 +59,17 @@ public class CamTest : MonoBehaviour
 
 
 
-        if (Input.touchCount == 2)
+       if(lastCamMoveTime + camMoveCool < Time.time)
         {
-            CameraZoom();
-        }
+            if (Input.touchCount == 2)
+            {
+                CameraZoom();
+            }
 
-        else if (Input.touchCount == 1)
-        {
-            CameraMove();
+            else if (Input.touchCount == 1)
+            {
+                CameraMove();
+            }
         }
 
 
@@ -71,6 +77,7 @@ public class CamTest : MonoBehaviour
 
     public void SetPos()
     {
+        lastCamMoveTime = Time.time;
         Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
 
@@ -130,7 +137,7 @@ public class CamTest : MonoBehaviour
     {
         if (Input.touches.Length == 2)
         {
-
+            lastCamMoveTime = Time.time;
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
@@ -142,7 +149,7 @@ public class CamTest : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            vCam.m_Lens.OrthographicSize += (prevTouchDeltaMag - touchDeltaMag) * 0.01f;
+            vCam.m_Lens.OrthographicSize += (prevTouchDeltaMag - touchDeltaMag) * 0.02f;
             vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
