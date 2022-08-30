@@ -19,10 +19,14 @@ public class IngameUI : UIBase
 
     public SelectDirectionUI selectDirectionUI;
 
+    public bool isSelectingDirection = false;
+
     public override void Init()
     {
+        Debug.Log("InitCall");
+
         GetCanvasGroup();
-        selectDirectionUI.Init();
+        selectDirectionUI.Init(() => isSelectingDirection = false);
         
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
@@ -53,6 +57,8 @@ public class IngameUI : UIBase
 
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    if (isSelectingDirection) return;
+
                     if(isAdded) // 다시 돌아오려는
                     {
                         newBallControllUI.transform.SetParent(parentTrms[0]);
@@ -65,6 +71,7 @@ public class IngameUI : UIBase
                         gm.ballUIList.Add(newBallControllUI.gameObject);
                         selectDirectionUI.addBall = ball;
                         selectDirectionUI.ScreenOn(true);
+                        isSelectingDirection = true;
                     }
 
                     isAdded = !isAdded;
@@ -74,14 +81,12 @@ public class IngameUI : UIBase
 
         moveStageBtn.onClick.AddListener(() =>
         {
+            Debug.Log("Call");
             sm.LoadStage(gm.mapRangeStrArray[sm.stageIndex - 1]);
-            sm.ClearAllBalls();
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }
     
-
-
     public void SetTimerText(string textString, Color? color = null)
     {
         timer_text.text = textString;
@@ -103,5 +108,14 @@ public class IngameUI : UIBase
         debugText.DOFade(0, 2);
     }
 
+    public override void Load()
+    {
+        selectDirectionUI.ScreenOn(false);
+        ClearAllBalls();
+    }
 
+    public void ClearAllBalls()
+    {
+        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
+    }
 }

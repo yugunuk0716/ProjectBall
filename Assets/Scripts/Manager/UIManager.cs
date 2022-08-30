@@ -8,13 +8,9 @@ public class UIManager : ManagerBase
     [SerializeField] List<UIBase> uis;
 
 
-    public override void Init()
-    {
-        foreach(var item in uis)
-        {
-            item.Init();
-        }
-    }
+    public override void Init() => uis.ForEach(x => x.Init());
+
+    public override void Load() => uis.ForEach(x => x.Load());
 
     public override void UpdateState(eUpdateState state)
     {
@@ -22,6 +18,9 @@ public class UIManager : ManagerBase
         {
             case eUpdateState.Init:
                 Init();
+                break;
+            case eUpdateState.Load:
+                Load();
                 break;
         }
     }

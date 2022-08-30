@@ -29,20 +29,14 @@ public class StageManager : ManagerBase
         LoadStage(IsometricManager.Instance.GetManager<GameManager>().mapRangeStrArray[0]);
     }
 
-    public void ClearAllBalls()
-    {
-        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
-    }
-
     public void LoadStage(string mapRange)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
+        IsometricManager.Instance.GetManager<UIManager>().Load();
+
         if (gm.mapRangeStrArray.Length >= stageIndex && stageIndex > 0)
         {
-            ClearAllBalls();
-            
-
             SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
             sm.range = mapRange;
             sm.LoadMapSpreadsheets(() =>
@@ -54,7 +48,7 @@ public class StageManager : ManagerBase
                 gm.portalList.ForEach(portal => portal.FindPair());
 
                 InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
-
+                IsometricManager.Instance.UpdateState(eUpdateState.Load);
             });
 
            
@@ -84,5 +78,10 @@ public class StageManager : ManagerBase
                 Init();
                 break;
         }
+    }
+
+    public override void Load()
+    {
+        
     }
 }

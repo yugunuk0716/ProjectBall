@@ -226,6 +226,11 @@ public class SaveManager : ManagerBase
                 break;
         }
     }
+
+    public override void Load()
+    {
+        
+    }
 }
 
 [System.Serializable]
