@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+
 public class BallAfterImage : MonoBehaviour
 {
     Sprite sprite;
@@ -81,8 +81,4 @@ public class BallAfterImage : MonoBehaviour
         }
     }
     
-    void Update()
-    {
-        this.transform.Rotate(Vector3.forward * 150 * Time.deltaTime);
-    }
 }

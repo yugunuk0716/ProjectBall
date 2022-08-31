@@ -44,7 +44,7 @@ public class Ball : PoolableMono
     public TileDirection shootDir;
 
 
-
+    private Vector3 baseVec;
     public Vector2 direction;
     public Vector2 myPos;
     public float speed = 0.25f;
@@ -59,7 +59,22 @@ public class Ball : PoolableMono
 
     private void OnEnable()
     {
+        StartCoroutine(SetBaseVector());
         curActiveTime = 0;
+    }
+
+
+
+    IEnumerator SetBaseVector()
+    {
+        while(true)
+        {
+            baseVec = IsometricManager.GetIsoDir(shootDir);
+            yield return new WaitForSeconds(0.1f);
+
+            Debug.Log(baseVec);
+            Debug.Log(shootDir);
+        }
     }
 
     private void Update()
@@ -70,6 +85,9 @@ public class Ball : PoolableMono
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f + 1.7f;
         transform.position = myPos;
+
+
+        this.transform.Rotate(baseVec * 150 * Time.deltaTime); 
     }
 
     public void SetBall(Vector2 dir, float speed)
@@ -112,6 +130,7 @@ public class Ball : PoolableMono
 
     public override void Reset()
     {
+        StopCoroutine(SetBaseVector());
         gameObject.SetActive(false);
     }
 
