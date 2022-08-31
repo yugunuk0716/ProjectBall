@@ -18,6 +18,7 @@ public class CamTest : MonoBehaviour
 
     float camMoveCool = 0.1f;
     float lastCamMoveTime = 0f;
+    bool isTouching = false;
     
     private void Update()
     {
@@ -77,7 +78,7 @@ public class CamTest : MonoBehaviour
 
     public void SetPos()
     {
-        lastCamMoveTime = Time.time;
+       
         Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
 
@@ -97,7 +98,10 @@ public class CamTest : MonoBehaviour
 
         print($"{x}, {y}");
 
-        transform.DOMove(new Vector2(x, y), 0.1f);
+        transform.DOMove(new Vector2(x, y), 0.1f).OnComplete(() =>
+        {
+            lastCamMoveTime = Time.time; isTouching = false;
+        });
      
 
     }
@@ -105,13 +109,13 @@ public class CamTest : MonoBehaviour
     public void CameraMove()
     {
 
-        if(Input.touches.Length <= 0)
+        if(Input.touches.Length <= 0 || isTouching)
         {
             return;
         }
 
         Touch t = Input.GetTouch(0);
-
+        isTouching = true;
 
         for(int i = 0; i < Input.touchCount; i++)
         {
@@ -135,9 +139,15 @@ public class CamTest : MonoBehaviour
 
     public void CameraZoom()
     {
+
+        if (isTouching)
+        { 
+            return;
+        }
+
         if (Input.touches.Length == 2)
         {
-            lastCamMoveTime = Time.time;
+            
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
@@ -149,7 +159,10 @@ public class CamTest : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, 4f, 8.5f), 0.1f);
+            DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, 4f, 8.5f), 0.1f).OnComplete(() =>
+            {
+                lastCamMoveTime = Time.time; isTouching = false;
+            });
           
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
