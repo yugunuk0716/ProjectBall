@@ -37,19 +37,19 @@ public class IsometricManager : MonoBehaviour
         switch (dir)
         {
             case TileDirection.RIGHTUP:
-                vec = new Vector2(1, 0);
+                vec = Vector2.right;
                 break;
             case TileDirection.LEFTDOWN:
-                vec = new Vector2(-1, 0);
+                vec = Vector2.left;
                 break;
             case TileDirection.LEFTUP:
-                vec = new Vector2(0, 1);
+                vec = Vector2.up;
                 break;
             case TileDirection.RIGHTDOWN:
-                vec = new Vector2(0,-1);
+                vec = Vector2.down;
                 break;
         }
-        return vec.normalized;
+        return vec;
     }
 
     public void UpdateState(eUpdateState state)

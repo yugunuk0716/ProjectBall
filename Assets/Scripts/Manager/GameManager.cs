@@ -106,7 +106,6 @@ public class GameManager : ManagerBase
     {
         if (isFirstBallNotArrived)
         {
-            Debug.Log("Timer Start");
             isFirstBallNotArrived = false;
             firstTime = Time.time;
             StartCoroutine(timerCo);
@@ -127,10 +126,8 @@ public class GameManager : ManagerBase
 
     public IEnumerator Timer()
     {
-        Debug.Log("타이머 코루틴 진입");
         while (true)
         {
-            Debug.Log("타이머 시작");
             if (limitTime - realTime <= 0)
             {
                 goalList.ForEach((x) => x.ResetFlag(false));
@@ -143,7 +140,6 @@ public class GameManager : ManagerBase
             }
 
             yield return null;
-            Debug.Log("타이머가 돌고 있나요?");
             realTime += Time.deltaTime;
             SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.black);
         }
