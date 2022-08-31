@@ -79,7 +79,6 @@ public class IngameUI : UIBase
                         selectDirectionUI.ballControllUI = newBallControllUI;
                         selectDirectionUI.ScreenOn(true);
                         isSelectingDirection = true;
-
                     }
 
                     isAdded = !isAdded;

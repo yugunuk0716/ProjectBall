@@ -61,7 +61,9 @@ public class ShooterTile : ObjectTile
         }
 
         ball.transform.position = transform.position - new Vector3(0, .25f, 0);
+        
         Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);
+        ball.shootDir = copyBall.shootDir;
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
