@@ -16,6 +16,9 @@ public class CamTest : MonoBehaviour
     private Vector2 prevT1Pos;
     private Vector2 prevT2Pos;
 
+    float camMoveCool = 0.1f;
+    float lastCamMoveTime = 0f;
+    
     private void Update()
     {
         #region PC Test
@@ -55,22 +58,26 @@ public class CamTest : MonoBehaviour
         #endregion
 
 
-        
-              
-        if(Input.touchCount == 1)
+
+       if(lastCamMoveTime + camMoveCool < Time.time)
         {
-            CameraMove();
+            if (Input.touchCount == 2)
+            {
+                CameraZoom();
+            }
+
+            else if (Input.touchCount == 1)
+            {
+                CameraMove();
+            }
         }
-        else if(Input.touchCount == 2)
-        {
-            CameraZoom();
-        }
-        
-        
+
+
     }
 
     public void SetPos()
     {
+        lastCamMoveTime = Time.time;
         Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
 
@@ -130,7 +137,7 @@ public class CamTest : MonoBehaviour
     {
         if (Input.touches.Length == 2)
         {
-
+            lastCamMoveTime = Time.time;
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
@@ -142,10 +149,8 @@ public class CamTest : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            vCam.m_Lens.OrthographicSize += (prevTouchDeltaMag - touchDeltaMag) * 0.001f;
-            Debug.LogError($"보정 전{vCam.m_Lens.OrthographicSize}");
-            vCam.m_Lens.OrthographicSize = Mathf.Clamp(vCam.m_Lens.OrthographicSize, 4f, 8.5f);
-            Debug.LogError($"보정 후{vCam.m_Lens.OrthographicSize}");
+            DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, 4f, 8.5f), 0.1f);
+          
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
             {
