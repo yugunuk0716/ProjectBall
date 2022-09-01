@@ -6,6 +6,19 @@ using DG.Tweening;
 
 public class CamTest : MonoBehaviour
 {
+    #region Consts
+    private const float CAMERA_MAX_SIZE = 8.5f;
+    private const float CAMERA_MIN_SIZE = 4f;
+    private const float HORIZONTAL_MAX = 4.6f;
+    private const float HORIZONTAL_MIN = -4.6f;
+    private const float VERTICAL_MAX = 8.4f;
+    private const float VERTICAL_MIN = -8.4f;
+    private const float MOVE_DELAY = 0.15f;
+    #endregion
+
+
+
+
     public CinemachineVirtualCamera vCam;
 
 
@@ -15,18 +28,22 @@ public class CamTest : MonoBehaviour
 
     private Vector2 prevT1Pos;
     private Vector2 prevT2Pos;
-
-    float camMoveCool = 0.1f;
+    readonly float camMoveCool = 0.15f;
     float lastCamMoveTime = 0f;
-    bool isTouching = false;
-    
+
+
+    private void Start()
+    {
+        vCam.m_Lens.OrthographicSize = CAMERA_MAX_SIZE;
+    }
+
     private void Update()
     {
         #region PC Test
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.A))
         {
-            if(vCam.m_Lens.OrthographicSize < 4f)
+            if(vCam.m_Lens.OrthographicSize < CAMERA_MIN_SIZE)
             {
                 return;
             }
@@ -36,7 +53,7 @@ public class CamTest : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            if (vCam.m_Lens.OrthographicSize >= 8.5f)
+            if (vCam.m_Lens.OrthographicSize >= CAMERA_MAX_SIZE)
             {
                 return;
             }
@@ -78,7 +95,13 @@ public class CamTest : MonoBehaviour
 
     public void SetPos()
     {
-       
+
+        if (lastCamMoveTime + camMoveCool > Time.time)
+        {
+            return;
+        }
+
+        lastCamMoveTime = Time.time;
         Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
 
@@ -87,21 +110,14 @@ public class CamTest : MonoBehaviour
         float y = 0f;
 
 #if UNITY_EDITOR
-        x = Mathf.Clamp(pos.x + vec.normalized.x * 0.01f, -4.6f, 4.6f);
-        y = Mathf.Clamp(pos.y + vec.normalized.y * 0.01f, -8.4f, 8.4f);
+        x = Mathf.Clamp(pos.x + vec.normalized.x, HORIZONTAL_MIN, HORIZONTAL_MAX);
+        y = Mathf.Clamp(pos.y + vec.normalized.y, VERTICAL_MIN, VERTICAL_MAX);
 #else
-        x = Mathf.Clamp(pos.x + vec.normalized.x, -4.6f, 4.6f);
-        y = Mathf.Clamp(pos.y + vec.normalized.y, -8.4f, 8.4f);
+        x = Mathf.Clamp(pos.x + vec.normalized.x * 2f,  HORIZONTAL_MIN, HORIZONTAL_MAX);
+        y = Mathf.Clamp(pos.y + vec.normalized.y * 2f, VERTICAL_MIN, VERTICAL_MAX);
 #endif
 
-
-
-        print($"{x}, {y}");
-
-        transform.DOMove(new Vector2(x, y), 0.1f).OnComplete(() =>
-        {
-            lastCamMoveTime = Time.time; isTouching = false;
-        });
+        transform.DOMove(new Vector2(x, y), MOVE_DELAY);
      
 
     }
@@ -109,13 +125,13 @@ public class CamTest : MonoBehaviour
     public void CameraMove()
     {
 
-        if(Input.touches.Length <= 0 || isTouching)
+        if(Input.touches.Length <= 0 || lastCamMoveTime + camMoveCool > Time.time)
         {
             return;
         }
 
         Touch t = Input.GetTouch(0);
-        isTouching = true;
+
 
         for(int i = 0; i < Input.touchCount; i++)
         {
@@ -139,30 +155,22 @@ public class CamTest : MonoBehaviour
 
     public void CameraZoom()
     {
-
-        if (isTouching)
-        { 
-            return;
-        }
-
-        if (Input.touches.Length == 2)
+        if (Input.touches.Length == 2 && lastCamMoveTime + camMoveCool < Time.time)
         {
-            
+
+            lastCamMoveTime = Time.time;
+
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
             Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
             Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
-            //Vector2 touchZeroPrevPos = t1.position - prevT1Pos;
-            //Vector2 touchOnePrevPos = t2.position - prevT2Pos;
+            
 
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, 4f, 8.5f), 0.1f).OnComplete(() =>
-            {
-                lastCamMoveTime = Time.time; isTouching = false;
-            });
+            DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, CAMERA_MIN_SIZE, CAMERA_MAX_SIZE), 0.1f);
           
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)

@@ -31,6 +31,7 @@ public class ReflectWall : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
+        print("상호작용");
         StopCoroutine("ChangeSprite");
         if (isHorizontalWall)
         {
@@ -61,6 +62,10 @@ public class ReflectWall : ObjectTile
                     tb.SetBall(Vector2.up, tb.speed);
                     break;
 
+                case Vector2 v when v.Equals(Vector2.up):
+                    tb.SetBall(Vector2.right, tb.speed);
+                    break;
+
                 case Vector2 v when v.Equals(Vector2.down):
                     tb.SetBall(Vector2.left, tb.speed);
                     break;
@@ -69,9 +74,7 @@ public class ReflectWall : ObjectTile
                     tb.SetBall(Vector2.down, tb.speed);
                     break;
 
-                case Vector2 v when v.Equals(Vector2.up):
-                    tb.SetBall(Vector2.up, tb.speed);
-                    break;
+
             }
         }
         

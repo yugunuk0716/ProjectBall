@@ -23,7 +23,6 @@ public enum BallState
 
 public class Ball : PoolableMono
 {
-    public Rigidbody2D rigid;
     public Animator anim;
     public SpriteRenderer sr;
     public Sprite uiSprite; // UI에 적용할 스프라이트, 공처럼 생김!
@@ -49,9 +48,10 @@ public class Ball : PoolableMono
     public Vector2 myPos;
     public float speed = 0.25f;
 
+    public Color currentColor = Color.white;
+
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
         tpCool = 0.1f;
@@ -69,11 +69,20 @@ public class Ball : PoolableMono
     {
         while(true)
         {
-            baseVec = IsometricManager.GetIsoDir(shootDir);
-            yield return new WaitForSeconds(0.1f);
+            switch(shootDir)
+            {
+                case TileDirection.LEFTUP:
+                case TileDirection.RIGHTUP:
+                    baseVec = Vector3.forward;
+                    break;
 
-            Debug.Log(baseVec);
-            Debug.Log(shootDir);
+                case TileDirection.LEFTDOWN:
+                case TileDirection.RIGHTDOWN:
+                    baseVec = -Vector3.forward;
+
+                    break;
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -87,14 +96,13 @@ public class Ball : PoolableMono
         transform.position = myPos;
 
 
-        this.transform.Rotate(baseVec * 150 * Time.deltaTime); 
+        sr.transform.Rotate(baseVec * 150 * Time.deltaTime); 
     }
 
     public void SetBall(Vector2 dir, float speed)
     {
         direction = dir;
         this.speed = speed;
-        print(this.speed);
     }
 
     public void SetPos(Vector2 pos)
@@ -105,7 +113,6 @@ public class Ball : PoolableMono
     public void Move(Vector2 dir, float power = 5f)
     {
         sr.flipX = dir.x > 0 || dir.y > 0;
-        rigid.velocity = dir * power;
     }
 
     public void SetMove()
@@ -145,5 +152,9 @@ public class Ball : PoolableMono
         this.GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }    
 
-   
+   public void ColorChange(Color newColor)
+    {
+        currentColor = newColor;
+        sr.color = currentColor;
+    }
 }
