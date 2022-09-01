@@ -35,18 +35,27 @@ public class ShooterTile : ObjectTile
     public void Shoot()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        if (gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count) 
+        if (gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count)
+        {
             return;
+        }
 
+
+        
 
         if (false == gm.isPlayStarted)
         {
             gm.ballUIList.ForEach((x) => x.GetComponent<Button>().interactable = false);
         }
 
+        if (anim.GetBool("isClick"))
+        {
+            anim.SetBool("isClick", true);
+        }
+
         anim.SetBool("isClick", true);
 
-        Ball copyBall = gm.myBallList[0]; // 실제 데이터는 얘만 가짐.
+        Ball copyBall = IsometricManager.Instance.GetManager<GameManager>().myBallList[0]; // 실제 데이터는 얘만 가짐.
         Ball ball = null;
 
         ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;

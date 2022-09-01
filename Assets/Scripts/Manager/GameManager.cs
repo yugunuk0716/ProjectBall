@@ -7,8 +7,11 @@ public class GameManager : ManagerBase
 {
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
+
+    public List<Ball> lastBallList = new List<Ball>();
     public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
+
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
     public List<Mapinfo> mapinfos = new List<Mapinfo>();
 

@@ -15,6 +15,8 @@ public class StageManager : ManagerBase
     public Action FadeDebugText;
     public Action<Ball[]> InitBallControllUIs;
 
+    private Mapinfo currentMapinfo;
+
     public override void Init()
     {
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
@@ -31,39 +33,58 @@ public class StageManager : ManagerBase
 
     public void LoadStage(Mapinfo mapinfo)
     {
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
-        IsometricManager.Instance.GetManager<UIManager>().Load();
-
-        if (gm.mapinfos.Count >= stageIndex && stageIndex > 0)
+        if (currentMapinfo == null)
         {
-            SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-            sm.range = mapinfo.range;
-            sm.sheet = mapinfo.sheet;
-            sm.LoadMapSpreadsheets(() =>
+            currentMapinfo = mapinfo;
+        }
+        else
+        {
+            if (!currentMapinfo.Equals(mapinfo))
             {
-                gm.ResetData();
-                gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
-                gm.goalList.ForEach(x => x.ResetFlag(false));
-                gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
-                gm.portalList.ForEach(portal => portal.FindPair());
-
-                InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
-                IsometricManager.Instance.UpdateState(eUpdateState.Load);
-            });
-        }
-        else if(gm.mapinfos.Count < stageIndex) // 12까지 있는데 13불러오려 하면
-        {
-            SetDebugText($"{gm.mapinfos.Count} Stage is last");
-        }
-        else // 0 이하의 맵 번호 입력시?
-        {
-            SetDebugText("Please enter over zero!");
+                currentMapinfo = null;
+                IsometricManager.Instance.GetManager<GameManager>().lastBallList.Clear();
+            }
+            else
+            {
+                foreach (var item in IsometricManager.Instance.GetManager<GameManager>().lastBallList)
+                {
+                    print(item);
+                }
+            }
         }
 
-        FadeDebugText();
-    }
+            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
+            IsometricManager.Instance.GetManager<UIManager>().Load();
+
+            if (gm.mapinfos.Count >= stageIndex && stageIndex > 0)
+            {
+                SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+                sm.range = mapinfo.range;
+                sm.sheet = mapinfo.sheet;
+                sm.LoadMapSpreadsheets(() =>
+                {
+                    gm.ResetData();
+                    gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
+                    gm.goalList.ForEach(x => x.ResetFlag(false));
+                    gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
+                    gm.portalList.ForEach(portal => portal.FindPair());
+
+                    InitBallControllUIs(Resources.Load<StageDataSO>($"Stage {stageIndex}").balls);
+                    IsometricManager.Instance.UpdateState(eUpdateState.Load);
+                });
+            }
+            else if (gm.mapinfos.Count < stageIndex) // 12까지 있는데 13불러오려 하면
+            {
+                SetDebugText($"{gm.mapinfos.Count} Stage is last");
+            }
+            else // 0 이하의 맵 번호 입력시?
+            {
+                SetDebugText("Please enter over zero!");
+            }
+
+            FadeDebugText();
+        }
     public void SetStageIndex(string stageIndexStr)
     {
         int.TryParse(stageIndexStr, out stageIndex);
