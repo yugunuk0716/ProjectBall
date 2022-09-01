@@ -88,7 +88,7 @@ public class IngameUI : UIBase
 
         moveStageBtn.onClick.AddListener(() =>
         {
-            sm.LoadStage(gm.mapRangeStrArray[sm.stageIndex - 1]);
+            sm.LoadStage(gm.mapinfos[sm.stageIndex - 1]);
         });
         stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }

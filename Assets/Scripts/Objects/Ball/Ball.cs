@@ -47,6 +47,8 @@ public class Ball : PoolableMono
     public Vector2 myPos;
     public float speed = 0.25f;
 
+    public Color currentColor = Color.white;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -162,4 +164,10 @@ public class Ball : PoolableMono
     {
         this.GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }    
+
+   public void ColorChange(Color newColor)
+    {
+        currentColor = newColor;
+        sr.color = currentColor;
+    }
 }

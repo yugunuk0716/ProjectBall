@@ -10,6 +10,7 @@ public class GameManager : ManagerBase
     public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
+    public List<Mapinfo> mapinfos = new List<Mapinfo>();
 
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
@@ -18,7 +19,9 @@ public class GameManager : ManagerBase
 
     [HideInInspector] public bool isPlayStarted = false;
     public bool isFirstBallNotArrived = true;
-    
+
+    public int checkedFlags = 0;
+
     public float limitTime = 2f;
     public float firstTime = 0f;
     private float realTime;
@@ -26,7 +29,15 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     [HideInInspector] public IEnumerator timerCo;
 
-    public string[] mapRangeStrArray =
+    private string[] mapSheetStrArray =
+    {
+        "80333382", // 지금 쓰고 있는 기본
+        "2065586561",//컬러 시트
+        "1585233606",//시간 시트
+        "1872519807"//순서 시트
+    };
+
+    private string[] mapRangeStrArray =
     {
         "A10:I18",
         "L10:T18",
@@ -47,6 +58,7 @@ public class GameManager : ManagerBase
         "L44:T52",
         "W44:AE52",
         "AH44:AP52",
+
         "A55:I63",
         "L55:T63",
         "W55:AE63",
@@ -90,6 +102,21 @@ public class GameManager : ManagerBase
             if (ball != null)
                 PoolManager.Instance.CreatePool(ball, null, 5);
         }
+
+        
+
+        for (int i = 0; i < mapRangeStrArray.Length; i++)
+        {
+            Mapinfo tempinfo = new Mapinfo();
+            tempinfo.range = mapRangeStrArray[i];
+            tempinfo.sheet = mapSheetStrArray[0];
+            mapinfos.Add(tempinfo);
+        }
+
+        Mapinfo test = new Mapinfo();
+        test.range = "A13:I21";
+        test.sheet = mapSheetStrArray[1];
+        mapinfos.Add(test);
     }
 
     public void ResetData()
@@ -121,6 +148,7 @@ public class GameManager : ManagerBase
             firstTime = Time.time;
             StartCoroutine(timerCo);
         }
+        checkedFlags++;
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
@@ -169,4 +197,11 @@ public class GameManager : ManagerBase
     {
         
     }
+}
+
+[System.Serializable]
+public class Mapinfo
+{
+    public string range;
+    public string sheet;
 }
