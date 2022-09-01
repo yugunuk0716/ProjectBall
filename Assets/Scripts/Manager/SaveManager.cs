@@ -11,23 +11,24 @@ public class SaveManager : ManagerBase
 {
     [SerializeField,Header("해당 타일맵")] public Tilemap mainMap;
     [SerializeField, Header("스프레드시트 범위")] public string range;
+    [SerializeField, Header("스프레드시트 시트")] public string sheet;
     [SerializeField, Header("Json 데이터")] private List<LevelData> datas = new List<LevelData>();
-    
 
-    const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv&gid=80333382&range=";
+    const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv";
 
     private string lastString = string.Empty;
     private int portalIndex = 0;
+    private Color changeColor = new Color();
 
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
         IsometricManager.Instance.GetManager<GameManager>().tileDict.Clear();
         string data;
         StartCoroutine(Getdata());
-
         IEnumerator Getdata()
         {
-            UnityWebRequest www = UnityWebRequest.Get(URL + range);
+            UnityWebRequest www = UnityWebRequest.Get(URL + "&gid=" + sheet + "&range=" + range);
+
             yield return www.SendWebRequest();
             ClearTileMap();
             data = www.downloadHandler.text;
@@ -35,6 +36,7 @@ public class SaveManager : ManagerBase
             string[] row = data.Split('\n');
             int rowSize = row.Length;
             int columnSize = row[0].Split('\t').Length;
+
 
             for (int i = 0; i < rowSize; i++)
             {
@@ -49,6 +51,17 @@ public class SaveManager : ManagerBase
                     {
                         column[j] = column[j].Substring(1);
                     }
+
+                    bool isColoredTile = column[j].Contains("#");
+                    if (isColoredTile)
+                    {
+                        string[] str = column[j].Split('#');
+                        string colorCode;
+                        column[j] = str[0];
+                        colorCode = "#" + str[1];
+                        ColorUtility.TryParseHtmlString(colorCode,out changeColor);
+                    }
+
 
                     Tile tile = ParseTile(column[j]);
                     Vector3Int pos = new Vector3Int(1 + j, 6 - i, 0);
@@ -83,6 +96,12 @@ public class SaveManager : ManagerBase
                         {
                             Teleporter tp = a.GetComponent<Teleporter>();
                             tp.portalIndex = portalIndex;
+                        }
+
+                        if(type.Equals(TileType.ColorChanger))
+                        {
+                            //여기서 정보 주면 될듯
+
                         }
 
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
@@ -141,6 +160,9 @@ public class SaveManager : ManagerBase
             case "S":
                 color = TileColors.White;
                 break;
+            case "C":
+                color = TileColors.Any;
+                break;
 
             case "O":
                 color = TileColors.Orange;
@@ -161,6 +183,10 @@ public class SaveManager : ManagerBase
         }
         tile = Resources.Load<Tile>($"IsometricTileAssets/1{color}");
         tile.name = color.ToString();
+        if(tile.name.Equals("Any"))
+        {
+            tile.color = changeColor;
+        }
         return tile;
     }
 
@@ -191,6 +217,8 @@ public class SaveManager : ManagerBase
                         return TileType.Slow;
                     case TileColors.Yellow:
                         return TileType.JumpPad;
+                    case TileColors.Any:
+                        return TileType.ColorChanger;
                 }
             }
         }
@@ -233,12 +261,6 @@ public class SaveManager : ManagerBase
     }
 }
 
-[System.Serializable]
-public class LevelDatas
-{
-    public List<LevelData> datas = new List<LevelData>();
-}
-
 
 [System.Serializable]
 public class LevelData
@@ -258,7 +280,8 @@ public enum TileColors
     Purple,
     Red,
     White,
-    Yellow
+    Yellow,
+    Any
 }
 
 
