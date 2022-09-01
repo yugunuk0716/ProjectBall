@@ -16,7 +16,7 @@ public class SelectDirectionUI : MonoBehaviour
     {
         canvasGroup = GetComponent<CanvasGroup>(); 
         Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
-
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         for (int i = 0; i< selectDirectionBtns.Length; i++) // 0번은 Nothing 들어갑니다.
         {
             int index = 1;
@@ -27,7 +27,8 @@ public class SelectDirectionUI : MonoBehaviour
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
                 addBall.shootDir = (TileDirection)(index);
-                IsometricManager.Instance.GetManager<GameManager>().myBallList.Add(addBall);
+                gm.myBallList.Add(addBall);
+                gm.lastBallList.Add(addBall);
                 ScreenOn(false);
                 ballControllUI.SetDirection(addBall.shootDir);
                 Callback();

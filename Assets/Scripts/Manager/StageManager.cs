@@ -37,14 +37,19 @@ public class StageManager : ManagerBase
         {
             currentMapinfo = mapinfo;
         }
-
-
         else
         {
             if (!currentMapinfo.Equals(mapinfo))
             {
                 currentMapinfo = null;
                 IsometricManager.Instance.GetManager<GameManager>().lastBallList.Clear();
+            }
+            else
+            {
+                foreach (var item in IsometricManager.Instance.GetManager<GameManager>().lastBallList)
+                {
+                    print(item);
+                }
             }
         }
 

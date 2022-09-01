@@ -40,10 +40,7 @@ public class ShooterTile : ObjectTile
             return;
         }
 
-        if (gm.lastBallList == null)
-        {
-            gm.lastBallList = gm.myBallList;
-        }
+
         
 
         if (false == gm.isPlayStarted)
