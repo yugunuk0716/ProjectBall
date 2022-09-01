@@ -15,6 +15,8 @@ public class StageManager : ManagerBase
     public Action FadeDebugText;
     public Action<Ball[]> InitBallControllUIs;
 
+    private string currentMapRange;
+
     public override void Init()
     {
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
@@ -31,6 +33,19 @@ public class StageManager : ManagerBase
 
     public void LoadStage(string mapRange)
     {
+        if(currentMapRange == null)
+        {
+            currentMapRange = mapRange;
+        }
+        else 
+        {
+            if (!currentMapRange.Equals(mapRange))
+            {
+                currentMapRange = null;
+                IsometricManager.Instance.GetManager<GameManager>().lastBallList.Clear();
+            }
+        }
+
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         IsometricManager.Instance.GetManager<UIManager>().Load();

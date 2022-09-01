@@ -8,6 +8,7 @@ public class GameManager : ManagerBase
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<Ball> myBallList = new List<Ball>();
+    public List<Ball> lastBallList = new List<Ball>();
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();

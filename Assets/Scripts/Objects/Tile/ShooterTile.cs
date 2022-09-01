@@ -35,7 +35,15 @@ public class ShooterTile : ObjectTile
     public void Shoot()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        if (gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count) return;
+        if (gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count)
+        {
+            return;
+        }
+
+        if(gm.lastBallList == null)
+        {
+
+        }
 
         if(false == gm.isPlayStarted)
         {
