@@ -7,8 +7,10 @@ public class GameManager : ManagerBase
 {
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
-    public List<Ball> myBallList = new List<Ball>();
+    public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
+    public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
+
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -16,7 +18,7 @@ public class GameManager : ManagerBase
 
     [HideInInspector] public bool isPlayStarted = false;
     public bool isFirstBallNotArrived = true;
-
+    
     public float limitTime = 2f;
     public float firstTime = 0f;
     private float realTime;
@@ -50,7 +52,6 @@ public class GameManager : ManagerBase
         "W55:AE63",
         "AH55:AP63",
     };
-
 
     public override void Init()
     {
@@ -102,6 +103,16 @@ public class GameManager : ManagerBase
         timerCo = Timer();
     }
 
+    public void CheckFail() 
+    {
+        if(myBallList.Count == 0 && aliveBallList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
+        {
+            StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
+            StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+            sm.LoadStage(mapRangeStrArray[sm.stageIndex - 1]);
+        }
+    }
+
     public void CheckClear()
     {
         if (isFirstBallNotArrived)
@@ -116,10 +127,10 @@ public class GameManager : ManagerBase
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
             StopTimer();
+            SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             sm.stageIndex++;
-            SetTimerText("Clear", Color.green);
             sm.LoadStage(mapRangeStrArray[sm.stageIndex-1]);
         }
     }
@@ -133,9 +144,6 @@ public class GameManager : ManagerBase
                 goalList.ForEach((x) => x.ResetFlag(false));
                 StopTimer();
                 SetTimerText("Failed", Color.red);
-                yield return new WaitForSeconds(1f);
-                SetTimerText("Press the 'Load' to Play", Color.white);
-
                 break;
             }
 
@@ -145,10 +153,7 @@ public class GameManager : ManagerBase
         }
     }
 
-    public void StopTimer()
-    {
-         StopCoroutine(timerCo);
-    }
+    public void StopTimer() => StopCoroutine(timerCo);
 
     public override void UpdateState(eUpdateState state)
     {
