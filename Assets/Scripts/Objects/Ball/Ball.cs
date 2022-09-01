@@ -14,13 +14,6 @@ public enum ECollisionTile
     AirFlow,
 }
 
-public enum BallState
-{
-    None,
-    Destroy,
-    Ignore,
-}
-
 public class Ball : PoolableMono
 {
     public Animator anim;
@@ -39,7 +32,6 @@ public class Ball : PoolableMono
     public float maxActiveTime = 15f;
 
     public TileType collisionTileType;
-    public BallState ballState;
     public TileDirection shootDir;
 
     private Vector3 baseVec;
@@ -87,7 +79,7 @@ public class Ball : PoolableMono
         transform.position = myPos;
 
 
-        sr.transform.Rotate(baseVec * 150 * Time.deltaTime); 
+        sr.transform.Rotate(baseVec * 500 * Time.deltaTime); 
     }
 
     public void SetBall(Vector2 dir, float speed)
@@ -153,17 +145,6 @@ public class Ball : PoolableMono
     {
         StartCoroutine(SetBaseVector());
     }
-
-    public void RemoveSpecialEffect()
-    {
-        this.ballState = BallState.None;
-        OnRemoveSE();
-    }
-
-    public virtual void OnRemoveSE()  // RemoveSpecialEffect callback
-    {
-        this.GetComponentInChildren<SpriteRenderer>().color = Color.red;
-    }    
 
    public void ColorChange(Color newColor)
     {

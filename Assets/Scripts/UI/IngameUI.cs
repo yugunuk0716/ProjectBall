@@ -6,32 +6,21 @@ using UnityEngine.UI;
 
 public class IngameUI : UIBase
 {
-    public TMP_InputField stageIndexInputField;
     public TextMeshProUGUI debugText;
     public TextMeshProUGUI timer_text;
-    public Button moveStageBtn;
 
     public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
     [SerializeField] BallControllUI ballControllUIPrefab;
 
     public SelectDirectionUI selectDirectionUI;
-
     public bool isSelectingDirection = false;
-
-    [SerializeField] private Sprite[] abilitySprites;
-
 
     public override void Init()
     {
-        Debug.Log("InitCall");
-
         GetCanvasGroup();
 
-        selectDirectionUI.Init(() =>
-        {
-            isSelectingDirection = false;
-        });
-        
+        selectDirectionUI.Init(() => isSelectingDirection = false);
+
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
@@ -46,18 +35,10 @@ public class IngameUI : UIBase
 
             for(int i = 0; i< balls.Length; i++)
             {
-                Ball ball = null;
-                if (balls[i].ballState != BallState.None)
-                {
-                    ball = PoolManager.Instance.Pop($"{balls[i].ballState}{balls[i].collisionTileType}") as Ball;
-                }
-                else
-                {
-                    ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-                }
+                Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
 
                 BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
-                newBallControllUI.SetBallSprites(ball.uiSprite, abilitySprites[(int)ball.ballState]);
+                newBallControllUI.SetBallSprites(ball.uiSprite);
                 bool isAdded = false;
 
                 newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
@@ -85,12 +66,6 @@ public class IngameUI : UIBase
                 });
             }
         };
-
-        moveStageBtn.onClick.AddListener(() =>
-        {
-            sm.LoadStage(gm.mapinfos[sm.stageIndex - 1]);
-        });
-        stageIndexInputField.onValueChanged.AddListener(sm.SetStageIndex);
     }
     
     public void SetTimerText(string textString, Color? color = null)

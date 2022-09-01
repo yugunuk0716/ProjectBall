@@ -49,9 +49,8 @@ public class ShooterTile : ObjectTile
         Ball copyBall = gm.myBallList[0]; // 실제 데이터는 얘만 가짐.
         Ball ball = null;
 
-        ball = copyBall.ballState != BallState.None ? 
-            PoolManager.Instance.Pop($"{copyBall.ballState}{copyBall.collisionTileType}") as Ball :
-            PoolManager.Instance.Pop($"DefaultBall") as Ball;
+        ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+
 
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0);
         
