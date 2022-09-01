@@ -42,7 +42,6 @@ public class Ball : PoolableMono
     public BallState ballState;
     public TileDirection shootDir;
 
-
     private Vector3 baseVec;
     public Vector2 direction;
     public Vector2 myPos;
@@ -56,14 +55,6 @@ public class Ball : PoolableMono
         sr = GetComponentInChildren<SpriteRenderer>();
         tpCool = 0.1f;
     }
-
-    private void OnEnable()
-    {
-        StartCoroutine(SetBaseVector());
-        curActiveTime = 0;
-    }
-
-
 
     IEnumerator SetBaseVector()
     {
@@ -122,23 +113,45 @@ public class Ball : PoolableMono
             gameObject.SetActive(true);
         }
 
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
         myPos += direction;
-        if (IsometricManager.Instance.GetManager<GameManager>().tileDict.ContainsKey(myPos))
+        if (gm.tileDict.ContainsKey(myPos))
         {
-            ObjectTile tile = IsometricManager.Instance.GetManager<GameManager>().tileDict[myPos];
-            transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() => tile.InteractionTile(this));
+            ObjectTile tile = gm.tileDict[myPos];
+            transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                tile.InteractionTile(this);
+            });
         }
         else
         {
-
             PoolManager.Instance.Push(this);
+            Debug.Log("공 자체적 제거");
+        }
+    }
+
+    private void OnDisable()
+    {
+        curActiveTime = 0;
+
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        if (gm.aliveBallList.Count > 0)
+        {
+            gm.aliveBallList.Remove(this);
+            gm.CheckFail();
+            StopCoroutine(SetBaseVector());
         }
     }
 
     public override void Reset()
     {
-        StopCoroutine(SetBaseVector());
         gameObject.SetActive(false);
+    }
+
+    public void Rollin()
+    {
+        StartCoroutine(SetBaseVector());
     }
 
     public void RemoveSpecialEffect()

@@ -7,9 +7,14 @@ public class GameManager : ManagerBase
 {
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
-    public List<Ball> myBallList = new List<Ball>();
+
     public List<Ball> lastBallList = new List<Ball>();
+    public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
+    public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
+
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
+    public List<Mapinfo> mapinfos = new List<Mapinfo>();
+
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -27,7 +32,15 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     [HideInInspector] public IEnumerator timerCo;
 
-    public string[] mapRangeStrArray =
+    private string[] mapSheetStrArray =
+    {
+        "80333382", // 지금 쓰고 있는 기본
+        "2065586561",//컬러 시트
+        "1585233606",//시간 시트
+        "1872519807"//순서 시트
+    };
+
+    private string[] mapRangeStrArray =
     {
         "A10:I18",
         "L10:T18",
@@ -48,12 +61,12 @@ public class GameManager : ManagerBase
         "L44:T52",
         "W44:AE52",
         "AH44:AP52",
+
         "A55:I63",
         "L55:T63",
         "W55:AE63",
         "AH55:AP63",
     };
-
 
     public override void Init()
     {
@@ -92,6 +105,21 @@ public class GameManager : ManagerBase
             if (ball != null)
                 PoolManager.Instance.CreatePool(ball, null, 5);
         }
+
+        
+
+        for (int i = 0; i < mapRangeStrArray.Length; i++)
+        {
+            Mapinfo tempinfo = new Mapinfo();
+            tempinfo.range = mapRangeStrArray[i];
+            tempinfo.sheet = mapSheetStrArray[0];
+            mapinfos.Add(tempinfo);
+        }
+
+        Mapinfo test = new Mapinfo();
+        test.range = "A13:I21";
+        test.sheet = mapSheetStrArray[1];
+        mapinfos.Add(test);
     }
 
     public void ResetData()
@@ -103,6 +131,16 @@ public class GameManager : ManagerBase
         firstTime = 0f;
         isFirstBallNotArrived = true;
         timerCo = Timer();
+    }
+
+    public void CheckFail() 
+    {
+        if(myBallList.Count == 0 && aliveBallList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
+        {
+            StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
+            StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+            sm.LoadStage(mapinfos[sm.stageIndex - 1]);
+        }
     }
 
     public void CheckClear()
@@ -120,11 +158,11 @@ public class GameManager : ManagerBase
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
             StopTimer();
+            SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             sm.stageIndex++;
-            SetTimerText("Clear", Color.green);
-            sm.LoadStage(mapRangeStrArray[sm.stageIndex-1]);
+            sm.LoadStage(mapinfos[sm.stageIndex-1]);
         }
     }
 
@@ -137,9 +175,6 @@ public class GameManager : ManagerBase
                 goalList.ForEach((x) => x.ResetFlag(false));
                 StopTimer();
                 SetTimerText("Failed", Color.red);
-                yield return new WaitForSeconds(1f);
-                SetTimerText("Press the 'Load' to Play", Color.white);
-
                 break;
             }
 
@@ -149,10 +184,7 @@ public class GameManager : ManagerBase
         }
     }
 
-    public void StopTimer()
-    {
-         StopCoroutine(timerCo);
-    }
+    public void StopTimer() => StopCoroutine(timerCo);
 
     public override void UpdateState(eUpdateState state)
     {
@@ -168,4 +200,11 @@ public class GameManager : ManagerBase
     {
         
     }
+}
+
+[System.Serializable]
+public class Mapinfo
+{
+    public string range;
+    public string sheet;
 }

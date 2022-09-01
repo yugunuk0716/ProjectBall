@@ -18,14 +18,15 @@ public class Goal : ObjectTile
     public override void InteractionTile(Ball tb)
     {
         PoolManager.Instance.Push(tb);
-        if (isChecked)
+        Debug.Log("공 제거");
+        if (false == isChecked)
         {
-            return;
+            ResetFlag(true);
+            IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }
-
-        ResetFlag(true);
-        IsometricManager.Instance.GetManager<GameManager>().CheckClear();
     }
+
+        
 
     public override void Reset()
     {

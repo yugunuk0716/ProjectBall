@@ -10,6 +10,7 @@ public enum TileType
     Teleporter,
     Goal,
     DirectionChanger,
+    ColorChanger,
     Reflect,
     Wall,
     None,

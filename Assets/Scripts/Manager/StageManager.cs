@@ -28,10 +28,10 @@ public class StageManager : ManagerBase
             stageObjList[i].gameObject.SetActive(false);
         }
 
-        LoadStage(IsometricManager.Instance.GetManager<GameManager>().mapRangeStrArray[0]);
+        LoadStage(IsometricManager.Instance.GetManager<GameManager>().mapinfos[0]);
     }
 
-    public void LoadStage(string mapRange)
+    public void LoadStage(Mapinfo mapinfo)
     {
         if(currentMapRange == null)
         {
@@ -50,10 +50,11 @@ public class StageManager : ManagerBase
 
         IsometricManager.Instance.GetManager<UIManager>().Load();
 
-        if (gm.mapRangeStrArray.Length >= stageIndex && stageIndex > 0)
+        if (gm.mapinfos.Count >= stageIndex && stageIndex > 0)
         {
             SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-            sm.range = mapRange;
+            sm.range = mapinfo.range;
+            sm.sheet = mapinfo.sheet;
             sm.LoadMapSpreadsheets(() =>
             {
                 gm.ResetData();
@@ -66,9 +67,9 @@ public class StageManager : ManagerBase
                 IsometricManager.Instance.UpdateState(eUpdateState.Load);
             });
         }
-        else if(gm.mapRangeStrArray.Length < stageIndex) // 12까지 있는데 13불러오려 하면
+        else if(gm.mapinfos.Count < stageIndex) // 12까지 있는데 13불러오려 하면
         {
-            SetDebugText($"{gm.mapRangeStrArray.Length} Stage is last");
+            SetDebugText($"{gm.mapinfos.Count} Stage is last");
         }
         else // 0 이하의 맵 번호 입력시?
         {
