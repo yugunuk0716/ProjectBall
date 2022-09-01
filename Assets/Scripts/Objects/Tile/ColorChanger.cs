@@ -14,7 +14,6 @@ public class ColorChanger : ObjectTile
     public override void Reset()
     {
 
-
     }
 
     public override IEnumerator Transition()

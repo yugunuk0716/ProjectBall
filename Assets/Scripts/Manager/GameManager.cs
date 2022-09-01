@@ -17,6 +17,8 @@ public class GameManager : ManagerBase
     [HideInInspector] public bool isPlayStarted = false;
     public bool isFirstBallNotArrived = true;
 
+    public int checkedFlags = 0;
+
     public float limitTime = 2f;
     public float firstTime = 0f;
     private float realTime;
@@ -110,6 +112,7 @@ public class GameManager : ManagerBase
             firstTime = Time.time;
             StartCoroutine(timerCo);
         }
+        checkedFlags++;
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
