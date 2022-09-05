@@ -101,7 +101,8 @@ public class SaveManager : ManagerBase
                         if(type.Equals(TileType.ColorChanger))
                         {
                             //여기서 정보 주면 될듯
-
+                            ColorChanger cc = a.GetComponent<ColorChanger>();
+                            cc.targetColor = changeColor;
                         }
 
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
@@ -194,7 +195,7 @@ public class SaveManager : ManagerBase
     {
         TileColors tileColor;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 9; i++)
         {
             tileColor = (TileColors)i;
             if (tile.name.Contains(tileColor.ToString()))
