@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 2
   dataString: 
-  myType: 5
+  myType: 7
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}

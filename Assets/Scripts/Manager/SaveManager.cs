@@ -101,7 +101,8 @@ public class SaveManager : ManagerBase
                         if(type.Equals(TileType.ColorChanger))
                         {
                             //여기서 정보 주면 될듯
-
+                            ColorChanger cc = a.GetComponent<ColorChanger>();
+                            cc.targetColor = changeColor;
                         }
 
                         if(type.Equals(TileType.Goal))
@@ -199,7 +200,7 @@ public class SaveManager : ManagerBase
     {
         TileColors tileColor;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 9; i++)
         {
             tileColor = (TileColors)i;
             if (tile.name.Contains(tileColor.ToString()))
