@@ -14,6 +14,7 @@ public enum TileType
     Reflect,
     Wall,
     None,
+    ColorGoal,
 }
 
 [System.Serializable]
