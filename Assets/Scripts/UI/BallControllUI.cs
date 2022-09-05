@@ -7,13 +7,11 @@ public class BallControllUI : UIBase
 {
     [SerializeField] private Image ballImg;
     [SerializeField] private Image directionImg;
-    [SerializeField] private Image abilityImg;
     [SerializeField] private BallControllUI ballControllUI;
 
-    public void SetBallSprites(Sprite ballSprite, Sprite stateSprite)
+    public void SetBallSprites(Sprite ballSprite)
     {
         ballImg.sprite= ballSprite;
-        abilityImg.sprite= stateSprite;
     }
 
     public void SetDirection(TileDirection dir, bool active = true)

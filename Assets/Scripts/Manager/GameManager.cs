@@ -15,20 +15,18 @@ public class GameManager : ManagerBase
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
     public List<Mapinfo> mapinfos = new List<Mapinfo>();
 
-
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
+    public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
-
     [HideInInspector] public bool isPlayStarted = false;
     public bool isFirstBallNotArrived = true;
-
-    public int checkedFlags = 0;
 
     public float limitTime = 2f;
     public float firstTime = 0f;
     private float realTime;
 
+    public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
     [HideInInspector] public IEnumerator timerCo;
 
@@ -40,7 +38,7 @@ public class GameManager : ManagerBase
         "1872519807"//순서 시트
     };
 
-    private string[] mapRangeStrArray =
+    [HideInInspector] public string[] mapRangeStrArray =
     {
         "A10:I18",
         "L10:T18",
@@ -95,19 +93,6 @@ public class GameManager : ManagerBase
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
 
-        for (int i = 0; i < Enum.GetNames(typeof(TileType)).Length - 1; i++) // None은 취급안하려구
-        {
-            ball = Resources.Load<Ball>($"Balls/Destroy{(TileType)i}");
-            if(ball != null)
-                PoolManager.Instance.CreatePool(ball, null, 5);
-
-                ball = Resources.Load<Ball>($"Balls/Ignore{(TileType)i}");
-            if (ball != null)
-                PoolManager.Instance.CreatePool(ball, null, 5);
-        }
-
-        
-
         for (int i = 0; i < mapRangeStrArray.Length; i++)
         {
             Mapinfo tempinfo = new Mapinfo();
@@ -138,8 +123,7 @@ public class GameManager : ManagerBase
         if(myBallList.Count == 0 && aliveBallList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
         {
             StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
-            StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
-            sm.LoadStage(mapinfos[sm.stageIndex - 1]);
+            ActiveGameOverPanel(false);
         }
     }
 
@@ -161,8 +145,7 @@ public class GameManager : ManagerBase
             SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
-            sm.stageIndex++;
-            sm.LoadStage(mapinfos[sm.stageIndex-1]);
+            ActiveGameOverPanel(true);
         }
     }
 

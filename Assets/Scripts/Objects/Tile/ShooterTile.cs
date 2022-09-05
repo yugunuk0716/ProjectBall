@@ -57,14 +57,9 @@ public class ShooterTile : ObjectTile
 
         Ball copyBall = IsometricManager.Instance.GetManager<GameManager>().myBallList[0]; // 실제 데이터는 얘만 가짐.
         Ball ball = null;
-        if (copyBall.ballState != BallState.None)
-        {
-            ball = PoolManager.Instance.Pop($"{copyBall.ballState}{copyBall.collisionTileType}") as Ball;
-        }
-        else
-        {
-            ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-        }
+
+        ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+
 
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0);
         

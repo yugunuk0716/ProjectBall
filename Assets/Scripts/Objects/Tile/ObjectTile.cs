@@ -64,28 +64,6 @@ public abstract class ObjectTile : PoolableMono
 
     public abstract void InteractionTile(Ball tb); // 공에 무엇을 해줄까요?
 
-    public void CheckTile(Ball tb)
-    {
-        if (tb.collisionTileType == this.myType)
-        {
-            switch (tb.ballState)
-            {
-                case BallState.Destroy:
-                    Destroy(this.gameObject);
-                    InteractionTile(tb);
-                    break;
-
-                case BallState.Ignore:
-                    break;
-            }
-            tb.GetComponent<Ball>().RemoveSpecialEffect();
-        }
-        else
-        {
-            InteractionTile(tb);
-        }
-    }
-
     public virtual void SetDirection()
     {
         if (dataString.Equals(string.Empty))
