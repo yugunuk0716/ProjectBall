@@ -9,6 +9,7 @@ public class ColorChanger : ObjectTile
     public override void InteractionTile(Ball tb)
     {
         tb.ColorChange(targetColor);
+        tb.SetMove();
     }
 
     public override void Reset()

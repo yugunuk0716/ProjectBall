@@ -12,8 +12,9 @@ public enum TileType
     DirectionChanger,
     ColorChanger,
     Reflect,
-    Wall,
+    Thon,
     None,
+    ColorGoal,
 }
 
 [System.Serializable]

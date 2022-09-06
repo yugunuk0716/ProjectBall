@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 216864386902218647}
-  - component: {fileID: 2714020699549678644}
   - component: {fileID: -8147459176515769411}
+  - component: {fileID: 5077328084930522903}
   m_Layer: 0
-  m_Name: Wall1
+  m_Name: ColorChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,44 +75,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  m_Color: {r: 0.5235849, g: 1, b: 0.7537299, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2714020699549678644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d41d4824af95e40a577ddef0f7cbf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 2
-  dataString: 
-  myType: 7
-  worldPos: {x: 0, y: 0}
-  keyPos: {x: 0, y: 0}
-  gridPos: {x: 0, y: 0, z: 0}
-  isHorizontalWall: 1
-  horSprites:
-  - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  verSprites:
-  - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
 --- !u!114 &-8147459176515769411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +99,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOnce: 0
+--- !u!114 &5077328084930522903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893477038133102498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de4ba269b3634ae9938e74472a30fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  count: 2
+  dataString: 
+  myType: 5
+  worldPos: {x: 0, y: 0}
+  keyPos: {x: 0, y: 0}
+  gridPos: {x: 0, y: 0, z: 0}
+  targetColor: {r: 0, g: 0, b: 0, a: 0}
