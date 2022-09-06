@@ -1386,7 +1386,7 @@ MonoBehaviour:
   stageLoadBtnsContent: {fileID: 738390542}
   stageLoadBtnPrefab: {fileID: 1464801078738512671, guid: 99c2b1fdff652b347ac8737716524305, type: 3}
   exitBtn: {fileID: 1386383585}
-  scrollBar: {fileID: 1142066437}
+  scrollBar: {fileID: 0}
 --- !u!1 &461646433
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,7 +3640,6 @@ GameObject:
   - component: {fileID: 1237503440}
   - component: {fileID: 1237503439}
   - component: {fileID: 1237503441}
-  - component: {fileID: 1237503442}
   m_Layer: 0
   m_Name: IsometricManager
   m_TagString: Untagged
@@ -3690,25 +3689,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uis:
   - {fileID: 6430633673477226748}
---- !u!114 &1237503442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1237503438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5ec4ad81808e2f46a21857bc7f23a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bottomLeft: {x: -5, y: -5}
-  topRight: {x: 5, y: 5}
-  startPos: {x: 0, y: 0}
-  targetPos: {x: 0.5, y: 0.25}
-  FinalNodeList: []
-  allowDiagonal: 1
-  dontCrossCorner: 1
 --- !u!1 &1262165419
 GameObject:
   m_ObjectHideFlags: 0

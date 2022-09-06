@@ -18,6 +18,7 @@ public class SaveManager : ManagerBase
 
     private string lastString = string.Empty;
     private int portalIndex = 0;
+    private string lineDir;
     private Color changeColor = new Color();
 
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
@@ -65,7 +66,10 @@ public class SaveManager : ManagerBase
 
                     bool isLine = column[j].Contains("!");
                     {
-                       // if()
+                        string[] str = column[j].Split('!');
+                        column[j] = str[0];
+                        lineDir = str[1];
+
                     }
 
 
@@ -132,7 +136,54 @@ public class SaveManager : ManagerBase
                     a.gridPos = pos;
                     a.keyPos = new Vector2(pos.x, pos.y);
                     IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
+
+                    if(lineDir != null)
+                    {
+                        Line line = PoolManager.Instance.Pop("Line") as Line;
+                        switch (lineDir)
+                        {
+                            case "┃":
+                                line.SetLineDir(true,false,false,true);
+                                break;
+                            case "━":
+                                line.SetLineDir(false, true, true, false);
+                                break;
+                            case "┏":
+                                line.SetLineDir(false, true, false, true);
+                                break;
+                            case "┓":
+                                line.SetLineDir(false, false, true, true);
+                                break;
+                            case "┗":
+                                line.SetLineDir(true, true);
+                                break;
+                            case "┛":
+                                line.SetLineDir(true, false,true,false);
+                                break;
+                            case "┣":
+                                line.SetLineDir(true, true, false, true);
+                                break;
+                            case "┫":
+                                line.SetLineDir(true, false, true, true);
+                                break;
+                            case "┻":
+                                line.SetLineDir(true, true, true, false);
+                                break;
+                            case "┳":
+                                line.SetLineDir(false, true, true, true);
+                                break;
+                            case "╋":
+                                line.SetLineDir(true, true, true, true);
+                                break;
+                        }
+
+
+                        lineDir = null;
+                    }
                 }
+
+
+
 
                 yield return null;
             }
