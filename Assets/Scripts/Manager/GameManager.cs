@@ -67,7 +67,7 @@ public class GameManager : ManagerBase
         tile = Resources.Load<ObjectTile>("Tiles/Thorn");
         PoolManager.Instance.CreatePool(tile, "Thon", 10);
 
-	tile = Resources.Load<ObjectTile>("Tiles/Line");
+	    tile = Resources.Load<ObjectTile>("Tiles/Line");
         PoolManager.Instance.CreatePool(tile, "Line", 10);
 
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
