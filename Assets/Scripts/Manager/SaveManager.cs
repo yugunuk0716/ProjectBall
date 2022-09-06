@@ -65,11 +65,11 @@ public class SaveManager : ManagerBase
                     }
 
                     bool isLine = column[j].Contains("!");
+                    if(isLine)
                     {
                         string[] str = column[j].Split('!');
                         column[j] = str[0];
                         lineDir = str[1];
-
                     }
 
 
