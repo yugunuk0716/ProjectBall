@@ -28,6 +28,7 @@ public class GameManager : ManagerBase
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
     public Action<int> MakeNewStageBtn;
+    public Action<Ball, bool> MakeNewBallUI;
 
     [HideInInspector] public IEnumerator timerCo;
 
