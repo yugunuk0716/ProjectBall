@@ -2,6 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum FlagColors
+{
+    Red,
+    Orange,
+    Yello,
+    LightYello,
+    YelloGreen,
+    Green,
+    SkyBlue,
+    Blue,
+    Navy,
+    Purple
+};
+
 public class ColorGoal : Goal
 {
     public Sprite[] headSprites;
@@ -19,10 +34,44 @@ public class ColorGoal : Goal
         }
     }
 
+
     public void SetSuccessColor(Color successColor)
     {
         this.successColor = successColor;
-        sr.sprite = spriteDictionary[successColor];
+
+        switch (ColorUtility.ToHtmlStringRGB(successColor))
+        {
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[0])):
+                animator.SetInteger("ColorIndex", 0);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[1])):
+                animator.SetInteger("ColorIndex", 1);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[2])):
+                animator.SetInteger("ColorIndex", 2);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[3])):
+                animator.SetInteger("ColorIndex", 3);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[4])):
+                animator.SetInteger("ColorIndex", 4);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[5])):
+                animator.SetInteger("ColorIndex", 5);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[6])):
+                animator.SetInteger("ColorIndex", 6);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[7])):
+                animator.SetInteger("ColorIndex", 7);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[8])):
+                animator.SetInteger("ColorIndex", 8);
+                break;
+            case string s when s.Equals(ColorUtility.ToHtmlStringRGB(colors[9])):
+                animator.SetInteger("ColorIndex", 9);
+                break;
+        }
     }
 
     public override void InteractionTile(Ball tb)

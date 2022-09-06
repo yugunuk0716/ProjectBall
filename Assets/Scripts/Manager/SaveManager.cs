@@ -110,7 +110,7 @@ public class SaveManager : ManagerBase
                         {
                             //깃발에 컬러정보 주기
                             ColorGoal cg = a.GetComponent<ColorGoal>();
-                            cg.successColor = changeColor;
+                            cg.SetSuccessColor(changeColor);
                         }
 
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
