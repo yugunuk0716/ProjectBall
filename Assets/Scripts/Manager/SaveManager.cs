@@ -46,6 +46,7 @@ public class SaveManager : ManagerBase
 
                 for (int j = 0; j < columnSize; j++)
                 {
+                    changeColor = Color.white;
                     bool isTransitionTile = column[j].Contains("*");
                     if (isTransitionTile)
                     {
@@ -110,9 +111,11 @@ public class SaveManager : ManagerBase
                             cc.targetColor = changeColor;
                         }
 
-                        if(type.Equals(TileType.Goal))
+                        if(type.Equals(TileType.ColorGoal))
                         {
                             //깃발에 컬러정보 주기
+                            ColorGoal cg = a.GetComponent<ColorGoal>();
+                            cg.SetSuccessColor(changeColor);
                         }
 
                         //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
@@ -226,6 +229,10 @@ public class SaveManager : ManagerBase
                     case TileColors.Purple:
                         return TileType.Teleporter;
                     case TileColors.Red:
+                        if (!changeColor.Equals(Color.white))
+                        {
+                            return TileType.ColorGoal;
+                        }
                         return TileType.Goal;
                     case TileColors.White:
                         return TileType.Slow;

@@ -14,6 +14,7 @@ public enum TileType
     Reflect,
     Thon,
     None,
+    ColorGoal,
 }
 
 [System.Serializable]
