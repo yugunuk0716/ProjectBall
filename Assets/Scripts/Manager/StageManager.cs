@@ -36,7 +36,6 @@ public class StageManager : ManagerBase
     public void LoadStage(StageDataSO stageData)
     {
         bool isSameStageLoaded = false; 
-         
 
         if (currentStageData == null)
         {
@@ -52,8 +51,6 @@ public class StageManager : ManagerBase
         {
             isSameStageLoaded = true;
         }
-
-
         IsometricManager.Instance.GetManager<UIManager>().Load();
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
@@ -73,7 +70,8 @@ public class StageManager : ManagerBase
             gm.limitTime = stageData.countDown;
             gm.maxBallCount = stageData.balls.Length;
             ClearBallUis();
-            if(isSameStageLoaded)
+
+            if(false) // isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length
             {
                 for(int i = 0; i < gm.lastBallList.Count; i++)
                 {
