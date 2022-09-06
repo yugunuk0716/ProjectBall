@@ -13,7 +13,6 @@ public class GameManager : ManagerBase
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
 
     public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
-    public List<Mapinfo> mapinfos = new List<Mapinfo>();
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -28,47 +27,15 @@ public class GameManager : ManagerBase
 
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
+    public Action<int> MakeNewStageBtn;
+
     [HideInInspector] public IEnumerator timerCo;
 
-    private string[] mapSheetStrArray =
-    {
-        "80333382", // 지금 쓰고 있는 기본
-        "2065586561",//컬러 시트
-        "1585233606",//시간 시트
-        "1872519807"//순서 시트
-    };
-
-    [HideInInspector] public string[] mapRangeStrArray =
-    {
-        "A10:I18",
-        "L10:T18",
-        "W10:AE18",
-        "AH10:AP18",
-
-        "A21:I29",
-        "L21:T29",
-        "W21:AE29",
-        "AH21:AP29",
-
-        "A33:I41",
-        "L33:T41",
-        "W33:AE41",
-        "AH33:AP41",
-
-        "A44:I52",
-        "L44:T52",
-        "W44:AE52",
-        "AH44:AP52",
-
-        "A55:I63",
-        "L55:T63",
-        "W55:AE63",
-        "AH55:AP63",
-    };
 
     public override void Init()
     {
         realTime = 0;
+
         ObjectTile tile = Resources.Load<ObjectTile>("Tiles/Arrow1");
         PoolManager.Instance.CreatePool(tile, "DirectionChanger", 10);
 
@@ -99,18 +66,6 @@ public class GameManager : ManagerBase
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
 
-        for (int i = 0; i < mapRangeStrArray.Length; i++)
-        {
-            Mapinfo tempinfo = new Mapinfo();
-            tempinfo.range = mapRangeStrArray[i];
-            tempinfo.sheet = mapSheetStrArray[0];
-            mapinfos.Add(tempinfo);
-        }
-
-        Mapinfo test = new Mapinfo();
-        test.range = "A13:I21";
-        test.sheet = mapSheetStrArray[1];
-        mapinfos.Add(test);
     }
 
     public void ResetData()
@@ -151,6 +106,27 @@ public class GameManager : ManagerBase
             SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+            if(sm.stageIndex -1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
+            {
+                Debug.Log("클리어 및 저장");
+                sm.clearMapCount++;
+                PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
+                
+                if(sm.clearMapCount % 3 == 0)
+                {
+                    Debug.Log("새로운 버튼들 추가");
+                    for (int i = 0; i < 3; i++)
+                    {
+                        MakeNewStageBtn(i + sm.stageIndex);
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log(sm.stageIndex);
+                Debug.Log(sm.clearMapCount);
+            }
+
             ActiveGameOverPanel(true);
         }
     }

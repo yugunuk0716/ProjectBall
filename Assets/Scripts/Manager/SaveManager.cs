@@ -50,7 +50,7 @@ public class SaveManager : ManagerBase
                     bool isTransitionTile = column[j].Contains("*");
                     if (isTransitionTile)
                     {
-                        column[j] = column[j].Substring(1);
+                        column[j] = column[j][1..];
                     }
 
                     bool isColoredTile = column[j].Contains("#");
@@ -61,6 +61,11 @@ public class SaveManager : ManagerBase
                         column[j] = str[0];
                         colorCode = "#" + str[1];
                         ColorUtility.TryParseHtmlString(colorCode,out changeColor);
+                    }
+
+                    bool isLine = column[j].Contains("!");
+                    {
+                       // if()
                     }
 
 
@@ -177,6 +182,9 @@ public class SaveManager : ManagerBase
                 color = TileColors.Orange;
                 break;
 
+            case "W":
+                color = TileColors.Gray;
+                break;
             default:
                 if (data.Contains("TP"))
                 {
@@ -203,7 +211,7 @@ public class SaveManager : ManagerBase
     {
         TileColors tileColor;
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < Enum.GetValues(typeof(TileColors)).Length; i++)
         {
             tileColor = (TileColors)i;
             if (tile.name.Contains(tileColor.ToString()))
@@ -232,6 +240,8 @@ public class SaveManager : ManagerBase
                         return TileType.JumpPad;
                     case TileColors.Any:
                         return TileType.ColorChanger;
+                    case TileColors.Gray:
+                        return TileType.Thon;
                 }
             }
         }
@@ -294,7 +304,8 @@ public enum TileColors
     Red,
     White,
     Yellow,
-    Any
+    Any,
+    Gray
 }
 
 

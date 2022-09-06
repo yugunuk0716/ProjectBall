@@ -21,14 +21,14 @@ public class GameOverUI : MonoBehaviour
 
         reloadBtn.onClick.AddListener(() => 
         {
-            sm.LoadStage(gm.mapinfos[sm.stageIndex - 1]);
+            sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
             ScreenOn(false);
         });
 
         loadNextBtn.onClick.AddListener(() =>
         {
             sm.stageIndex++;
-            sm.LoadStage(gm.mapinfos[sm.stageIndex - 1]);
+            sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
             ScreenOn(false);
         });
     }

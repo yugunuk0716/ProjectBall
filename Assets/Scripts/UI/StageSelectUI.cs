@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
+using System;
 
 public class StageSelectUI : MonoBehaviour
 {
@@ -13,27 +13,47 @@ public class StageSelectUI : MonoBehaviour
     public Button stageLoadBtnPrefab;
     public Button exitBtn;
 
+    public Scrollbar scrollBar;
+
     bool isHiden = true;
     bool isMoving = false;
     float moveDist = 0f;
 
     void Start()
     {
-        moveDist = Screen.height;
+        moveDist = Screen.height / 6;
         myRectTrm = GetComponent<RectTransform>();
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
 
-        for (int i = 0; i < gm.mapRangeStrArray.Length; i++)
+        int loadMapCount = (PlayerPrefs.GetInt("ClearMapsCount") / 3 + 1) * 3;
+
+        gm.MakeNewStageBtn += ((x) =>
         {
             Button btn = Instantiate(stageLoadBtnPrefab, stageLoadBtnsContent);
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = (i + 1).ToString();
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = (x + 1).ToString();
             btn.onClick.AddListener(() =>
             {
-                sm.LoadStage(gm.mapinfos[i]);
-                Move(1f);
+                #region UI 테스트 코드
+                //{
+                //    Debug.Log("아래 코드 지우기");
+                //    Debug.Log(x + 1);
+                //    PlayerPrefs.SetInt("ClearMapsCount", x);
+                //    sm.clearMapCount = PlayerPrefs.GetInt("ClearMapsCount");
+                //}
+                #endregion
+
+                sm.stageIndex = x + 1; // 현재 플레이중인 스테이지..를 알고 있음 뭔가 도움되겠지 뭐
+                sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
+
+                Move();
             });
+        });
+       
+        for (int i = 0; i < loadMapCount; i++)
+        {
+            gm.MakeNewStageBtn(i);
         }
 
         exitBtn.onClick.AddListener(() => Move());

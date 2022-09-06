@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4391e5e42b0c9f346a3c186aa5bf2e26, type: 3}
   m_Name: Stage 10
   m_EditorClassIdentifier: 
-  ballCount: 1
   balls:
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
-  countDown: 1
+  countDown: 30
   shooterDirections: -1
-  jsonString: 
+  range: L33:T41
+  eSheet: 80333382
