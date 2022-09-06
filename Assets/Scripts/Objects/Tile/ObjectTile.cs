@@ -12,7 +12,7 @@ public enum TileType
     DirectionChanger,
     ColorChanger,
     Reflect,
-    Wall,
+    Thon,
     None,
 }
 
