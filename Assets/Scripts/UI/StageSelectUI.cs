@@ -35,15 +35,6 @@ public class StageSelectUI : MonoBehaviour
             btn.GetComponentInChildren<TextMeshProUGUI>().text = (x + 1).ToString();
             btn.onClick.AddListener(() =>
             {
-                #region UI 테스트 코드
-                //{
-                //    Debug.Log("아래 코드 지우기");
-                //    Debug.Log(x + 1);
-                //    PlayerPrefs.SetInt("ClearMapsCount", x);
-                //    sm.clearMapCount = PlayerPrefs.GetInt("ClearMapsCount");
-                //}
-                #endregion
-
                 sm.stageIndex = x + 1; // 현재 플레이중인 스테이지..를 알고 있음 뭔가 도움되겠지 뭐
                 sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
 

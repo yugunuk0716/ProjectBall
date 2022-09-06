@@ -310,8 +310,8 @@ public class SaveManager : ManagerBase
                         return TileType.JumpPad;
                     case TileColors.Any:
                         return TileType.ColorChanger;
-                    case TileColors.Gray:
-                        return TileType.Thon;
+                   /* case TileColors.Gray:
+                        return TileType.Thon;*/
                 }
             }
         }

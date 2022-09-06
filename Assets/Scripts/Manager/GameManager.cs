@@ -115,25 +115,17 @@ public class GameManager : ManagerBase
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             if(sm.stageIndex -1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
             {
-                Debug.Log("클리어 및 저장");
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
                 
                 if(sm.clearMapCount % 3 == 0)
                 {
-                    Debug.Log("새로운 버튼들 추가");
                     for (int i = 0; i < 3; i++)
                     {
                         MakeNewStageBtn(i + sm.stageIndex);
                     }
                 }
             }
-            else
-            {
-                Debug.Log(sm.stageIndex);
-                Debug.Log(sm.clearMapCount);
-            }
-
             ActiveGameOverPanel(true);
         }
     }
