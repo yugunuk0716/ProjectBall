@@ -22,51 +22,68 @@ public class IngameUI : UIBase
         selectDirectionUI.Init(() => isSelectingDirection = false);
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
+        gm.MakeNewBallUI += (ball, isAutoSet) =>
+        {
+            BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+            newBallControllUI.SetBallSprites(ball.uiSprite);
+            bool isAdded = false;
+
+
+            Button btn = newBallControllUI.GetComponent<Button>();
+            btn.onClick.AddListener(() =>
+            {
+                Debug.Log("되나?");
+                if (isSelectingDirection) return;
+
+                if (isAdded) // 다시 돌아오려는
+                {
+                    newBallControllUI.transform.SetParent(parentTrms[0]);
+                    gm.myBallList.Remove(ball);
+                    gm.ballUIList.Remove(newBallControllUI.gameObject);
+                    newBallControllUI.SetDirection(TileDirection.RIGHTDOWN, false);
+                }
+                else // 추가 하려는
+                {
+                    newBallControllUI.transform.SetParent(parentTrms[1]);
+                    gm.ballUIList.Add(newBallControllUI.gameObject);
+                    selectDirectionUI.addBall = ball;
+                    selectDirectionUI.ballControllUI = newBallControllUI;
+                    selectDirectionUI.ScreenOn(true);
+                    isSelectingDirection = true;
+                }
+
+                isAdded = !isAdded;
+            });
+
+            if (isAutoSet)
+            {
+                isAdded = true;
+                newBallControllUI.transform.SetParent(parentTrms[1]);
+                gm.ballUIList.Add(newBallControllUI.gameObject);
+                gm.myBallList.Add(ball);
+                gm.lastBallList.Add(ball);
+            }
+        };
+
+
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
-        sm.InitBallControllUIs += (Ball[] balls) =>
+
+        sm.ClearBallUis += () =>
         {
-            gm.maxBallCount = balls.Length;
-
-            for(int i = 0; i < parentTrms.Length; i++) parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
-
-            for(int i = 0; i< balls.Length; i++)
+            for (int i = 0; i < parentTrms.Length; i++)
             {
-                Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-
-                BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
-                newBallControllUI.SetBallSprites(ball.uiSprite);
-                bool isAdded = false;
-
-                newBallControllUI.GetComponent<Button>().onClick.AddListener(() =>
-                {
-                    if (isSelectingDirection) return;
-
-                    if (isAdded) // 다시 돌아오려는
-                    {
-                        newBallControllUI.transform.SetParent(parentTrms[0]);
-                        gm.myBallList.Remove(ball);
-                        gm.ballUIList.Remove(newBallControllUI.gameObject);
-                        newBallControllUI.SetDirection(TileDirection.RIGHTDOWN, false);
-                    }
-                    else // 추가 하려는
-                    {
-                        newBallControllUI.transform.SetParent(parentTrms[1]);
-                        gm.ballUIList.Add(newBallControllUI.gameObject);
-                        selectDirectionUI.addBall = ball;
-                        selectDirectionUI.ballControllUI = newBallControllUI;
-                        selectDirectionUI.ScreenOn(true);
-                        isSelectingDirection = true;
-                    }
-
-                    isAdded = !isAdded;
-                });
+                parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
             }
         };
+
     }
+
+
     
     public void SetTimerText(string textString, Color? color = null)
     {

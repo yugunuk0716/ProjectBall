@@ -14,6 +14,7 @@ public class StageManager : ManagerBase
     public Action<string> SetDebugText;
     public Action FadeDebugText;
     public Action<Ball[]> InitBallControllUIs;
+    public Action ClearBallUis;
 
     private StageDataSO currentStageData;
 
@@ -34,7 +35,10 @@ public class StageManager : ManagerBase
 
     public void LoadStage(StageDataSO stageData)
     {
-        if(currentStageData == null)
+        bool isSameStageLoaded = false; 
+         
+
+        if (currentStageData == null)
         {
             currentStageData = stageData;
         }
@@ -46,11 +50,9 @@ public class StageManager : ManagerBase
         }
         else
         {
-            foreach (var item in IsometricManager.Instance.GetManager<GameManager>().lastBallList)
-            {
-                Debug.Log("여기서 세팅했던 공 데이터 세팅해주기");
-            }
+            isSameStageLoaded = true;
         }
+
 
         IsometricManager.Instance.GetManager<UIManager>().Load();
 
@@ -69,7 +71,23 @@ public class StageManager : ManagerBase
             gm.portalList.ForEach(portal => portal.FindPair());
 
             gm.limitTime = stageData.countDown;
-            InitBallControllUIs(stageData.balls);
+            gm.maxBallCount = stageData.balls.Length;
+            ClearBallUis();
+            if(isSameStageLoaded)
+            {
+                for(int i = 0; i < gm.lastBallList.Count; i++)
+                {
+                    gm.MakeNewBallUI(gm.lastBallList[i], true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < stageData.balls.Length; i++)
+                {
+                    Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+                    gm.MakeNewBallUI(ball, false);
+                }
+            }
             IsometricManager.Instance.UpdateState(eUpdateState.Load);
         });
 
