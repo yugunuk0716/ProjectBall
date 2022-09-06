@@ -14,6 +14,7 @@ public class Thorn : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
+        print("네");
         PoolManager.Instance.Push(tb);
         anim.SetTrigger("TriggerBall");
         
