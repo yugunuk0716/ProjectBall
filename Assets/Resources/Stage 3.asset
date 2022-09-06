@@ -15,7 +15,6 @@ MonoBehaviour:
   balls:
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
-  - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
   countDown: 30
   shooterDirections: -1
   range: W10:AE18

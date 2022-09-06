@@ -56,9 +56,11 @@ public class StageSelectUI : MonoBehaviour
 
         isMoving = true;
         float value = isHiden ? moveDist : -moveDist;
+        Time.timeScale = isHiden ? 0 : 1;
 
+        Debug.Log("여기 구현하기");
         Ease ease = isHiden ? Ease.InOutQuad : Ease.OutBounce;
-        myRectTrm.DOMoveY(myRectTrm.anchoredPosition.y + value, duration).SetEase(ease).OnComplete(() =>
+        myRectTrm.DOMoveY(myRectTrm.anchoredPosition.y + value, duration).SetEase(ease).SetUpdate(true).OnComplete(() =>
         {
             isMoving = false;
             isHiden = !isHiden;

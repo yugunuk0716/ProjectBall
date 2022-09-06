@@ -79,6 +79,8 @@ public class GameManager : ManagerBase
     {
         ballUIList.Clear();
         myBallList.Clear();
+        aliveBallList.Clear();
+
         SetTimerText("Ready", Color.black);
         realTime = 0f;
         firstTime = 0f;

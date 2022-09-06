@@ -5,31 +5,46 @@ using DG.Tweening;
 public class BallAfterImage : MonoBehaviour
 {
     Sprite sprite;
-
     GameObject parentObj;
+
+    SpriteRenderer[] renderers = new SpriteRenderer[20];
+    SpriteRenderer[] renderers2 = new SpriteRenderer[5];
+
+    bool bSettingCompleted = false;
+
+    private void OnEnable()
+    {
+        if(bSettingCompleted)
+        {
+            StartCoroutine(MoveAfterImageEffect(renderers2));
+            StartCoroutine(RotateAfterImageEffect(renderers));
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (bSettingCompleted)
+        {
+            StopCoroutine(MoveAfterImageEffect(renderers2));
+            StopCoroutine(RotateAfterImageEffect(renderers));
+        }
+    }
+
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>().sprite;
-        SpriteRenderer[] renderers = new SpriteRenderer[20];
-
         parentObj = new GameObject("Test");
         parentObj.transform.position = this.transform.position;
+
         for (int i = 0; i < renderers.Length; i++)
-        {
             SetSprite(i, renderers);
-        }
-
-        StartCoroutine(RotateAfterImageEffect(renderers));
-        StartCoroutine(CallMyRotateAfterImages(renderers));
-
-        SpriteRenderer[] renderers2 = new SpriteRenderer[5];
 
         for (int i = 0; i < renderers2.Length; i++)
-        {
             SetSprite(i, renderers2);
-        }
 
-        StartCoroutine(MoveAfterImageEffect(renderers2));
+        StartCoroutine(CallMyRotateAfterImages(renderers));
+
+        bSettingCompleted = true;
     }
 
     void SetSprite(int index, SpriteRenderer[] targetArray)

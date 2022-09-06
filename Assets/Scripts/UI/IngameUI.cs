@@ -33,7 +33,10 @@ public class IngameUI : UIBase
             Button btn = newBallControllUI.GetComponent<Button>();
             btn.onClick.AddListener(() =>
             {
-                if (isSelectingDirection) return;
+                if (isSelectingDirection)
+                {
+                    return;
+                }
 
                 if (isAdded) // 다시 돌아오려는
                 {
@@ -59,51 +62,28 @@ public class IngameUI : UIBase
 
             if (isAutoSet)
             {
-                Debug.Log("오토 세팅");
-                try
-                {
-                    Debug.Log("1");
-                    isAdded = true;
-                    newBallControllUI.transform.SetParent(parentTrms[1]);
-                    gm.ballUIList.Add(newBallControllUI.gameObject);
-                    gm.myBallList.Add(ball);
-                    gm.lastBallList.Add(ball);
-                    Debug.Log("2");
-                }
-                catch
-                {
-                    Debug.Log("3");
-                }
-            }
-            else
-            {
-                Debug.Log("세팅 안함 초기화");
+                isAdded = true;
+                newBallControllUI.transform.SetParent(parentTrms[1]);
+                gm.ballUIList.Add(newBallControllUI.gameObject);
+                gm.myBallList.Add(ball);
+                newBallControllUI.SetDirection(ball.shootDir);
             }
         };
 
+        gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
-        try
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+        sm.SetDebugText += (string textString) => SetDebugText(textString);
+        sm.FadeDebugText += () => FadeDebugText();
+
+        sm.ClearBallUis += () =>
         {
-            gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
-
-            StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
-            sm.SetDebugText += (string textString) => SetDebugText(textString);
-            sm.FadeDebugText += () => FadeDebugText();
-
-            sm.ClearBallUis += () =>
+            for (int i = 0; i < parentTrms.Length; i++)
             {
-                for (int i = 0; i < parentTrms.Length; i++)
-                {
-                    parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
-                }
-            };
-        }
-        catch
-        {
-            Debug.Log("ㅇㅇ");
-        }
+                parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
+            }
+        };
     }
-
 
 
     public void SetTimerText(string textString, Color? color = null)

@@ -71,12 +71,13 @@ public class StageManager : ManagerBase
             gm.maxBallCount = stageData.balls.Length;
             ClearBallUis();
 
-            if(false) // isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length
+            if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length) //
             {
                 for(int i = 0; i < gm.lastBallList.Count; i++)
                 {
                     gm.MakeNewBallUI(gm.lastBallList[i], true);
                 }
+
             }
             else
             {
