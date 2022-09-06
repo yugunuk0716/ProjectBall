@@ -130,20 +130,14 @@ public class SaveManager : ManagerBase
                         a.transform.parent = mainMap.transform;
                         a.gameObject.SetActive(true);
                     }
-                    Vector2 worldPoint = mainMap.CellToWorld(pos);
-                    a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
-                    pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
-                    a.gridPos = pos;
-                    a.keyPos = new Vector2(pos.x, pos.y);
-                    IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
 
-                    if(lineDir != null)
+                    if (lineDir != null)
                     {
                         Line line = PoolManager.Instance.Pop("Line") as Line;
                         switch (lineDir)
                         {
                             case "┃":
-                                line.SetLineDir(true,false,false,true);
+                                line.SetLineDir(true, false, false, true);
                                 break;
                             case "━":
                                 line.SetLineDir(false, true, true, false);
@@ -158,7 +152,7 @@ public class SaveManager : ManagerBase
                                 line.SetLineDir(true, true);
                                 break;
                             case "┛":
-                                line.SetLineDir(true, false,true,false);
+                                line.SetLineDir(true, false, true, false);
                                 break;
                             case "┣":
                                 line.SetLineDir(true, true, false, true);
@@ -175,11 +169,36 @@ public class SaveManager : ManagerBase
                             case "╋":
                                 line.SetLineDir(true, true, true, true);
                                 break;
+                            case "▼":
+                                line.SetLineDir(false, false, false, true);
+                                break;
+                            case "▲":
+                                line.SetLineDir(true, false, false, false);
+                                break;
+                            case "◀":
+                                line.SetLineDir(false, false, true, false);
+                                break;
+                            case "▶":
+                                line.SetLineDir(false, true, false, false);
+                                break;
+
+                                			
                         }
 
+                        line.transform.position = mainMap.CellToWorld(new Vector3Int(pos.x, pos.y, 0));
+                        line.transform.position -= new Vector3(0, -.25f, 0);
+                        line.transform.parent = mainMap.transform;
+                        line.gameObject.SetActive(true);
 
                         lineDir = null;
                     }
+
+                    Vector2 worldPoint = mainMap.CellToWorld(pos);
+                    a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
+                    pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
+                    a.gridPos = pos;
+                    a.keyPos = new Vector2(pos.x, pos.y);
+                    IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
                 }
 
 
