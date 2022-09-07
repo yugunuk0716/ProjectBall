@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class BallAfterImage : MonoBehaviour
 {
-    Sprite sprite;
+    SpriteRenderer _sr;
     GameObject parentObj;
 
     SpriteRenderer[] renderers = new SpriteRenderer[20];
@@ -14,35 +14,43 @@ public class BallAfterImage : MonoBehaviour
 
     private void OnEnable()
     {
-        if(bSettingCompleted)
+        Debug.Log("켜짐");
+        if (bSettingCompleted)
         {
             StartCoroutine(MoveAfterImageEffect(renderers2));
             StartCoroutine(RotateAfterImageEffect(renderers));
+            StartCoroutine(CallMyAfterImages(renderers));
+            StartCoroutine(CallMyAfterImages(renderers2));
         }
     }
 
     private void OnDisable()
     {
+        Debug.Log("꺼짐");
         if (bSettingCompleted)
         {
             StopCoroutine(MoveAfterImageEffect(renderers2));
             StopCoroutine(RotateAfterImageEffect(renderers));
+            StopCoroutine(CallMyAfterImages(renderers));
+            StopCoroutine(CallMyAfterImages(renderers2));
         }
     }
 
     private void Start()
     {
-        sprite = GetComponent<SpriteRenderer>().sprite;
+        _sr = GetComponent<SpriteRenderer>();
+        
         parentObj = new GameObject("Test");
         parentObj.transform.position = this.transform.position;
 
-        for (int i = 0; i < renderers.Length; i++)
-            SetSprite(i, renderers);
+        for (int i = 0; i < renderers.Length; i++) SetSprite(i, renderers);
+        for (int i = 0; i < renderers2.Length; i++) SetSprite(i, renderers2);
 
-        for (int i = 0; i < renderers2.Length; i++)
-            SetSprite(i, renderers2);
-
-        StartCoroutine(CallMyRotateAfterImages(renderers));
+        //OnEnable에서 처음엔 인식 못하게 막아뒀음
+        StartCoroutine(MoveAfterImageEffect(renderers2));
+        StartCoroutine(RotateAfterImageEffect(renderers));
+        StartCoroutine(CallMyAfterImages(renderers));
+        StartCoroutine(CallMyAfterImages(renderers2));
 
         bSettingCompleted = true;
     }
@@ -53,8 +61,8 @@ public class BallAfterImage : MonoBehaviour
         obj.transform.SetParent(parentObj.transform);
         obj.transform.localScale = transform.localScale;
         SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
-        sr.sprite = sprite;
-        sr.color = Color.clear;
+        sr.sprite = _sr.sprite;
+        sr.color = _sr.color;
         targetArray[index] = sr;
     }
 
@@ -87,7 +95,7 @@ public class BallAfterImage : MonoBehaviour
         }
     }
 
-    IEnumerator CallMyRotateAfterImages(SpriteRenderer[] renderers)
+    IEnumerator CallMyAfterImages(SpriteRenderer[] renderers)
     {
         while(true)
         {
