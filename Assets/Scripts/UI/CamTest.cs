@@ -170,11 +170,17 @@ public class CamTest : MonoBehaviour
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
-            transform.DOMove(new Vector2((t1.position.x + t2.position.x) / 2, (t1.position.y + t2.position.y) / 2), 0.2f);
+            
+           
 
             Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
             Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
-            
+
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector2((touchZeroPrevPos.x + touchOnePrevPos.x) / 2, (touchZeroPrevPos.y + touchOnePrevPos.y) / 2));
+
+            transform.DOMove(worldPos, 0.2f);
+            Debug.LogError(worldPos);
+
 
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
