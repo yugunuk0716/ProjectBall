@@ -11,8 +11,8 @@ public class CamTest : MonoBehaviour
     private const float CAMERA_MIN_SIZE = 4f;
     private const float HORIZONTAL_MAX = 4.6f;
     private const float HORIZONTAL_MIN = -4.6f;
-    private const float VERTICAL_MAX = 8.4f;
-    private const float VERTICAL_MIN = -8.4f;
+    private const float VERTICAL_MAX = 8f;
+    private const float VERTICAL_MIN = -8f;
     private const float MOVE_DELAY = 0.15f;
     #endregion
 
@@ -31,6 +31,8 @@ public class CamTest : MonoBehaviour
     readonly float camMoveCool = 0.15f;
     float lastCamMoveTime = 0f;
 
+
+    Tween t;
 
     private void Start()
     {
@@ -158,19 +160,32 @@ public class CamTest : MonoBehaviour
         if (Input.touches.Length == 2 && lastCamMoveTime + camMoveCool < Time.time)
         {
 
+            if(t != null)
+            {
+                t.Kill();
+            }
+
             lastCamMoveTime = Time.time;
 
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
+            
+           
+
             Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
             Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
-            
+
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector2((touchZeroPrevPos.x + touchOnePrevPos.x) / 2, (touchZeroPrevPos.y + touchOnePrevPos.y) / 2));
+
+            transform.DOMove(worldPos, 0.2f);
+            Debug.LogError(worldPos);
+
 
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-            DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, CAMERA_MIN_SIZE, CAMERA_MAX_SIZE), 0.1f);
+            t = DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, CAMERA_MIN_SIZE, CAMERA_MAX_SIZE), 0.1f);
           
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
