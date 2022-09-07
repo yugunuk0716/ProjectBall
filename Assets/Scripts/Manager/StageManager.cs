@@ -13,7 +13,6 @@ public class StageManager : ManagerBase
 
     public Action<string> SetDebugText;
     public Action FadeDebugText;
-    public Action<Ball[]> InitBallControllUIs;
     public Action ClearBallUis;
 
     private StageDataSO currentStageData;
@@ -35,26 +34,26 @@ public class StageManager : ManagerBase
 
     public void LoadStage(StageDataSO stageData)
     {
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+        IsometricManager.Instance.GetManager<UIManager>().Load();
+
         bool isSameStageLoaded = false; 
 
-        if (currentStageData == null)
+        if (currentStageData == null) // 첫 로드
         {
             currentStageData = stageData;
         }
-
-        if (!currentStageData.Equals(stageData))
-        {
-            currentStageData = null;
-            IsometricManager.Instance.GetManager<GameManager>().lastBallList.Clear();
-        }
-        else
+        else if (currentStageData.Equals(stageData)) // 현 스테이지랑 목표 스테이지랑 다르면
         {
             isSameStageLoaded = true;
         }
-        IsometricManager.Instance.GetManager<UIManager>().Load();
+        else
+        {
+            currentStageData = stageData;
+            gm.lastBallList.Clear();
+        } 
 
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
         sm.range = stageData.range;
         sm.sheet = ((int)stageData.eSheet).ToString();
 
@@ -71,13 +70,14 @@ public class StageManager : ManagerBase
             gm.maxBallCount = stageData.balls.Length;
             ClearBallUis();
 
-            if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length) //
+            if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length)
             {
-                for(int i = 0; i < gm.lastBallList.Count; i++)
+                for(int i = 0; i < stageData.balls.Length; i++)
                 {
                     gm.MakeNewBallUI(gm.lastBallList[i], true);
                 }
 
+                gm.lastBallList = gm.lastBallList.GetRange(0, stageData.balls.Length);
             }
             else
             {
@@ -87,6 +87,7 @@ public class StageManager : ManagerBase
                     gm.MakeNewBallUI(ball, false);
                 }
             }
+            
             IsometricManager.Instance.UpdateState(eUpdateState.Load);
         });
 
