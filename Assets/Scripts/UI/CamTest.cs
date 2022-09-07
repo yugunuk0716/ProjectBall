@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
-using UnityEngine.EventSystems;
 
 public class CamTest : MonoBehaviour
 {
@@ -32,7 +31,7 @@ public class CamTest : MonoBehaviour
     readonly float camMoveCool = 0.15f;
     float lastCamMoveTime = 0f;
 
-
+    bool isTouch = false;
     Tween t;
 
     private void Start()
@@ -77,7 +76,6 @@ public class CamTest : MonoBehaviour
         }
 #endif
         #endregion
-
 
 
        if(lastCamMoveTime + camMoveCool < Time.time)
@@ -171,30 +169,41 @@ public class CamTest : MonoBehaviour
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
 
+            switch (t1.phase)
+            {
             
-           if(EventSystem.current.IsPointerOverGameObject() == false)
-           {
-                Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
-                Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
+                case TouchPhase.Ended:
+                    isTouch = false;
+                    break;
+            }
 
+
+            Vector2 touchZeroPrevPos = t1.position - t1.deltaPosition;
+            Vector2 touchOnePrevPos = t2.position - t2.deltaPosition;
+
+            if (!isTouch)
+            {
+                isTouch = true;
                 Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector2((touchZeroPrevPos.x + touchOnePrevPos.x) / 2, (touchZeroPrevPos.y + touchOnePrevPos.y) / 2));
-
                 transform.DOMove(worldPos, 0.2f);
                 Debug.LogError(worldPos);
 
-
-                float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-                float touchDeltaMag = (t1.position - t2.position).magnitude;
-
-                t = DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, CAMERA_MIN_SIZE, CAMERA_MAX_SIZE), 0.1f);
+            }
+            
+            
 
 
-                if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
-                {
-                    prevT1Pos = t1.position;
-                    prevT2Pos = t2.position;
+            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMag = (t1.position - t2.position).magnitude;
 
-                }
+            t = DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, CAMERA_MIN_SIZE, CAMERA_MAX_SIZE), 0.1f);
+          
+
+            if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
+            {
+                prevT1Pos = t1.position;
+                prevT2Pos = t2.position;
+
             }
         }
 
