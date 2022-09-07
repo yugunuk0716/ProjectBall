@@ -12,7 +12,6 @@ public class SaveManager : ManagerBase
     [SerializeField,Header("해당 타일맵")] public Tilemap mainMap;
     [SerializeField, Header("스프레드시트 범위")] public string range;
     [SerializeField, Header("스프레드시트 시트")] public string sheet;
-    [SerializeField, Header("Json 데이터")] private List<LevelData> datas = new List<LevelData>();
 
     const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv";
 
@@ -20,12 +19,15 @@ public class SaveManager : ManagerBase
     private int portalIndex = 0;
     private string lineDir;
     private Color changeColor = new Color();
+    private AnimatedTile riseAnimatedTile;
+    private bool isEnded = false;
 
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
         IsometricManager.Instance.GetManager<GameManager>().tileDict.Clear();
         string data;
         StartCoroutine(Getdata());
+
         IEnumerator Getdata()
         {
             UnityWebRequest www = UnityWebRequest.Get(URL + "&gid=" + sheet + "&range=" + range);
@@ -43,10 +45,11 @@ public class SaveManager : ManagerBase
             {
                 string[] column = row[i].Split('\t');
 
-                
+
 
                 for (int j = 0; j < columnSize; j++)
                 {
+                    isEnded = false;
                     changeColor = Color.white;
                     bool isTransitionTile = column[j].Contains("*");
                     if (isTransitionTile)
@@ -61,11 +64,11 @@ public class SaveManager : ManagerBase
                         string colorCode;
                         column[j] = str[0];
                         colorCode = "#" + str[1];
-                        ColorUtility.TryParseHtmlString(colorCode,out changeColor);
+                        ColorUtility.TryParseHtmlString(colorCode, out changeColor);
                     }
 
                     bool isLine = column[j].Contains("!");
-                    if(isLine)
+                    if (isLine)
                     {
                         string[] str = column[j].Split('!');
                         column[j] = str[0];
@@ -74,22 +77,27 @@ public class SaveManager : ManagerBase
 
 
                     Tile tile = ParseTile(column[j]);
+
                     Vector3Int pos = new Vector3Int(1 + j, 6 - i, 0);
                     TileType type;
 
                     Vector3 tmepVec = pos + new Vector3Int(0, 100, 0);
 
 
-                  /*  yield return DOTween.To(() => tmepVec, x => 
-                    {
-                        tmepVec = x;
-                        tile.transform.SetTRS(tmepVec, Quaternion.identity, Vector3.one);
-                        
-                    }, pos, 3f);*/
+                    /*  yield return DOTween.To(() => tmepVec, x => 
+                      {
+                          tmepVec = x;
+                          tile.transform.SetTRS(tmepVec, Quaternion.identity, Vector3.one);
 
-
-                    mainMap.SetTile(pos, tile);
+                      }, pos, 3f);*/
                     type = GetType(tile);
+
+
+                    riseAnimatedTile.m_AnimationStartFrame = j;
+                    mainMap.SetTile(pos - new Vector3Int(2, 2, 0), riseAnimatedTile);
+
+                    /*StartCoroutine(WaitForFrame();
+                    yield return new WaitUntil(() => isEnded);*/
 
                     ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
                     if (isTransitionTile)
@@ -108,14 +116,14 @@ public class SaveManager : ManagerBase
                             tp.portalIndex = portalIndex;
                         }
 
-                        if(type.Equals(TileType.ColorChanger))
+                        if (type.Equals(TileType.ColorChanger))
                         {
                             //여기서 정보 주면 될듯
                             ColorChanger cc = a.GetComponent<ColorChanger>();
                             cc.targetColor = changeColor;
                         }
 
-                        if(type.Equals(TileType.ColorGoal))
+                        if (type.Equals(TileType.ColorGoal))
                         {
                             //깃발에 컬러정보 주기
                             ColorGoal cg = a.GetComponent<ColorGoal>();
@@ -182,7 +190,7 @@ public class SaveManager : ManagerBase
                                 line.SetLineDir(false, true, false, false);
                                 break;
 
-                                			
+
                         }
 
                         line.transform.position = mainMap.CellToWorld(new Vector3Int(pos.x, pos.y, 0));
@@ -194,7 +202,7 @@ public class SaveManager : ManagerBase
                     }
 
                     Vector2 worldPoint = mainMap.CellToWorld(pos);
-                    a.worldPos = new Vector2(worldPoint.x,worldPoint.y + 0.25f);
+                    a.worldPos = new Vector2(worldPoint.x, worldPoint.y + 0.25f);
                     pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
                     a.gridPos = pos;
                     a.keyPos = new Vector2(pos.x, pos.y);
@@ -209,6 +217,16 @@ public class SaveManager : ManagerBase
 
             callback();
         }
+    }
+
+    private IEnumerator WaitForFrame(int frame)
+    {
+        for (int i = 0; i < frame; i++)
+        {
+            yield return null;
+        }
+
+        isEnded = true;
     }
 
     public Tile ParseTile(string data)
@@ -269,10 +287,18 @@ public class SaveManager : ManagerBase
                 break;
         }
         tile = Resources.Load<Tile>($"IsometricTileAssets/1{color}");
+        riseAnimatedTile = Resources.Load<AnimatedTile>($"IsometricTileAssets/AnimatedTile/1{color}");
+        if(riseAnimatedTile == null)
+        {
+            riseAnimatedTile = Resources.Load<AnimatedTile>($"IsometricTileAssets/AnimatedTile/1White");
+        }
         tile.name = color.ToString();
         if(tile.name.Equals("Any"))
         {
             tile.color = changeColor;
+        }
+        else
+        {
         }
         return tile;
     }
@@ -352,15 +378,6 @@ public class SaveManager : ManagerBase
     {
         
     }
-}
-
-
-[System.Serializable]
-public class LevelData
-{
-    public TileBase tile;
-    public Vector3Int pos;
-    public TileType type;
 }
 
 [System.Serializable]
