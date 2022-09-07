@@ -1383,10 +1383,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6382705690f3d784a927ac06c7861df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageLoadBtnsContent: {fileID: 0}
+  stageLoadBtnsContent: {fileID: 738390542}
   stageLoadBtnPrefab: {fileID: 1464801078738512671, guid: 99c2b1fdff652b347ac8737716524305, type: 3}
   exitBtn: {fileID: 1386383585}
-  scrollBar: {fileID: 0}
 --- !u!1 &461646433
 GameObject:
   m_ObjectHideFlags: 0
