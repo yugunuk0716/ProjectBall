@@ -139,6 +139,8 @@ public class Ball : PoolableMono
     public override void Reset()
     {
         gameObject.SetActive(false);
+        speed = 0.4f;
+        ColorChange(Color.white);
     }
 
     public void Rollin()

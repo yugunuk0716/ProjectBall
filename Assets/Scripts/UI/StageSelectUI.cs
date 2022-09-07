@@ -9,18 +9,19 @@ using System;
 public class StageSelectUI : MonoBehaviour
 {
     RectTransform myRectTrm;
-    [SerializeField] private Transform stageLoadBtnsContent;
+    [SerializeField] private RectTransform stageLoadBtnsContent;
     public Button stageLoadBtnPrefab;
     public Button exitBtn;
-
-    public Scrollbar scrollBar;
 
     bool isHiden = true;
     bool isMoving = false;
     float moveDist = 0f;
 
-    void Start()
+    IEnumerator CoStart()
     {
+        yield return null;
+        moveDist = stageLoadBtnsContent.rect.size.y;
+
         moveDist = Screen.height / 6;
         myRectTrm = GetComponent<RectTransform>();
 
@@ -41,7 +42,7 @@ public class StageSelectUI : MonoBehaviour
                 Move();
             });
         });
-       
+
         for (int i = 0; i < loadMapCount; i++)
         {
             gm.MakeNewStageBtn(i);
@@ -50,16 +51,22 @@ public class StageSelectUI : MonoBehaviour
         exitBtn.onClick.AddListener(() => Move());
     }
 
+    void Start()
+    {
+        StartCoroutine(CoStart());
+    }
+
     public void Move(float duration = 0.5f)
     {
         if (isMoving) return;
 
         isMoving = true;
-        float value = isHiden ? moveDist : -moveDist;
+        float value = isHiden ? 320 : -320;
         Time.timeScale = isHiden ? 0 : 1;
 
-        Debug.Log("여기 구현하기");
         Ease ease = isHiden ? Ease.InOutQuad : Ease.OutBounce;
+        Debug.Log($"현재 포지션 : {myRectTrm.anchoredPosition.y}");
+
         myRectTrm.DOMoveY(myRectTrm.anchoredPosition.y + value, duration).SetEase(ease).SetUpdate(true).OnComplete(() =>
         {
             isMoving = false;

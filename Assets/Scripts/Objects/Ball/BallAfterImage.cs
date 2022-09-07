@@ -26,7 +26,6 @@ public class BallAfterImage : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("꺼짐");
         if (bSettingCompleted)
         {
             StopCoroutine(MoveAfterImageEffect(renderers2));
