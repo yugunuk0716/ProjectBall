@@ -125,9 +125,12 @@ public class Ball : PoolableMono
 
     private void OnDisable()
     {
-        curActiveTime = 0;
 
+        curActiveTime = 0;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
+      
+
         if (gm.aliveBallList.Count > 0)
         {
             gm.aliveBallList.Remove(this);
@@ -139,6 +142,8 @@ public class Ball : PoolableMono
     public override void Reset()
     {
         gameObject.SetActive(false);
+
+        
         speed = 0.4f;
         ColorChange(Color.white);
     }
