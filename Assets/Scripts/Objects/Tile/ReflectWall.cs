@@ -24,7 +24,6 @@ public class ReflectWall : ObjectTile
 
     IEnumerator ChangeSprite(Sprite[] targetSpriteArray, int targetNumber)
     {
-        print("응웅ㄴ");
         Sprite origin = sr.sprite;
         sr.sprite = targetSpriteArray[targetNumber];
         yield return changeTerm;
@@ -35,7 +34,6 @@ public class ReflectWall : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
-        print("상호작용");
         Sprite[] sprites = isHorizontalWall ? horEffect : verEffect;
         int target = 0;
 

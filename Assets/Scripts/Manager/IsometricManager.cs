@@ -54,8 +54,6 @@ public class IsometricManager : MonoBehaviour
 
     public void UpdateState(eUpdateState state)
     {
-        Debug.Log($"UpdateState/{state}");
-
         foreach (var item in managers)
         {
             item.UpdateState(state);
