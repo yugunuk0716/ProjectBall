@@ -78,6 +78,7 @@ public class GameManager : ManagerBase
 
     }
 
+    
     public void ResetData()
     {
         ballUIList.Clear();

@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
 using System;
+using System.Reflection;
 
 public class SaveManager : ManagerBase
 {
@@ -92,12 +93,31 @@ public class SaveManager : ManagerBase
                       }, pos, 3f);*/
                     type = GetType(tile);
 
-
+                    
                     riseAnimatedTile.m_AnimationStartFrame = j;
-                    mainMap.SetTile(pos - new Vector3Int(2, 2, 0), riseAnimatedTile);
 
-                    /*StartCoroutine(WaitForFrame();
-                    yield return new WaitUntil(() => isEnded);*/
+                    
+                    mainMap.SetTile(pos - new Vector3Int(2, 2, 0), riseAnimatedTile);
+                  //  mainMap.SetTile(pos, tile);
+
+                    //TileAnimationData tileAnimationData = default(TileAnimationData);
+                   // riseAnimatedTile.GetTileAnimationData(pos - new Vector3Int(2, 2, 0), mainMap, ref tileAnimationData);
+
+                  /*  print(riseAnimatedTile.GetType());
+
+                    var m = riseAnimatedTile.GetType().GetMethod("GetTileAnimationDataNoRef");
+
+                    print(m);*/
+                   /* foreach (var item in m)
+                    {
+                      
+                    }*/
+
+                    //print();
+
+
+                    // StartCoroutine(WaitForFrame();
+                   // yield return new WaitUntil(() => isEnded);
 
                     ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
                     if (isTransitionTile)
