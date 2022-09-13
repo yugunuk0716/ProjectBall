@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class CamTest : MonoBehaviour
 {
@@ -41,56 +42,59 @@ public class CamTest : MonoBehaviour
 
     private void Update()
     {
-        #region PC Test
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            #region PC Test
 #if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.A))
-        {
-            if(vCam.m_Lens.OrthographicSize < CAMERA_MIN_SIZE)
+            if (Input.GetKey(KeyCode.A))
             {
-                return;
+                if (vCam.m_Lens.OrthographicSize < CAMERA_MIN_SIZE)
+                {
+                    return;
+                }
+
+                vCam.m_Lens.OrthographicSize -= 0.025f;
             }
 
-            vCam.m_Lens.OrthographicSize -= 0.025f;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            if (vCam.m_Lens.OrthographicSize >= CAMERA_MAX_SIZE)
+            if (Input.GetKey(KeyCode.D))
             {
-                return;
+                if (vCam.m_Lens.OrthographicSize >= CAMERA_MAX_SIZE)
+                {
+                    return;
+                }
+
+                vCam.m_Lens.OrthographicSize += 0.025f;
             }
 
-            vCam.m_Lens.OrthographicSize += 0.025f;
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
 
-        if (Input.GetMouseButtonDown(0))
-        {
-           
-            vec1 = Input.mousePosition;
-        }
+                vec1 = Input.mousePosition;
+            }
 
-        if (Input.GetMouseButton(0))
-        {
-            vec2 = Input.mousePosition;
-            SetPos();
-        }
+            if (Input.GetMouseButton(0))
+            {
+                vec2 = Input.mousePosition;
+                SetPos();
+            }
 #endif
-        #endregion
+            #endregion
 
 
-       if(lastCamMoveTime + camMoveCool < Time.time)
-        {
-            if (Input.touchCount == 2)
+            if (lastCamMoveTime + camMoveCool < Time.time)
             {
-                CameraZoom();
+                if (Input.touchCount == 2)
+                {
+                    CameraZoom();
+                }
+
+                else if (Input.touchCount == 1)
+                {
+                    CameraMove();
+                }
             }
 
-            else if (Input.touchCount == 1)
-            {
-                CameraMove();
-            }
         }
-
 
     }
 

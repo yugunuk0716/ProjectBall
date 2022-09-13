@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public abstract class UIBase : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public abstract class UIBase : MonoBehaviour
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
-        canvasGroup.alpha = on ? 1 : 0;
+        DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.5f);
     }
 
     public abstract void Init();

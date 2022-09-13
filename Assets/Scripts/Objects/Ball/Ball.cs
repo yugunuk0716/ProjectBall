@@ -118,7 +118,10 @@ public class Ball : PoolableMono
             transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
             {
                 tile.InteractionTile(this);
-                interactParticle.Play();
+                if (!tile.myType.Equals(TileType.None))
+                {
+                    interactParticle.Play();
+                }
             });
         }
         else
