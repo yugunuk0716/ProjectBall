@@ -86,7 +86,7 @@ public class GameManager : ManagerBase
         myBallList.Clear();
         aliveBallList.Clear();
 
-        SetTimerText("Ready", Color.black);
+        SetTimerText("Ready", Color.white);
         firstTime = 0f;
         realTime = 0f;
         isFirstBallNotArrived = true;
@@ -99,6 +99,7 @@ public class GameManager : ManagerBase
         if(myBallList.Count == 0 && aliveBallList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
         {
             StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
+            SetTimerText("Failed", Color.red);
             ActiveGameOverPanel(false);
         }
     }
@@ -152,7 +153,7 @@ public class GameManager : ManagerBase
 
             yield return null;
             realTime += Time.deltaTime;
-            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.black);
+            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.white);
         }
     }
 
