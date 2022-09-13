@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -69,16 +70,27 @@ public class StageManager : ManagerBase
             ClearBallUis();
             ClearActiveBalls();
             ReuseUI?.Invoke();
-            gm.ResetData(stageData, isSameStageLoaded);
+            
             foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);
             }
 
-            IsometricManager.Instance.UpdateState(eUpdateState.Load);
+            StartCoroutine(WaitUntilObjectTileCreated(() =>
+            {
+                IsometricManager.Instance.UpdateState(eUpdateState.Load);
+                gm.ResetData(stageData, isSameStageLoaded);
+            }));
         });
 
         FadeDebugText();
+    }
+
+    IEnumerator WaitUntilObjectTileCreated(Action callBack)
+    {
+        yield return new WaitForSeconds(1f);
+        callBack();
+
     }
 
     private void ClearActiveBalls()

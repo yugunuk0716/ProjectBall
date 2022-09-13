@@ -109,7 +109,6 @@ public class SaveManager : ManagerBase
 
     public void SetAnimationForMapLoading(TileData data)
     {
-        
         Tilemap map = mainMap;
         Tilemap animMap = animationMap;
 
@@ -182,7 +181,6 @@ public class SaveManager : ManagerBase
 
             //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
             a.dataString = data.lastString;
-            Debug.Log(lastString);
             a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
 
             a.SetDirection();

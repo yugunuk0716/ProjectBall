@@ -75,7 +75,7 @@ public class GameManager : ManagerBase
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
 
-        BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Particles/BallDestroyParticle");
+        BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);
 
     }
@@ -95,6 +95,7 @@ public class GameManager : ManagerBase
         timerCo = Timer();
 
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+
         goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
         goalList.ForEach(x => x.ResetFlag(false));
 
@@ -114,6 +115,10 @@ public class GameManager : ManagerBase
             StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
             SetTimerText("Failed", Color.red);
             ActiveGameOverPanel(false);
+        }
+        else
+        {
+            Debug.Log($"{myBallList.Count}, {aliveBallList.Count}, {goalList.FindAll(goal => !goal.isChecked).Count}");
         }
     }
 
