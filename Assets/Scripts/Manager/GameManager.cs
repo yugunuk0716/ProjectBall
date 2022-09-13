@@ -87,8 +87,8 @@ public class GameManager : ManagerBase
         aliveBallList.Clear();
 
         SetTimerText("Ready", Color.black);
-        realTime = 0f;
         firstTime = 0f;
+        realTime = 0f;
         isFirstBallNotArrived = true;
         isShooting = false;
         timerCo = Timer();
