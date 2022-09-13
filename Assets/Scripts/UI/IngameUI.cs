@@ -23,7 +23,7 @@ public class IngameUI : UIBase
     [SerializeField] BallControllUI ballControllUIPrefab;
     [SerializeField] GameObject targetPointObjPrefab;
 
-    [HideInInspector] public SelectDirectionUI selectDirectionUI;
+    [SerializeField] private SelectDirectionUI selectDirectionUI;
     bool isSelectingDirection = false;
 
     [Space(10)]
@@ -42,9 +42,9 @@ public class IngameUI : UIBase
 
         for (int i = 0; i< list.Count; i++)
         {
-            list[i].transform.SetParent(ballUiSheter);
-            list[i].transform.DOMove(targetPoints[i+1].position, 1f);
-            list[i].transform.DOScale(Vector2.one / 4, 1f);
+            list[i].transform.SetParent(targetPoints[i + 1]);
+            //list[i].transform.SetParent(ballUiSheter);
+            list[i].transform.DOMove(targetPoints[i + 1].position, 1f);
             yield return new WaitForSeconds(0.3f);
         }
     }
@@ -176,4 +176,9 @@ public class IngameUI : UIBase
         order = 0;
         isSelectingDirection = false;
     }
+
+    //public void MakeTargetPoints()
+    //{
+    //    int count = resources
+    //}
 }
