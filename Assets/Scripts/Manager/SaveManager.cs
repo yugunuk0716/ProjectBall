@@ -10,8 +10,8 @@ using System.Reflection;
 
 public class SaveManager : ManagerBase
 {
-    [SerializeField,Header("해당 타일맵")] public Tilemap mainMap;
-    [SerializeField,Header("에니메이션 타일맵")] public Tilemap animationMap;
+    [SerializeField, Header("해당 타일맵")] public Tilemap mainMap;
+    [SerializeField, Header("에니메이션 타일맵")] public Tilemap animationMap;
     [SerializeField, Header("스프레드시트 범위")] public string range;
     [SerializeField, Header("스프레드시트 시트")] public string sheet;
 
@@ -136,7 +136,7 @@ public class SaveManager : ManagerBase
                     FunctionUpdater.Delete(updateAction);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //Debug.Log(map.GetSprite(_data.pos));
                 Debug.LogError(data.pos);
@@ -181,12 +181,25 @@ public class SaveManager : ManagerBase
 
             //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
             a.dataString = data.lastString;
+
             a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
+
+            a.transform.position += new Vector3(0, 1, 0);
 
             a.SetDirection();
 
             a.transform.parent = mainMap.transform;
+
             a.gameObject.SetActive(true);
+
+            SpriteRenderer sr = a.GetComponent<SpriteRenderer>();
+            if (sr == null)
+            {
+                sr = a.GetComponentInChildren<SpriteRenderer>();
+            }
+            sr.color = new Color(1, 1, 1, 0);
+            sr.DOFade(1, .7f).SetEase(Ease.Linear);
+            a.transform.DOMoveY(a.transform.position.y - 1, .7f).SetEase(Ease.InQuart);
         }
 
         if (lineDir != null)
@@ -319,12 +332,12 @@ public class SaveManager : ManagerBase
         }
         tile = Resources.Load<Tile>($"IsometricTileAssets/1{color}");
         riseAnimatedTile = Resources.Load<AnimatedTile>($"IsometricTileAssets/AnimatedTile/1{color}");
-        if(riseAnimatedTile == null)
+        if (riseAnimatedTile == null)
         {
             riseAnimatedTile = Resources.Load<AnimatedTile>($"IsometricTileAssets/AnimatedTile/1White");
         }
         tile.name = color.ToString();
-        if(tile.name.Equals("Any"))
+        if (tile.name.Equals("Any"))
         {
             tile.color = changeColor;
         }
@@ -380,9 +393,9 @@ public class SaveManager : ManagerBase
     {
         mainMap.ClearAllTiles();
         var child = mainMap.GetComponentsInChildren<Transform>();
-        foreach(var c in child)
+        foreach (var c in child)
         {
-            if(c != mainMap.transform)
+            if (c != mainMap.transform)
             {
                 Destroy(c.gameObject);
             }
