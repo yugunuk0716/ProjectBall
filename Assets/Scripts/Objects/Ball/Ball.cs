@@ -20,6 +20,7 @@ public class Ball : PoolableMono
     public SpriteRenderer sr;
     public Sprite uiSprite; // UI에 적용할 스프라이트, 공처럼 생김!
 
+    public Animator slowAnim;
     public GameObject spriteObject;
 
     public float tpCool;
@@ -46,8 +47,6 @@ public class Ball : PoolableMono
 
     private void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
-        sr = GetComponentInChildren<SpriteRenderer>();
         interactParticle = GetComponentInChildren<ParticleSystem>();
         tpCool = 0.1f;
     }
@@ -122,6 +121,12 @@ public class Ball : PoolableMono
                 {
                     interactParticle.Play();
                 }
+                if (tile.myType.Equals(TileType.Slow))
+                {
+                    slowAnim.gameObject.SetActive(true);
+                    slowAnim.Play("SlowEffect");
+                }
+
             });
         }
         else
@@ -153,7 +158,7 @@ public class Ball : PoolableMono
     {
         gameObject.SetActive(false);
 
-        
+        slowAnim.gameObject.SetActive(false);
         speed = 0.4f;
         ColorChange(Color.white);
     }
