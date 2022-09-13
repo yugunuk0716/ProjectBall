@@ -13,10 +13,9 @@ public class IngameUI : UIBase
     public TextMeshProUGUI timer_text;
 
     [Space(10)]
-    [Header("Content / Parent")]
+    [Header("Content")]
     public Transform ballContent;
     [SerializeField] private Transform targetPointContent;
-    [SerializeField] private Transform ballUiSheter; // 잠시 머물 parent위치
 
     [Space(10)]
     [Header("Prefab")]
@@ -43,7 +42,6 @@ public class IngameUI : UIBase
         for (int i = 0; i< list.Count; i++)
         {
             list[i].transform.SetParent(targetPoints[i + 1]);
-            //list[i].transform.SetParent(ballUiSheter);
             list[i].transform.DOMove(targetPoints[i + 1].position, 1f);
             yield return new WaitForSeconds(0.3f);
         }
@@ -175,10 +173,18 @@ public class IngameUI : UIBase
         selectDirectionUI.ScreenOn(false);
         order = 0;
         isSelectingDirection = false;
+        MakeTargetPoints();
     }
 
-    //public void MakeTargetPoints()
-    //{
-    //    int count = resources
-    //}
+    public void MakeTargetPoints()
+    {
+        StageDataSO so =  Resources.Load<StageDataSO>($"Stage {IsometricManager.Instance.GetManager<StageManager>().stageIndex}");
+
+        Debug.Log(so.name);
+        Debug.Log(so.balls.Length);
+        for(int i = 0; i< so.balls.Length; i++)
+        {
+            Instantiate(targetPointObjPrefab, targetPointContent);
+        }
+    }
 }

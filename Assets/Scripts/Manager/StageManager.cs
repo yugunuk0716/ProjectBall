@@ -37,11 +37,12 @@ public class StageManager : ManagerBase
     public void LoadStage(StageDataSO stageData)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+        
 
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
         gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
 
+        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
         bool isSameStageLoaded = false; 
 
         if (currentStageData == null) // 첫 로드
@@ -66,40 +67,10 @@ public class StageManager : ManagerBase
             ClearBallUis();
             ClearActiveBalls();
             ReuseUI?.Invoke();
-
-            IsometricManager.Instance.GetManager<UIManager>().Load();
-
-            gm.ResetData();
-            gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
-            gm.goalList.ForEach(x => x.ResetFlag(false));
-
-            gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
-            gm.portalList.ForEach(portal => portal.FindPair());
-
-            gm.limitTime = stageData.countDown;
-            gm.maxBallCount = stageData.balls.Length;
-
-            if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length)
-            {
-                for(int i = 0; i < stageData.balls.Length; i++)
-                {
-                    gm.MakeNewBallUI(gm.lastBallList[i], true);
-                }
-
-                gm.lastBallList = gm.lastBallList.GetRange(0, stageData.balls.Length);
-            }
-            else
-            {
-                for (int i = 0; i < stageData.balls.Length; i++)
-                {
-                    Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-                    gm.MakeNewBallUI(ball, false);
-                }
-            }
+            gm.ResetData(stageData, isSameStageLoaded);
             
             IsometricManager.Instance.UpdateState(eUpdateState.Load);
         });
-
 
         FadeDebugText();
     }

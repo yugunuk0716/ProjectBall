@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : ManagerBase
@@ -80,7 +81,7 @@ public class GameManager : ManagerBase
     }
 
     
-    public void ResetData()
+    public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
     {
         ballUIList.Clear();
         myBallList.Clear();
@@ -92,6 +93,18 @@ public class GameManager : ManagerBase
         isFirstBallNotArrived = true;
         isShooting = false;
         timerCo = Timer();
+
+        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+        goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
+        goalList.ForEach(x => x.ResetFlag(false));
+
+        portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
+        portalList.ForEach(portal => portal.FindPair());
+
+        limitTime = stageData.countDown;
+        maxBallCount = stageData.balls.Length;
+
+        SetBallUI(stageData.balls.Length, isSameStageLoaded);
     }
 
     public void CheckFail() 
@@ -100,6 +113,27 @@ public class GameManager : ManagerBase
         {
             StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
             ActiveGameOverPanel(false);
+        }
+    }
+
+    public void SetBallUI(int ballCount, bool isSameStageLoaded)
+    {
+        if (isSameStageLoaded && lastBallList.Count >= ballCount)
+        {
+            for (int i = 0; i < ballCount; i++)
+            {
+                MakeNewBallUI(lastBallList[i], true);
+            }
+
+            lastBallList = lastBallList.GetRange(0, ballCount);
+        }
+        else
+        {
+            for (int i = 0; i < ballCount; i++)
+            {
+                Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+                MakeNewBallUI(ball, false);
+            }
         }
     }
 
