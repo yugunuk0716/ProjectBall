@@ -83,7 +83,7 @@ public class SaveManager : ManagerBase
 
                     Tile tile = ParseTile(column[j]);
 
-                    Vector3Int pos = new Vector3Int(1 + j, 6 - i, 0);
+                    Vector3Int pos = new Vector3Int(1 + j, 6 - i);
                     TileType type;
 
                     type = GetType(tile);
@@ -114,13 +114,12 @@ public class SaveManager : ManagerBase
         Tilemap animMap = animationMap;
 
 
-        animMap.SetTile(data.pos + new Vector3Int(-2, -2, 0), data.animatedTile);
+        animMap.SetTile(data.pos, data.animatedTile);
         animMap.SetAnimationFrame(data.pos, 0);
         data.animatedTile.m_AnimationStartFrame = 0;
 
         Action updateAction = null;
         Vector3Int pos = data.pos;
-        Vector3Int animPos = pos + new Vector3Int(-2, -2, 0);
         AnimatedTile animatedTile = data.animatedTile;
         Tile realTile = data.realTile;
 
@@ -128,11 +127,11 @@ public class SaveManager : ManagerBase
         {
             try
             {
-                string currentName = animMap.GetSprite(animPos).name;
+                string currentName = animMap.GetSprite(pos).name;
 
                 if (currentName.Equals(animatedTile.m_AnimatedSprites[animatedTile.m_AnimatedSprites.Length - 1].name))
                 {
-                    animMap.SetTile(animPos, null);
+                    animMap.SetTile(pos, null);
                     map.SetTile(pos, realTile);
                     SettingObjectTiles(data);
                     FunctionUpdater.Delete(updateAction);

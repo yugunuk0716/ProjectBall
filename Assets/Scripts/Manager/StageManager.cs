@@ -39,13 +39,13 @@ public class StageManager : ManagerBase
     public void LoadStage(StageDataSO stageData)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        
+
 
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
         gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
 
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-        bool isSameStageLoaded = false; 
+        bool isSameStageLoaded = false;
 
         if (currentStageData == null) // 첫 로드
         {
@@ -70,11 +70,11 @@ public class StageManager : ManagerBase
             ClearActiveBalls();
             ReuseUI?.Invoke();
             gm.ResetData(stageData, isSameStageLoaded);
- foreach (var item in sm.tileDatas)
+            foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);
             }
-            
+
             IsometricManager.Instance.UpdateState(eUpdateState.Load);
         });
 
