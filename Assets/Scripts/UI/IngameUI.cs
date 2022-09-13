@@ -39,11 +39,16 @@ public class IngameUI : UIBase
     {
         Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // 걍 0번은 무시하고 가죠
 
+        float duration = 0.3f;
+        float minusDuration = duration / targetPoints.Length / 2 ;
+
+
         for (int i = 0; i< list.Count; i++)
         {
             list[i].transform.SetParent(targetPoints[i + 1]);
-            list[i].transform.DOMove(targetPoints[i + 1].position, 1f);
-            yield return new WaitForSeconds(0.3f);
+            list[i].transform.DOMove(targetPoints[i + 1].position, 1f).SetEase(Ease.OutCubic);
+            yield return new WaitForSeconds(duration);
+            duration -= minusDuration;
         }
     }
 
@@ -51,7 +56,6 @@ public class IngameUI : UIBase
 
     public override void Init()
     {
-
         GetCanvasGroup();
         selectDirectionUI.Init(() => isSelectingDirection = false);
 
@@ -86,6 +90,7 @@ public class IngameUI : UIBase
             BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, ballContent);
             newBallControllUI.SetBallSprites(ball.uiSprite);
             gm.ballUIList.Add(newBallControllUI);
+            newBallControllUI.order = 1000; // 정렬 안되도록
 
             bool isAdded = false;
 
@@ -107,44 +112,30 @@ public class IngameUI : UIBase
                 if (isAdded) // 다시 돌아오려는
                 {
                     order--;
-                    newBallControllUI.transform.SetSiblingIndex(gm.ballUIList.Count - 1); // 맨 뒤로
+
+                    newBallControllUI.order = 1000;
                     newBallControllUI.SetDirection(TileDirection.RIGHTDOWN, false);
 
                     gm.myBallList.Remove(ball);
-
-                    ResetOrderTexts();
-                    newBallControllUI.orderText.SetText(string.Empty);
+                    gm.BallUiSort();
                 }
                 else // 추가 하려는
                 {
                     order++;
-                    newBallControllUI.orderText.SetText(order.ToString()); // 순서대로~
-                    newBallControllUI.transform.SetSiblingIndex(order - 1);
-
-                    selectDirectionUI.Set(ball, newBallControllUI);
-
+                    newBallControllUI.order = order;
+                    selectDirectionUI.Set(ball, newBallControllUI, order);
                     selectDirectionUI.ScreenOn(true);
                     isSelectingDirection = true;
                 }
+
                 isAdded = !isAdded;
             });
-
-            
         };
 
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
-    }
-
-    public void ResetOrderTexts()
-    {
-        BallControllUI[] uis = ballContent.GetComponentsInChildren<BallControllUI>();
-        for (int i = 0; i < uis.Length; i++)
-        {
-            uis[i].orderText.SetText((i + 1).ToString());
-        }
     }
 
     public void SetTimerText(string textString, Color? color = null)
@@ -178,11 +169,7 @@ public class IngameUI : UIBase
 
     public void MakeTargetPoints()
     {
-        StageDataSO so =  Resources.Load<StageDataSO>($"Stage {IsometricManager.Instance.GetManager<StageManager>().stageIndex}");
-
-        Debug.Log(so.name);
-        Debug.Log(so.balls.Length);
-        for(int i = 0; i< so.balls.Length; i++)
+        for(int i = 0; i< Resources.Load<StageDataSO>($"Stage {IsometricManager.Instance.GetManager<StageManager>().stageIndex}").balls.Length; i++)
         {
             Instantiate(targetPointObjPrefab, targetPointContent);
         }

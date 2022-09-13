@@ -48,6 +48,8 @@ public class ShooterTile : ObjectTile
         ball.Rollin();
 
         BallControllUI ballControllUI = gm.ballUIList[0];
+
+        Destroy(ballControllUI.transform.parent.gameObject);
         Destroy(ballControllUI.gameObject);
 
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용

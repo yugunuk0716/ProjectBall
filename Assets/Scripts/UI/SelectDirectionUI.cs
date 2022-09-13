@@ -10,12 +10,15 @@ public class SelectDirectionUI : MonoBehaviour
     [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
     [SerializeField] private Sprite directionSprites;
 
+    [HideInInspector] public int order;
+
     [HideInInspector] public BallControllUI ballControllUI;
 
-    public void Set(Ball addBall, BallControllUI ballControllUI)
+    public void Set(Ball addBall, BallControllUI ballControllUI, int order)
     {
         this.addBall = addBall;
         this.ballControllUI = ballControllUI;
+        this.order = order;
     }
 
 
@@ -39,7 +42,12 @@ public class SelectDirectionUI : MonoBehaviour
                 gm.lastBallList.Add(addBall);
                 ScreenOn(false);
                 ballControllUI.SetDirection(addBall.shootDir);
+
+                gm.BallUiSort();
+
                 Callback();
+
+
             });
         }
     }

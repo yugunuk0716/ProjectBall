@@ -117,6 +117,26 @@ public class GameManager : ManagerBase
         }
     }
 
+    public void ResetOrderTexts()
+    {
+        for (int i = 0; i < ballUIList.Count; i++)
+        {
+            string text = ballUIList[i].order <= ballUIList.Count ? (i + 1).ToString() : string.Empty;
+            ballUIList[i].orderText.SetText(text);
+        }
+    }
+
+    public void BallUiSort()
+    {
+        ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
+
+        for (int i = 0; i < ballUIList.Count; i++)
+        {
+            ballUIList[i].transform.SetSiblingIndex(i);
+        }
+        ResetOrderTexts();
+    }
+
     public void SetBallUI(int ballCount, bool isSameStageLoaded)
     {
         if (isSameStageLoaded && lastBallList.Count >= ballCount)

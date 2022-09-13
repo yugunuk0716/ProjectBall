@@ -8,6 +8,7 @@ public class BallControllUI : UIBase
 {
     public Button directionSetBtn;
     public TextMeshProUGUI orderText; // 순서
+    [HideInInspector] public int order = 0;
 
     [SerializeField] private Image directionImg;
 
