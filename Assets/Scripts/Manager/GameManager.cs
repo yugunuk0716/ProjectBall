@@ -74,8 +74,12 @@ public class GameManager : ManagerBase
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
 
+        BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Particles/BallDestroyParticle");
+        PoolManager.Instance.CreatePool(pMono, null, 10);
+
     }
 
+    
     public void ResetData()
     {
         ballUIList.Clear();

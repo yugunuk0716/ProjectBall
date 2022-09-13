@@ -9,9 +9,11 @@ public class ReflectWall : ObjectTile
     
     public Sprite[] horSprites; // 0 기본 1  오른쪽으로  2 왼쪽으로
     public Sprite[] verSprites; // 0 기본 1  위쪽으로    2 아래쪽으로
+    public Sprite[] horEffect;
+    public Sprite[] verEffect;
     private SpriteRenderer sr;
 
-    WaitForSeconds changeTerm = new WaitForSeconds(0.15f);
+    WaitForSeconds changeTerm = new WaitForSeconds(0.175f);
 
     protected override void Awake()
     { 
@@ -20,19 +22,23 @@ public class ReflectWall : ObjectTile
     }
 
 
-    IEnumerator ChangeSprite(Sprite[] targetSpriteArray, int targetSpriteIndex)
+    IEnumerator ChangeSprite(Sprite[] targetSpriteArray, int targetNumber)
     {
-        sr.sprite = targetSpriteArray[targetSpriteIndex];
+        Sprite origin = sr.sprite;
+        sr.sprite = targetSpriteArray[targetNumber];
         yield return changeTerm;
-        sr.sprite = targetSpriteArray[0];
+        sr.sprite = origin;
     }
 
     
 
     public override void InteractionTile(Ball tb)
     {
-        print("상호작용");
-        StopCoroutine("ChangeSprite");
+        Sprite[] sprites = isHorizontalWall ? horEffect : verEffect;
+        int target = 0;
+
+        StopCoroutine(ChangeSprite(sprites, target));
+
         if (isHorizontalWall)
         {
             switch(tb.direction)
@@ -47,10 +53,12 @@ public class ReflectWall : ObjectTile
 
                 case Vector2 v when v.Equals(Vector2.left):
                     tb.SetBall(Vector2.up, tb.speed);
+                    target = 1;
                     break;
 
                 case Vector2 v when v.Equals(Vector2.up):
                     tb.SetBall(Vector2.left, tb.speed);
+                    target = 1;
                     break;
             }
         }
@@ -60,10 +68,12 @@ public class ReflectWall : ObjectTile
             {
                 case Vector2 v when v.Equals(Vector2.right):
                     tb.SetBall(Vector2.up, tb.speed);
+                    target = 1;
                     break;
 
                 case Vector2 v when v.Equals(Vector2.up):
                     tb.SetBall(Vector2.right, tb.speed);
+                    target = 1;
                     break;
 
                 case Vector2 v when v.Equals(Vector2.down):
@@ -77,8 +87,8 @@ public class ReflectWall : ObjectTile
 
             }
         }
-        
 
+        StartCoroutine(ChangeSprite(sprites, target));
         tb.SetMove();
     }
 

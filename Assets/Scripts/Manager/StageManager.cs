@@ -39,6 +39,9 @@ public class StageManager : ManagerBase
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
 
+        gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
+        gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
+
         bool isSameStageLoaded = false; 
 
         if (currentStageData == null) // 첫 로드

@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 2
   dataString: 
-  myType: 7
+  myType: 6
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
@@ -111,6 +111,12 @@ MonoBehaviour:
   - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
   verSprites:
   - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
+  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  horEffect:
+  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
+  verEffect:
   - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
   - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
 --- !u!114 &-8147459176515769411

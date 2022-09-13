@@ -54,6 +54,7 @@ public class ShooterTile : ObjectTile
         gm.ballUIList.Remove(ballControllUI);
         gm.myBallList.Remove(copyBall); // 얘는 데이터만 가지고 있는 더미 볼 리스트니까.
         gm.aliveBallList.Add(ball);
+
     }
 
     
