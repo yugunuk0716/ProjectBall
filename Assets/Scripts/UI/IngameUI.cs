@@ -1,90 +1,153 @@
 using DG.Tweening;
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class IngameUI : UIBase
 {
+    [Header("Text")]
     public TextMeshProUGUI debugText;
     public TextMeshProUGUI timer_text;
 
-    public Transform[] parentTrms; // 0 은 생성 위치, 1은 추가하면 이동할 위치
-    [SerializeField] BallControllUI ballControllUIPrefab;
+    [Space(10)]
+    [Header("Content / Parent")]
+    public Transform ballContent;
+    [SerializeField] private Transform targetPointContent;
+    [SerializeField] private Transform ballUiSheter; // 잠시 머물 parent위치
 
-    public SelectDirectionUI selectDirectionUI;
-    public bool isSelectingDirection = false;
+    [Space(10)]
+    [Header("Prefab")]
+    [SerializeField] BallControllUI ballControllUIPrefab;
+    [SerializeField] GameObject targetPointObjPrefab;
+
+    [HideInInspector] public SelectDirectionUI selectDirectionUI;
+    bool isSelectingDirection = false;
+
+    [Space(10)]
+    [Header("Button")]
+    [SerializeField] private Button ballSettingConfirmBtn;
+    [SerializeField] private Button shootBtn;
+
+    [Space(10)]
+    [Header("Panel")]
+    [SerializeField] private RectTransform shootPanel;
+
+
+    IEnumerator MoveBalls(List<BallControllUI> list)
+    {
+        Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // 걍 0번은 무시하고 가죠
+
+        for (int i = 0; i< list.Count; i++)
+        {
+            list[i].transform.SetParent(ballUiSheter);
+            list[i].transform.DOMove(targetPoints[i+1].position, 1f);
+            list[i].transform.DOScale(Vector2.one / 4, 1f);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    int order = 0;
 
     public override void Init()
     {
-        GetCanvasGroup();
 
+        GetCanvasGroup();
         selectDirectionUI.Init(() => isSelectingDirection = false);
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+
+        RectTransform ballSettingUIRectTrm = ballContent.parent.parent.GetComponent<RectTransform>();
+
+
+        ballSettingConfirmBtn.onClick.AddListener(() =>
+        {
+            if(gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count)
+            {
+                return;
+            }
+
+            gm.isShooting = true;
+            
+
+            Sequence seq = DOTween.Sequence();
+            seq.SetAutoKill(false);
+            seq.Append(ballSettingUIRectTrm.DOAnchorPosX(ballSettingUIRectTrm.anchoredPosition.x - ballSettingUIRectTrm.rect.size.x * 1.5f, 1f).SetEase(Ease.InBack));
+            seq.Append(shootPanel.GetComponent<RectTransform>().DOAnchorPosX(0, 1f).SetDelay(0.3f).SetEase(Ease.OutBack)).OnComplete(() => StartCoroutine(MoveBalls(gm.ballUIList)));
+
+            sm.ReuseUI = () => seq.PlayBackwards();
+
+        });
+        shootBtn.onClick.AddListener(() => gm.Shoot());
 
         gm.MakeNewBallUI += (ball, isAutoSet) =>
         {
-            BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, parentTrms[0]);
+            BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, ballContent);
             newBallControllUI.SetBallSprites(ball.uiSprite);
+            gm.ballUIList.Add(newBallControllUI);
+
             bool isAdded = false;
 
-
-            Button btn = newBallControllUI.GetComponent<Button>();
-            btn.onClick.AddListener(() =>
+            if (isAutoSet)
             {
-                if (isSelectingDirection)
+                order++;
+                isAdded = true;
+                gm.myBallList.Add(ball);
+                newBallControllUI.SetDirection(ball.shootDir);
+            }
+
+            newBallControllUI.directionSetBtn.onClick.AddListener(() =>
+            {
+                if (isSelectingDirection || gm.isShooting)
                 {
                     return;
                 }
 
                 if (isAdded) // 다시 돌아오려는
                 {
-                    newBallControllUI.transform.SetParent(parentTrms[0]);
-                    gm.myBallList.Remove(ball);
-                    gm.ballUIList.Remove(newBallControllUI.gameObject);
+                    order--;
+                    newBallControllUI.transform.SetSiblingIndex(gm.ballUIList.Count - 1); // 맨 뒤로
                     newBallControllUI.SetDirection(TileDirection.RIGHTDOWN, false);
+
+                    gm.myBallList.Remove(ball);
+
+                    ResetOrderTexts();
+                    newBallControllUI.orderText.SetText(string.Empty);
                 }
                 else // 추가 하려는
                 {
-                    newBallControllUI.transform.SetParent(parentTrms[1]);
-                    gm.ballUIList.Add(newBallControllUI.gameObject);
-                    selectDirectionUI.addBall = ball;
-                    selectDirectionUI.ballControllUI = newBallControllUI;
+                    order++;
+                    newBallControllUI.orderText.SetText(order.ToString()); // 순서대로~
+                    newBallControllUI.transform.SetSiblingIndex(order - 1);
+
+                    selectDirectionUI.Set(ball, newBallControllUI);
+
                     selectDirectionUI.ScreenOn(true);
                     isSelectingDirection = true;
                 }
-
                 isAdded = !isAdded;
-
             });
 
-
-            if (isAutoSet)
-            {
-                isAdded = true;
-                newBallControllUI.transform.SetParent(parentTrms[1]);
-                gm.ballUIList.Add(newBallControllUI.gameObject);
-                gm.myBallList.Add(ball);
-                newBallControllUI.SetDirection(ball.shootDir);
-            }
+            
         };
 
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
 
-        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
-
-        sm.ClearBallUis += () =>
-        {
-            for (int i = 0; i < parentTrms.Length; i++)
-            {
-                parentTrms[i].GetComponentsInChildren<Button>().ToList().ForEach((x) => Destroy(x.gameObject));
-            }
-        };
     }
 
+    public void ResetOrderTexts()
+    {
+        BallControllUI[] uis = ballContent.GetComponentsInChildren<BallControllUI>();
+        for (int i = 0; i < uis.Length; i++)
+        {
+            uis[i].orderText.SetText((i + 1).ToString());
+        }
+    }
 
     public void SetTimerText(string textString, Color? color = null)
     {
@@ -110,12 +173,7 @@ public class IngameUI : UIBase
     public override void Load()
     {
         selectDirectionUI.ScreenOn(false);
-        ClearAllBalls();
+        order = 0;
         isSelectingDirection = false;
-    }
-
-    public void ClearAllBalls()
-    {
-        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 }

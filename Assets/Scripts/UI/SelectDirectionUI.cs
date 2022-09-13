@@ -12,6 +12,14 @@ public class SelectDirectionUI : MonoBehaviour
 
     [HideInInspector] public BallControllUI ballControllUI;
 
+    public void Set(Ball addBall, BallControllUI ballControllUI)
+    {
+        this.addBall = addBall;
+        this.ballControllUI = ballControllUI;
+    }
+
+
+
     public void Init(Action Callback)
     {
         canvasGroup = GetComponent<CanvasGroup>(); 

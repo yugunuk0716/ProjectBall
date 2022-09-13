@@ -22,7 +22,7 @@ public class StageSelectUI : MonoBehaviour
         yield return null;
         moveDist = stageLoadBtnsContent.rect.size.y;
 
-        moveDist = Screen.height / 6;
+        moveDist = 320;
         myRectTrm = GetComponent<RectTransform>();
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
@@ -36,6 +36,7 @@ public class StageSelectUI : MonoBehaviour
             btn.GetComponentInChildren<TextMeshProUGUI>().text = (x + 1).ToString();
             btn.onClick.AddListener(() =>
             {
+                Debug.Log(x + 1);
                 sm.stageIndex = x + 1; // 현재 플레이중인 스테이지..를 알고 있음 뭔가 도움되겠지 뭐
                 sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
 
@@ -61,13 +62,12 @@ public class StageSelectUI : MonoBehaviour
         if (isMoving) return;
 
         isMoving = true;
-        float value = isHiden ? 320 : -320;
+        float value = isHiden ? moveDist : -moveDist;
         Time.timeScale = isHiden ? 0 : 1;
 
         Ease ease = isHiden ? Ease.InOutQuad : Ease.OutBounce;
-        Debug.Log($"현재 포지션 : {myRectTrm.anchoredPosition.y}");
 
-        myRectTrm.DOMoveY(myRectTrm.anchoredPosition.y + value, duration).SetEase(ease).SetUpdate(true).OnComplete(() =>
+        myRectTrm.DOAnchorPosY(myRectTrm.anchoredPosition.y + value, duration).SetEase(ease).SetUpdate(true).OnComplete(() =>
         {
             isMoving = false;
             isHiden = !isHiden;

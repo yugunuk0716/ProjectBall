@@ -125,6 +125,7 @@ public class Ball : PoolableMono
 
     private void OnDisable()
     {
+        speed = 0.4f;
         curActiveTime = 0;
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();

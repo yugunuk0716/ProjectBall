@@ -12,13 +12,13 @@ public class GameManager : ManagerBase
     public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
 
-    public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
+    public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
-    [HideInInspector] public bool isPlayStarted = false;
+    [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
 
     public float limitTime = 2f;
@@ -29,6 +29,7 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     public Action<int> MakeNewStageBtn;
     public Action<Ball, bool> MakeNewBallUI;
+    public Action Shoot;
 
     [HideInInspector] public IEnumerator timerCo;
 
@@ -85,6 +86,7 @@ public class GameManager : ManagerBase
         realTime = 0f;
         firstTime = 0f;
         isFirstBallNotArrived = true;
+        isShooting = false;
         timerCo = Timer();
     }
 

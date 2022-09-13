@@ -14,11 +14,13 @@ public class StageManager : ManagerBase
     public Action<string> SetDebugText;
     public Action FadeDebugText;
     public Action ClearBallUis;
+    public Action ReuseUI;
 
     private StageDataSO currentStageData;
 
     public override void Init()
     {
+        ClearBallUis += () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
         Transform gridObj = GameObject.Find("Isometric Palette").transform;
@@ -36,7 +38,6 @@ public class StageManager : ManagerBase
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-        IsometricManager.Instance.GetManager<UIManager>().Load();
 
         bool isSameStageLoaded = false; 
 
@@ -59,6 +60,12 @@ public class StageManager : ManagerBase
 
         sm.LoadMapSpreadsheets(() =>
         {
+            ClearBallUis();
+            ClearActiveBalls();
+            ReuseUI?.Invoke();
+
+            IsometricManager.Instance.GetManager<UIManager>().Load();
+
             gm.ResetData();
             gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
             gm.goalList.ForEach(x => x.ResetFlag(false));
@@ -68,7 +75,6 @@ public class StageManager : ManagerBase
 
             gm.limitTime = stageData.countDown;
             gm.maxBallCount = stageData.balls.Length;
-            ClearBallUis();
 
             if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length)
             {
@@ -93,6 +99,11 @@ public class StageManager : ManagerBase
 
 
         FadeDebugText();
+    }
+
+    private void ClearActiveBalls()
+    {
+        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
     public void SetStageIndex(string stageIndexStr)

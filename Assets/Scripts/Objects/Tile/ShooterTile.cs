@@ -18,49 +18,22 @@ public class ShooterTile : ObjectTile
     private void Start()
     {
         jumpPad = GetComponentInParent<JumpPad>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && false == EventSystem.current.IsPointerOverGameObject())
-        {
-            if (Input.mousePosition.y > Screen.height / 3)
-            {
-                return;
-            }
-            Shoot();
-        }
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.Shoot = () => Shoot();
     }
 
     public void Shoot()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        if (gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count)
+        if (!gm.isShooting || gm.myBallList.Count == 0)
         {
             return;
         }
 
-
-        
-
-        if (false == gm.isPlayStarted)
-        {
-            gm.ballUIList.ForEach((x) => x.GetComponent<Button>().interactable = false);
-        }
-
-        if (anim.GetBool("isClick"))
-        {
-            anim.SetBool("isClick", true);
-        }
-
         anim.SetBool("isClick", true);
 
-        Ball copyBall = IsometricManager.Instance.GetManager<GameManager>().myBallList[0]; // 실제 데이터는 얘만 가짐.
-        Ball ball = null;
-
-        ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-
-
+        Ball copyBall = gm.myBallList[0]; // 실제 데이터는 얘만 가짐.
+        Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0);
         
         Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);
@@ -73,14 +46,14 @@ public class ShooterTile : ObjectTile
         ball.SetPos(new Vector2(jumpPad.gridPos.x, jumpPad.gridPos.y));
         ball.SetMove();
         ball.Rollin();
-        gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
-        GameObject ballControllUI = gm.ballUIList[0];
-        gm.ballUIList.Remove(ballControllUI);
-        Destroy(ballControllUI);
 
+        BallControllUI ballControllUI = gm.ballUIList[0];
+        Destroy(ballControllUI.gameObject);
+
+        gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
+        gm.ballUIList.Remove(ballControllUI);
         gm.myBallList.Remove(copyBall); // 얘는 데이터만 가지고 있는 더미 볼 리스트니까.
         gm.aliveBallList.Add(ball);
-        Debug.Log("공 추가");
     }
 
     
