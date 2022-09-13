@@ -71,6 +71,7 @@ public class SaveManager : ManagerBase
                         ColorUtility.TryParseHtmlString(colorCode, out changeColor);
                     }
 
+
                     bool isLine = column[j].Contains("!");
                     if (isLine)
                     {
@@ -95,6 +96,7 @@ public class SaveManager : ManagerBase
                     data.type = type;
                     data.isTransitionTile = isTransitionTile;
                     data.rowSize = rowSize;
+                    data.lastString = lastString;
 
                     tileDatas.Add(data);
                 }
@@ -148,7 +150,6 @@ public class SaveManager : ManagerBase
 
     private void SettingObjectTiles(TileData data)
     {
-
         ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
         if (data.isTransitionTile)
         {
@@ -181,8 +182,10 @@ public class SaveManager : ManagerBase
             }
 
             //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
-            a.dataString = lastString;
+            a.dataString = data.lastString;
+            Debug.Log(lastString);
             a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
+
             a.SetDirection();
 
             a.transform.parent = mainMap.transform;
@@ -421,6 +424,7 @@ public class TileData
     public TileType type;
     public bool isTransitionTile;
     public int rowSize;
+    public string lastString;
 }
 
 
