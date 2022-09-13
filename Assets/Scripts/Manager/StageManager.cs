@@ -30,7 +30,9 @@ public class StageManager : ManagerBase
         }
 
         LoadStage(Resources.Load<StageDataSO>($"Stage {stageIndex}"));
+
     }
+
 
     public void LoadStage(StageDataSO stageData)
     {
@@ -41,7 +43,7 @@ public class StageManager : ManagerBase
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
         gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
 
-        bool isSameStageLoaded = false; 
+        bool isSameStageLoaded = false;
 
         if (currentStageData == null) // 첫 로드
         {
@@ -55,7 +57,7 @@ public class StageManager : ManagerBase
         {
             currentStageData = stageData;
             gm.lastBallList.Clear();
-        } 
+        }
 
         sm.range = stageData.range;
         sm.sheet = ((int)stageData.eSheet).ToString();
@@ -75,7 +77,7 @@ public class StageManager : ManagerBase
 
             if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length)
             {
-                for(int i = 0; i < stageData.balls.Length; i++)
+                for (int i = 0; i < stageData.balls.Length; i++)
                 {
                     gm.MakeNewBallUI(gm.lastBallList[i], true);
                 }
@@ -90,7 +92,27 @@ public class StageManager : ManagerBase
                     gm.MakeNewBallUI(ball, false);
                 }
             }
-            
+
+            /* Action updateAction = null;
+
+             updateAction = () =>
+             {
+                 if (Input.GetKeyDown(KeyCode.Backspace))
+                 {
+                     foreach (var item in sm.tileDatas)
+                     {
+                         sm.SetAnimationForMapLoading(item);
+                     }
+                     FunctionUpdater.Delete(updateAction);
+                 }
+             };
+             FunctionUpdater.Create(updateAction);*/
+
+            foreach (var item in sm.tileDatas)
+            {
+                sm.SetAnimationForMapLoading(item);
+            }
+
             IsometricManager.Instance.UpdateState(eUpdateState.Load);
         });
 

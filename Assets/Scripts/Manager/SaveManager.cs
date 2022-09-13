@@ -11,8 +11,12 @@ using System.Reflection;
 public class SaveManager : ManagerBase
 {
     [SerializeField,Header("해당 타일맵")] public Tilemap mainMap;
+    [SerializeField,Header("에니메이션 타일맵")] public Tilemap animationMap;
     [SerializeField, Header("스프레드시트 범위")] public string range;
     [SerializeField, Header("스프레드시트 시트")] public string sheet;
+
+
+    public List<TileData> tileDatas = new List<TileData>();
 
     const string URL = "https://docs.google.com/spreadsheets/d/1ikRYpziG0g-MmSjAE14hvrXo_hWKSsuWlAj6cpPD9pY/export?format=tsv";
 
@@ -21,7 +25,6 @@ public class SaveManager : ManagerBase
     private string lineDir;
     private Color changeColor = new Color();
     private AnimatedTile riseAnimatedTile;
-    private bool isEnded = false;
 
     public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
     {
@@ -35,6 +38,7 @@ public class SaveManager : ManagerBase
 
             yield return www.SendWebRequest();
             ClearTileMap();
+            tileDatas.Clear();
             data = www.downloadHandler.text;
 
             string[] row = data.Split('\n');
@@ -50,7 +54,6 @@ public class SaveManager : ManagerBase
 
                 for (int j = 0; j < columnSize; j++)
                 {
-                    isEnded = false;
                     changeColor = Color.white;
                     bool isTransitionTile = column[j].Contains("*");
                     if (isTransitionTile)
@@ -82,172 +85,180 @@ public class SaveManager : ManagerBase
                     Vector3Int pos = new Vector3Int(1 + j, 6 - i, 0);
                     TileType type;
 
-                    Vector3 tmepVec = pos + new Vector3Int(0, 100, 0);
-
-
-                    /*  yield return DOTween.To(() => tmepVec, x => 
-                      {
-                          tmepVec = x;
-                          tile.transform.SetTRS(tmepVec, Quaternion.identity, Vector3.one);
-
-                      }, pos, 3f);*/
                     type = GetType(tile);
 
-                    
-                    riseAnimatedTile.m_AnimationStartFrame = j;
+                    TileData data = new TileData();
 
-                    
-                    mainMap.SetTile(pos - new Vector3Int(2, 2, 0), riseAnimatedTile);
-                  //  mainMap.SetTile(pos, tile);
+                    data.animatedTile = riseAnimatedTile;
+                    data.realTile = tile;
+                    data.pos = pos;
+                    data.type = type;
+                    data.isTransitionTile = isTransitionTile;
+                    data.rowSize = rowSize;
 
-                    //TileAnimationData tileAnimationData = default(TileAnimationData);
-                   // riseAnimatedTile.GetTileAnimationData(pos - new Vector3Int(2, 2, 0), mainMap, ref tileAnimationData);
-
-                  /*  print(riseAnimatedTile.GetType());
-
-                    var m = riseAnimatedTile.GetType().GetMethod("GetTileAnimationDataNoRef");
-
-                    print(m);*/
-                   /* foreach (var item in m)
-                    {
-                      
-                    }*/
-
-                    //print();
-
-
-                    // StartCoroutine(WaitForFrame();
-                   // yield return new WaitUntil(() => isEnded);
-
-                    ObjectTile a = PoolManager.Instance.Pop(type.ToString()) as ObjectTile;
-                    if (isTransitionTile)
-                    {
-                        a.StartTransition();
-                    }
-
-                    if (type.Equals(TileType.None))
-                    {
-                    }
-                    else
-                    {
-                        if (type.Equals(TileType.Teleporter))
-                        {
-                            Teleporter tp = a.GetComponent<Teleporter>();
-                            tp.portalIndex = portalIndex;
-                        }
-
-                        if (type.Equals(TileType.ColorChanger))
-                        {
-                            //여기서 정보 주면 될듯
-                            ColorChanger cc = a.GetComponent<ColorChanger>();
-                            cc.targetColor = changeColor;
-                        }
-
-                        if (type.Equals(TileType.ColorGoal))
-                        {
-                            //깃발에 컬러정보 주기
-                            ColorGoal cg = a.GetComponent<ColorGoal>();
-                            cg.SetSuccessColor(changeColor);
-                        }
-
-                        //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
-                        a.dataString = lastString;
-                        a.transform.position = mainMap.CellToWorld(new Vector3Int(pos.x + 1, pos.y + 1, 0));
-                        a.SetDirection();
-
-                        a.transform.parent = mainMap.transform;
-                        a.gameObject.SetActive(true);
-                    }
-
-                    if (lineDir != null)
-                    {
-                        Line line = PoolManager.Instance.Pop("Line") as Line;
-                        switch (lineDir)
-                        {
-                            case "┃":
-                                line.SetLineDir(true, false, false, true);
-                                break;
-                            case "━":
-                                line.SetLineDir(false, true, true, false);
-                                break;
-                            case "┏":
-                                line.SetLineDir(false, true, false, true);
-                                break;
-                            case "┓":
-                                line.SetLineDir(false, false, true, true);
-                                break;
-                            case "┗":
-                                line.SetLineDir(true, true);
-                                break;
-                            case "┛":
-                                line.SetLineDir(true, false, true, false);
-                                break;
-                            case "┣":
-                                line.SetLineDir(true, true, false, true);
-                                break;
-                            case "┫":
-                                line.SetLineDir(true, false, true, true);
-                                break;
-                            case "┻":
-                                line.SetLineDir(true, true, true, false);
-                                break;
-                            case "┳":
-                                line.SetLineDir(false, true, true, true);
-                                break;
-                            case "╋":
-                                line.SetLineDir(true, true, true, true);
-                                break;
-                            case "▼":
-                                line.SetLineDir(false, false, false, true);
-                                break;
-                            case "▲":
-                                line.SetLineDir(true, false, false, false);
-                                break;
-                            case "◀":
-                                line.SetLineDir(false, false, true, false);
-                                break;
-                            case "▶":
-                                line.SetLineDir(false, true, false, false);
-                                break;
-
-
-                        }
-
-                        line.transform.position = mainMap.CellToWorld(new Vector3Int(pos.x, pos.y, 0));
-                        line.transform.position -= new Vector3(0, -.25f, 0);
-                        line.transform.parent = mainMap.transform;
-                        line.gameObject.SetActive(true);
-
-                        lineDir = null;
-                    }
-
-                    Vector2 worldPoint = mainMap.CellToWorld(pos);
-                    a.worldPos = new Vector2(worldPoint.x, worldPoint.y + 0.25f);
-                    pos = new Vector3Int(pos.x - 1, pos.y - 6 + rowSize - 1);
-                    a.gridPos = pos;
-                    a.keyPos = new Vector2(pos.x, pos.y);
-                    IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(pos.x, pos.y), a);
+                    tileDatas.Add(data);
                 }
-
-
-
-
-                yield return null;
             }
-
+            yield return null;
             callback();
         }
     }
 
-    private IEnumerator WaitForFrame(int frame)
+
+    public void SetAnimationForMapLoading(TileData data)
     {
-        for (int i = 0; i < frame; i++)
+        
+        Tilemap map = mainMap;
+        Tilemap animMap = animationMap;
+
+
+        animMap.SetTile(data.pos + new Vector3Int(-2, -2, 0), data.animatedTile);
+        animMap.SetAnimationFrame(data.pos, 0);
+        data.animatedTile.m_AnimationStartFrame = 0;
+
+        Action updateAction = null;
+        Vector3Int pos = data.pos;
+        Vector3Int animPos = pos + new Vector3Int(-2, -2, 0);
+        AnimatedTile animatedTile = data.animatedTile;
+        Tile realTile = data.realTile;
+
+        updateAction = () =>
         {
-            yield return null;
+            try
+            {
+                string currentName = animMap.GetSprite(animPos).name;
+
+                if (currentName.Equals(animatedTile.m_AnimatedSprites[animatedTile.m_AnimatedSprites.Length - 1].name))
+                {
+                    animMap.SetTile(animPos, null);
+                    map.SetTile(pos, realTile);
+                    SettingObjectTiles(data);
+                    FunctionUpdater.Delete(updateAction);
+                }
+            }
+            catch(Exception e)
+            {
+                //Debug.Log(map.GetSprite(_data.pos));
+                Debug.LogError(data.pos);
+                FunctionUpdater.Delete(updateAction);
+            }
+        };
+        FunctionUpdater.Create(updateAction);
+    }
+
+    private void SettingObjectTiles(TileData data)
+    {
+
+        ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
+        if (data.isTransitionTile)
+        {
+            a.StartTransition();
         }
 
-        isEnded = true;
+        if (data.type.Equals(TileType.None))
+        {
+        }
+        else
+        {
+            if (data.type.Equals(TileType.Teleporter))
+            {
+                Teleporter tp = a.GetComponent<Teleporter>();
+                tp.portalIndex = portalIndex;
+            }
+
+            if (data.type.Equals(TileType.ColorChanger))
+            {
+                //여기서 정보 주면 될듯
+                ColorChanger cc = a.GetComponent<ColorChanger>();
+                cc.targetColor = changeColor;
+            }
+
+            if (data.type.Equals(TileType.ColorGoal))
+            {
+                //깃발에 컬러정보 주기
+                ColorGoal cg = a.GetComponent<ColorGoal>();
+                cg.SetSuccessColor(changeColor);
+            }
+
+            //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
+            a.dataString = lastString;
+            a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
+            a.SetDirection();
+
+            a.transform.parent = mainMap.transform;
+            a.gameObject.SetActive(true);
+        }
+
+        if (lineDir != null)
+        {
+            Line line = PoolManager.Instance.Pop("Line") as Line;
+            switch (lineDir)
+            {
+                case "┃":
+                    line.SetLineDir(true, false, false, true);
+                    break;
+                case "━":
+                    line.SetLineDir(false, true, true, false);
+                    break;
+                case "┏":
+                    line.SetLineDir(false, true, false, true);
+                    break;
+                case "┓":
+                    line.SetLineDir(false, false, true, true);
+                    break;
+                case "┗":
+                    line.SetLineDir(true, true);
+                    break;
+                case "┛":
+                    line.SetLineDir(true, false, true, false);
+                    break;
+                case "┣":
+                    line.SetLineDir(true, true, false, true);
+                    break;
+                case "┫":
+                    line.SetLineDir(true, false, true, true);
+                    break;
+                case "┻":
+                    line.SetLineDir(true, true, true, false);
+                    break;
+                case "┳":
+                    line.SetLineDir(false, true, true, true);
+                    break;
+                case "╋":
+                    line.SetLineDir(true, true, true, true);
+                    break;
+                case "▼":
+                    line.SetLineDir(false, false, false, true);
+                    break;
+                case "▲":
+                    line.SetLineDir(true, false, false, false);
+                    break;
+                case "◀":
+                    line.SetLineDir(false, false, true, false);
+                    break;
+                case "▶":
+                    line.SetLineDir(false, true, false, false);
+                    break;
+
+
+            }
+
+            line.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x, data.pos.y, 0));
+            line.transform.position -= new Vector3(0, -.25f, 0);
+            line.transform.parent = mainMap.transform;
+            line.gameObject.SetActive(true);
+
+            lineDir = null;
+        }
+
+        Vector2 worldPoint = mainMap.CellToWorld(data.pos);
+        a.worldPos = new Vector2(worldPoint.x, worldPoint.y + 0.25f);
+        data.pos = new Vector3Int(data.pos.x - 1, data.pos.y - 6 + data.rowSize - 1);
+        a.gridPos = data.pos;
+        a.keyPos = new Vector2(data.pos.x, data.pos.y);
+        IsometricManager.Instance.GetManager<GameManager>().tileDict.Add(new Vector2(data.pos.x, data.pos.y), a);
     }
+
 
     public Tile ParseTile(string data)
     {
@@ -382,6 +393,7 @@ public class SaveManager : ManagerBase
     public override void Init()
     {
         mainMap = GameObject.Find("MainMap").GetComponent<Tilemap>();
+        animationMap = GameObject.Find("AnimatedMap").GetComponent<Tilemap>();
     }
 
     public override void UpdateState(eUpdateState state)
@@ -396,9 +408,21 @@ public class SaveManager : ManagerBase
 
     public override void Load()
     {
-        
+
     }
 }
+
+[System.Serializable]
+public class TileData
+{
+    public AnimatedTile animatedTile;
+    public Tile realTile;
+    public Vector3Int pos;
+    public TileType type;
+    public bool isTransitionTile;
+    public int rowSize;
+}
+
 
 [System.Serializable]
 public enum TileColors
