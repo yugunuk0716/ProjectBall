@@ -42,7 +42,7 @@ public class CamTest : MonoBehaviour
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject() || GameManager.CanNotInteract)
         {
             #region PC Test
 #if UNITY_EDITOR

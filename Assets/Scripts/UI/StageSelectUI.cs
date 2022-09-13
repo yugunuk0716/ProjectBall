@@ -1,20 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
 
 public class StageSelectUI : MonoBehaviour
 {
     RectTransform myRectTrm;
     [SerializeField] private RectTransform stageLoadBtnsContent;
     public Button stageLoadBtnPrefab;
-    public Button exitBtn;
+    public Button stageUIOnOffBtn;
 
     bool isHiden = true;
-    bool isMoving = false;
     float moveDist = 0f;
 
     IEnumerator CoStart()
@@ -30,7 +27,7 @@ public class StageSelectUI : MonoBehaviour
 
         int loadMapCount = (PlayerPrefs.GetInt("ClearMapsCount") / 3 + 1) * 3;
 
-        gm.MakeNewStageBtn += ((x) =>
+        gm.MakeNewStageUIs += ((x) =>
         {
             Button btn = Instantiate(stageLoadBtnPrefab, stageLoadBtnsContent);
             btn.GetComponentInChildren<TextMeshProUGUI>().text = (x + 1).ToString();
@@ -45,16 +42,18 @@ public class StageSelectUI : MonoBehaviour
 
         for (int i = 0; i < loadMapCount; i++)
         {
-            gm.MakeNewStageBtn(i);
+            gm.MakeNewStageUIs(i);
         }
 
-        exitBtn.onClick.AddListener(() => Move());
+        stageUIOnOffBtn.onClick.AddListener(() => Move());
     }
 
     void Start()
     {
         StartCoroutine(CoStart());
     }
+
+    bool isMoving = false;
 
     public void Move(float duration = 0.5f)
     {

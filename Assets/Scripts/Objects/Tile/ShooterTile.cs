@@ -25,7 +25,8 @@ public class ShooterTile : ObjectTile
     public void Shoot()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        if (!gm.isShooting || gm.myBallList.Count == 0)
+
+        if (!gm.isShooting && GameManager.CanNotInteract || gm.myBallList.Count == 0)
         {
             return;
         }
