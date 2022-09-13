@@ -41,10 +41,14 @@ public class Ball : PoolableMono
 
     public Color currentColor = Color.white;
 
+
+    private ParticleSystem interactParticle;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        interactParticle = GetComponentInChildren<ParticleSystem>();
         tpCool = 0.1f;
     }
 
@@ -114,6 +118,7 @@ public class Ball : PoolableMono
             transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
             {
                 tile.InteractionTile(this);
+                interactParticle.Play();
             });
         }
         else
@@ -125,6 +130,8 @@ public class Ball : PoolableMono
 
     private void OnDisable()
     {
+        speed = 0.4f;
+        curActiveTime = 0;
 
         curActiveTime = 0;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();

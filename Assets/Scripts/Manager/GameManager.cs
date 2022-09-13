@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : ManagerBase
@@ -12,13 +13,13 @@ public class GameManager : ManagerBase
     public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
 
-    public List<GameObject> ballUIList = new List<GameObject>(); // 삭제시킬 UI 리스트?
+    public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
-    [HideInInspector] public bool isPlayStarted = false;
+    [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
 
     public float limitTime = 2f;
@@ -29,6 +30,7 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     public Action<int> MakeNewStageBtn;
     public Action<Ball, bool> MakeNewBallUI;
+    public Action Shoot;
 
     [HideInInspector] public IEnumerator timerCo;
 
@@ -78,17 +80,31 @@ public class GameManager : ManagerBase
 
     }
 
-    public void ResetData()
+    
+    public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
     {
         ballUIList.Clear();
         myBallList.Clear();
         aliveBallList.Clear();
 
-        SetTimerText("Ready", Color.black);
-        realTime = 0f;
+        SetTimerText("Ready", Color.white);
         firstTime = 0f;
+        realTime = 0f;
         isFirstBallNotArrived = true;
+        isShooting = false;
         timerCo = Timer();
+
+        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+        goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
+        goalList.ForEach(x => x.ResetFlag(false));
+
+        portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
+        portalList.ForEach(portal => portal.FindPair());
+
+        limitTime = stageData.countDown;
+        maxBallCount = stageData.balls.Length;
+
+        SetBallUI(stageData.balls.Length, isSameStageLoaded);
     }
 
     public void CheckFail() 
@@ -96,7 +112,49 @@ public class GameManager : ManagerBase
         if(myBallList.Count == 0 && aliveBallList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
         {
             StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
+            SetTimerText("Failed", Color.red);
             ActiveGameOverPanel(false);
+        }
+    }
+
+    public void ResetOrderTexts()
+    {
+        for (int i = 0; i < ballUIList.Count; i++)
+        {
+            string text = ballUIList[i].order <= ballUIList.Count ? (i + 1).ToString() : string.Empty;
+            ballUIList[i].orderText.SetText(text);
+        }
+    }
+
+    public void BallUiSort()
+    {
+        ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
+
+        for (int i = 0; i < ballUIList.Count; i++)
+        {
+            ballUIList[i].transform.SetSiblingIndex(i);
+        }
+        ResetOrderTexts();
+    }
+
+    public void SetBallUI(int ballCount, bool isSameStageLoaded)
+    {
+        if (isSameStageLoaded && lastBallList.Count >= ballCount)
+        {
+            for (int i = 0; i < ballCount; i++)
+            {
+                MakeNewBallUI(lastBallList[i], true);
+            }
+
+            lastBallList = lastBallList.GetRange(0, ballCount);
+        }
+        else
+        {
+            for (int i = 0; i < ballCount; i++)
+            {
+                Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+                MakeNewBallUI(ball, false);
+            }
         }
     }
 
@@ -149,7 +207,7 @@ public class GameManager : ManagerBase
 
             yield return null;
             realTime += Time.deltaTime;
-            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.black);
+            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.white);
         }
     }
 

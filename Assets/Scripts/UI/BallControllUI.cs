@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BallControllUI : UIBase
 {
-    [SerializeField] private Image ballImg;
+    public Button directionSetBtn;
+    public TextMeshProUGUI orderText; // 순서
+    [HideInInspector] public int order = 0;
+
     [SerializeField] private Image directionImg;
-    [SerializeField] private BallControllUI ballControllUI;
+
+
 
     public void SetBallSprites(Sprite ballSprite)
     {
-        ballImg.sprite= ballSprite;
+        directionSetBtn.image.sprite= ballSprite;
     }
 
     public void SetDirection(TileDirection dir, bool active = true)

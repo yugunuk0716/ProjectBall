@@ -14,7 +14,6 @@ public class BallAfterImage : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("켜짐");
         if (bSettingCompleted)
         {
             StartCoroutine(MoveAfterImageEffect(renderers2));

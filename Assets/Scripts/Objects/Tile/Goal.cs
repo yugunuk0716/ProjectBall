@@ -18,7 +18,6 @@ public class Goal : ObjectTile
     public override void InteractionTile(Ball tb)
     {
         PoolManager.Instance.Push(tb);
-        Debug.Log("공 제거");
         if (false == isChecked)
         {
             ResetFlag(true);

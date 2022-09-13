@@ -14,11 +14,13 @@ public class StageManager : ManagerBase
     public Action<string> SetDebugText;
     public Action FadeDebugText;
     public Action ClearBallUis;
+    public Action ReuseUI;
 
     private StageDataSO currentStageData;
 
     public override void Init()
     {
+        ClearBallUis += () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
         Transform gridObj = GameObject.Find("Isometric Palette").transform;
@@ -37,13 +39,13 @@ public class StageManager : ManagerBase
     public void LoadStage(StageDataSO stageData)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-        IsometricManager.Instance.GetManager<UIManager>().Load();
+        
 
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
         gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
 
-        bool isSameStageLoaded = false;
+        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+        bool isSameStageLoaded = false; 
 
         if (currentStageData == null) // 첫 로드
         {
@@ -64,60 +66,24 @@ public class StageManager : ManagerBase
 
         sm.LoadMapSpreadsheets(() =>
         {
-            gm.ResetData();
-            gm.goalList = sm.mainMap.GetComponentsInChildren<Goal>().ToList();
-            gm.goalList.ForEach(x => x.ResetFlag(false));
-
-            gm.portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
-            gm.portalList.ForEach(portal => portal.FindPair());
-
-            gm.limitTime = stageData.countDown;
-            gm.maxBallCount = stageData.balls.Length;
             ClearBallUis();
-
-            if (isSameStageLoaded && gm.lastBallList.Count >= stageData.balls.Length)
-            {
-                for (int i = 0; i < stageData.balls.Length; i++)
-                {
-                    gm.MakeNewBallUI(gm.lastBallList[i], true);
-                }
-
-                gm.lastBallList = gm.lastBallList.GetRange(0, stageData.balls.Length);
-            }
-            else
-            {
-                for (int i = 0; i < stageData.balls.Length; i++)
-                {
-                    Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-                    gm.MakeNewBallUI(ball, false);
-                }
-            }
-
-            /* Action updateAction = null;
-
-             updateAction = () =>
-             {
-                 if (Input.GetKeyDown(KeyCode.Backspace))
-                 {
-                     foreach (var item in sm.tileDatas)
-                     {
-                         sm.SetAnimationForMapLoading(item);
-                     }
-                     FunctionUpdater.Delete(updateAction);
-                 }
-             };
-             FunctionUpdater.Create(updateAction);*/
-
-            foreach (var item in sm.tileDatas)
+            ClearActiveBalls();
+            ReuseUI?.Invoke();
+            gm.ResetData(stageData, isSameStageLoaded);
+ foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);
             }
-
+            
             IsometricManager.Instance.UpdateState(eUpdateState.Load);
         });
 
-
         FadeDebugText();
+    }
+
+    private void ClearActiveBalls()
+    {
+        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
     public void SetStageIndex(string stageIndexStr)
