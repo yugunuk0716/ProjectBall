@@ -127,7 +127,7 @@ public class IngameUI : UIBase
                     selectDirectionUI.ScreenOn(true);
                     isSelectingDirection = true;
                 }
-
+                    
                 isAdded = !isAdded;
             });
         };
