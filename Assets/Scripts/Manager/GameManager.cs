@@ -19,6 +19,9 @@ public class GameManager : ManagerBase
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
+    private ParticleSystem clearParticle_Left;
+    private ParticleSystem clearParticle_Right;
+
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
     [HideInInspector] public bool isShooting = false;
@@ -79,6 +82,9 @@ public class GameManager : ManagerBase
 
         BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);
+
+        clearParticle_Left = Instantiate(Resources.Load<ParticleSystem>("Effects/LeftParticle"));
+        clearParticle_Right = Instantiate(Resources.Load<ParticleSystem>("Effects/RightParticle"));
 
     }
 
@@ -180,6 +186,8 @@ public class GameManager : ManagerBase
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
             Vibration.Vibrate(500);
+            clearParticle_Left.Play();
+            clearParticle_Right.Play();
             StopTimer();
             SetTimerText("Clear", Color.green);
 
