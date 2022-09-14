@@ -4,26 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameOverUI : MonoBehaviour
+public class GameOverUI : UIBase
 {
     [SerializeField] private Button reloadBtn;
     [SerializeField] private Button loadNextBtn;
     [SerializeField] private TextMeshProUGUI gameOverText;
 
-    CanvasGroup canvasGroup;
+    public List<Image> starList = new List<Image>();
+    public bool isClear = false;
 
-    void Start()
+    public void OnGameOver(bool isClear)
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        ScreenOn(true);
+
+        this.isClear = isClear;
+        gameOverText.text = isClear ? "Clear!" : "Failed..";
+    }
+
+    public override void Init()
+    {
+        GetCanvasGroup();
         IsometricManager.Instance.GetManager<GameManager>().ActiveGameOverPanel = (bool isClear) => OnGameOver(isClear);
 
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        reloadBtn.onClick.AddListener(() => 
+        gm.OnClear = SetStar;
+
+        reloadBtn.onClick.AddListener(() =>
         {
             sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
             ScreenOn(false);
+            starList.ForEach(s => s.gameObject.SetActive(false));
         });
 
         loadNextBtn.onClick.AddListener(() =>
@@ -31,22 +43,36 @@ public class GameOverUI : MonoBehaviour
             sm.stageIndex++;
             sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
             ScreenOn(false);
+            starList.ForEach(s => s.gameObject.SetActive(false));
         });
     }
 
-    public void OnGameOver(bool isClear)
+    public void SetStar(int starCount)
     {
-        ScreenOn(true);
-
-        loadNextBtn.interactable = isClear;
-        loadNextBtn.image.color = isClear ? Color.white : Color.gray;
-        gameOverText.text = isClear ? "Clear!" : "Failed..";
+        StartCoroutine(StarOnRoutine(starCount));
     }
 
-    public void ScreenOn(bool on)
+
+    IEnumerator StarOnRoutine(int starCount)
     {
-        canvasGroup.interactable = on;
-        canvasGroup.blocksRaycasts = on;
-        canvasGroup.alpha = on ? 1 : 0;
+        reloadBtn.interactable = false;
+        loadNextBtn.interactable = false;
+
+        yield return new WaitForSeconds(0.75f);
+
+        for (int i = 0; i < starCount; i++)
+        {
+            starList[i].gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.75f);
+        }
+
+        reloadBtn.interactable = true;
+        loadNextBtn.interactable = isClear;
+        loadNextBtn.image.color = isClear ? Color.white : Color.gray;
+    }
+
+    public override void Load()
+    {
+
     }
 }

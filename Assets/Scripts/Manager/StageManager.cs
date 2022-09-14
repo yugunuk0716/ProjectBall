@@ -17,12 +17,23 @@ public class StageManager : ManagerBase
     public Action ClearBallUis;
     public Action ReuseUI;
 
+    public Dictionary<int, int> stageProgressDictionary = new Dictionary<int, int>();
+
+    private const float threeStarTime = 1.5f;
+    private const float twoStarTime = 1f;
+
     private StageDataSO currentStageData;
 
     public override void Init()
     {
         ClearBallUis += () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
+
+        for (int i = 0; i < clearMapCount; i++)
+        {
+            stageProgressDictionary.Add(i, GetStar(i));
+        }
+
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
         Transform gridObj = GameObject.Find("Isometric Palette").transform;
 
@@ -70,7 +81,8 @@ public class StageManager : ManagerBase
             ClearBallUis();
             ClearActiveBalls();
             ReuseUI?.Invoke();
-            
+
+            gm.TakeMapLoadVideo();
             foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);
@@ -115,6 +127,31 @@ public class StageManager : ManagerBase
 
     public override void Load()
     {
-
+        
     }
+
+    public int CalcStar(float leftTime)
+    {
+        if(leftTime > threeStarTime)
+        {
+            return 3;
+        }
+        else if(leftTime > twoStarTime)
+        {
+            return 2;
+        }
+
+        return 1;
+    }
+
+    public int GetStar(int targetStageIndex)
+    {
+        return PlayerPrefs.GetInt($"{targetStageIndex}Stage", 0);
+    }
+
+    public void SaveStar(int curStageIndex, int starCount)
+    {
+        PlayerPrefs.SetInt($"{curStageIndex}Stage", starCount);
+    }
+
 }

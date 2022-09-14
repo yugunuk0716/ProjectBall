@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 426735476188846520}
   - component: {fileID: 8845006092190290298}
   - component: {fileID: 8738736997347960496}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: -4172305387896739745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: JumpPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

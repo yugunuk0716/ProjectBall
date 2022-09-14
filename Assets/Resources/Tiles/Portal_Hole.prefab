@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 6158795722642010255}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Portal_Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 5541687782616574237}
   - component: {fileID: 6989774750523831064}
   - component: {fileID: 2643064067863538189}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4883,7 +4883,7 @@ GameObject:
   - component: {fileID: 1977568671801720273}
   - component: {fileID: 1954351572207512660}
   - component: {fileID: 4360854015529965502}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

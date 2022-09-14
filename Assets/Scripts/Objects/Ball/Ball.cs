@@ -96,11 +96,6 @@ public class Ball : PoolableMono
         myPos = pos;
     }
 
-    public void Move(Vector2 dir, float power = 5f)
-    {
-        sr.flipX = dir.x > 0 || dir.y > 0;
-    }
-
     public void SetMove()
     {
         if (!gameObject.activeSelf)

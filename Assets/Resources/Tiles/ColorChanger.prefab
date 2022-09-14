@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 216864386902218647}
   - component: {fileID: -8147459176515769411}
   - component: {fileID: 5077328084930522903}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ColorChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
