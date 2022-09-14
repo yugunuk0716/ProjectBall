@@ -138,24 +138,26 @@ public class CamTest : MonoBehaviour
         Touch t = Input.GetTouch(0);
 
 
-        for(int i = 0; i < Input.touchCount; i++)
+        for (int i = 0; i < Input.touchCount; i++)
         {
-            t = Input.touches[i];
-
-            switch (t.phase)
+            if (!EventSystem.current.IsPointerOverGameObject(t.fingerId))
             {
-                case TouchPhase.Began:
-                    vec1 = t.position;
-                    break;
-                case TouchPhase.Ended:
-                    if (!EventSystem.current.IsPointerOverGameObject(t.fingerId))
-                    {
+                t = Input.touches[i];
+
+                switch (t.phase)
+                {
+                    case TouchPhase.Began:
+                        vec1 = t.position;
+                        break;
+                    case TouchPhase.Ended:
+
                         vec2 = t.position;
                         SetPos();
-                    }
-                    break;
-                case TouchPhase.Canceled:
-                    return;
+
+                        break;
+                    case TouchPhase.Canceled:
+                        return;
+                }
             }
         }
     }
