@@ -7,7 +7,6 @@ public class SettingPopUp : UIBase
 {
     public Button menuButton;
     public Button resumeButton;
-    public Button optionButton;
     public Button homeButton;
     public Button quitButton;
 
