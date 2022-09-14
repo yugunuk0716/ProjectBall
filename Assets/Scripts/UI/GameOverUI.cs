@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private Button reloadBtn;
     [SerializeField] private Button loadNextBtn;
-
+    [SerializeField] private TextMeshProUGUI gameOverText;
 
     CanvasGroup canvasGroup;
 
@@ -39,6 +40,7 @@ public class GameOverUI : MonoBehaviour
 
         loadNextBtn.interactable = isClear;
         loadNextBtn.image.color = isClear ? Color.white : Color.gray;
+        gameOverText.text = isClear ? "Clear!" : "Failed..";
     }
 
     public void ScreenOn(bool on)

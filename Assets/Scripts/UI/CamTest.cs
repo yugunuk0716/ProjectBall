@@ -148,7 +148,7 @@ public class CamTest : MonoBehaviour
                     vec1 = t.position;
                     break;
                 case TouchPhase.Ended:
-                    if (EventSystem.current.IsPointerOverGameObject(t.fingerId))
+                    if (!EventSystem.current.IsPointerOverGameObject(t.fingerId))
                     {
                         vec2 = t.position;
                         SetPos();

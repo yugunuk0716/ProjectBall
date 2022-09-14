@@ -7484,6 +7484,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6430633673477226738}
     m_Modifications:
+    - target: {fileID: 3121602689583246078, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4667747b5b18b7c42914b101cbd4779c, type: 3}
     - target: {fileID: 3121602689619010340, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_Name
       value: SelectDirectionUI
@@ -7518,11 +7522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3121602689619010363, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 3121602689619010363, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 800
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 3121602689619010363, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7882,6 +7886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadBtn: {fileID: 647334158}
   loadNextBtn: {fileID: 404477275}
+  gameOverText: {fileID: 760405547}
 --- !u!1001 &1883576092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8100,27 +8105,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
---- !u!224 &1885468797 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3837844408626533924, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
-  m_PrefabInstance: {fileID: 1885468796}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1885468798 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3837844407271035916, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
-  m_PrefabInstance: {fileID: 1885468796}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &1885468799 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3837844408117137885, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
-  m_PrefabInstance: {fileID: 1885468796}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1951811417
 GameObject:
   m_ObjectHideFlags: 0
@@ -8932,6 +8916,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &3837844407278022232 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3837844408626533924, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
+  m_PrefabInstance: {fileID: 1885468796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &3837844407855049121 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3837844408117137885, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
+  m_PrefabInstance: {fileID: 1885468796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3837844408619625584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3837844407271035916, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
+  m_PrefabInstance: {fileID: 1885468796}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4246307513747140072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9391,7 +9396,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1885468797}
+  - {fileID: 3837844407278022232}
   - {fileID: 1513879637}
   - {fileID: 2026536003}
   - {fileID: 6430633672251267049}
@@ -9426,12 +9431,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugText: {fileID: 6430633672251267050}
   timer_text: {fileID: 6430633673962792754}
-  ballContent: {fileID: 1885468799}
+  ballContent: {fileID: 3837844407855049121}
   targetPointContent: {fileID: 2026536004}
   ballControllUIPrefab: {fileID: 2419485390776273089, guid: e860670506b257842b64463815e628d8, type: 3}
   targetPointObjPrefab: {fileID: 464324170355428785, guid: 07c9bdb45c8ee1643878fabe310e9d36, type: 3}
   selectDirectionUI: {fileID: 2102063754}
-  ballSettingConfirmBtn: {fileID: 1885468798}
+  ballSettingConfirmBtn: {fileID: 3837844408619625584}
   shootBtn: {fileID: 2026536006}
   shootPanel: {fileID: 2026536003}
 --- !u!1 &6430633673595331154
