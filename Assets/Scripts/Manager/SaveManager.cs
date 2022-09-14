@@ -153,7 +153,7 @@ public class SaveManager : ManagerBase
             catch
             {
                 //Debug.Log(map.GetSprite(_data.pos));
-                Debug.LogError(data.pos + e.ToString());
+               // Debug.LogError(data.pos + e.ToString());
                 FunctionUpdater.Delete(updateAction);
             }
         };
