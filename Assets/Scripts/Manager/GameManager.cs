@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : ManagerBase
 {
+    public static bool CanNotInteract = false;  // 아무것도 못함 그냥!
+
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
 
@@ -28,7 +30,7 @@ public class GameManager : ManagerBase
 
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
-    public Action<int> MakeNewStageBtn;
+    public Action<int> MakeNewStageUIs;
     public Action<Ball, bool> MakeNewBallUI;
     public Action Shoot;
 
@@ -190,7 +192,7 @@ public class GameManager : ManagerBase
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        MakeNewStageBtn(i + sm.stageIndex);
+                        MakeNewStageUIs(i + sm.stageIndex);
                     }
                 }
             }

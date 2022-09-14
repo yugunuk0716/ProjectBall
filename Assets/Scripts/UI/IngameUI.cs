@@ -50,6 +50,8 @@ public class IngameUI : UIBase
             yield return new WaitForSeconds(duration);
             duration -= minusDuration;
         }
+
+        GameManager.CanNotInteract = false;
     }
 
     int order = 0;
@@ -67,21 +69,25 @@ public class IngameUI : UIBase
 
         ballSettingConfirmBtn.onClick.AddListener(() =>
         {
+            if(GameManager.CanNotInteract)
+            {
+                return;
+            }
+
             if(gm.myBallList.Count < gm.maxBallCount || 0 >= gm.myBallList.Count)
             {
                 return;
             }
 
             gm.isShooting = true;
-            
 
+            GameManager.CanNotInteract = true;
             Sequence seq = DOTween.Sequence();
             seq.SetAutoKill(false);
             seq.Append(ballSettingUIRectTrm.DOAnchorPosX(ballSettingUIRectTrm.anchoredPosition.x - ballSettingUIRectTrm.rect.size.x * 1.5f, 1f).SetEase(Ease.InBack));
             seq.Append(shootPanel.GetComponent<RectTransform>().DOAnchorPosX(0, 1f).SetDelay(0.3f).SetEase(Ease.OutBack)).OnComplete(() => StartCoroutine(MoveBalls(gm.ballUIList)));
 
             sm.ReuseUI = () => seq.PlayBackwards();
-
         });
         shootBtn.onClick.AddListener(() => gm.Shoot());
 

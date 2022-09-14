@@ -5025,7 +5025,7 @@ MonoBehaviour:
   count: 2
   anim: {fileID: 2398532101133416761}
   sr: {fileID: 4344911483904682155}
-  uiSprite: {fileID: -731774486, guid: 8bf43409ade744c468dd17d12eb79698, type: 3}
+  uiSprite: {fileID: 21300000, guid: dd73325902412db4d93bd3e803eae667, type: 3}
   slowAnim: {fileID: 7568083656115930282}
   spriteObject: {fileID: 7802137078382230432}
   tpCool: 0
@@ -5115,7 +5115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1288978334, guid: 8bf43409ade744c468dd17d12eb79698, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd73325902412db4d93bd3e803eae667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

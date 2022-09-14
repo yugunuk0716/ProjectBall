@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionSetBtn: {fileID: 6284721513373542977}
   orderText: {fileID: 4196755819614770615}
+  order: 0
   directionImg: {fileID: 386924408058051398}
 --- !u!1 &6540829279029837358
 GameObject:
@@ -286,7 +287,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.3820755, g: 0.65303475, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

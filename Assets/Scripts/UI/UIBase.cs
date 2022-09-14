@@ -14,7 +14,7 @@ public abstract class UIBase : MonoBehaviour
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
-        DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.5f);
+        DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.5f).SetUpdate(true);
     }
 
     public abstract void Init();
