@@ -136,7 +136,7 @@ public class SaveManager : ManagerBase
                     FunctionUpdater.Delete(updateAction);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 //Debug.Log(map.GetSprite(_data.pos));
                 Debug.LogError(data.pos);

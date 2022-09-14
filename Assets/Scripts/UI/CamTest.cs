@@ -45,7 +45,6 @@ public class CamTest : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            print("??");
             #region PC Test
 #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.A))

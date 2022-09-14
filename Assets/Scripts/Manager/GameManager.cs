@@ -35,6 +35,7 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     public Action<int> MakeNewStageUIs;
     public Action<Ball, bool> MakeNewBallUI;
+    public Action<int> OnClear;
     public Action Shoot;
 
     [HideInInspector] public IEnumerator timerCo;
@@ -189,9 +190,14 @@ public class GameManager : ManagerBase
             clearParticle_Left.Play();
             clearParticle_Right.Play();
             StopTimer();
+            float clearTime = limitTime - realTime;
             SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+
+            int star = sm.CalcStar(clearTime);
+            sm.SaveStar(sm.stageIndex - 1, star);
+
             if(sm.stageIndex -1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
             {
                 sm.clearMapCount++;
@@ -206,6 +212,7 @@ public class GameManager : ManagerBase
                 }
             }
             ActiveGameOverPanel(true);
+            OnClear?.Invoke(star);
         }
     }
 
