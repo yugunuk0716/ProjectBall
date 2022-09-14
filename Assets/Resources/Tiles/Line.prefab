@@ -104,6 +104,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
   isHorizontalWall: 1
   horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
@@ -232,6 +233,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
   isHorizontalWall: 1
   horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
@@ -377,6 +379,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
   LT: {fileID: 394979104203436661}
   RT: {fileID: 3579097355650007427}
   RB: {fileID: 1874229636779344708}
@@ -485,6 +488,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
   isHorizontalWall: 1
   horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
@@ -613,6 +617,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
   isHorizontalWall: 1
   horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}

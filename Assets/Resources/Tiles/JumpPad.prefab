@@ -126,6 +126,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
 --- !u!60 &8845006092190290298
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -219,3 +220,4 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0

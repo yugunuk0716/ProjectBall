@@ -52,6 +52,7 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
 --- !u!95 &6483825532768528478
 Animator:
   serializedVersion: 4

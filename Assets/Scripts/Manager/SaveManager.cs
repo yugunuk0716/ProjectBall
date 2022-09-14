@@ -23,6 +23,7 @@ public class SaveManager : ManagerBase
     private string lastString = string.Empty;
     private int portalIndex = 0;
     private string lineDir;
+    private string targetString;
     private Color changeColor = new Color();
     private AnimatedTile riseAnimatedTile;
 
@@ -55,6 +56,8 @@ public class SaveManager : ManagerBase
                 for (int j = 0; j < columnSize; j++)
                 {
                     changeColor = Color.white;
+                    lineDir = null;
+                    targetString = null;
                     bool isTransitionTile = column[j].Contains("*");
                     if (isTransitionTile)
                     {
@@ -81,6 +84,15 @@ public class SaveManager : ManagerBase
                     }
 
 
+                    bool isBtnTarget = column[j].Contains("~");
+                    if (isBtnTarget)
+                    {
+                        string[] str = column[j].Split('~');
+                        column[j] = str[0];
+                        targetString = str[1];
+                    }
+
+
                     Tile tile = ParseTile(column[j]);
 
                     Vector3Int pos = new Vector3Int(1 + j, 6 - i);
@@ -96,6 +108,8 @@ public class SaveManager : ManagerBase
                     data.type = type;
                     data.isTransitionTile = isTransitionTile;
                     data.rowSize = rowSize;
+                    data.lineDir = lineDir;
+                    data.targetstring = targetString;
                     data.lastString = lastString;
 
                     tileDatas.Add(data);
@@ -139,7 +153,7 @@ public class SaveManager : ManagerBase
             catch (Exception e)
             {
                 //Debug.Log(map.GetSprite(_data.pos));
-                Debug.LogError(data.pos);
+                Debug.LogError(data.pos + e.ToString());
                 FunctionUpdater.Delete(updateAction);
             }
         };
@@ -149,63 +163,23 @@ public class SaveManager : ManagerBase
     private void SettingObjectTiles(TileData data)
     {
         ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
+        ButtonTile bt = null;
+        int index = 0;
         if (data.isTransitionTile)
         {
             a.StartTransition();
         }
 
-        if (data.type.Equals(TileType.None))
+
+        if (data.lineDir != null)
         {
-        }
-        else
-        {
-            if (data.type.Equals(TileType.Teleporter))
+            
+            if (int.TryParse(data.lineDir[0].ToString(), out index))
             {
-                Teleporter tp = a.GetComponent<Teleporter>();
-                tp.portalIndex = portalIndex;
+                data.lineDir = data.lineDir[1..];
             }
-
-            if (data.type.Equals(TileType.ColorChanger))
-            {
-                //여기서 정보 주면 될듯
-                ColorChanger cc = a.GetComponent<ColorChanger>();
-                cc.targetColor = changeColor;
-            }
-
-            if (data.type.Equals(TileType.ColorGoal))
-            {
-                //깃발에 컬러정보 주기
-                ColorGoal cg = a.GetComponent<ColorGoal>();
-                cg.SetSuccessColor(changeColor);
-            }
-
-            //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
-            a.dataString = data.lastString;
-
-            a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
-
-            a.transform.position += new Vector3(0, 1, 0);
-
-            a.SetDirection();
-
-            a.transform.parent = mainMap.transform;
-
-            a.gameObject.SetActive(true);
-
-            SpriteRenderer sr = a.GetComponent<SpriteRenderer>();
-            if (sr == null)
-            {
-                sr = a.GetComponentInChildren<SpriteRenderer>();
-            }
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
-            sr.DOFade(1, .7f).SetEase(Ease.Linear);
-            a.transform.DOMoveY(a.transform.position.y - 1, .7f).SetEase(Ease.InQuart);
-        }
-
-        if (lineDir != null)
-        {
             Line line = PoolManager.Instance.Pop("Line") as Line;
-            switch (lineDir)
+            switch (data.lineDir)
             {
                 case "┃":
                     line.SetLineDir(true, false, false, true);
@@ -256,13 +230,79 @@ public class SaveManager : ManagerBase
 
             }
 
+
+            SpriteRenderer sr = line.GetComponent<SpriteRenderer>();
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            sr.DOFade(1, .7f).SetEase(Ease.Linear);
+
             line.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x, data.pos.y, 0));
-            line.transform.position -= new Vector3(0, -.25f, 0);
+            line.transform.position += new Vector3(0, 1.25f, 0);
+
+            line.transform.DOMoveY(line.transform.position.y - 1, .7f).SetEase(Ease.InQuart);
             line.transform.parent = mainMap.transform;
             line.gameObject.SetActive(true);
 
             lineDir = null;
         }
+
+
+        if (data.type.Equals(TileType.None))
+        {
+        }
+        else
+        {
+            if (data.type.Equals(TileType.Teleporter))
+            {
+                Teleporter tp = a.GetComponent<Teleporter>();
+                tp.portalIndex = portalIndex;
+            }
+
+            if (data.type.Equals(TileType.ColorChanger))
+            {
+                //여기서 정보 주면 될듯
+                ColorChanger cc = a.GetComponent<ColorChanger>();
+                cc.targetColor = changeColor;
+            }
+
+            if (data.type.Equals(TileType.ColorGoal))
+            {
+                //깃발에 컬러정보 주기
+                ColorGoal cg = a.GetComponent<ColorGoal>();
+                cg.SetSuccessColor(changeColor);
+            }
+
+            if(data.type.Equals(TileType.Button))
+            {
+                //스위치한테 정보 주기
+                bt = a.GetComponent<ButtonTile>();
+                bt.targetstring = targetString;
+            }
+
+            //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
+            a.btnIndex = index;
+            
+            a.dataString = data.lastString;
+
+            a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
+
+            a.transform.position += new Vector3(0, 1, 0);
+
+            a.SetDirection();
+
+            a.transform.parent = mainMap.transform;
+
+            a.gameObject.SetActive(true);
+
+            SpriteRenderer sr = a.GetComponent<SpriteRenderer>();
+            if (sr == null)
+            {
+                sr = a.GetComponentInChildren<SpriteRenderer>();
+            }
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            sr.DOFade(1, .7f).SetEase(Ease.Linear);
+            a.transform.DOMoveY(a.transform.position.y - 1, .7f).SetEase(Ease.InQuart);
+        }
+
 
         Vector2 worldPoint = mainMap.CellToWorld(data.pos);
         a.worldPos = new Vector2(worldPoint.x, worldPoint.y + 0.25f);
@@ -316,6 +356,9 @@ public class SaveManager : ManagerBase
 
             case "W":
                 color = TileColors.Gray;
+                break;
+            case "B":
+                color = TileColors.Deepblue;
                 break;
             default:
                 if (data.Contains("TP"))
@@ -382,6 +425,8 @@ public class SaveManager : ManagerBase
                         return TileType.ColorChanger;
                     case TileColors.Gray:
                         return TileType.Thon;
+                    case TileColors.Deepblue:
+                        return TileType.Button;
                 }
             }
         }
@@ -435,6 +480,8 @@ public class TileData
     public bool isTransitionTile;
     public int rowSize;
     public string lastString;
+    public string lineDir;
+    public string targetstring;
 }
 
 
@@ -450,7 +497,8 @@ public enum TileColors
     White,
     Yellow,
     Any,
-    Gray
+    Gray,
+    Deepblue
 }
 
 
