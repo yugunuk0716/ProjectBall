@@ -7854,6 +7854,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadBtn: {fileID: 647334158}
   loadNextBtn: {fileID: 404477275}
+  gameOverText: {fileID: 0}
+  starList: []
+  isClear: 0
 --- !u!1 &1951811417
 GameObject:
   m_ObjectHideFlags: 0
@@ -8906,7 +8909,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6430633673477226738}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -9040,10 +9043,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6430633672251267049}
   - {fileID: 179118596}
   - {fileID: 2026536003}
   - {fileID: 789595433}
-  - {fileID: 6430633672251267049}
   - {fileID: 6430633673962792753}
   m_Father: {fileID: 6430633673595331166}
   m_RootOrder: 0

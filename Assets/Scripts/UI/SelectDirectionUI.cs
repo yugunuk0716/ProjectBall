@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SelectDirectionUI : MonoBehaviour
 {
@@ -39,15 +40,17 @@ public class SelectDirectionUI : MonoBehaviour
 
             for (int j = 0; j < i; j++)
                 index <<= 1;
-
+            Animator anim = selectDirectionBtns[i].GetComponentInChildren<Animator>();
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
+                print(selectDirectionBtns.Length);
+                print(i);
+                anim.SetTrigger("OnClick"); 
                 addBall.shootDir = (TileDirection)(index);
                 gm.myBallList.Add(addBall);
                 gm.lastBallList.Add(addBall);
                 ScreenOn(false);
                 ballControllUI.SetDirection(addBall.shootDir);
-
                 gm.BallUiSort();
 
                 Callback();
@@ -61,9 +64,9 @@ public class SelectDirectionUI : MonoBehaviour
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
-        canvasGroup.alpha = on ? 1 : 0;
+        DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.75f).SetUpdate(true);
 
-        if(on)
+        if (on)
         {
             mapLoadVideoPlayer.PlayVideo();
         }
