@@ -680,7 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageLoadBtnsContent: {fileID: 738390542}
   stageLoadBtnPrefab: {fileID: 1464801078738512671, guid: 99c2b1fdff652b347ac8737716524305, type: 3}
-  exitBtn: {fileID: 1386383585}
+  stageUIOnOffBtn: {fileID: 1386383585}
 --- !u!1 &509457408
 GameObject:
   m_ObjectHideFlags: 0
@@ -8085,6 +8085,10 @@ PrefabInstance:
     - target: {fileID: 3837844408626533927, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
       propertyPath: m_Name
       value: BallSettingUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837844408626533930, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3837844408745848501, guid: 75d82445825be7a4b9785c67a3462dc6, type: 3}
       propertyPath: m_AnchorMax.x

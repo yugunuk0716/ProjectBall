@@ -197,7 +197,7 @@ public class SaveManager : ManagerBase
             {
                 sr = a.GetComponentInChildren<SpriteRenderer>();
             }
-            sr.color = new Color(1, 1, 1, 0);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
             sr.DOFade(1, .7f).SetEase(Ease.Linear);
             a.transform.DOMoveY(a.transform.position.y - 1, .7f).SetEase(Ease.InQuart);
         }

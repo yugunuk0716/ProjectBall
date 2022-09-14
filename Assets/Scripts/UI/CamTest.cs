@@ -42,58 +42,69 @@ public class CamTest : MonoBehaviour
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() || GameManager.CanNotInteract)
+
+/*        foreach (var item in Input.touches)
         {
-            #region PC Test
+            print(EventSystem.current.IsPointerOverGameObject(item.fingerId));
+        }
+*/
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended)
+        {
+
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) || GameManager.CanNotInteract)
+            {
+                #region PC Test
 #if UNITY_EDITOR
-            if (Input.GetKey(KeyCode.A))
-            {
-                if (vCam.m_Lens.OrthographicSize < CAMERA_MIN_SIZE)
+                if (Input.GetKey(KeyCode.A))
                 {
-                    return;
+                    if (vCam.m_Lens.OrthographicSize < CAMERA_MIN_SIZE)
+                    {
+                        return;
+                    }
+
+                    vCam.m_Lens.OrthographicSize -= 0.025f;
                 }
 
-                vCam.m_Lens.OrthographicSize -= 0.025f;
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (vCam.m_Lens.OrthographicSize >= CAMERA_MAX_SIZE)
+                if (Input.GetKey(KeyCode.D))
                 {
-                    return;
+                    if (vCam.m_Lens.OrthographicSize >= CAMERA_MAX_SIZE)
+                    {
+                        return;
+                    }
+
+                    vCam.m_Lens.OrthographicSize += 0.025f;
                 }
 
-                vCam.m_Lens.OrthographicSize += 0.025f;
-            }
+                if (Input.GetMouseButtonDown(0))
+                {
 
-            if (Input.GetMouseButtonDown(0))
-            {
+                    vec1 = Input.mousePosition;
+                }
 
-                vec1 = Input.mousePosition;
-            }
-
-            if (Input.GetMouseButton(0))
-            {
-                vec2 = Input.mousePosition;
-                SetPos();
-            }
+                if (Input.GetMouseButton(0))
+                {
+                    vec2 = Input.mousePosition;
+                    SetPos();
+                }
 #endif
-            #endregion
+                #endregion
 
 
-            if (lastCamMoveTime + camMoveCool < Time.time)
-            {
-                if (Input.touchCount == 2)
+                if (lastCamMoveTime + camMoveCool < Time.time)
                 {
-                    CameraZoom();
+                    if (Input.touchCount == 2)
+                    {
+                        CameraZoom();
+                    }
+
+                    else if (Input.touchCount == 1)
+                    {
+                        CameraMove();
+                    }
                 }
 
-                else if (Input.touchCount == 1)
-                {
-                    CameraMove();
-                }
             }
-
         }
 
     }
@@ -123,14 +134,14 @@ public class CamTest : MonoBehaviour
 #endif
 
         transform.DOMove(new Vector2(x, y), MOVE_DELAY);
-     
+
 
     }
 
     public void CameraMove()
     {
 
-        if(Input.touches.Length <= 0 || lastCamMoveTime + camMoveCool > Time.time)
+        if (Input.touches.Length <= 0 || lastCamMoveTime + camMoveCool > Time.time)
         {
             return;
         }
@@ -138,7 +149,7 @@ public class CamTest : MonoBehaviour
         Touch t = Input.GetTouch(0);
 
 
-        for(int i = 0; i < Input.touchCount; i++)
+        for (int i = 0; i < Input.touchCount; i++)
         {
             t = Input.touches[i];
 
@@ -163,7 +174,7 @@ public class CamTest : MonoBehaviour
         if (Input.touches.Length == 2 && lastCamMoveTime + camMoveCool < Time.time)
         {
 
-            if(t != null)
+            if (t != null)
             {
                 t.Kill();
             }
@@ -175,7 +186,7 @@ public class CamTest : MonoBehaviour
 
             switch (t1.phase)
             {
-            
+
                 case TouchPhase.Ended:
                     isTouch = false;
                     break;
@@ -193,15 +204,15 @@ public class CamTest : MonoBehaviour
                 Debug.LogError(worldPos);
 
             }
-            
-            
+
+
 
 
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (t1.position - t2.position).magnitude;
 
             t = DOTween.To(() => vCam.m_Lens.OrthographicSize, x => vCam.m_Lens.OrthographicSize = x, Mathf.Clamp(vCam.m_Lens.OrthographicSize + (prevTouchDeltaMag - touchDeltaMag) * 0.02f, CAMERA_MIN_SIZE, CAMERA_MAX_SIZE), 0.1f);
-          
+
 
             if (prevT2Pos == Vector2.zero && prevT1Pos == Vector2.zero)
             {
