@@ -54,6 +54,27 @@ public class IsometricManager : MonoBehaviour
         return vec;
     }
 
+    public static Vector2 GetRealDir(TileDirection dir)
+    {
+        Vector2 vec = Vector2.zero;
+        switch (dir)
+        {
+            case TileDirection.RIGHTUP:
+                vec = new Vector2(1,1);
+                break;
+            case TileDirection.LEFTDOWN:
+                vec = new Vector2(-1, -1);
+                break;
+            case TileDirection.LEFTUP:
+                vec = new Vector2(-1, 1);
+                break;
+            case TileDirection.RIGHTDOWN:
+                vec = new Vector2(1, -1);
+                break;
+        }
+        return vec;
+    }
+
     public void UpdateState(eUpdateState state)
     {
         foreach (var item in managers)
