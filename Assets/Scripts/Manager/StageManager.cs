@@ -32,7 +32,6 @@ public class StageManager : ManagerBase
         for (int i = 0; i < clearMapCount; i++)
         {
             stageProgressDictionary.Add(i, GetStar(i));
-            print(GetStar(i));
         }
 
         stageObjList = Resources.LoadAll<GameObject>("Maps").ToList();
@@ -152,7 +151,6 @@ public class StageManager : ManagerBase
 
     public void SaveStar(int curStageIndex, int starCount)
     {
-        print(curStageIndex);
         PlayerPrefs.SetInt($"{curStageIndex}Stage", starCount);
     }
 
