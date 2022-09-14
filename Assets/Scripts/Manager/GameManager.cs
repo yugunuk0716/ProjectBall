@@ -179,6 +179,7 @@ public class GameManager : ManagerBase
 
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
+            Vibration.Vibrate(500);
             StopTimer();
             SetTimerText("Clear", Color.green);
 
@@ -188,7 +189,6 @@ public class GameManager : ManagerBase
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
 
-                Vibration.Vibrate(500);
                 if(sm.clearMapCount % 3 == 0)
                 {
                     for (int i = 0; i < 3; i++)
