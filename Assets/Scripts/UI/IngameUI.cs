@@ -66,7 +66,7 @@ public class IngameUI : UIBase
 
         RectTransform ballSettingUIRectTrm = ballContent.parent.parent.GetComponent<RectTransform>();
 
-
+        /*
         ballSettingConfirmBtn.onClick.AddListener(() =>
         {
             if(GameManager.CanNotInteract)
@@ -89,6 +89,7 @@ public class IngameUI : UIBase
 
             sm.ReuseUI = () => seq.PlayBackwards();
         });
+        */
         shootBtn.onClick.AddListener(() => gm.Shoot());
 
         gm.MakeNewBallUI += (ball, isAutoSet) =>

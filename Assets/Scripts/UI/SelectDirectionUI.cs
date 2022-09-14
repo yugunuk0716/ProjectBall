@@ -14,6 +14,8 @@ public class SelectDirectionUI : MonoBehaviour
 
     [HideInInspector] public BallControllUI ballControllUI;
 
+    MapLoadVideoPlayer mapLoadVideoPlayer;
+
     public void Set(Ball addBall, BallControllUI ballControllUI, int order)
     {
         this.addBall = addBall;
@@ -25,9 +27,12 @@ public class SelectDirectionUI : MonoBehaviour
 
     public void Init(Action Callback)
     {
+        mapLoadVideoPlayer = GetComponent<MapLoadVideoPlayer>();
+        mapLoadVideoPlayer.FindCam();
         canvasGroup = GetComponent<CanvasGroup>(); 
         Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.TakeMapLoadVideo = () => mapLoadVideoPlayer.TakeVideo();
         for (int i = 0; i< selectDirectionBtns.Length; i++) // 0번은 Nothing 들어갑니다.
         {
             int index = 1;
@@ -57,5 +62,10 @@ public class SelectDirectionUI : MonoBehaviour
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
         canvasGroup.alpha = on ? 1 : 0;
+
+        if(on)
+        {
+            mapLoadVideoPlayer.PlayVideo();
+        }
     }
 }

@@ -33,6 +33,7 @@ public class GameManager : ManagerBase
     public Action<int> MakeNewStageUIs;
     public Action<Ball, bool> MakeNewBallUI;
     public Action Shoot;
+    public Action TakeMapLoadVideo;
 
     [HideInInspector] public IEnumerator timerCo;
 

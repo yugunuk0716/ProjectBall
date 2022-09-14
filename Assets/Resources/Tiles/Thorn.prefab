@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 5523763613906357299}
   - component: {fileID: 6483825532768528478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thorn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 584548320540241536}
   - component: {fileID: 256420688584295160}
   - component: {fileID: 2357446162715139630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
