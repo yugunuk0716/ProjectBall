@@ -187,7 +187,8 @@ public class GameManager : ManagerBase
             {
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
-                
+
+                Vibration.Vibrate(500);
                 if(sm.clearMapCount % 3 == 0)
                 {
                     for (int i = 0; i < 3; i++)

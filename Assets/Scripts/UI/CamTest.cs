@@ -33,6 +33,7 @@ public class CamTest : MonoBehaviour
     float lastCamMoveTime = 0f;
 
     bool isTouch = false;
+    bool isOverUI;
     Tween t;
 
     private void Start()
@@ -44,6 +45,7 @@ public class CamTest : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
+            print("??");
             #region PC Test
 #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.A))
@@ -80,6 +82,16 @@ public class CamTest : MonoBehaviour
 #endif
             #endregion
 
+            if(Input.touchCount > 0)
+            {
+                foreach (var item in Input.touches)
+                {
+                    if (EventSystem.current.IsPointerOverGameObject(item.fingerId))
+                    {
+                        isOverUI = true;
+                    }
+                }
+            }
 
             if (lastCamMoveTime + camMoveCool < Time.time)
             {
@@ -106,6 +118,11 @@ public class CamTest : MonoBehaviour
             return;
         }
 
+        if (isOverUI)
+        {
+            isOverUI = false;
+            return;
+        }
         lastCamMoveTime = Time.time;
         Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
