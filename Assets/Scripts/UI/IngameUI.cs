@@ -51,7 +51,10 @@ public class IngameUI : UIBase
             duration -= minusDuration;
         }
 
+        //이거 나중에 고치삼 ㅇㅋ? ㅇㅋ?ㅋㅇ?ㅋㅇㅋ?ㅇㅋ?ㅇㅋ?ㅇㅋ?ㅇ
+        yield return new WaitForSeconds(1f);
         GameManager.CanNotInteract = false;
+        shootBtn.interactable = true;
     }
 
     int order = 0;
@@ -80,7 +83,7 @@ public class IngameUI : UIBase
             }
 
             gm.isShooting = true;
-
+            shootBtn.interactable = false;
             GameManager.CanNotInteract = true;
             Sequence seq = DOTween.Sequence();
             seq.SetAutoKill(false);

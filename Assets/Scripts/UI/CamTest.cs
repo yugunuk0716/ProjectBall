@@ -33,6 +33,7 @@ public class CamTest : MonoBehaviour
     float lastCamMoveTime = 0f;
 
     bool isTouch = false;
+    bool isOverUI;
     Tween t;
 
     private void Start()
@@ -42,7 +43,7 @@ public class CamTest : MonoBehaviour
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() || GameManager.CanNotInteract)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
             #region PC Test
 #if UNITY_EDITOR
@@ -80,6 +81,16 @@ public class CamTest : MonoBehaviour
 #endif
             #endregion
 
+            if(Input.touchCount > 0)
+            {
+                foreach (var item in Input.touches)
+                {
+                    if (EventSystem.current.IsPointerOverGameObject(item.fingerId))
+                    {
+                        isOverUI = true;
+                    }
+                }
+            }
 
             if (lastCamMoveTime + camMoveCool < Time.time)
             {
@@ -106,6 +117,11 @@ public class CamTest : MonoBehaviour
             return;
         }
 
+        if (isOverUI)
+        {
+            isOverUI = false;
+            return;
+        }
         lastCamMoveTime = Time.time;
         Vector3 vec = vec1 - vec2;
         Vector2 pos = transform.position;
@@ -138,21 +154,26 @@ public class CamTest : MonoBehaviour
         Touch t = Input.GetTouch(0);
 
 
-        for(int i = 0; i < Input.touchCount; i++)
+        for (int i = 0; i < Input.touchCount; i++)
         {
-            t = Input.touches[i];
-
-            switch (t.phase)
+            if (!EventSystem.current.IsPointerOverGameObject(t.fingerId))
             {
-                case TouchPhase.Began:
-                    vec1 = t.position;
-                    break;
-                case TouchPhase.Ended:
-                    vec2 = t.position;
-                    SetPos();
-                    break;
-                case TouchPhase.Canceled:
-                    return;
+                t = Input.touches[i];
+
+                switch (t.phase)
+                {
+                    case TouchPhase.Began:
+                        vec1 = t.position;
+                        break;
+                    case TouchPhase.Ended:
+
+                        vec2 = t.position;
+                        SetPos();
+
+                        break;
+                    case TouchPhase.Canceled:
+                        return;
+                }
             }
         }
     }

@@ -19,6 +19,9 @@ public class GameManager : ManagerBase
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
+    private ParticleSystem clearParticle_Left;
+    private ParticleSystem clearParticle_Right;
+
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
     [HideInInspector] public bool isShooting = false;
@@ -32,6 +35,7 @@ public class GameManager : ManagerBase
     public Action<string, Color?> SetTimerText;
     public Action<int> MakeNewStageUIs;
     public Action<Ball, bool> MakeNewBallUI;
+    public Action<int> OnClear;
     public Action Shoot;
     public Action TakeMapLoadVideo;
 
@@ -80,6 +84,9 @@ public class GameManager : ManagerBase
 
         BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);
+
+        clearParticle_Left = Instantiate(Resources.Load<ParticleSystem>("Effects/LeftParticle"));
+        clearParticle_Right = Instantiate(Resources.Load<ParticleSystem>("Effects/RightParticle"));
 
     }
 
@@ -180,15 +187,23 @@ public class GameManager : ManagerBase
 
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
+            Vibration.Vibrate(500);
+            clearParticle_Left.Play();
+            clearParticle_Right.Play();
             StopTimer();
+            float clearTime = limitTime - realTime;
             SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+
+            int star = sm.CalcStar(clearTime);
+            sm.SaveStar(sm.stageIndex - 1, star);
+
             if(sm.stageIndex -1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
             {
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
-                
+
                 if(sm.clearMapCount % 3 == 0)
                 {
                     for (int i = 0; i < 3; i++)
@@ -198,6 +213,7 @@ public class GameManager : ManagerBase
                 }
             }
             ActiveGameOverPanel(true);
+            OnClear?.Invoke(star);
         }
     }
 
