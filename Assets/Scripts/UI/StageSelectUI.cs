@@ -45,7 +45,7 @@ public class StageSelectUI : MonoBehaviour
             gm.MakeNewStageUIs(i);
         }
 
-        //stageUIOnOffBtn.onClick.AddListener(() => Move());
+        stageUIOnOffBtn.onClick.AddListener(() => Move());
     }
 
     void Start()

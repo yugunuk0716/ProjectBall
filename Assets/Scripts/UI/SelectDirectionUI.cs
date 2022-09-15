@@ -5,17 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class SelectDirectionUI : MonoBehaviour
+public class SelectDirectionUI : UIBase
 {
-    CanvasGroup canvasGroup;
     [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
     [SerializeField] private Sprite directionSprites;
 
     [HideInInspector] public int order;
-
     [HideInInspector] public BallControllUI ballControllUI;
+    public MapLoadVideoPlayer mapLoadVideoPlayer;
 
-    MapLoadVideoPlayer mapLoadVideoPlayer;
+    public bool isSelecting = false;
 
     public void Set(Ball addBall, BallControllUI ballControllUI, int order)
     {
@@ -24,16 +23,17 @@ public class SelectDirectionUI : MonoBehaviour
         this.order = order;
     }
 
-
-
-    public void Init(Action Callback)
+    public override void Init()
     {
+        GetCanvasGroup();
+
         mapLoadVideoPlayer = GetComponent<MapLoadVideoPlayer>();
-        mapLoadVideoPlayer.FindCam();
-        canvasGroup = GetComponent<CanvasGroup>(); 
         Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.TakeMapLoadVideo = () => mapLoadVideoPlayer.TakeVideo();
+
+        
+
         for (int i = 0; i< selectDirectionBtns.Length; i++) // 0번은 Nothing 들어갑니다.
         {
             int index = 1;
@@ -43,24 +43,22 @@ public class SelectDirectionUI : MonoBehaviour
             Animator anim = selectDirectionBtns[i].GetComponentInChildren<Animator>();
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
-                print(selectDirectionBtns.Length);
-                print(i);
-                anim.SetTrigger("OnClick"); 
+                anim.SetTrigger("OnClick");
+                ScreenOn(false);
+
                 addBall.shootDir = (TileDirection)(index);
                 gm.myBallList.Add(addBall);
                 gm.lastBallList.Add(addBall);
-                ScreenOn(false);
+                
                 ballControllUI.SetDirection(addBall.shootDir);
                 gm.BallUiSort();
 
-                Callback();
-
-
+                
             });
         }
     }
 
-    public void ScreenOn(bool on)
+    public override void ScreenOn(bool on)
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
@@ -70,5 +68,11 @@ public class SelectDirectionUI : MonoBehaviour
         {
             mapLoadVideoPlayer.PlayVideo();
         }
+    }
+
+
+    public override void Load()
+    {
+        ScreenOn(false);
     }
 }
