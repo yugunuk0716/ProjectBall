@@ -8,13 +8,11 @@ public class StageScrollUI : UIBase
 {
     public Button stageOnBtn;
     public Button[] stageButtons;
-    public int[] btnInteractCount;
 
     public override void Init()
     {
         GetCanvasGroup();
         stageButtons = GetComponentsInChildren<Button>();
-        btnInteractCount = new int[stageButtons.Length];
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
 
         stageOnBtn.onClick.AddListener(() => { ScreenOn(true); });
@@ -24,15 +22,6 @@ public class StageScrollUI : UIBase
             int temp = i;
             stageButtons[temp].onClick.AddListener(() =>
             {
-
-                //if(btnInteractCount[temp] < 1)
-                //{
-                //    btnInteractCount[temp] += 1;
-                //    return;
-                //}
-
-                //btnInteractCount[temp] = 0;
-                print(int.Parse(stageButtons[temp].GetComponent<IntListBox>()._contentText.text));
                 sm.LoadStage(Resources.Load<StageDataSO>($"Stage {int.Parse(stageButtons[temp].GetComponent<IntListBox>()._contentText.text) + 1}"));
                 ScreenOn(false);
             });
