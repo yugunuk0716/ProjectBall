@@ -22,7 +22,7 @@ public class BallSettingUI : UIBase
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        gm.MakeNewBallUI += (ball, isAutoSet) =>
+        gm.MakeNewBallUI = (ball, isAutoSet) =>
         {
             BallControllUI newBallControllUI = Instantiate(ballControllUIPrefab, ballContent);
             newBallControllUI.SetBallSprites(ball.uiSprite);
@@ -67,17 +67,26 @@ public class BallSettingUI : UIBase
     public override void Load()
     {
         order = 0;
-        
+
+        Transform []arr = targetPointContent.GetComponentsInChildren<Transform>();
+
+        for(int i = 1; i < arr.Length; i++)
+        {
+            Destroy(arr[i].gameObject);
+        }
         MakeTargetPoints();
 
     }
 
     public void MakeTargetPoints()
     {
-        int count = IsometricManager.Instance.GetManager<StageManager>().stageDataList.Count;
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+        int count = sm.stageDataList[sm.stageIndex].balls.Length;
+
         for (int i = 0; i < count; i++)
         {
             Instantiate(targetPointObjPrefab, targetPointContent);
         }
     }
+
 }
