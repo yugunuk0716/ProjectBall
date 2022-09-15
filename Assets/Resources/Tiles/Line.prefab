@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1488922829827313416}
   - component: {fileID: 940990992584537436}
-  - component: {fileID: 2313794530974519065}
-  - component: {fileID: 1770562776438744621}
   m_Layer: 6
   m_Name: LT
   m_TagString: Untagged
@@ -86,48 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2313794530974519065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394979104203436661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d41d4824af95e40a577ddef0f7cbf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 2
-  dataString: 
-  myType: 7
-  worldPos: {x: 0, y: 0}
-  keyPos: {x: 0, y: 0}
-  gridPos: {x: 0, y: 0, z: 0}
-  isHorizontalWall: 1
-  horSprites:
-  - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  verSprites:
-  - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  horEffect: []
-  verEffect: []
---- !u!114 &1770562776438744621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 394979104203436661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOnce: 0
 --- !u!1 &1874229636779344708
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,8 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5878176994010596158}
   - component: {fileID: 586373911958565268}
-  - component: {fileID: 2150236172736537887}
-  - component: {fileID: 767077596799398355}
   m_Layer: 6
   m_Name: RB
   m_TagString: Untagged
@@ -214,48 +168,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2150236172736537887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874229636779344708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d41d4824af95e40a577ddef0f7cbf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 2
-  dataString: 
-  myType: 7
-  worldPos: {x: 0, y: 0}
-  keyPos: {x: 0, y: 0}
-  gridPos: {x: 0, y: 0, z: 0}
-  isHorizontalWall: 1
-  horSprites:
-  - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  verSprites:
-  - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  horEffect: []
-  verEffect: []
---- !u!114 &767077596799398355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1874229636779344708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOnce: 0
 --- !u!1 &1893477038133102498
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +246,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: -1
   m_Sprite: {fileID: 2009297613, guid: c91fc8b6a3617a648b03799bbef1ec05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -377,6 +289,8 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
+  btnString: 
   LT: {fileID: 394979104203436661}
   RT: {fileID: 3579097355650007427}
   RB: {fileID: 1874229636779344708}
@@ -391,8 +305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6358049531791171691}
   - component: {fileID: 3717416430797977188}
-  - component: {fileID: 8488675554656202907}
-  - component: {fileID: 3212611930872079527}
   m_Layer: 6
   m_Name: RT
   m_TagString: Untagged
@@ -467,48 +379,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8488675554656202907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579097355650007427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d41d4824af95e40a577ddef0f7cbf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 2
-  dataString: 
-  myType: 7
-  worldPos: {x: 0, y: 0}
-  keyPos: {x: 0, y: 0}
-  gridPos: {x: 0, y: 0, z: 0}
-  isHorizontalWall: 1
-  horSprites:
-  - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  verSprites:
-  - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  horEffect: []
-  verEffect: []
---- !u!114 &3212611930872079527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3579097355650007427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOnce: 0
 --- !u!1 &5117151934738737479
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +389,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2406242792471471328}
   - component: {fileID: 8211540103292771167}
-  - component: {fileID: 2867387893453069861}
-  - component: {fileID: 984467779206632435}
   m_Layer: 6
   m_Name: LB
   m_TagString: Untagged
@@ -595,45 +463,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2867387893453069861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5117151934738737479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5d41d4824af95e40a577ddef0f7cbf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 2
-  dataString: 
-  myType: 7
-  worldPos: {x: 0, y: 0}
-  keyPos: {x: 0, y: 0}
-  gridPos: {x: 0, y: 0, z: 0}
-  isHorizontalWall: 1
-  horSprites:
-  - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -745140109, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -49422274, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  verSprites:
-  - {fileID: -992338995, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  - {fileID: -1095143129, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  - {fileID: -95169767, guid: e764ce94d0866d443b9a575faf01f299, type: 3}
-  horEffect: []
-  verEffect: []
---- !u!114 &984467779206632435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5117151934738737479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOnce: 0

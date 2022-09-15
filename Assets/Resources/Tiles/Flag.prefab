@@ -105,6 +105,8 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
+  btnString: 
   sr: {fileID: 216864386902218647}
   animator: {fileID: 4142883834083301727}
   isChecked: 0
