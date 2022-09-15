@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class GameManager : ManagerBase
 {
@@ -10,6 +11,7 @@ public class GameManager : ManagerBase
 
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
+    public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
     public List<Ball> lastBallList = new List<Ball>();
     public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
@@ -40,7 +42,7 @@ public class GameManager : ManagerBase
     public Action TakeMapLoadVideo;
 
     [HideInInspector] public IEnumerator timerCo;
-
+    
 
     public override void Init()
     {
@@ -79,8 +81,13 @@ public class GameManager : ManagerBase
 	    tile = Resources.Load<ObjectTile>("Tiles/Line");
         PoolManager.Instance.CreatePool(tile, "Line", 10);
 
+        tile = Resources.Load<ObjectTile>("Tiles/BtnTile");
+        PoolManager.Instance.CreatePool(tile, "ButtonTile", 10);
+
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);
+
+
 
         BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);
@@ -111,6 +118,9 @@ public class GameManager : ManagerBase
 
         portalList = sm.mainMap.GetComponentsInChildren<Teleporter>().ToList();
         portalList.ForEach(portal => portal.FindPair());
+
+        buttonTileList = sm.mainMap.GetComponentsInChildren<ButtonTile>().ToList();
+        buttonTileList.ForEach(btn => btn.FindTarget());
 
         limitTime = stageData.countDown;
         maxBallCount = stageData.balls.Length;
@@ -199,7 +209,7 @@ public class GameManager : ManagerBase
             {
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
-
+                
                 if(sm.clearMapCount % 3 == 0)
                 {
                     for (int i = 0; i < 3; i++)

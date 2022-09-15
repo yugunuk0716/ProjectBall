@@ -34,7 +34,7 @@ public class StageSelectUI : MonoBehaviour
             btn.onClick.AddListener(() =>
             {
                 sm.stageIndex = x + 1; // 현재 플레이중인 스테이지..를 알고 있음 뭔가 도움되겠지 뭐
-                sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
+                sm.LoadStage(sm.stageIndex);
 
                 Move();
             });

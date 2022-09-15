@@ -15,6 +15,7 @@ public enum TileType
     Thon,
     None,
     ColorGoal,
+    ButtonTile,
 }
 
 [System.Serializable]
@@ -40,14 +41,15 @@ public abstract class ObjectTile : PoolableMono
     public Vector2 worldPos;
     public Vector2 keyPos;
     public Vector3Int gridPos;
-
+    public int btnIndex;
+    public string btnString;
 
     public void StartTransition() => StartCoroutine(Transition());
     public abstract IEnumerator Transition();
 
 
     protected virtual void Awake()
-    {
+    { 
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f;
         transform.position = myPos;

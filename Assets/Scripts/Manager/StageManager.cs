@@ -22,6 +22,7 @@ public class StageManager : ManagerBase
     private const float threeStarTime = 1.5f;
     private const float twoStarTime = 1f;
 
+    public List<StageDataSO> stageDataList = new List<StageDataSO>();
     private StageDataSO currentStageData;
 
     public override void Init()
@@ -43,12 +44,21 @@ public class StageManager : ManagerBase
             stageObjList[i].gameObject.SetActive(false);
         }
 
-        LoadStage(Resources.Load<StageDataSO>($"Stage {stageIndex}"));
+        stageDataList = Resources.LoadAll<StageDataSO>("StageDatas").ToList();
+
+        stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
+
+        foreach (var item in stageDataList)
+        {
+            print($"   {item.name}          {item.range}");
+        }
+
+        LoadStage(stageIndex);
 
     }
 
 
-    public void LoadStage(StageDataSO stageData)
+    public void LoadStage(int stageIndex)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
@@ -59,22 +69,26 @@ public class StageManager : ManagerBase
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
         bool isSameStageLoaded = false;
 
+        int realIndex = stageIndex - 1;
+        print($"real {realIndex}");
+
         if (currentStageData == null) // 첫 로드
         {
-            currentStageData = stageData;
+            currentStageData = stageDataList[realIndex];
         }
-        else if (currentStageData.Equals(stageData)) // 현 스테이지랑 목표 스테이지랑 다르면
+        else if (currentStageData.Equals(stageDataList[realIndex])) // 현 스테이지랑 목표 스테이지랑 다르면
         {
             isSameStageLoaded = true;
         }
         else
         {
-            currentStageData = stageData;
+            currentStageData = stageDataList[realIndex];
             gm.lastBallList.Clear();
         }
 
-        sm.range = stageData.range;
-        sm.sheet = ((int)stageData.eSheet).ToString();
+        sm.range = stageDataList[realIndex].range;
+      
+        sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
 
         sm.LoadMapSpreadsheets(() =>
         {
@@ -91,7 +105,7 @@ public class StageManager : ManagerBase
             StartCoroutine(WaitUntilObjectTileCreated(() =>
             {
                 IsometricManager.Instance.UpdateState(eUpdateState.Load);
-                gm.ResetData(stageData, isSameStageLoaded);
+                gm.ResetData(stageDataList[realIndex], isSameStageLoaded);
             }));
         });
 
@@ -102,7 +116,6 @@ public class StageManager : ManagerBase
     {
         yield return new WaitForSeconds(1f);
         callBack();
-
     }
 
     private void ClearActiveBalls()

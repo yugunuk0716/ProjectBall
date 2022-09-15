@@ -7,13 +7,14 @@ public enum ESheet
 {
    Default = 80333382,
    Color = 2065586561,
-   Time = 1585233606,
+   Button = 1585233606,
    Order  = 1872519807
 }
 
 [CreateAssetMenu(menuName = "SO/StageDataSO")]
 public class StageDataSO : ScriptableObject
 {
+    public int stageIndex;
     public Ball[] balls;
     public float countDown;
     public TileDirection shooterDirections;

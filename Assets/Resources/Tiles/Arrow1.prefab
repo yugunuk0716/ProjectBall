@@ -51,6 +51,8 @@ MonoBehaviour:
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
+  btnString: 
   wallDirection: 4
   dirChangerSprites:
   - {fileID: 726348105, guid: 333e992c794798945b1709eb8979b8ba, type: 3}
