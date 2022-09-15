@@ -71,17 +71,8 @@ public class IngameUI : UIBase
 
     public override void Load()
     {
-        selectDirectionUI.ScreenOn(false);
-        order = 0;
-        isSelectingDirection = false;
-        MakeTargetPoints();
+
     }
 
-    public void MakeTargetPoints()
-    {
-        for(int i = 0; i< Resources.Load<StageDataSO>($"Stage {IsometricManager.Instance.GetManager<StageManager>().stageIndex}").balls.Length; i++)
-        {
-            Instantiate(targetPointObjPrefab, targetPointContent);
-        }
-    }
+
 }
