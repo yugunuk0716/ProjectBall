@@ -1,4 +1,4 @@
-using AirFishLab.ScrollingList;
+﻿using AirFishLab.ScrollingList;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ public class IntListBox : ListBox
     public Image minimapImage;
     public List<Sprite> minimapSpriteList;
 
+    private int lastIndex = 0;
 
     public List<Image> starList;
     public GameObject lockObj;
@@ -16,17 +17,21 @@ public class IntListBox : ListBox
 
     protected override void UpdateDisplayContent(object content)
     {
-        _contentText.text = ((int)content).ToString();
+        lastIndex = (int)content;
+        _contentText.text = lastIndex.ToString();
 
         
-        if ((int)content - 1 < minimapSpriteList.Count)
+        if (lastIndex - 1 < minimapSpriteList.Count)
         {
-            minimapImage.sprite = minimapSpriteList[(int)content - 1];
+            //minimapImage.sprite = minimapSpriteList[lastIndex];
         }
 
-        int star = PlayerPrefs.GetInt($"{(int)content - 1}Stage", 0);
+        int star = PlayerPrefs.GetInt($"{lastIndex - 1}Stage", 0);
+        print(lastIndex - 1);
         int clearStage = PlayerPrefs.GetInt("ClearMapsCount", 0);
-        if(star == 0 && (int)content - 1 != 1 && (int)content - 1 != clearStage)
+        print($"별 {star}");
+
+        if (star == 0 && lastIndex - 1 != 0 && clearStage + 1 < lastIndex - 1)
         {
             lockObj.SetActive(true);
             starObj.SetActive(false);
@@ -42,6 +47,11 @@ public class IntListBox : ListBox
             }
         }
 
+    }
+
+    public void UpdateContent()
+    {
+        UpdateDisplayContent(lastIndex);
     }
 }
 

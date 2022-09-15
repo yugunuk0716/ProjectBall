@@ -39,6 +39,7 @@ public class GameManager : ManagerBase
     public Action<Ball, bool> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
+    public Action UpdateUIContents;
     public Action TakeMapLoadVideo;
 
     [HideInInspector] public IEnumerator timerCo;
@@ -198,6 +199,7 @@ public class GameManager : ManagerBase
             Vibration.Vibrate(500);
             clearParticle_Left.Play();
             clearParticle_Right.Play();
+            UpdateUIContents?.Invoke();
             StopTimer();
             float clearTime = limitTime - realTime;
             SetTimerText("Clear", Color.green);
