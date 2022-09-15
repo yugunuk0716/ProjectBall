@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class IngamePlayUIManager : UIBase
 {
-    [SerializeField]
-    private Scrollbar scrollBar;
+    //[SerializeField]
+    //private Scrollbar scrollBar;
 
     [Header("Panel"), Space(10)] 
     [SerializeField] RectTransform settingPanel; // scroll value = 0
@@ -126,42 +126,42 @@ public class IngamePlayUIManager : UIBase
             }));
     }
 
-    private IEnumerator CoSwipeOtherPanel()
-    {
-        float start = scrollBar.value;
-        float current = 0;
-        float percent = 0;
-
-        isSwiping = true;
-
-        float end = isActivePanelEuqalSettingPanel ? 1 : 0;
-
-
-        if (isActivePanelEuqalSettingPanel)
-        {
-            BtnCloseUp(settingPanelOnBtn, shootPanelOnBtn);
-
-        }
-        else
-        {
-            BtnCloseUp(shootPanelOnBtn, settingPanelOnBtn);
-        }
-
-
-        while (percent < 1)
-        {
-            current += Time.deltaTime;
-            percent = current / swipeTime;
-
-            scrollBar.value = Mathf.Lerp(start, end, percent);
-
-            yield return null;
-        }
-
-
-        isActivePanelEuqalSettingPanel = end == 0 ? true : false;
-        isSwiping = false;
-    }
+    //private IEnumerator CoSwipeOtherPanel()
+    //{
+    //    float start = scrollBar.value;
+    //    float current = 0;
+    //    float percent = 0;
+    //
+    //    isSwiping = true;
+    //
+    //    float end = isActivePanelEuqalSettingPanel ? 1 : 0;
+    //
+    //
+    //    if (isActivePanelEuqalSettingPanel)
+    //    {
+    //        BtnCloseUp(settingPanelOnBtn, shootPanelOnBtn);
+    //
+    //    }
+    //    else
+    //    {
+    //        BtnCloseUp(shootPanelOnBtn, settingPanelOnBtn);
+    //    }
+    //
+    //
+    //    while (percent < 1)
+    //    {
+    //        current += Time.deltaTime;
+    //        percent = current / swipeTime;
+    //
+    //        scrollBar.value = Mathf.Lerp(start, end, percent);
+    //
+    //        yield return null;
+    //    }
+    //
+    //
+    //    isActivePanelEuqalSettingPanel = end == 0 ? true : false;
+    //    isSwiping = false;
+    //}
 
     public void BtnCloseUp(Button btn1, Button btn2)
     {

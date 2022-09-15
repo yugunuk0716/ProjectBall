@@ -74,7 +74,8 @@ public class BallSettingUI : UIBase
 
     public void MakeTargetPoints()
     {
-        for (int i = 0; i < Resources.Load<StageDataSO>($"Stage {IsometricManager.Instance.GetManager<StageManager>().stageIndex}").balls.Length; i++)
+        int count = IsometricManager.Instance.GetManager<StageManager>().stageDataList.Count;
+        for (int i = 0; i < count; i++)
         {
             Instantiate(targetPointObjPrefab, targetPointContent);
         }

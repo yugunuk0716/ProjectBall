@@ -12,7 +12,7 @@ public class SelectDirectionUI : UIBase
 
     [HideInInspector] public int order;
     [HideInInspector] public BallControllUI ballControllUI;
-    MapLoadVideoPlayer mapLoadVideoPlayer;
+    public MapLoadVideoPlayer mapLoadVideoPlayer;
 
     public bool isSelecting = false;
 
@@ -31,6 +31,8 @@ public class SelectDirectionUI : UIBase
         Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.TakeMapLoadVideo = () => mapLoadVideoPlayer.TakeVideo();
+
+        
 
         for (int i = 0; i< selectDirectionBtns.Length; i++) // 0번은 Nothing 들어갑니다.
         {
