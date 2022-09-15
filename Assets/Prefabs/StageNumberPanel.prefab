@@ -105,7 +105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageOnBtn: {fileID: 0}
   stageButtons: []
-  btnInteractCount: 
 --- !u!1 &6242476328125366089
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,8 +255,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -0.49997473
-        value: 0.5500544
+        time: -0.40004033
+        value: 0.3997301
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -266,7 +265,7 @@ MonoBehaviour:
         outWeight: 0
       - serializedVersion: 3
         time: 0.000019328669
-        value: 0.9002075
+        value: 0.7501259
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -274,8 +273,8 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.50009394
-        value: 0.54996943
+        time: 0.3993832
+        value: 0.39958087
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -291,20 +290,20 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 0
-        outSlope: -2.5
+        inSlope: -0.7385989
+        outSlope: -0.7385989
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0
+        outWeight: 0.108539484
       - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
+        time: 1.9999609
+        value: 0.000049864873
+        inSlope: 0.121970065
+        outSlope: 0.121970065
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.17571439
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

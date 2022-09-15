@@ -15,6 +15,7 @@ public enum ESheet
 public class StageDataSO : ScriptableObject
 {
     public Ball[] balls;
+    public Sprite minimapSprite;
     public float countDown;
     public TileDirection shooterDirections;
     public string range;

@@ -33,7 +33,7 @@ public class GameOverUI : UIBase
 
         reloadBtn.onClick.AddListener(() =>
         {
-            sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
+            sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
             starList.ForEach(s => s.gameObject.SetActive(false));
         });
@@ -41,7 +41,7 @@ public class GameOverUI : UIBase
         loadNextBtn.onClick.AddListener(() =>
         {
             sm.stageIndex++;
-            sm.LoadStage(Resources.Load<StageDataSO>($"Stage {sm.stageIndex}"));
+            sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
             starList.ForEach(s => s.gameObject.SetActive(false));
         });
