@@ -46,6 +46,13 @@ public class StageManager : ManagerBase
 
         stageDataList = Resources.LoadAll<StageDataSO>("StageDatas").ToList();
 
+        stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
+
+        foreach (var item in stageDataList)
+        {
+            print($"   {item.name}          {item.range}");
+        }
+
         LoadStage(stageIndex);
 
     }
@@ -63,6 +70,7 @@ public class StageManager : ManagerBase
         bool isSameStageLoaded = false;
 
         int realIndex = stageIndex - 1;
+        print($"real {realIndex}");
 
         if (currentStageData == null) // 첫 로드
         {
@@ -79,6 +87,7 @@ public class StageManager : ManagerBase
         }
 
         sm.range = stageDataList[realIndex].range;
+      
         sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
 
         sm.LoadMapSpreadsheets(() =>

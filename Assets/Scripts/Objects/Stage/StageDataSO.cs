@@ -14,8 +14,8 @@ public enum ESheet
 [CreateAssetMenu(menuName = "SO/StageDataSO")]
 public class StageDataSO : ScriptableObject
 {
+    public int stageIndex;
     public Ball[] balls;
-    public Sprite minimapSprite;
     public float countDown;
     public TileDirection shooterDirections;
     public string range;

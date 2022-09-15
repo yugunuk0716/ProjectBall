@@ -24,11 +24,12 @@ public class StageScrollUI : UIBase
             int temp = i;
             stageButtons[temp].onClick.AddListener(() =>
             {
-                print("asd");
-                int index = int.Parse(stageButtons[temp].GetComponent<IntListBox>()._contentText.text);
-                if (sm.clearMapCount >= index+1)
+                print($"temp {temp}, length {stageButtons.Length}");
+                int index = int.Parse(stageButtons[temp].GetComponentInParent<IntListBox>()._contentText.text);
+                if (sm.clearMapCount >= index + 1)
                 {
-                    sm.LoadStage(index + 1);
+                    print($"idx:{index}, cc: {sm.clearMapCount}");
+                    sm.LoadStage(index);
                     ScreenOn(false);
                     isScreenOn = false;
                 }

@@ -25,8 +25,9 @@ public class IntListBox : ListBox
         }
 
         int star = PlayerPrefs.GetInt($"{(int)content - 1}Stage", 0);
+        int clearStage = PlayerPrefs.GetInt("ClearMapsCount", 0);
         print($"별 {star}, 슼떼이쥐 {(int)content - 1}");
-        if(star == 0 && (int)content - 1 != 1)
+        if(star == 0 && (int)content - 1 != 1 && (int)content - 1 != clearStage)
         {
             lockObj.SetActive(true);
             starObj.SetActive(false);
