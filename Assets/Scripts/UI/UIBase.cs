@@ -6,11 +6,11 @@ using DG.Tweening;
 
 public abstract class UIBase : MonoBehaviour
 {
-    private CanvasGroup canvasGroup;
+    protected CanvasGroup canvasGroup;
     
     protected void GetCanvasGroup() => canvasGroup = gameObject.GetComponent<CanvasGroup>();
 
-    public void ScreenOn(bool on)
+    public virtual void ScreenOn(bool on)
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;

@@ -7,13 +7,9 @@ public class MapLoadVideoPlayer : MonoBehaviour
     public Texture2D[] texes = new Texture2D[200];
 
     public RawImage img;
-    private Camera cam;
     public RenderTexture rt;
 
-    public void FindCam()
-    {
-        cam = GameObject.Find("MapRenderCam").GetComponent<Camera>();
-    }
+
 
     public void PlayVideo()
     {

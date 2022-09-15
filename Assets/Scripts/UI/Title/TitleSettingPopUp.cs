@@ -9,11 +9,6 @@ public class TitleSettingPopUp : UIBase
     public Button sfxButton;
     public Button cancleButton;
 
-    private void Awake()
-    {
-        GetCanvasGroup();
-    }
-
     public void Start()
     {
         bgmButton.onClick.AddListener(() => print("아직 브금 버튼에 이벤트가 비어있습니다"));
@@ -32,6 +27,6 @@ public class TitleSettingPopUp : UIBase
 
     public override void Init()
     {
-
+        GetCanvasGroup();
     }
 }
