@@ -6,8 +6,7 @@ namespace AirFishLab.ScrollingList.Demo
 {
     public class IntListBox : ListBox
     {
-        [SerializeField]
-        private Text _contentText;
+        public Text _contentText;
 
         protected override void UpdateDisplayContent(object content)
         {

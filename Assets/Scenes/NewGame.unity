@@ -202,6 +202,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6430633673477226738}
     m_Modifications:
+    - target: {fileID: 555470462596859616, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+      propertyPath: stageOnBtn
+      value: 
+      objectReference: {fileID: 1386383585}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -216,27 +220,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 200
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_LocalPosition.x
@@ -272,7 +276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -632,6 +636,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &316847253 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 555470462596859616, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+  m_PrefabInstance: {fileID: 83052252}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e0767723af341f69ec4c8320ffe72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &335124393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,6 +1705,7 @@ MonoBehaviour:
   - {fileID: 6430633673477226748}
   - {fileID: 4246307513747140073}
   - {fileID: 1655952923}
+  - {fileID: 316847253}
 --- !u!1 &1272766289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,7 +1828,7 @@ GameObject:
   - component: {fileID: 1386383586}
   - component: {fileID: 1386383585}
   m_Layer: 5
-  m_Name: ExitBtn
+  m_Name: StageBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

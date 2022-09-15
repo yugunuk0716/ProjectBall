@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1635705197215900726}
   - component: {fileID: 1635705197215900724}
+  - component: {fileID: 7086352340246508827}
   - component: {fileID: 1635705197215900727}
+  - component: {fileID: 555470462596859616}
   m_Layer: 5
   m_Name: StageNumberPanel
   m_TagString: Untagged
@@ -47,6 +49,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635705197215900729}
   m_CullTransparentMesh: 1
+--- !u!225 &7086352340246508827
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635705197215900729}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!114 &1635705197215900727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +91,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &555470462596859616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635705197215900729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e0767723af341f69ec4c8320ffe72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageOnBtn: {fileID: 0}
+  stageButtons: []
+  btnInteractCount: 
 --- !u!1 &6242476328125366089
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,15 +216,15 @@ MonoBehaviour:
     _direction: 1
     _centeredContentID: 0
     _centerSelectedBox: 0
-    _reverseOrder: 0
+    _reverseOrder: 1
     _initializeOnStart: 1
-    _boxDensity: 1
+    _boxDensity: 0.6
     _boxPositionCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -1
-        value: 0
+        time: -1.9997544
+        value: 0.49997208
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -203,8 +232,17 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 1
+        time: -0.025
         value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.9999621
+        value: 0.50002074
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -218,8 +256,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -1
-        value: 1
+        time: -0.49997473
+        value: 0.5500544
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -227,8 +265,17 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 1
-        value: 1
+        time: 0.000019328669
+        value: 0.9002075
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.50009394
+        value: 0.54996943
         inSlope: 0
         outSlope: 0
         tangentMode: 0
