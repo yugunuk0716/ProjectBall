@@ -39,6 +39,7 @@ public class GameManager : ManagerBase
     public Action<Ball, bool> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
+    public Action UpdateUIContents;
     public Action TakeMapLoadVideo;
 
     [HideInInspector] public IEnumerator timerCo;
@@ -162,6 +163,7 @@ public class GameManager : ManagerBase
     {
         if (isSameStageLoaded && lastBallList.Count >= ballCount)
         {
+            Debug.Log("ㅎㅇ");
             for (int i = 0; i < ballCount; i++)
             {
                 MakeNewBallUI(lastBallList[i], true);
@@ -171,6 +173,7 @@ public class GameManager : ManagerBase
         }
         else
         {
+            Debug.Log("기본적인 공 생성");
             for (int i = 0; i < ballCount; i++)
             {
                 Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
@@ -196,6 +199,7 @@ public class GameManager : ManagerBase
             Vibration.Vibrate(500);
             clearParticle_Left.Play();
             clearParticle_Right.Play();
+            UpdateUIContents?.Invoke();
             StopTimer();
             float clearTime = limitTime - realTime;
             SetTimerText("Clear", Color.green);

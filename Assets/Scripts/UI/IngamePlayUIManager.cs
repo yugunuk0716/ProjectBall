@@ -26,7 +26,7 @@ public class IngamePlayUIManager : UIBase
     private float startTouchX;
     private float endTouchX;
 
-    private bool isActivePanelEuqalSettingPanel = true;
+    private bool isSetPanelActive = true;
     private bool isSwiping = false;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
@@ -88,15 +88,13 @@ public class IngamePlayUIManager : UIBase
         //}
         #endregion
 
-        if (isLeft && false == isActivePanelEuqalSettingPanel) // 왼쪽으로 이동, 슈팅 패널이 켜있음
+        if (isLeft && false == isSetPanelActive) // 왼쪽으로 이동, 슈팅 패널이 켜있음
         {
-            Debug.Log(1);
-            DoTweenMove(settingPanel, shootPanel);
-        }
-        else if(!isLeft && isActivePanelEuqalSettingPanel) // 오른쪽 이동, 세팅 패널이 켜있음
-        {
-            Debug.Log(2);
             DoTweenMove(shootPanel, settingPanel);
+        }
+        else if(!isLeft && isSetPanelActive) // 오른쪽 이동, 세팅 패널이 켜있음
+        {
+            DoTweenMove(settingPanel, shootPanel);
         }
     }
 
@@ -104,7 +102,7 @@ public class IngamePlayUIManager : UIBase
     {
         isSwiping = true;
 
-        if (isActivePanelEuqalSettingPanel)
+        if (isSetPanelActive)
         {
             BtnCloseUp(settingPanelOnBtn, shootPanelOnBtn);
         }
@@ -113,15 +111,14 @@ public class IngamePlayUIManager : UIBase
             BtnCloseUp(shootPanelOnBtn, settingPanelOnBtn);
         }
 
-        int targetPos = isActivePanelEuqalSettingPanel ? -1080 : 1080;
-        Debug.Log(targetPos);
+        int targetPos = isSetPanelActive ? -1080 : 1080;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(activePanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
-        seq.Append(activedPanel.GetComponent<RectTransform>().DOAnchorPosX(0, 1f).SetEase(Ease.OutBack).
+        seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
+        seq.Append(activePanel.GetComponent<RectTransform>().DOAnchorPosX(0, 1f).SetEase(Ease.OutBack).
             OnComplete(() =>
             {
-                isActivePanelEuqalSettingPanel = !isActivePanelEuqalSettingPanel;
+                isSetPanelActive = !isSetPanelActive;
                 isSwiping = false;
             }));
     }
@@ -187,6 +184,10 @@ public class IngamePlayUIManager : UIBase
     public override void Load()
     {
         playUIs.ForEach((x) => x.Load());
+        if (false == isSetPanelActive) // 왼쪽으로 이동, 슈팅 패널이 켜있음
+        {
+            DoTweenMove(shootPanel, settingPanel);
+        }
     }
 
 

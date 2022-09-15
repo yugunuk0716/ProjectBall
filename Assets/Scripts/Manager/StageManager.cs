@@ -27,7 +27,7 @@ public class StageManager : ManagerBase
 
     public override void Init()
     {
-        ClearBallUis += () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
+        ClearBallUis = () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
 
         for (int i = 0; i < clearMapCount; i++)
@@ -48,11 +48,6 @@ public class StageManager : ManagerBase
 
         stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
 
-        foreach (var item in stageDataList)
-        {
-            print($"   {item.name}          {item.range}");
-        }
-
         LoadStage(stageIndex);
 
     }
@@ -70,7 +65,6 @@ public class StageManager : ManagerBase
         bool isSameStageLoaded = false;
 
         int realIndex = stageIndex - 1;
-        print($"real {realIndex}");
 
         if (currentStageData == null) // 첫 로드
         {
@@ -96,7 +90,7 @@ public class StageManager : ManagerBase
             ClearActiveBalls();
             ReuseUI?.Invoke();
 
-            gm.TakeMapLoadVideo();
+            //gm.TakeMapLoadVideo();
             foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);

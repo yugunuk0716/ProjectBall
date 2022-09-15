@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AirFishLab.ScrollingList.Demo;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,15 @@ public class StageScrollUI : UIBase
 
     private bool isScreenOn = false;
 
+    public List<IntListBox> allContents = new List<IntListBox>();
+
     public override void Init()
     {
         GetCanvasGroup();
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         stageButtons = GetComponentsInChildren<Button>();
+        allContents = GetComponentsInChildren<IntListBox>().ToList();
+        IsometricManager.Instance.GetManager<GameManager>().UpdateUIContents += () => { allContents.ForEach(c => c.UpdateContent()); };
 
         stageOnBtn.onClick.AddListener(() => { ScreenOn(!isScreenOn); isScreenOn = !isScreenOn; });
 
@@ -26,9 +31,9 @@ public class StageScrollUI : UIBase
             {
                 print($"temp {temp}, length {stageButtons.Length}");
                 int index = int.Parse(stageButtons[temp].GetComponentInParent<IntListBox>()._contentText.text);
-                if (sm.clearMapCount >= index + 1)
+                print($"idx:{index}, cc: {sm.clearMapCount}");
+                if (sm.clearMapCount + 1 >= index)
                 {
-                    print($"idx:{index}, cc: {sm.clearMapCount}");
                     sm.LoadStage(index);
                     ScreenOn(false);
                     isScreenOn = false;
