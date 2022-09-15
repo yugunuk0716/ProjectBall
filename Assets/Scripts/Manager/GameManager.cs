@@ -136,10 +136,6 @@ public class GameManager : ManagerBase
             SetTimerText("Failed", Color.red);
             ActiveGameOverPanel(false);
         }
-        else
-        {
-            Debug.Log($"{myBallList.Count}, {aliveBallList.Count}, {goalList.FindAll(goal => !goal.isChecked).Count}");
-        }
     }
 
     public void ResetOrderTexts()
