@@ -105,6 +105,7 @@ MonoBehaviour:
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
   btnIndex: 0
+  btnString: 
   isHorizontalWall: 1
   horSprites:
   - {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}

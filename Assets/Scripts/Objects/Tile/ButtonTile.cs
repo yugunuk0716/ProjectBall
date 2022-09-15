@@ -5,14 +5,11 @@ using UnityEngine;
 
 public class ButtonTile : ObjectTile
 {
-    private ObjectTile target;
-    public int index;
-    public string targetstring;
-
+    public List<ObjectTile> target = new List<ObjectTile>();
     public override void InteractionTile(Ball tb)
     {
-        InvokeData();
         tb.SetMove();
+        InvokeData();
     }
 
     public override void Reset()
@@ -36,24 +33,25 @@ public class ButtonTile : ObjectTile
         List<ObjectTile> tiles = new List<ObjectTile>(
             IsometricManager.Instance.GetManager<GameManager>().tileDict.Values);
 
-        tiles.ForEach((x) =>
-        {
-            if(x.btnIndex.Equals(this.btnIndex))
-            {
-                target = x;
-            }
-        });
+        tiles.FindAll(x => x.btnIndex == this.btnIndex && x != this).ForEach((x) => Debug.Log(x));
+
+        target = tiles.FindAll(x => x.btnIndex == this.btnIndex && x != this);
 
         SetData();
     }
 
     private void SetData()
     {
-        target.dataString = targetstring;
+        //target 내용중 .dataString에 targetstring을 넣는다
+        target.ForEach(x => x.dataString = x.btnString);
+
+        /*//target에 있는 .btnstring을 유니티 콘솔에 출력한다
+        target.ForEach(x => Debug.Log(x));*/
     }
 
     private void InvokeData()
     {
-        target.SetDirection();
+        //target 의 Setdiraction()을 실행
+        target.ForEach(x => x.SetDirection());
     }
 }

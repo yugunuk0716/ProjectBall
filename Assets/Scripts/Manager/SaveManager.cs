@@ -163,12 +163,21 @@ public class SaveManager : ManagerBase
     private void SettingObjectTiles(TileData data)
     {
         ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
-        ButtonTile bt = null;
         int index = 0;
+        int targetindex =0;
         if (data.isTransitionTile)
         {
             a.StartTransition();
         }
+
+        if(data.targetstring != null)
+        {
+            //data.targetstring을 ! 기준으로 나눠서 0번 인덱스를 다시 넣어주기
+            string[] str = data.targetstring.Split('!');
+            data.targetstring = str[0];
+            
+        }
+
 
 
         if (data.lineDir != null)
@@ -179,6 +188,10 @@ public class SaveManager : ManagerBase
                 data.lineDir = data.lineDir[1..];
             }
             Line line = PoolManager.Instance.Pop("Line") as Line;
+
+            
+
+
             switch (data.lineDir)
             {
                 case "┃":
@@ -231,6 +244,10 @@ public class SaveManager : ManagerBase
             }
 
 
+            //sr.color를  DoTween을 이용하여 알파값을 1로 1초안에 바꿔주기
+            
+            
+
             SpriteRenderer sr = line.GetComponent<SpriteRenderer>();
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
             sr.DOFade(1, .7f).SetEase(Ease.Linear);
@@ -270,17 +287,12 @@ public class SaveManager : ManagerBase
                 ColorGoal cg = a.GetComponent<ColorGoal>();
                 cg.SetSuccessColor(changeColor);
             }
-
-            if(data.type.Equals(TileType.Button))
-            {
-                //스위치한테 정보 주기
-                bt = a.GetComponent<ButtonTile>();
-                bt.targetstring = targetString;
-            }
-
-            //스프라이트 갈아끼고 아래 변수들 다 설정해줘야댐
-            a.btnIndex = index;
             
+            a.btnIndex = index;
+
+            a.btnString = data.targetstring;
+
+
             a.dataString = data.lastString;
 
             a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
@@ -426,7 +438,7 @@ public class SaveManager : ManagerBase
                     case TileColors.Gray:
                         return TileType.Thon;
                     case TileColors.Deepblue:
-                        return TileType.Button;
+                        return TileType.ButtonTile;
                 }
             }
         }

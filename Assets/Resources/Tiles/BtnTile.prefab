@@ -118,5 +118,5 @@ MonoBehaviour:
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
   btnIndex: 0
-  index: 0
-  targetstring: 
+  btnString: 
+  target: []

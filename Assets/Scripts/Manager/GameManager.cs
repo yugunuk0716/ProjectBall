@@ -11,7 +11,7 @@ public class GameManager : ManagerBase
 
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
-    private List<ButtonTile> buttonTileList = new List<ButtonTile>();
+    public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
     public List<Ball> lastBallList = new List<Ball>();
     public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
@@ -82,7 +82,7 @@ public class GameManager : ManagerBase
         PoolManager.Instance.CreatePool(tile, "Line", 10);
 
         tile = Resources.Load<ObjectTile>("Tiles/BtnTile");
-        PoolManager.Instance.CreatePool(tile, "Button", 10);
+        PoolManager.Instance.CreatePool(tile, "ButtonTile", 10);
 
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
         PoolManager.Instance.CreatePool(ball, null, 5);

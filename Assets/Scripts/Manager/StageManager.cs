@@ -102,7 +102,6 @@ public class StageManager : ManagerBase
     {
         yield return new WaitForSeconds(1f);
         callBack();
-
     }
 
     private void ClearActiveBalls()
