@@ -24,9 +24,14 @@ public class StageScrollUI : UIBase
             int temp = i;
             stageButtons[temp].onClick.AddListener(() =>
             {
-                sm.LoadStage(int.Parse(stageButtons[temp].GetComponent<IntListBox>()._contentText.text) + 1);
-                ScreenOn(false);
-                isScreenOn = false;
+                print("asd");
+                int index = int.Parse(stageButtons[temp].GetComponent<IntListBox>()._contentText.text);
+                if (sm.clearMapCount >= index+1)
+                {
+                    sm.LoadStage(index + 1);
+                    ScreenOn(false);
+                    isScreenOn = false;
+                }
             });
         }
     }
