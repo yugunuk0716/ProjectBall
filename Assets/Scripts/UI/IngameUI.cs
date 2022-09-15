@@ -178,7 +178,8 @@ public class IngameUI : UIBase
 
     public void MakeTargetPoints()
     {
-        for(int i = 0; i< Resources.Load<StageDataSO>($"Stage {IsometricManager.Instance.GetManager<StageManager>().stageIndex}").balls.Length; i++)
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+        for (int i = 0; i< sm.stageDataList[sm.stageIndex - 1].balls.Length; i++)
         {
             Instantiate(targetPointObjPrefab, targetPointContent);
         }
