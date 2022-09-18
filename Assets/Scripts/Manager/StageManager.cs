@@ -90,7 +90,7 @@ public class StageManager : ManagerBase
             ClearActiveBalls();
             ReuseUI?.Invoke();
 
-            //gm.TakeMapLoadVideo();
+            gm.TakeMapLoadVideo();
             foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);

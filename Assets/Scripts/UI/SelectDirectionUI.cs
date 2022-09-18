@@ -66,7 +66,7 @@ public class SelectDirectionUI : UIBase
 
         if (on)
         {
-            //mapLoadVideoPlayer.PlayVideo();
+            mapLoadVideoPlayer.PlayVideo();
         }
     }
 
