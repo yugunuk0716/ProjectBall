@@ -9,7 +9,7 @@ public class IntListBox : ListBox
     public Image minimapImage;
     public List<Sprite> minimapSpriteList;
 
-    private int lastIndex = 0;
+    public int lastIndex = 0;
 
     public List<Image> starList;
     public GameObject lockObj;
@@ -19,6 +19,7 @@ public class IntListBox : ListBox
     {
         lastIndex = (int)content;
         _contentText.text = lastIndex.ToString();
+        UpdateContents?.Invoke(this, lastIndex);
 
 
         if (lastIndex - 1 < minimapSpriteList.Count)

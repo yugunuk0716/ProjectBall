@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AirFishLab.ScrollingList.BoxTransformCtrl;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,9 @@ namespace AirFishLab.ScrollingList
     /// </summary>
     public class ListBox : MonoBehaviour
     {
+
+        public Action<IntListBox,int> UpdateContents;
+
         #region Exposed Properties
 
         /// <summary>

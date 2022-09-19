@@ -8,12 +8,9 @@ using UnityEngine.UI;
 public class StageScrollUI : UIBase
 {
     public Button stageOnBtn;
-    public Button[] stageButtons;
-
+    public List<int> stageIndexList;
     private bool isScreenOn = false;
-    bool canEnter = false;
     
-    int index;
     StageManager sm;
     public List<IntListBox> allContents = new List<IntListBox>();
 
@@ -21,49 +18,43 @@ public class StageScrollUI : UIBase
     {
         GetCanvasGroup();
         sm = IsometricManager.Instance.GetManager<StageManager>();
-        stageButtons = GetComponentsInChildren<Button>();
-        allContents = GetComponentsInChildren<IntListBox>().ToList();
-        IsometricManager.Instance.GetManager<GameManager>().UpdateUIContents += () => { allContents.ForEach(c => c.UpdateContent()); };
 
         stageOnBtn.onClick.AddListener(() =>
         {
             ScreenOn(!isScreenOn);
             isScreenOn = !isScreenOn;
-            ASD();
         });
-
+        allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
        
     }
 
-    public void ASD()
+    public void UpdateButtonListener(IntListBox myBox, int lastIndex)
     {
-        for (int i = 0; i < stageButtons.Length; i++)
+   
+        int index = lastIndex;
+        bool canEnter = false;
+        if (sm.clearMapCount + 1 >= index)
         {
-            int temp = i;
-            IntListBox box = stageButtons[temp].GetComponentInParent<IntListBox>();
-            index = 0;
-            bool a = int.TryParse(box._contentText.text, out index);
-            print(box._contentText.text);
-            bool canEnter = false;
-            if (sm.clearMapCount + 1 >= index)
-            {
-                canEnter = true;
+            canEnter = true;
 
-            }
-            box.SetLock(!canEnter);
-            stageButtons[temp].onClick.AddListener(() =>
-            {
-                print($"temp {temp}, length {stageButtons.Length}");
-                print($"idx:{index}, cc: {sm.clearMapCount}");
-                if (canEnter)
-                {
-                    sm.LoadStage(index);
-                    ScreenOn(false);
-                    isScreenOn = false;
-                }
-            });
         }
+        myBox.SetLock(!canEnter);
+        Button myButton = myBox.GetComponentInChildren<Button>();
+        myButton.onClick.RemoveAllListeners();
+        myButton.onClick.AddListener(() =>
+        {
+            print(lastIndex);
+            print($"idx:{index}, cc: {sm.clearMapCount}");
+            if (canEnter)
+            {
+                sm.LoadStage(index);
+                ScreenOn(false);
+                isScreenOn = false;
+            }
+        });
     }
+
+   
 
     public override void Load()
     {
