@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5719220033854615490}
-  - component: {fileID: 216864386902218647}
-  - component: {fileID: -8147459176515769411}
   - component: {fileID: 6698748727437804895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BtnTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,18 +28,76 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1699597219058609379}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &216864386902218647
-SpriteRenderer:
+--- !u!114 &6698748727437804895
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82122c7971e6a9342b06d9089abbaf96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  count: 2
+  dataString: 
+  myType: 10
+  worldPos: {x: 0, y: 0}
+  keyPos: {x: 0, y: 0}
+  gridPos: {x: 0, y: 0, z: 0}
+  btnIndex: 0
+  btnString: 
+  target: []
+  spriteList:
+  - {fileID: 1911631213, guid: 18ba94ed2b22fc6478351ce480d47275, type: 3}
+  - {fileID: 1546442308, guid: 18ba94ed2b22fc6478351ce480d47275, type: 3}
+--- !u!1 &3432228913819585876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1699597219058609379}
+  - component: {fileID: 6154504951280268913}
+  - component: {fileID: 1263942743803433219}
+  m_Layer: 6
+  m_Name: img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1699597219058609379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432228913819585876}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5719220033854615490}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &6154504951280268913
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432228913819585876}
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -74,9 +130,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
-  m_Sprite: {fileID: -373634204, guid: e5904df21d1cfcb49afdac1af02910b8, type: 3}
-  m_Color: {r: 0.5235849, g: 1, b: 0.7537299, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1911631213, guid: 18ba94ed2b22fc6478351ce480d47275, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,37 +142,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-8147459176515769411
+--- !u!114 &1263942743803433219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
+  m_GameObject: {fileID: 3432228913819585876}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOnce: 0
---- !u!114 &6698748727437804895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1893477038133102498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82122c7971e6a9342b06d9089abbaf96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  count: 2
-  dataString: 
-  myType: 10
-  worldPos: {x: 0, y: 0}
-  keyPos: {x: 0, y: 0}
-  gridPos: {x: 0, y: 0, z: 0}
-  btnIndex: 0
-  btnString: 
-  target: []
