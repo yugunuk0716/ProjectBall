@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Confirm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -560,6 +560,12 @@ MonoBehaviour:
   ballControllUIPrefab: {fileID: 2419485390776273089, guid: e860670506b257842b64463815e628d8, type: 3}
   targetPointObjPrefab: {fileID: 464324170355428785, guid: 07c9bdb45c8ee1643878fabe310e9d36, type: 3}
   selectDirectionUI: {fileID: 0}
+  shootPanel: {fileID: 0}
+  setOnBtn: {fileID: 0}
+  shootOnBtn: {fileID: 0}
+  confirmBtn: {fileID: 4122082504405866080}
+  shootBtn: {fileID: 0}
+  targetPoint_ShootBtn: {fileID: 0}
 --- !u!114 &6179364311213012040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +706,7 @@ GameObject:
   - component: {fileID: 5804564678391300592}
   - component: {fileID: 4122082504405866080}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Confirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
