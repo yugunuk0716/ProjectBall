@@ -9,7 +9,7 @@ public class IntListBox : ListBox
     public Image minimapImage;
     public List<Sprite> minimapSpriteList;
 
-    private int lastIndex = 0;
+    public int lastIndex = 0;
 
     public List<Image> starList;
     public GameObject lockObj;
@@ -19,34 +19,27 @@ public class IntListBox : ListBox
     {
         lastIndex = (int)content;
         _contentText.text = lastIndex.ToString();
+        UpdateContents?.Invoke(this, lastIndex);
 
-        
+
         if (lastIndex - 1 < minimapSpriteList.Count)
         {
             //minimapImage.sprite = minimapSpriteList[lastIndex];
         }
 
-        int star = PlayerPrefs.GetInt($"{lastIndex - 1}Stage", 0);
-        print(lastIndex - 1);
-        int clearStage = PlayerPrefs.GetInt("ClearMapsCount", 0);
-        print($"별 {star}");
+        //int star = PlayerPrefs.GetInt($"{lastIndex - 1}Stage", 0);
+        //print(lastIndex);
+        //int clearStage = PlayerPrefs.GetInt("ClearMapsCount", 0);
+        //print($"별 {star}");
 
-        if (star == 0 && lastIndex - 1 != 0 && clearStage + 1 < lastIndex - 1)
-        {
-            lockObj.SetActive(true);
-            starObj.SetActive(false);
-        }
-        else
-        {
-            lockObj.SetActive(false);
-            starObj.SetActive(true);
+       
 
-            for (int i = 0; i < star; i++)
-            {
-                starList[i].gameObject.SetActive(true);
-            }
-        }
 
+    }
+
+    public void SetLock(bool on)
+    {
+        lockObj.SetActive(on);
     }
 
     public void UpdateContent()

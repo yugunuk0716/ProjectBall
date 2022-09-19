@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MapLoadVideoPlayer : MonoBehaviour
 {
     int videoLength = 100;
-    public Texture2D[] texes;
+    private Texture2D[] texes;
 
     public RawImage img;
     public RenderTexture rt;
@@ -22,16 +22,12 @@ public class MapLoadVideoPlayer : MonoBehaviour
         {
             texes[i] = new Texture2D(rt.width, rt.height); // 전체적으로 생성
         }
-
     }
 
     public void PlayVideo()
     {
-        Debug.Log("PlayVideo");
-
         if(playVideo != null)
         {
-            Debug.Log("Stop");
             StopCoroutine(playVideo);
         }
         playVideo = StartCoroutine(CoPlayVideo());
@@ -51,8 +47,6 @@ public class MapLoadVideoPlayer : MonoBehaviour
             texes[i].Apply();
             yield return ws;
         }
-
-        Debug.Log("완료");
     }
 
     IEnumerator CoPlayVideo()

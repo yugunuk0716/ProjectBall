@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: unknown (13)_0
+      name: Clouds_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9005169986a091b42977ad70babeafef
-      internalID: -1168495932
+      spriteID: 94f4e4357c4b74b46b30ab19a11e5d02
+      internalID: 1115442134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown (13)_1
+      name: Clouds_1
       rect:
         serializedVersion: 2
         x: 128
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e89a40fca68d2c04ca48ff70cce2c6f0
-      internalID: 823252428
+      spriteID: f7b3ece0cb09de64e82190260b4d21d8
+      internalID: 1438715801
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown (13)_2
+      name: Clouds_2
       rect:
         serializedVersion: 2
         x: 256
@@ -172,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de1848eeb0f9d37489904fe66f040b04
-      internalID: 556058860
+      spriteID: c05edecea6c6c9b4a9c3390af5def7ae
+      internalID: 698724555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown (13)_3
+      name: Clouds_3
       rect:
         serializedVersion: 2
         x: 384
@@ -193,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbf27bc64b5e9454597e979da6ce0ef7
-      internalID: 2037449987
+      spriteID: ba801f052ec8a8b468f05f47b6807513
+      internalID: 45021512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unknown (13)_4
+      name: Clouds_4
       rect:
         serializedVersion: 2
         x: 512
@@ -214,8 +214,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 988d30e602dc5c646ada710dcce31335
-      internalID: 1575677767
+      spriteID: c4a1cfe800a57144e88c238426837d13
+      internalID: 375943512
       vertices: []
       indices: 
       edges: []
@@ -231,11 +231,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      unknown (13)_0: -1168495932
-      unknown (13)_4: 1575677767
-      unknown (13)_3: 2037449987
-      unknown (13)_1: 823252428
-      unknown (13)_2: 556058860
+      Clouds_4: 375943512
+      Clouds_0: 1115442134
+      Clouds_1: 1438715801
+      Clouds_3: 45021512
+      Clouds_2: 698724555
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
