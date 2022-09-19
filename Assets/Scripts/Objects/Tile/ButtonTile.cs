@@ -6,15 +6,23 @@ using UnityEngine;
 public class ButtonTile : ObjectTile
 {
     public List<ObjectTile> target = new List<ObjectTile>();
+    public List<Sprite> spriteList = new List<Sprite>();
+    private SpriteRenderer sr;
     public override void InteractionTile(Ball tb)
     {
         tb.SetMove();
         InvokeData();
+
+        if (sr.sprite.Equals(spriteList[0]))
+        {
+            sr.sprite = spriteList[1];
+        }
     }
 
     public override void Reset()
     {
-
+        sr = GetComponentInChildren<SpriteRenderer>();
+        sr.sprite = spriteList[0];
     }
 
 /*    public void SetTarget(ObjectTile t,string ts)
