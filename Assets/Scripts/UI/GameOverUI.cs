@@ -9,9 +9,17 @@ public class GameOverUI : UIBase
     [SerializeField] private Button reloadBtn;
     [SerializeField] private Button loadNextBtn;
     [SerializeField] private TextMeshProUGUI gameOverText;
-
+    StageManager sm;
     public List<Image> starList = new List<Image>();
     public bool isClear = false;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            print($"cc: {sm.clearMapCount + 1}  idx: {sm.stageIndex}");
+        }
+    }
 
     public void OnGameOver(bool isClear)
     {
@@ -26,13 +34,14 @@ public class GameOverUI : UIBase
         GetCanvasGroup();
         IsometricManager.Instance.GetManager<GameManager>().ActiveGameOverPanel = (bool isClear) => OnGameOver(isClear);
 
-        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+        sm = IsometricManager.Instance.GetManager<StageManager>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         gm.OnClear = SetStar;
 
         reloadBtn.onClick.AddListener(() =>
         {
+            print(sm.stageIndex);
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
             starList.ForEach(s => s.gameObject.SetActive(false));
@@ -40,6 +49,7 @@ public class GameOverUI : UIBase
 
         loadNextBtn.onClick.AddListener(() =>
         {
+
             sm.stageIndex++;
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
@@ -74,5 +84,10 @@ public class GameOverUI : UIBase
     public override void Load()
     {
 
+    }
+
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
     }
 }

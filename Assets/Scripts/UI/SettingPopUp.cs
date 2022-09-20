@@ -27,5 +27,8 @@ public class SettingPopUp : UIBase
         
     }
 
-   
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
 }

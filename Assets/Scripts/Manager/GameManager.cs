@@ -170,11 +170,15 @@ public class GameManager : ManagerBase
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
 
             int star = sm.CalcStar(clearTime);
+
             sm.SaveStar(sm.stageIndex - 1, star);
 
-            if(sm.stageIndex -1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
+            print($"idx: {sm.stageIndex} cc {sm.clearMapCount}");
+
+            if(sm.stageIndex - 1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
             {
                 sm.clearMapCount++;
+                print("update clear count");
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
                 
                 if(sm.clearMapCount % 3 == 0)

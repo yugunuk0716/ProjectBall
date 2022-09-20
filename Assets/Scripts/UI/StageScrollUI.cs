@@ -22,11 +22,20 @@ public class StageScrollUI : UIBase
 
         stageOnBtn.onClick.AddListener(() =>
         {
-            ScreenOn(!isScreenOn);
-            isScreenOn = !isScreenOn;
+            if(!GameManager.CanNotInteract)
+            {
+                ScreenOn(!isScreenOn);
+                isScreenOn = !isScreenOn;
+                allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
+            }
+
         });
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
-       
+
+        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) => { allContents.ForEach(c => c.UpdateContent()); };
+
+        ScreenOn(true);
+        isScreenOn = true;
     }
 
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
@@ -34,6 +43,7 @@ public class StageScrollUI : UIBase
    
         int index = lastIndex;
         bool canEnter = false;
+
         if (sm.clearMapCount + 1 >= index)
         {
             canEnter = true;
@@ -44,11 +54,11 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
-            print(lastIndex);
-            print($"idx:{index}, cc: {sm.clearMapCount}");
+            print($"cc: {sm.clearMapCount + 1}  idx: {index}");
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
+                sm.stageIndex = index;
                 isScreenOn = false;
             }
         });
@@ -61,4 +71,8 @@ public class StageScrollUI : UIBase
         
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
 }

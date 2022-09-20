@@ -25,6 +25,12 @@ public class StageInfoUI : UIBase
         
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    // Start is called before the first frame update
     public void ScreenOn(bool on, int stageIndex, StageScrollUI ssUI)
     {
         if(canvasGroup == null)
@@ -33,10 +39,15 @@ public class StageInfoUI : UIBase
             cancleButton.onClick.AddListener(() => ScreenOn(false));
             sm = IsometricManager.Instance.GetManager<StageManager>();
         }
+        for (int i = 0; i < 3; i++)
+        {
+            starImages[i].gameObject.SetActive(false);
+        }
 
         enterButton.onClick.RemoveAllListeners();
         enterButton.onClick.AddListener(() =>
         {
+            
             sm.LoadStage(stageIndex);
             ScreenOn(false);
             ssUI.ScreenOn(false);
@@ -44,8 +55,9 @@ public class StageInfoUI : UIBase
         });
         stageIndexText.SetText(stageIndex.ToString());
         int starCount = sm.GetStar(stageIndex - 1);
-        print(stageIndex);
-        print(starCount);
+
+        print($"star count: {starCount} stage Idx{stageIndex - 1}");
+
         for (int i = 0; i < starCount; i++)
         {
             starImages[i].gameObject.SetActive(true);

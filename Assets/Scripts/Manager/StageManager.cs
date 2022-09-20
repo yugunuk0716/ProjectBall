@@ -27,7 +27,7 @@ public class StageManager : ManagerBase
 
     public override void Init()
     {
-        ClearBallUis = () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
+        ClearBallUis = () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => PoolManager.Instance.Push(x));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
 
         for (int i = 0; i < clearMapCount; i++)
@@ -47,8 +47,6 @@ public class StageManager : ManagerBase
         stageDataList = Resources.LoadAll<StageDataSO>("StageDatas").ToList();
 
         stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
-
-        LoadStage(stageIndex);
 
     }
 
@@ -158,6 +156,7 @@ public class StageManager : ManagerBase
 
     public void SaveStar(int curStageIndex, int starCount)
     {
+        print(curStageIndex);
         PlayerPrefs.SetInt($"{curStageIndex}Stage", starCount);
     }
 

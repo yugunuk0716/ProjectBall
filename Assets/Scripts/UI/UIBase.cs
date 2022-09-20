@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public abstract class UIBase : MonoBehaviour
+public abstract class UIBase : PoolableMono
 {
     protected CanvasGroup canvasGroup;
     
