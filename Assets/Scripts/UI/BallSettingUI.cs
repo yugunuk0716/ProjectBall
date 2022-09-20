@@ -95,8 +95,6 @@ public class BallSettingUI : UIBase
 
     public override void Load()
     {
-        shootBtn.interactable = false;
-
         order = 0;
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
         for(int i = 1; i < arr.Length; i++)
