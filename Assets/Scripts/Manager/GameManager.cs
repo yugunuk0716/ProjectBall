@@ -261,6 +261,12 @@ public class GameManager : ManagerBase
 
         BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);
+
+        BallControllUI ballControll = Resources.Load<BallControllUI>("UIs/BallControllUI");
+        PoolManager.Instance.CreatePool(ballControll, null, 10);
+
+        TargetPointUI targetPointUI = Resources.Load<TargetPointUI>("UIs/TargetPointUI");
+        PoolManager.Instance.CreatePool(targetPointUI, null, 10);
     }
 
     public override void UpdateState(eUpdateState state)

@@ -84,6 +84,7 @@ public class BallSettingUI : UIBase
         {
             if (false == GameManager.CanNotInteract && gm.myBallList.Count >= gm.maxBallCount)
             {
+
                 gm.ballUIList.ForEach((x) => x.directionSetBtn.interactable = false);
                 StartCoroutine(MoveBallUis(gm.ballUIList));
             }
@@ -104,31 +105,29 @@ public class BallSettingUI : UIBase
         MakeTargetPoints();
         GameManager.CanNotInteract = true;
         Sequence rollbackUISeq = DOTween.Sequence();
-        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-100, 60, 0), 0.5f).SetEase(Ease.OutCubic));
-        rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.5f, RotateMode.LocalAxisAdd));
-        rollbackUISeq.Join(shootBtn.transform.DOScale(new Vector3(1, 1, 1), 0.5f));
-        rollbackUISeq.SetDelay(0.3f).OnComplete(() => SwitchUI(true));
+        rollbackUISeq.SetAutoKill(false);
+        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-150, 170, 0), 0.5f).SetEase(Ease.OutCubic));
+        rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, -720), 0.5f, RotateMode.LocalAxisAdd));
+        rollbackUISeq.Join(shootBtn.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).OnComplete(() => SwitchUI(true)));
 
-        rollbackUISeq.Append(shootIcon.DOAnchorPosX(-50, 0.4f).SetEase(Ease.InQuart));
-        rollbackUISeq.Join(setIcon.DOAnchorPosX(-250, 0.3f).SetEase(Ease.InQuart).SetDelay(0.1f));
-        rollbackUISeq.PrependInterval(0.3f).OnComplete(() => GameManager.CanNotInteract = false);
+        rollbackUISeq.Append(setIcon.DOAnchorPosX(-250, 0.6f).SetEase(Ease.InQuart));
+        rollbackUISeq.Join(shootIcon.DOAnchorPosX(-50, 0.6f).SetEase(Ease.InQuart).SetDelay(0.2f).OnComplete(() => GameManager.CanNotInteract = false));
     }
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
         GameManager.CanNotInteract = true;
+        shootBtn.interactable = false;
 
         Sequence changeUISeq = DOTween.Sequence();
-        changeUISeq.SetAutoKill(false);
         changeUISeq.Append(shootIcon.DOAnchorPosX(300, 0.4f).SetEase(Ease.InQuart));
-        changeUISeq.Join(setIcon.DOAnchorPosX(500, 0.3f).SetEase(Ease.InQuart).SetDelay(0.1f));
-        changeUISeq.SetDelay(0.2f).OnComplete(() => SwitchUI(false));
+        changeUISeq.Join(setIcon.DOAnchorPosX(500, 0.3f).SetEase(Ease.InQuart).SetDelay(0.1f).OnComplete(() => SwitchUI(false)));
 
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(1.3f);
 
         Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // 걍 0번은 무시하고 가죠
 
-        float duration = 0.3f;
+        float duration = 0.2f;
         float minusDuration = duration / targetPoints.Length / 2;
 
         yield return null;
@@ -136,18 +135,21 @@ public class BallSettingUI : UIBase
         for (int i = 0; i < list.Count; i++)
         {
             list[i].transform.SetParent(targetPoints[i + 1]);
-            list[i].transform.DOMove(targetPoints[i + 1].position, 0.7f).SetEase(Ease.OutCubic);
+            list[i].transform.DOMove(targetPoints[i + 1].position, 0.4f).SetEase(Ease.OutCubic);
             yield return new WaitForSeconds(duration);
             duration -= minusDuration;
         }
 
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.2f);
 
-        changeUISeq.Append(shootPanel.DOAnchorPosX(100, 0.6f).SetEase(Ease.InQuart));
-        changeUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.5f).SetEase(Ease.OutCubic));
-        changeUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.5f, RotateMode.LocalAxisAdd));
-        changeUISeq.Join(shootBtn.transform.DOScale(new Vector3(2, 2, 2), 0.5f).OnComplete(() => GameManager.CanNotInteract = false));
-
+        Sequence changeUISeq2 = DOTween.Sequence();
+        changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.8f).SetEase(Ease.OutCubic));
+        changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
+        changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(2, 2, 2), 0.8f).OnComplete(() =>
+        {
+            GameManager.CanNotInteract = false;
+            shootBtn.interactable = true;
+        }));
     }
 
     public void MakeTargetPoints()
