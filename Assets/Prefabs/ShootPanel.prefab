@@ -169,11 +169,11 @@ RectTransform:
   m_Children:
   - {fileID: 5234662905621075421}
   m_Father: {fileID: 5234662906778200560}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -40, y: 0}
+  m_AnchoredPosition: {x: -39.999893, y: 0}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &5234662905902899574
@@ -386,7 +386,7 @@ RectTransform:
   - {fileID: 5234662906132172184}
   - {fileID: 5234662906899898896}
   m_Father: {fileID: 5234662906778200560}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -508,7 +508,6 @@ GameObject:
   - component: {fileID: 5234662906778200564}
   - component: {fileID: 5234662906778200570}
   - component: {fileID: 5234662906778200565}
-  - component: {fileID: 2826761391353070050}
   m_Layer: 5
   m_Name: ShootPanel
   m_TagString: Untagged
@@ -528,8 +527,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5234662905902899571}
   - {fileID: 5234662906135394634}
+  - {fileID: 5234662905902899571}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -606,19 +605,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2826761391353070050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5234662906778200563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18e0664714aa2ec42a25fcf073a31366, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootBtn: {fileID: 5234662905902899568}
 --- !u!1 &5234662906866800769
 GameObject:
   m_ObjectHideFlags: 0

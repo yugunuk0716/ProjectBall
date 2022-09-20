@@ -55,10 +55,10 @@ public class IngamePlayUIManager : UIBase
         }
 
         int targetPos = isSetPanelActive ? -1080 : 1080;
-
+        int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
-        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(0, 0.6f).SetDelay(0.2f).SetEase(Ease.OutBack).
+        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.6f).SetDelay(0.2f).SetEase(Ease.OutBack).
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
