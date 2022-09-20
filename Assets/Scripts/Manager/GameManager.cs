@@ -86,7 +86,13 @@ public class GameManager : ManagerBase
         PoolManager.Instance.CreatePool(tile, "ButtonTile", 10);
 
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
-        PoolManager.Instance.CreatePool(ball, null, 5);
+        PoolManager.Instance.CreatePool(ball, null, 10);
+
+        BallControllUI ballControllUI = Resources.Load<BallControllUI>("UIs/BallControllUI");
+        PoolManager.Instance.CreatePool(ballControllUI, null, 10);
+
+        TargetPointUI targetPointUI = Resources.Load<TargetPointUI>("UIs/TargetPointUI");
+        PoolManager.Instance.CreatePool(targetPointUI, null, 10);
 
 
 

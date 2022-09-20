@@ -75,4 +75,9 @@ public class SelectDirectionUI : UIBase
     {
         ScreenOn(false);
     }
+
+    public override void Reset()
+    {
+        throw new NotImplementedException();
+    }
 }

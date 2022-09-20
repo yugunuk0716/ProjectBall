@@ -27,7 +27,7 @@ public class StageManager : ManagerBase
 
     public override void Init()
     {
-        ClearBallUis = () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => Destroy(x.gameObject));
+        ClearBallUis = () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => PoolManager.Instance.Push(x));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
 
         for (int i = 0; i < clearMapCount; i++)

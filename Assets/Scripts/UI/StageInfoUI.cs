@@ -25,6 +25,11 @@ public class StageInfoUI : UIBase
         
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+    // Start is called before the first frame update
     public void ScreenOn(bool on, int stageIndex, StageScrollUI ssUI)
     {
         if(canvasGroup == null)

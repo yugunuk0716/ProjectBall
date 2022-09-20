@@ -53,5 +53,8 @@ public class IngameUI : UIBase
 
     }
 
-
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
 }
