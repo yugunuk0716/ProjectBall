@@ -12,8 +12,8 @@ public class IngamePlayUIManager : UIBase
     [SerializeField] RectTransform shootPanel; // scroll value = 1
 
     [Header("Button"), Space(10)]
-    [SerializeField] Button settingPanelOnBtn;
-    [SerializeField] Button shootPanelOnBtn;
+    [SerializeField] Image settingIcon;
+    [SerializeField] Image shootIcon;
 
     [Header("Float"), Space(10)]
     [SerializeField] float swipeTime = 0.2f;
@@ -21,9 +21,6 @@ public class IngamePlayUIManager : UIBase
     [Header("UI About Ingame PlayUI"), Space(10)]
     [SerializeField] List<UIBase> playUIs = new List<UIBase>();
 
-    private float startTouchX;
-    private float endTouchX;
-    private float swipeDist = 150f;
     private bool isSetPanelActive = true;
     private bool isSwiping = false;
 
@@ -31,87 +28,38 @@ public class IngamePlayUIManager : UIBase
 
     Sequence seq;
 
-    private void Update()
+    private void SwitchUI(bool moveLeft, bool isForLoad)
     {
-        return;
+        if (isForLoad && isSetPanelActive) return;
 
-#if UNITY_EDITOR
-        // 마우스 왼쪽 버튼을 눌렀을 때 1회
-        if (Input.GetMouseButtonDown(0))
+        if (!moveLeft) // 슛 패널 켜기
         {
-            // 터치 시작 지점 (Swipe 방향 구분)
-            startTouchX = Input.mousePosition.x;
+            MoveUI(shootPanel, settingPanel);
         }
-        else if (Input.GetMouseButtonUp(0))
+        else        // 세팅 패널 켜기
         {
-            // 터치 종료 지점 (Swipe 방향 구분)
-            endTouchX = Input.mousePosition.x;
-            bool isLeft = startTouchX < endTouchX ? true : false;
-            Swipe(isLeft, true);
-        }
-#endif
-
-#if UNITY_ANDROID
-        if (Input.touchCount == 1)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                // 터치 시작 지점 (Swipe 방향 구분)
-                startTouchX = touch.position.x;
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                // 터치 종료 지점 (Swipe 방향 구분)
-                endTouchX = touch.position.x;
-
-                // 넘겨
-                bool isLeft = startTouchX < endTouchX ? true : false;
-                Swipe(isLeft, true);
-            }
-        }
-#endif
-    }
-
-    private void Swipe(bool isLeft, bool isSwiped = false)
-    {
-        if (isSwiping)
-            return;
-
-        if (isSwiped && Mathf.Abs(endTouchX - startTouchX) < swipeDist)
-        {
-            return;
-        }
-
-        if (isLeft && false == isSetPanelActive) // 왼쪽으로 이동, 슈팅 패널이 켜있음
-        {
-            DoTweenMove(shootPanel, settingPanel);
-        }
-        else if(!isLeft && isSetPanelActive) // 오른쪽 이동, 세팅 패널이 켜있음
-        {
-            DoTweenMove(settingPanel, shootPanel);
+            MoveUI(settingPanel, shootPanel);
         }
     }
 
-    public void DoTweenMove(RectTransform activedPanel, RectTransform activePanel)
+    public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
         isSwiping = true;
 
         if (isSetPanelActive)
         {
-            BtnCloseUp(settingPanelOnBtn, shootPanelOnBtn);
+            BtnCloseUp(settingIcon, shootIcon);
         }
         else
         {
-            BtnCloseUp(shootPanelOnBtn, settingPanelOnBtn);
+            BtnCloseUp(shootIcon, settingIcon);
         }
 
         int targetPos = isSetPanelActive ? -1080 : 1080;
 
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
-        seq.Append(activePanel.GetComponent<RectTransform>().DOAnchorPosX(0, 1f).SetEase(Ease.OutBack).
+        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(0, 0.6f).SetDelay(0.2f).SetEase(Ease.OutBack).
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
@@ -119,73 +67,30 @@ public class IngamePlayUIManager : UIBase
             }));
     }
 
-    //private IEnumerator CoSwipeOtherPanel()
-    //{
-    //    float start = scrollBar.value;
-    //    float current = 0;
-    //    float percent = 0;
-    //
-    //    isSwiping = true;
-    //
-    //    float end = isActivePanelEuqalSettingPanel ? 1 : 0;
-    //
-    //
-    //    if (isActivePanelEuqalSettingPanel)
-    //    {
-    //        BtnCloseUp(settingPanelOnBtn, shootPanelOnBtn);
-    //
-    //    }
-    //    else
-    //    {
-    //        BtnCloseUp(shootPanelOnBtn, settingPanelOnBtn);
-    //    }
-    //
-    //
-    //    while (percent < 1)
-    //    {
-    //        current += Time.deltaTime;
-    //        percent = current / swipeTime;
-    //
-    //        scrollBar.value = Mathf.Lerp(start, end, percent);
-    //
-    //        yield return null;
-    //    }
-    //
-    //
-    //    isActivePanelEuqalSettingPanel = end == 0 ? true : false;
-    //    isSwiping = false;
-    //}
-
-    public void BtnCloseUp(Button btn1, Button btn2)
+    public void BtnCloseUp(Image image1, Image image2)
     {
-        btn1.transform.DOScale(Vector3.one, swipeTime);
-        btn2.transform.DOScale(big, swipeTime);
+        image1.transform.DOScale(Vector3.one, swipeTime);
+        image2.transform.DOScale(big, swipeTime);
 
-        btn1.transform.SetSiblingIndex(0);
-        btn2.transform.SetSiblingIndex(1);
+        image1.transform.SetSiblingIndex(0);
+        image2.transform.SetSiblingIndex(1);
 
-        btn1.image.color = new Color(0.6f, 0.6f, 0.6f, 1f);
-        btn2.image.color = Color.white;
+        image1.color = new Color(0.6f, 0.6f, 0.6f, 1f);
+        image2.color = Color.white;
     }
 
     public override void Init()
     {
-        settingPanelOnBtn.transform.DOScale(big, 0.5f);
-        //settingPanelOnBtn.onClick.AddListener(() => Swipe(true));
-        //shootPanelOnBtn.onClick.AddListener(() => Swipe(false));
-
+        settingIcon.transform.DOScale(big, 0.5f);
         playUIs.ForEach((x) => x.Init());
-
-
         playUIs.ForEach((x) =>
         {
             if(x is BallSettingUI)
             {
                 BallSettingUI ballSettingUI = x.GetComponent<BallSettingUI>();
-                ballSettingUI.SwitchUI = () => DoTweenMove(settingPanel, shootPanel);
-
-                ballSettingUI.setOnBtn   = settingPanelOnBtn.GetComponent<RectTransform>();
-                ballSettingUI.shootOnBtn = shootPanelOnBtn.GetComponent<RectTransform>();               
+                ballSettingUI.SwitchUI = (x) => SwitchUI(isSetPanelActive, x);
+                ballSettingUI.setIcon = settingIcon.rectTransform;
+                ballSettingUI.shootIcon = shootIcon.rectTransform;
             }
         });
     }
@@ -193,11 +98,10 @@ public class IngamePlayUIManager : UIBase
     public override void Load()
     {
         playUIs.ForEach((x) => x.Load());
-        if (false == isSetPanelActive) // 왼쪽으로 이동, 슈팅 패널이 켜있음
-        {
-            DoTweenMove(shootPanel, settingPanel);
-        }
     }
 
-
+    public override void Reset()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -21,6 +21,11 @@ public class StageInfoUI : UIBase
     
     }
 
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

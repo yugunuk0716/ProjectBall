@@ -29,4 +29,9 @@ public class TitleSettingPopUp : UIBase
     {
         GetCanvasGroup();
     }
+
+    public override void Reset()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -817,14 +817,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3812893957003146357, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3812893957003146357, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2249d98c145d0b04c98baa43e0387581, type: 3}
     - target: {fileID: 3812893957962321282, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -833,14 +825,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6396093211333344009, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 6396093211333344009, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 700
-      objectReference: {fileID: 0}
     - target: {fileID: 6469211735324177756, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -848,10 +832,6 @@ PrefabInstance:
     - target: {fileID: 6469211735324177756, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6613855201063181016, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
-      propertyPath: texes.Array.size
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7465389087927230974, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_Name
@@ -3409,6 +3389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9023c7a589cc1c644b4dabf30e0fa247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 2
   debugText: {fileID: 6430633672251267050}
   timer_text: {fileID: 6430633673962792754}
 --- !u!1 &6430633673595331154

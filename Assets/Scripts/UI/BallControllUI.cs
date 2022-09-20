@@ -51,4 +51,12 @@ public class BallControllUI : UIBase
     {
         // 할 거 없음
     }
+
+    public override void Reset()
+    {
+        directionSetBtn.interactable = true;
+        orderText.SetText(string.Empty);
+        order = 0;
+        directionImg.gameObject.SetActive(false);
+    }
 }

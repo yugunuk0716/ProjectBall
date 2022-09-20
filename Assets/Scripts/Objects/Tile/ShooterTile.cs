@@ -17,6 +17,7 @@ public class ShooterTile : ObjectTile
         jumpPad = GetComponentInParent<JumpPad>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.Shoot = () => Shoot();
+        Debug.Log("Shoot 함수 세팅");
     }
 
     public void Shoot()
