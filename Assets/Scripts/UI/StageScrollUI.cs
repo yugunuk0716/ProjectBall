@@ -33,6 +33,9 @@ public class StageScrollUI : UIBase
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
 
         IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) => { allContents.ForEach(c => c.UpdateContent()); };
+
+        ScreenOn(true);
+        isScreenOn = true;
     }
 
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
