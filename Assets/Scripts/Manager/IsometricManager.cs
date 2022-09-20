@@ -27,6 +27,7 @@ public class IsometricManager : MonoBehaviour
         managers.Add(gameObject.AddComponent<GameManager>());
         managers.Add(gameObject.AddComponent<StageManager>());
         managers.Add(gameObject.AddComponent<SaveManager>());
+        managers.Add(gameObject.AddComponent<SoundManager>());
 
         Application.targetFrameRate = 300;
         
