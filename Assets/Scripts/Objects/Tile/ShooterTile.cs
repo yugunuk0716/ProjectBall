@@ -17,14 +17,13 @@ public class ShooterTile : ObjectTile
         jumpPad = GetComponentInParent<JumpPad>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.Shoot = () => Shoot();
-        Debug.Log("Shoot 함수 세팅");
     }
 
     public void Shoot()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        if (!gm.isShooting && GameManager.CanNotInteract || gm.myBallList.Count == 0)
+        if (GameManager.CanNotInteract || gm.myBallList.Count < gm.maxBallCount)
         {
             return;
         }
@@ -40,8 +39,6 @@ public class ShooterTile : ObjectTile
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        
-
         ball.shootDir = copyBall.shootDir;
         ball.SetBall(shootDir, ball.speed);
         ball.SetPos(new Vector2(jumpPad.gridPos.x, jumpPad.gridPos.y));
@@ -50,8 +47,8 @@ public class ShooterTile : ObjectTile
 
         BallControllUI ballControllUI = gm.ballUIList[0];
 
-        Destroy(ballControllUI.gameObject);
-        Destroy(ballControllUI.transform.parent.gameObject);
+        PoolManager.Instance.Push(ballControllUI);
+        PoolManager.Instance.Push(ballControllUI.transform.parent.GetComponent<TargetPointUI>());
 
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
         gm.ballUIList.Remove(ballControllUI);

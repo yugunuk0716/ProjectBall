@@ -29,6 +29,7 @@ public class StageInfoUI : UIBase
     {
         throw new System.NotImplementedException();
     }
+
     // Start is called before the first frame update
     public void ScreenOn(bool on, int stageIndex, StageScrollUI ssUI)
     {
@@ -53,8 +54,6 @@ public class StageInfoUI : UIBase
         });
         stageIndexText.SetText(stageIndex.ToString());
         int starCount = sm.GetStar(stageIndex - 1);
-        print(stageIndex);
-        print(starCount);
 
        
 

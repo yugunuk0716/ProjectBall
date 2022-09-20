@@ -49,8 +49,6 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
-            print(lastIndex);
-            print($"idx:{index}, cc: {sm.clearMapCount}");
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
