@@ -49,62 +49,21 @@ public class GameManager : ManagerBase
     {
         realTime = 0;
 
-        ObjectTile tile = Resources.Load<ObjectTile>("Tiles/Arrow1");
-        PoolManager.Instance.CreatePool(tile, "DirectionChanger", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/Flag");
-        PoolManager.Instance.CreatePool(tile, "Goal", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/JumpPad");
-        PoolManager.Instance.CreatePool(tile, "JumpPad", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/Portal_Hole");
-        PoolManager.Instance.CreatePool(tile, "Teleporter", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/Slow");
-        PoolManager.Instance.CreatePool(tile, "Slow", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/Wall1");
-        PoolManager.Instance.CreatePool(tile, "Reflect", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/None");
-        PoolManager.Instance.CreatePool(tile, "None", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/ColorChanger");
-        PoolManager.Instance.CreatePool(tile, "ColorChanger", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/ColorFlag");
-        PoolManager.Instance.CreatePool(tile, "ColorGoal", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/Thorn");
-        PoolManager.Instance.CreatePool(tile, "Thon", 10);
-
-	    tile = Resources.Load<ObjectTile>("Tiles/Line");
-        PoolManager.Instance.CreatePool(tile, "Line", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/BtnTile");
-        PoolManager.Instance.CreatePool(tile, "ButtonTile", 10);
-
-        Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
-        PoolManager.Instance.CreatePool(ball, null, 10);
-
-        BallControllUI ballControllUI = Resources.Load<BallControllUI>("UIs/BallControllUI");
-        PoolManager.Instance.CreatePool(ballControllUI, null, 10);
-
-        TargetPointUI targetPointUI = Resources.Load<TargetPointUI>("UIs/TargetPointUI");
-        PoolManager.Instance.CreatePool(targetPointUI, null, 10);
-
-
-
-        BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
-        PoolManager.Instance.CreatePool(pMono, null, 10);
-
+        PoolingObjectInit();
+        
         clearParticle_Left = Instantiate(Resources.Load<ParticleSystem>("Effects/LeftParticle"));
         clearParticle_Right = Instantiate(Resources.Load<ParticleSystem>("Effects/RightParticle"));
 
+        CloudHandler Cloud = Instantiate(Resources.Load<CloudHandler>("Objects/CloudHandler"));
+        Cloud.CloudMove();
+
+
+#if UNITY_EDITOR
+        PlayerPrefs.SetInt("ClearMapsCount", 30);
+#endif
     }
 
-    
+
     public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
     {
         ballUIList.Clear();
@@ -253,7 +212,56 @@ public class GameManager : ManagerBase
         }
     }
 
+
     public void StopTimer() => StopCoroutine(timerCo);
+
+    private void PoolingObjectInit()
+    {
+        ObjectTile tile = Resources.Load<ObjectTile>("Tiles/Arrow1");
+        PoolManager.Instance.CreatePool(tile, "DirectionChanger", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Flag");
+        PoolManager.Instance.CreatePool(tile, "Goal", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/JumpPad");
+        PoolManager.Instance.CreatePool(tile, "JumpPad", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Portal_Hole");
+        PoolManager.Instance.CreatePool(tile, "Teleporter", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Slow");
+        PoolManager.Instance.CreatePool(tile, "Slow", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Wall1");
+        PoolManager.Instance.CreatePool(tile, "Reflect", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/None");
+        PoolManager.Instance.CreatePool(tile, "None", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/ColorChanger");
+        PoolManager.Instance.CreatePool(tile, "ColorChanger", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/ColorFlag");
+        PoolManager.Instance.CreatePool(tile, "ColorGoal", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Thorn");
+        PoolManager.Instance.CreatePool(tile, "Thon", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/Line");
+        PoolManager.Instance.CreatePool(tile, "Line", 10);
+
+        tile = Resources.Load<ObjectTile>("Tiles/BtnTile");
+        PoolManager.Instance.CreatePool(tile, "ButtonTile", 10);
+
+        Cloud cloud = Resources.Load<Cloud>("Objects/Cloud");
+        PoolManager.Instance.CreatePool(cloud, "Cloud", 10);
+        
+        Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
+        PoolManager.Instance.CreatePool(ball, null, 5);
+
+        BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
+        PoolManager.Instance.CreatePool(pMono, null, 10);
+    }
 
     public override void UpdateState(eUpdateState state)
     {
