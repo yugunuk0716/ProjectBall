@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class StageScrollUI : UIBase
 {
     public Button stageOnBtn;
+    public StageInfoUI stageInfoPanel;
     public List<int> stageIndexList;
     private bool isScreenOn = false;
     
@@ -47,8 +48,7 @@ public class StageScrollUI : UIBase
             print($"idx:{index}, cc: {sm.clearMapCount}");
             if (canEnter)
             {
-                sm.LoadStage(index);
-                ScreenOn(false);
+                stageInfoPanel.ScreenOn(true, lastIndex, this);
                 isScreenOn = false;
             }
         });
