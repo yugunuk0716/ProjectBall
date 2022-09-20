@@ -26,11 +26,11 @@ public class StageScrollUI : UIBase
             {
                 ScreenOn(!isScreenOn);
                 isScreenOn = !isScreenOn;
+                allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
             }
 
         });
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
-       
     }
 
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
@@ -49,9 +49,11 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
+            print($"cc: {sm.clearMapCount + 1}  idx: {index}");
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
+                sm.stageIndex = index;
                 isScreenOn = false;
             }
         });

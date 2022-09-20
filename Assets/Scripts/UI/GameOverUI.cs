@@ -40,8 +40,8 @@ public class GameOverUI : UIBase
 
         loadNextBtn.onClick.AddListener(() =>
         {
-            sm.stageIndex++;
-            sm.LoadStage(sm.stageIndex);
+
+            sm.LoadStage(sm.stageIndex + 1);
             ScreenOn(false);
             starList.ForEach(s => s.gameObject.SetActive(false));
         });
