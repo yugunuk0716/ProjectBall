@@ -105,7 +105,7 @@ public class BallSettingUI : UIBase
 
         MakeTargetPoints();
         RollbackShootUI?.Invoke();
-        SwitchUI(true);
+        StartCoroutine(WaitRollbackUI());      
     }
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
@@ -141,6 +141,12 @@ public class BallSettingUI : UIBase
 
         RollbackShootUI = () => rollbackUISeq.PlayBackwards();
         
+    }
+
+    IEnumerator WaitRollbackUI() // 롤백될때까지 기다리고 UI 전환 기기
+    {
+        yield return new WaitForSeconds(2.1f);
+        SwitchUI(true);
     }
 
     public void MakeTargetPoints()
