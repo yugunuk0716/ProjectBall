@@ -413,6 +413,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageNumberPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1914394790556571835, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914394790556571835, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914394790556571835, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914394790556571835, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
 --- !u!224 &83052253 stripped

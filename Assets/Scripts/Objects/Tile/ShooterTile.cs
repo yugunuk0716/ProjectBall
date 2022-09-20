@@ -23,7 +23,7 @@ public class ShooterTile : ObjectTile
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        if (GameManager.CanNotInteract || gm.myBallList.Count < gm.maxBallCount && gm.myBallList.Count > 0)
+        if (GameManager.CanNotInteract || gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
         {
             return;
         }

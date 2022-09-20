@@ -84,14 +84,12 @@ public class BallSettingUI : UIBase
         {
             if (false == GameManager.CanNotInteract && gm.myBallList.Count >= gm.maxBallCount)
             {
-                shootBtn.onClick.AddListener(() => gm.Shoot()); // 확인 버튼 누르면 슛 버튼에 함수 구독
                 gm.ballUIList.ForEach((x) => x.directionSetBtn.interactable = false);
-                SwitchUI(false);
                 StartCoroutine(MoveBallUis(gm.ballUIList));
             }
         });
 
-        
+        shootBtn.onClick.AddListener(() => gm.Shoot()); // 확인 버튼 누르면 슛 버튼에 함수 구독
     }
 
     public override void Load()
@@ -104,49 +102,52 @@ public class BallSettingUI : UIBase
         }
 
         MakeTargetPoints();
-        RollbackShootUI?.Invoke();
-        StartCoroutine(WaitRollbackUI());      
+        GameManager.CanNotInteract = true;
+        Sequence rollbackUISeq = DOTween.Sequence();
+        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-100, 60, 0), 0.5f).SetEase(Ease.OutCubic));
+        rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.5f, RotateMode.LocalAxisAdd));
+        rollbackUISeq.Join(shootBtn.transform.DOScale(new Vector3(1, 1, 1), 0.5f));
+        rollbackUISeq.SetDelay(0.3f).OnComplete(() => SwitchUI(true));
+
+        rollbackUISeq.Append(shootIcon.DOAnchorPosX(-50, 0.4f).SetEase(Ease.InQuart));
+        rollbackUISeq.Join(setIcon.DOAnchorPosX(-250, 0.3f).SetEase(Ease.InQuart).SetDelay(0.1f));
+        rollbackUISeq.PrependInterval(0.3f).OnComplete(() => GameManager.CanNotInteract = false);
     }
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
-        yield return new WaitForSeconds(2f);
-
         GameManager.CanNotInteract = true;
+
+        Sequence changeUISeq = DOTween.Sequence();
+        changeUISeq.SetAutoKill(false);
+        changeUISeq.Append(shootIcon.DOAnchorPosX(300, 0.4f).SetEase(Ease.InQuart));
+        changeUISeq.Join(setIcon.DOAnchorPosX(500, 0.3f).SetEase(Ease.InQuart).SetDelay(0.1f));
+        changeUISeq.SetDelay(0.2f).OnComplete(() => SwitchUI(false));
+
+        yield return new WaitForSeconds(2.2f);
+
         Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // 걍 0번은 무시하고 가죠
 
         float duration = 0.3f;
-        float minusDuration = duration / targetPoints.Length * 0.7f;
+        float minusDuration = duration / targetPoints.Length / 2;
 
         yield return null;
 
         for (int i = 0; i < list.Count; i++)
         {
             list[i].transform.SetParent(targetPoints[i + 1]);
-            list[i].transform.DOMove(targetPoints[i + 1].position, 0.8f).SetEase(Ease.OutCubic);
+            list[i].transform.DOMove(targetPoints[i + 1].position, 0.7f).SetEase(Ease.OutCubic);
             yield return new WaitForSeconds(duration);
             duration -= minusDuration;
         }
 
-        Sequence rollbackUISeq = DOTween.Sequence();
-        rollbackUISeq.SetAutoKill(false);
-        rollbackUISeq.Append(shootIcon.DOAnchorPosX(300, 0.6f).SetEase(Ease.InQuart));
-        rollbackUISeq.Join(setIcon.DOAnchorPosX(500, 0.5f).SetEase(Ease.InQuart).SetDelay(0.2f));
+        yield return new WaitForSeconds(0.7f);
 
-        rollbackUISeq.Append(shootPanel.DOAnchorPos(new Vector3(100,60,0), 0.6f).SetEase(Ease.InQuart));
-        rollbackUISeq.PrependInterval(0.3f);
-        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.5f).SetEase(Ease.OutCubic));
-        rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.5f, RotateMode.LocalAxisAdd));
-        rollbackUISeq.Join(shootBtn.transform.DOScale(new Vector3(2, 2, 2), 0.5f).OnComplete(() => GameManager.CanNotInteract = false));
+        changeUISeq.Append(shootPanel.DOAnchorPosX(100, 0.6f).SetEase(Ease.InQuart));
+        changeUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.5f).SetEase(Ease.OutCubic));
+        changeUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.5f, RotateMode.LocalAxisAdd));
+        changeUISeq.Join(shootBtn.transform.DOScale(new Vector3(2, 2, 2), 0.5f).OnComplete(() => GameManager.CanNotInteract = false));
 
-        RollbackShootUI = () => rollbackUISeq.PlayBackwards();
-        
-    }
-
-    IEnumerator WaitRollbackUI() // 롤백될때까지 기다리고 UI 전환 기기
-    {
-        yield return new WaitForSeconds(2.1f);
-        SwitchUI(true);
     }
 
     public void MakeTargetPoints()
