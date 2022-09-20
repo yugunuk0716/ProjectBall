@@ -39,6 +39,10 @@ public class StageInfoUI : UIBase
             cancleButton.onClick.AddListener(() => ScreenOn(false));
             sm = IsometricManager.Instance.GetManager<StageManager>();
         }
+        for (int i = 0; i < 3; i++)
+        {
+            starImages[i].gameObject.SetActive(false);
+        }
 
         enterButton.onClick.RemoveAllListeners();
         enterButton.onClick.AddListener(() =>
@@ -50,6 +54,9 @@ public class StageInfoUI : UIBase
         });
         stageIndexText.SetText(stageIndex.ToString());
         int starCount = sm.GetStar(stageIndex - 1);
+
+       
+
         for (int i = 0; i < starCount; i++)
         {
             starImages[i].gameObject.SetActive(true);

@@ -22,8 +22,12 @@ public class StageScrollUI : UIBase
 
         stageOnBtn.onClick.AddListener(() =>
         {
-            ScreenOn(!isScreenOn);
-            isScreenOn = !isScreenOn;
+            if(!GameManager.CanNotInteract)
+            {
+                ScreenOn(!isScreenOn);
+                isScreenOn = !isScreenOn;
+            }
+
         });
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
        
@@ -34,6 +38,7 @@ public class StageScrollUI : UIBase
    
         int index = lastIndex;
         bool canEnter = false;
+
         if (sm.clearMapCount + 1 >= index)
         {
             canEnter = true;
