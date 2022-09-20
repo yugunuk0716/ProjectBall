@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 7978084167911488490}
   - component: {fileID: 7978084167911488491}
   - component: {fileID: 7978084167911488488}
-  - component: {fileID: 7978084167911488485}
+  - component: {fileID: 6366819696068514086}
   m_Layer: 5
   m_Name: StageInfoPanel
   m_TagString: Untagged
@@ -1282,11 +1282,11 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7978084167911488494}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &7978084167911488485
+--- !u!114 &6366819696068514086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1295,14 +1295,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7978084167911488494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ece9542a811e74e8941ef2f43c5eca, type: 3}
+  m_Script: {fileID: 11500000, guid: 1df055ea496a44e089e12754abcd1b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadBtn: {fileID: 0}
-  loadNextBtn: {fileID: 7978084166113017686}
-  gameOverText: {fileID: 7978084166830699558}
-  starList:
+  stageIndexText: {fileID: 7978084166830699558}
+  enterButton: {fileID: 7978084166113017686}
+  cancleButton: {fileID: 6164578880216978112}
+  starImages:
   - {fileID: 7456000330450639992}
   - {fileID: 5193253053520234001}
   - {fileID: 8081668246440072921}
-  isClear: 0
