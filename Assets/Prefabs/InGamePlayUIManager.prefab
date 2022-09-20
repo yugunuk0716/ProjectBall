@@ -1092,12 +1092,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5234662905902899571, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234662905902899571, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234662905902899571, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -100
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 5234662905902899571, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 60
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 5234662906778200560, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
       propertyPath: m_Pivot.x
