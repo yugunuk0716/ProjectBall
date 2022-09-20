@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class CloudHandler : MonoBehaviour
 {
+   
     private List<Cloud> clouds = new List<Cloud>();
     
     public IEnumerator CloudMove()
@@ -23,6 +24,7 @@ public class CloudHandler : MonoBehaviour
         cloud.transform.position = new Vector3(10f, Random.Range(-12f, 8), 0);
         cloud.gameObject.SetActive(true);
         SpriteRenderer sr = cloud.GetComponent<SpriteRenderer>();
+        sr.sprite = cloud.GetSprite();
 
         float sacle = Random.Range(.5f, 1.5f);
         float alpha;
@@ -30,15 +32,15 @@ public class CloudHandler : MonoBehaviour
 
         cloud.transform.localScale = new Vector3(sacle, sacle, 0);
 
-        if (sacle <= .7f)
+        if (sacle <= .8f)
         {
             alpha = Random.Range(.7f, 1f);
-            sr.sortingOrder = -(int)(100 * alpha);
+            sr.sortingOrder = -(int)(100 + alpha);
             speed = Random.Range(10f, 15f);
         }
         else
         {
-            alpha = Random.Range(.3f, 7f);
+            alpha = Random.Range(.3f, .6f);
             sr.sortingOrder = (int)(10 + alpha);
             speed = Random.Range(5f, 10f);
         }
