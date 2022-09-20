@@ -31,6 +31,9 @@ public class IsometricManager : MonoBehaviour
         Application.targetFrameRate = 300;
         
         UpdateState(eUpdateState.Init);
+
+        //유니티에디터에서만 PlayerPrefs.SetInt("ClearMapsCount", 30) 실행.
+
     }
 
     public static Vector2 GetIsoDir(TileDirection dir) // 등각투형에 걸맞는 벡터로..

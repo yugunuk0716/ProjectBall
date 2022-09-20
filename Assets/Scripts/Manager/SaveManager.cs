@@ -310,8 +310,9 @@ public class SaveManager : ManagerBase
             {
                 sr = a.GetComponentInChildren<SpriteRenderer>();
             }
+            float alpha = sr.color.a;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
-            sr.DOFade(1, .7f).SetEase(Ease.Linear);
+            sr.DOFade(alpha, .7f).SetEase(Ease.Linear);
             a.transform.DOMoveY(a.transform.position.y - 1, .7f).SetEase(Ease.InQuart);
         }
 
