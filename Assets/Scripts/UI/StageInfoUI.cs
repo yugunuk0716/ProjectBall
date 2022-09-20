@@ -47,6 +47,7 @@ public class StageInfoUI : UIBase
         enterButton.onClick.RemoveAllListeners();
         enterButton.onClick.AddListener(() =>
         {
+            
             sm.LoadStage(stageIndex);
             ScreenOn(false);
             ssUI.ScreenOn(false);
@@ -55,7 +56,7 @@ public class StageInfoUI : UIBase
         stageIndexText.SetText(stageIndex.ToString());
         int starCount = sm.GetStar(stageIndex - 1);
 
-       
+        print($"star count: {starCount} stage Idx{stageIndex - 1}");
 
         for (int i = 0; i < starCount; i++)
         {
