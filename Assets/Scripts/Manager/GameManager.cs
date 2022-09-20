@@ -163,7 +163,6 @@ public class GameManager : ManagerBase
     {
         if (isSameStageLoaded && lastBallList.Count >= ballCount)
         {
-            Debug.Log("ㅎㅇ");
             for (int i = 0; i < ballCount; i++)
             {
                 MakeNewBallUI(lastBallList[i], true);
@@ -173,7 +172,6 @@ public class GameManager : ManagerBase
         }
         else
         {
-            Debug.Log("기본적인 공 생성");
             for (int i = 0; i < ballCount; i++)
             {
                 Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;

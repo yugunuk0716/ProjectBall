@@ -12,7 +12,7 @@ public class SelectDirectionUI : UIBase
 
     [HideInInspector] public int order;
     [HideInInspector] public BallControllUI ballControllUI;
-    public MapLoadVideoPlayer mapLoadVideoPlayer;
+    private MapLoadVideoPlayer mapLoadVideoPlayer;
 
     public bool isSelecting = false;
 

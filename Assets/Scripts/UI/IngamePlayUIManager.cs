@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,6 @@ using UnityEngine.UI;
 
 public class IngamePlayUIManager : UIBase
 {
-    //[SerializeField]
-    //private Scrollbar scrollBar;
-
     [Header("Panel"), Space(10)] 
     [SerializeField] RectTransform settingPanel; // scroll value = 0
     [SerializeField] RectTransform shootPanel; // scroll value = 1
@@ -25,14 +23,18 @@ public class IngamePlayUIManager : UIBase
 
     private float startTouchX;
     private float endTouchX;
-
+    private float swipeDist = 150f;
     private bool isSetPanelActive = true;
     private bool isSwiping = false;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
+    Sequence seq;
+
     private void Update()
     {
+        return;
+
 #if UNITY_EDITOR
         // 마우스 왼쪽 버튼을 눌렀을 때 1회
         if (Input.GetMouseButtonDown(0))
@@ -45,7 +47,7 @@ public class IngamePlayUIManager : UIBase
             // 터치 종료 지점 (Swipe 방향 구분)
             endTouchX = Input.mousePosition.x;
             bool isLeft = startTouchX < endTouchX ? true : false;
-            Swipe(isLeft);
+            Swipe(isLeft, true);
         }
 #endif
 
@@ -66,27 +68,21 @@ public class IngamePlayUIManager : UIBase
 
                 // 넘겨
                 bool isLeft = startTouchX < endTouchX ? true : false;
-                Swipe(isLeft);
+                Swipe(isLeft, true);
             }
         }
 #endif
     }
 
-
-    private void Swipe(bool isLeft)
+    private void Swipe(bool isLeft, bool isSwiped = false)
     {
         if (isSwiping)
             return;
 
-        #region
-        //if(!isLeft_setted.HasValue && Mathf.Abs(endTouchX - startTouchX) < 80)
-        //{
-        //    // 뒤로 돌아가기
-        //    isActivePanelEuqalSettingPanel = !isActivePanelEuqalSettingPanel;
-        //    StartCoroutine(CoSwipeOtherPanel());
-        //    return;
-        //}
-        #endregion
+        if (isSwiped && Mathf.Abs(endTouchX - startTouchX) < swipeDist)
+        {
+            return;
+        }
 
         if (isLeft && false == isSetPanelActive) // 왼쪽으로 이동, 슈팅 패널이 켜있음
         {
@@ -113,7 +109,7 @@ public class IngamePlayUIManager : UIBase
 
         int targetPos = isSetPanelActive ? -1080 : 1080;
 
-        Sequence seq = DOTween.Sequence();
+        seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
         seq.Append(activePanel.GetComponent<RectTransform>().DOAnchorPosX(0, 1f).SetEase(Ease.OutBack).
             OnComplete(() =>
@@ -175,10 +171,23 @@ public class IngamePlayUIManager : UIBase
     public override void Init()
     {
         settingPanelOnBtn.transform.DOScale(big, 0.5f);
-        settingPanelOnBtn.onClick.AddListener(() => Swipe(true));
-        shootPanelOnBtn.onClick.AddListener(() => Swipe(false));
+        //settingPanelOnBtn.onClick.AddListener(() => Swipe(true));
+        //shootPanelOnBtn.onClick.AddListener(() => Swipe(false));
 
         playUIs.ForEach((x) => x.Init());
+
+
+        playUIs.ForEach((x) =>
+        {
+            if(x is BallSettingUI)
+            {
+                BallSettingUI ballSettingUI = x.GetComponent<BallSettingUI>();
+                ballSettingUI.SwitchUI = () => DoTweenMove(settingPanel, shootPanel);
+
+                ballSettingUI.setOnBtn   = settingPanelOnBtn.GetComponent<RectTransform>();
+                ballSettingUI.shootOnBtn = shootPanelOnBtn.GetComponent<RectTransform>();               
+            }
+        });
     }
 
     public override void Load()
