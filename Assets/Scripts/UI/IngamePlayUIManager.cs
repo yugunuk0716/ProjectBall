@@ -22,7 +22,6 @@ public class IngamePlayUIManager : UIBase
     [SerializeField] List<UIBase> playUIs = new List<UIBase>();
 
     private bool isSetPanelActive = true;
-    private bool isSwiping = false;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
@@ -44,7 +43,7 @@ public class IngamePlayUIManager : UIBase
 
     public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
-        isSwiping = true;
+        GameManager.CanNotInteract = true;
 
         if (isSetPanelActive)
         {
@@ -63,7 +62,7 @@ public class IngamePlayUIManager : UIBase
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
-                isSwiping = false;
+                GameManager.CanNotInteract = false;
             }));
     }
 
