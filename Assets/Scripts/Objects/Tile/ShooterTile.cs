@@ -23,7 +23,7 @@ public class ShooterTile : ObjectTile
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        if (GameManager.CanNotInteract || gm.myBallList.Count < gm.maxBallCount)
+        if (GameManager.CanNotInteract || gm.myBallList.Count < gm.maxBallCount && gm.myBallList.Count > 0)
         {
             return;
         }
@@ -47,8 +47,8 @@ public class ShooterTile : ObjectTile
 
         BallControllUI ballControllUI = gm.ballUIList[0];
 
-        PoolManager.Instance.Push(ballControllUI);
         PoolManager.Instance.Push(ballControllUI.transform.parent.GetComponent<TargetPointUI>());
+        PoolManager.Instance.Push(ballControllUI);
 
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
         gm.ballUIList.Remove(ballControllUI);
