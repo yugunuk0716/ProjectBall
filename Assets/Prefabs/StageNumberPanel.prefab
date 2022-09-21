@@ -273,8 +273,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.011570232
-        value: 0.8002815
+        time: -0.00012300875
+        value: 0.80004853
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -299,20 +299,29 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: -0.7385989
-        outSlope: -0.7385989
-        tangentMode: 0
+        inSlope: -0.010000264
+        outSlope: -0.010000264
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.108539484
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.9999609
-        value: 0.000049864873
-        inSlope: 0.121970065
-        outSlope: 0.121970065
+        time: 50.00149
+        value: 0.49997184
+        inSlope: -0.000011158604
+        outSlope: -0.000011158604
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.17571439
+        inWeight: 0.33333334
+        outWeight: 0.9738718
+      - serializedVersion: 3
+        time: 100.14891
+        value: -0.019297473
+        inSlope: -0.010354856
+        outSlope: -0.010354856
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -346,7 +355,19 @@ MonoBehaviour:
         m_Calls: []
     _onCenteredContentChanged:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 555470462596859616}
+          m_TargetAssemblyTypeName: StageScrollUI, Assembly-CSharp
+          m_MethodName: UpdateHaptic
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     _onMovementEnd:
       m_PersistentCalls:
         m_Calls: []
