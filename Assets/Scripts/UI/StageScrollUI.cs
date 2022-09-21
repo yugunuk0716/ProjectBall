@@ -36,6 +36,7 @@ public class StageScrollUI : UIBase
 
         ScreenOn(true);
         isScreenOn = true;
+     
     }
 
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
@@ -64,7 +65,13 @@ public class StageScrollUI : UIBase
         });
     }
 
-   
+    public override void ScreenOn(bool on)
+    {
+        base.ScreenOn(on);
+        Time.timeScale = on ? 0 : 1;
+    }
+
+
 
     public override void Load()
     {

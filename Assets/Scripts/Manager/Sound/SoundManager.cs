@@ -34,7 +34,8 @@ public class SoundManager : ManagerBase
     private AudioMixerGroup _sfxMixer; //sfxMixerGroup
     private AudioMixerGroup _gunMixer; //gunMixerGruop
 
-    public static bool isMute = false;
+    public static bool isSFXMute = false;
+    public static bool isBGMMute = false;
 
     public override void Init()
     {
@@ -79,10 +80,7 @@ public class SoundManager : ManagerBase
     /// <param name="audioName">음원의 이름(SO의 audioName)</param>
     public void Play(string audioName, float volume = 1f)
     {
-        if (isMute)
-        {
-            return;
-        }
+      
 
         if (_audioDic.TryGetValue(audioName, out AudioSO audioSO)) //만약 일치하는 음원이 있다면
         {
@@ -113,6 +111,10 @@ public class SoundManager : ManagerBase
             }
             else if (audioSO.audioType == AudioType.SFX) //sfx라면
             {
+                if (isSFXMute)
+                {
+                    return;
+                }
                 AudioSource sfxSource = FindEmptySFXSource();
 
                 sfxSource.loop = false;
@@ -122,6 +124,10 @@ public class SoundManager : ManagerBase
             }
             else if (audioSO.audioType == AudioType.BGM) //bgm이면 음원을 갈아끼고 재생해준다
             {
+                if (isBGMMute)
+                {
+                    return;
+                }
                 _bgmSource.clip = audioSO.clip;
                 _bgmSource.volume = volume;
                 _bgmSource.Play();
@@ -322,5 +328,13 @@ public class SoundManager : ManagerBase
                 Init();
                 break;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        int a = isBGMMute ? 1 : 0;
+        PlayerPrefs.SetInt("isBGMMute", a);
+        a = isSFXMute ? 1 : 0;
+        PlayerPrefs.SetInt("isSFXMute", a);
     }
 }

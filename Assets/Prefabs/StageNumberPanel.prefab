@@ -82,8 +82,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 4bd16bd31caf857448e9b17d43bc1cc5, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -104,9 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e0767723af341f69ec4c8320ffe72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 2
   stageOnBtn: {fileID: 0}
   stageInfoPanel: {fileID: 3205980653400225482}
-  stageIndexList: 1a0000001b0000001c0000001d0000001e0000001f0000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000140000001500000016000000170000001800000019000000
+  stageIndexList: 0100000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000005000000060000000700000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
   allContents:
   - {fileID: 8518717081216919420}
   - {fileID: 1403823401846325456}
@@ -263,8 +264,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -0.40004033
-        value: 0.3997301
+        time: -0.60131526
+        value: 0.34980825
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -272,8 +273,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.000019328669
-        value: 0.7501259
+        time: 0.011570232
+        value: 0.8002815
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -281,8 +282,8 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.3993832
-        value: 0.39958087
+        time: 0.59990656
+        value: 0.34986773
         inSlope: 0
         outSlope: 0
         tangentMode: 0
