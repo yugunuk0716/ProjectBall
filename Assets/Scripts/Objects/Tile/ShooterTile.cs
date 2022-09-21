@@ -49,18 +49,14 @@ public class ShooterTile : ObjectTile
         ball.Rollin();
 
         BallControllUI ballControllUI = gm.ballUIList[0];
-
-        PoolManager.Instance.Push(ballControllUI.transform.parent.GetComponent<TargetPointUI>());
         PoolManager.Instance.Push(ballControllUI);
 
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
         gm.ballUIList.Remove(ballControllUI);
         gm.myBallList.Remove(copyBall); // 얘는 데이터만 가지고 있는 더미 볼 리스트니까.
         gm.aliveBallList.Add(ball);
-
     }
 
-    
 
     public void SetEnd()
     {
