@@ -12,7 +12,7 @@ public class BallSettingUI : UIBase
     public Transform ballContent;
     [SerializeField] private Transform targetPointContent;
 
-    int order = 0;
+    public int order = 0;
 
     [Header("Panel")]
     [SerializeField] private SelectDirectionUI selectDirectionUI;
@@ -46,14 +46,44 @@ public class BallSettingUI : UIBase
 
             bool isAdded = false;
 
-            if (isAutoSet)
-            {
-                order++;
-                isAdded = true;
-                gm.myBallList.Add(ball);
-                newBallControllUI.SetDirection(ball.shootDir);
-            }
+            isAutoSet = false;
+            //if (isAutoSet)
+            //{
+            //    order++;
+            //    isAdded = true;
+            //    gm.myBallList.Add(ball);
+            //    newBallControllUI.SetDirection(ball.shootDir);
+            //}
 
+            newBallControllUI.BeginDrag = () =>
+            {
+                for (int i = order; i > newBallControllUI.order; i--)
+                {
+                    Debug.Log($"Begin_ {i}번 째 버튼 -");
+                    if (gm.ballUIList[i] == newBallControllUI) continue;
+                    gm.ballUIList[i].order--;
+                }
+
+                gm.BallUiSort();
+            };
+            newBallControllUI.EndDrag = (ballUI) =>
+            {
+                int insertIndex = ballUI != null ? ballUI.order : order;
+
+                Debug.Log($"{insertIndex}번째에 삽입합니다.");
+
+                newBallControllUI.order = insertIndex;
+
+
+                for (int i = insertIndex; i < order -1; i++)
+                {
+                    Debug.Log($"End {i}번 째 버튼 +");
+                    if (gm.ballUIList[i - 1] == newBallControllUI) continue;
+                    gm.ballUIList[i - 1].order++;
+                }
+
+                gm.BallUiSort();
+            };
 
             newBallControllUI.directionSetBtn.onClick.RemoveAllListeners();
             newBallControllUI.directionSetBtn.onClick.AddListener(() =>
@@ -84,6 +114,7 @@ public class BallSettingUI : UIBase
         {
             if (false == GameManager.CanNotInteract && gm.myBallList.Count >= gm.maxBallCount)
             {
+
                 gm.ballUIList.ForEach((x) => x.directionSetBtn.interactable = false);
                 StartCoroutine(MoveBallUis(gm.ballUIList));
             }
@@ -140,6 +171,16 @@ public class BallSettingUI : UIBase
         }
 
         yield return new WaitForSeconds(0.2f);
+
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        List<BallControllUI> ballUiList = gm.ballUIList;
+        foreach(var item in ballUiList)
+        {
+            TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();
+            item.transform.SetParent(item.transform.parent.parent);
+            PoolManager.Instance.Push(tp);
+        }
+
 
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.8f).SetEase(Ease.OutCubic));

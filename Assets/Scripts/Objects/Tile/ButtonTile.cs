@@ -10,7 +10,6 @@ public class ButtonTile : ObjectTile
     private SpriteRenderer sr;
     public override void InteractionTile(Ball tb)
     {
-        tb.SetMove();
         InvokeData();
 
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
@@ -20,6 +19,8 @@ public class ButtonTile : ObjectTile
         {
             sr.sprite = spriteList[1];
         }
+
+        PoolManager.Instance.Push(tb);
     }
 
     public override void Reset()
