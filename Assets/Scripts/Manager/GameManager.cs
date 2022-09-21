@@ -55,7 +55,7 @@ public class GameManager : ManagerBase
         clearParticle_Right = Instantiate(Resources.Load<ParticleSystem>("Effects/RightParticle"));
 
         CloudHandler Cloud = Instantiate(Resources.Load<CloudHandler>("Objects/CloudHandler"));
-        Cloud.CloudMove();
+        StartCoroutine(Cloud.CloudMove());
 
 
 #if UNITY_EDITOR
