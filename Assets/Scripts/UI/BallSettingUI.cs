@@ -46,14 +46,49 @@ public class BallSettingUI : UIBase
 
             bool isAdded = false;
 
-            if (isAutoSet)
-            {
-                order++;
-                isAdded = true;
-                gm.myBallList.Add(ball);
-                newBallControllUI.SetDirection(ball.shootDir);
-            }
+            //if (isAutoSet)
+            //{
+            //    order++;
+            //    isAdded = true;
+            //    gm.myBallList.Add(ball);
+            //    newBallControllUI.SetDirection(ball.shootDir);
+            //}
 
+            newBallControllUI.BeginDrag = () =>
+            {
+                float x = newBallControllUI.transform.localPosition.x + 1; // 혹시 200이니까
+                int insertIndex = (int)x / 200;
+                Debug.Log($"{insertIndex}번째에 삽입합니다.");
+
+                insertIndex = insertIndex > order ? order : insertIndex;
+                newBallControllUI.order = insertIndex + 1;
+
+                for (int i = order - 1; i > insertIndex + 1; i--)
+                {
+                    Debug.Log($"{i}번 째 버튼 -");
+                    gm.ballUIList[i].order--;
+                }
+
+                gm.BallUiSort();
+            };
+
+            newBallControllUI.EndDrag = () =>
+            {
+                float x = newBallControllUI.transform.localPosition.x + 1; // 혹시 200이니까
+                int insertIndex = (int)x / 200;
+                Debug.Log($"{insertIndex}번째에 삽입합니다.");
+
+                insertIndex = insertIndex > order ? order : insertIndex;
+                newBallControllUI.order = insertIndex + 1;
+
+                for (int i = insertIndex + 1; i < order; i++)
+                {
+                    Debug.Log($"{i}번 째 버튼 +");
+                    gm.ballUIList[i].order++;
+                }
+
+                gm.BallUiSort();
+            };
 
             newBallControllUI.directionSetBtn.onClick.RemoveAllListeners();
             newBallControllUI.directionSetBtn.onClick.AddListener(() =>
@@ -140,6 +175,16 @@ public class BallSettingUI : UIBase
         }
 
         yield return new WaitForSeconds(0.2f);
+
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        List<BallControllUI> ballUiList = gm.ballUIList;
+        foreach(var item in ballUiList)
+        {
+            TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();
+            item.transform.SetParent(item.transform.parent.parent);
+            PoolManager.Instance.Push(tp);
+        }
+
 
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.8f).SetEase(Ease.OutCubic));

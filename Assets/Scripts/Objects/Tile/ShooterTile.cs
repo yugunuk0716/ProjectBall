@@ -47,11 +47,11 @@ public class ShooterTile : ObjectTile
         ball.Rollin();
 
         BallControllUI ballControllUI = gm.ballUIList[0];
-        TargetPointUI parent = ballControllUI.transform.parent.GetComponent<TargetPointUI>();
+        //TargetPointUI parent = ballControllUI.transform.parent.GetComponent<TargetPointUI>();
 
         //ballControllUI.transform.SetParent(ballControllUI.transform.root); // 캔버스를 부모로 놓고.
 
-        PoolManager.Instance.Push(parent);
+        //PoolManager.Instance.Push(parent);
         PoolManager.Instance.Push(ballControllUI);
 
         //float duration = 0.15f;
