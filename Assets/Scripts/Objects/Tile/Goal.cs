@@ -20,6 +20,8 @@ public class Goal : ObjectTile
         PoolManager.Instance.Push(tb);
         if (false == isChecked)
         {
+            SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+            sm.Play("Flag");
             ResetFlag(true);
             IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }

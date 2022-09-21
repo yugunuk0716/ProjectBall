@@ -90,7 +90,10 @@ public class Teleporter : ObjectTile
 
             lastBall = tb;
 
-            
+            SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+            sm.Play("Portal");
+
+
             tb.transform.position = pairTeleporter.transform.position - new Vector3(0, .25f, 0);
             tb.SetPos(pairTeleporter.keyPos);
             tb.SetMove();

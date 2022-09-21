@@ -16,6 +16,8 @@ public class Thorn : ObjectTile
     {
         print("네");
         PoolManager.Instance.Push(tb);
+        SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+        sm.Play("Thorn");
         anim.SetTrigger("TriggerBall");
         
     }
