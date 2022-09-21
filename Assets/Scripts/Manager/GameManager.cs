@@ -224,7 +224,7 @@ public class GameManager : ManagerBase
         PoolManager.Instance.CreatePool(tile, "Goal", 10);
 
         tile = Resources.Load<ObjectTile>("Tiles/JumpPad");
-        PoolManager.Instance.CreatePool(tile, "JumpPad", 10);
+        PoolManager.Instance.CreatePool(tile, "JumpPad", 1);
 
         tile = Resources.Load<ObjectTile>("Tiles/Portal_Hole");
         PoolManager.Instance.CreatePool(tile, "Teleporter", 10);

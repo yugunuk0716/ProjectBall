@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db619493fec1744dae4126761bff5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
+  count: 1
   dataString: 
   myType: 0
   worldPos: {x: 0, y: 0}
