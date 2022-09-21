@@ -24,6 +24,8 @@ public class ShooterTile : ObjectTile
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
+        Vibration.Vibrate(5);
+
         if (GameManager.CanNotInteract || gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
         {
             return;
