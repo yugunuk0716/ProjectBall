@@ -55,6 +55,8 @@ public class BallControllUI : UIBase
     public override void Reset()
     {
         directionSetBtn.interactable = true;
+        directionSetBtn.image.color = Color.white;
+        directionSetBtn.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -50, 0);
         orderText.SetText(string.Empty);
         order = 0;
         directionImg.gameObject.SetActive(false);
