@@ -39,7 +39,7 @@ public class BallSettingUI : UIBase
             newBallControllUI.transform.localPosition = new Vector3(0,0, 0); 
             newBallControllUI.transform.localScale = Vector3.one;
             newBallControllUI.SetBallSprites(ball.uiSprite);
-            newBallControllUI.targetRectTr = transform.root.GetComponent<RectTransform>();
+            //newBallControllUI.targetRectTr = transform.root.GetComponent<RectTransform>();
             gm.ballUIList.Add(newBallControllUI);
             newBallControllUI.order = 1000; // 정렬 안되도록
 
