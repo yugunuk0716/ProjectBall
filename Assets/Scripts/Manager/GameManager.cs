@@ -59,7 +59,7 @@ public class GameManager : ManagerBase
 
 
 #if UNITY_EDITOR
-        PlayerPrefs.SetInt("ClearMapsCount", 30);
+       // PlayerPrefs.SetInt("ClearMapsCount", 46);
 #endif
     }
 

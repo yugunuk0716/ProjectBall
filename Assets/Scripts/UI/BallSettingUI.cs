@@ -46,16 +46,16 @@ public class BallSettingUI : UIBase
 
             bool isAdded = false;
 
-            if (isAutoSet)
+            /*if (isAutoSet)
             {
                 order++;
                 isAdded = true;
                 gm.myBallList.Add(ball);
                 newBallControllUI.SetDirection(ball.shootDir);
-            }
+            }*/
 
+            
 
-            newBallControllUI.directionSetBtn.onClick.RemoveAllListeners();
             newBallControllUI.directionSetBtn.onClick.AddListener(() =>
             {
                 if (isAdded) // 다시 돌아오려는
@@ -84,6 +84,7 @@ public class BallSettingUI : UIBase
         {
             if (false == GameManager.CanNotInteract && gm.myBallList.Count >= gm.maxBallCount)
             {
+
                 gm.ballUIList.ForEach((x) => x.directionSetBtn.interactable = false);
                 StartCoroutine(MoveBallUis(gm.ballUIList));
             }
