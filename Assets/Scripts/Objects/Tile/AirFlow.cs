@@ -16,6 +16,8 @@ public class AirFlow : ObjectTile
     {
         if (tb.afCool + tb.afLastTime < Time.time)
         {
+            SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+            sm.Play("Slow");
             tb.afLastTime = Time.time;
             tb.SetBall(tb.direction, tb.speed + flowAmount);
             tb.SetMove();

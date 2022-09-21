@@ -12,7 +12,7 @@ public class BallSettingUI : UIBase
     public Transform ballContent;
     [SerializeField] private Transform targetPointContent;
 
-    int order = 0;
+    public int order = 0;
 
     [Header("Panel")]
     [SerializeField] private SelectDirectionUI selectDirectionUI;
@@ -46,6 +46,7 @@ public class BallSettingUI : UIBase
 
             bool isAdded = false;
 
+            isAutoSet = false;
             //if (isAutoSet)
             //{
             //    order++;
@@ -56,35 +57,29 @@ public class BallSettingUI : UIBase
 
             newBallControllUI.BeginDrag = () =>
             {
-                float x = newBallControllUI.transform.localPosition.x + 1; // 혹시 200이니까
-                int insertIndex = (int)x / 200;
-                Debug.Log($"{insertIndex}번째에 삽입합니다.");
-
-                insertIndex = insertIndex > order ? order : insertIndex;
-                newBallControllUI.order = insertIndex + 1;
-
-                for (int i = order - 1; i > insertIndex + 1; i--)
+                for (int i = order; i > newBallControllUI.order; i--)
                 {
-                    Debug.Log($"{i}번 째 버튼 -");
+                    Debug.Log($"Begin_ {i}번 째 버튼 -");
+                    if (gm.ballUIList[i] == newBallControllUI) continue;
                     gm.ballUIList[i].order--;
                 }
 
                 gm.BallUiSort();
             };
-
-            newBallControllUI.EndDrag = () =>
+            newBallControllUI.EndDrag = (ballUI) =>
             {
-                float x = newBallControllUI.transform.localPosition.x + 1; // 혹시 200이니까
-                int insertIndex = (int)x / 200;
+                int insertIndex = ballUI != null ? ballUI.order : order;
+
                 Debug.Log($"{insertIndex}번째에 삽입합니다.");
 
-                insertIndex = insertIndex > order ? order : insertIndex;
-                newBallControllUI.order = insertIndex + 1;
+                newBallControllUI.order = insertIndex;
 
-                for (int i = insertIndex + 1; i < order; i++)
+
+                for (int i = insertIndex; i < order -1; i++)
                 {
-                    Debug.Log($"{i}번 째 버튼 +");
-                    gm.ballUIList[i].order++;
+                    Debug.Log($"End {i}번 째 버튼 +");
+                    if (gm.ballUIList[i - 1] == newBallControllUI) continue;
+                    gm.ballUIList[i - 1].order++;
                 }
 
                 gm.BallUiSort();

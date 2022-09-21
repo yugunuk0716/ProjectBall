@@ -17,6 +17,7 @@ public class Teleporter : ObjectTile
 
     public int portalIndex;
     public Teleporter pairTeleporter;
+    Ball lastBall;
 
     protected override void Awake()
     {
@@ -80,9 +81,19 @@ public class Teleporter : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
-        if (pairTeleporter != null && tb.tpCool + tb.tpLastTime < Time.time)
+        if (pairTeleporter != null)
         {
-            tb.tpLastTime = Time.time;
+            if(lastBall == tb)
+            {
+                return;
+            }
+
+            lastBall = tb;
+
+            SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+            sm.Play("Portal");
+
+
             tb.transform.position = pairTeleporter.transform.position - new Vector3(0, .25f, 0);
             tb.SetPos(pairTeleporter.keyPos);
             tb.SetMove();

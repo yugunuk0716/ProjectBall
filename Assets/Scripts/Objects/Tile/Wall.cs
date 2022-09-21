@@ -7,6 +7,8 @@ public class Wall : ObjectTile
     public override void InteractionTile(Ball tb)
     {
         PoolManager.Instance.Push(tb);
+        SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+        sm.Play("Thorn");
     }
 
     public override void Reset()

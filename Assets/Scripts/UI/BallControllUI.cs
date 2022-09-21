@@ -16,7 +16,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     Image bgImage;
 
     public Action BeginDrag;
-    public Action EndDrag;
+    public Action<BallControllUI> EndDrag;
 
     private void Awake()
     {
@@ -87,9 +87,20 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public void OnEndDrag(PointerEventData eventData)
     {
         if (order > 10) return;
-        Debug.Log("OnEndDrag");
         transform.SetParent(beforeParent);
-        EndDrag();
+
+        BallControllUI ballControll = null;
+        foreach(var item in eventData.hovered)
+        {
+            //Debug.Log(item.name);
+            if(item.name.Contains("BallControllUI") && item != this.gameObject)
+            {
+                ballControll = item.GetComponent<BallControllUI>();
+                if (ballControll.order > 10) ballControll = null;
+            }
+        }
+
+        EndDrag(ballControll);
         MaskOn(true);
     }
 
@@ -105,6 +116,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void MaskOn(bool on)
     {
+        bgImage.color = on ? Color.white : Color.blue;
+
         bgImage.maskable = on;
         directionSetBtn.image.maskable = on;
         directionImg.maskable = on;

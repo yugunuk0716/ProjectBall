@@ -41,7 +41,7 @@ public class CloudHandler : MonoBehaviour
         else
         {
             alpha = Random.Range(.3f, .6f);
-            sr.sortingOrder = (int)(10 + alpha);
+            sr.sortingOrder = (int)(20 + alpha);
             speed = Random.Range(5f, 10f);
         }
 

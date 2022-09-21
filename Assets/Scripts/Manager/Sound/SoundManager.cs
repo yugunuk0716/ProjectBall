@@ -34,6 +34,8 @@ public class SoundManager : ManagerBase
     private AudioMixerGroup _sfxMixer; //sfxMixerGroup
     private AudioMixerGroup _gunMixer; //gunMixerGruop
 
+    public static bool isMute = false;
+
     public override void Init()
     {
         _sfxSourceList = new List<AudioSource>(); //메모리 할당
@@ -56,6 +58,8 @@ public class SoundManager : ManagerBase
         }
 
         CreateAudioSource();
+
+        Play("BGM", 0.5f);
     }
 
 
@@ -73,8 +77,13 @@ public class SoundManager : ManagerBase
     /// 특정 음원을 재생하는 함수
     /// </summary>
     /// <param name="audioName">음원의 이름(SO의 audioName)</param>
-    public void Play(string audioName)
+    public void Play(string audioName, float volume = 1f)
     {
+        if (isMute)
+        {
+            return;
+        }
+
         if (_audioDic.TryGetValue(audioName, out AudioSO audioSO)) //만약 일치하는 음원이 있다면
         {
             if (_audioCountDic.TryGetValue(audioName, out int cnt))
@@ -108,11 +117,13 @@ public class SoundManager : ManagerBase
 
                 sfxSource.loop = false;
                 sfxSource.clip = audioSO.clip;
+                sfxSource.volume = volume;
                 sfxSource.Play();
             }
             else if (audioSO.audioType == AudioType.BGM) //bgm이면 음원을 갈아끼고 재생해준다
             {
                 _bgmSource.clip = audioSO.clip;
+                _bgmSource.volume = volume;
                 _bgmSource.Play();
             }
             else
