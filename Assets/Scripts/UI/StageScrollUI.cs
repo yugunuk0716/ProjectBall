@@ -71,7 +71,10 @@ public class StageScrollUI : UIBase
         Time.timeScale = on ? 0 : 1;
     }
 
-
+    public void UpdateHaptic()
+    {
+        Vibration.Vibrate(5);
+    }
 
     public override void Load()
     {

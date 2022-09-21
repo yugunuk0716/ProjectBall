@@ -104,6 +104,9 @@ namespace AirFishLab.ScrollingList
         /// It is used for blocking any input if the list has nothing to display.
         private bool _hasNoContent;
 
+
+
+        private bool isMoved = false;
         #endregion
 
         private void Awake()
@@ -298,6 +301,14 @@ namespace AirFishLab.ScrollingList
                 return;
 
             _listPositionCtrl.ScrollHandler(eventData);
+        }
+
+        public void asd()
+        {
+            int lastIdx = setting.boxVelocityCurve.length - 1;
+            Keyframe lastKey = setting.boxVelocityCurve[lastIdx];
+            Keyframe myKey = new Keyframe(3f, lastKey.value * 0.8f);
+            _setting.boxVelocityCurve.MoveKey(lastIdx, myKey);
         }
 
         #endregion
