@@ -119,7 +119,9 @@ public class GameManager : ManagerBase
 
         for (int i = 0; i < ballUIList.Count; i++)
         {
+            if (ballUIList[i].order > 10) continue;
             ballUIList[i].transform.SetSiblingIndex(i);
+            ballUIList[i].order = i + 1;
         }
         ResetOrderTexts();
     }
