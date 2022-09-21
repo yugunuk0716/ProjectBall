@@ -30,6 +30,9 @@ public class DirectionChanger : ObjectTile
     {
         Vector3 vec = Vector3.zero;
 
+        SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+        sm.Play("Arrow");
+
         tb.transform.position = transform.position - new Vector3(0, .25f, 0);
         switch (wallDirection)
         {

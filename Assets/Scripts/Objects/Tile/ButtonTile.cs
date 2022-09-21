@@ -13,6 +13,9 @@ public class ButtonTile : ObjectTile
         tb.SetMove();
         InvokeData();
 
+        SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+        sm.Play("Button");
+
         if (sr.sprite.Equals(spriteList[0]))
         {
             sr.sprite = spriteList[1];

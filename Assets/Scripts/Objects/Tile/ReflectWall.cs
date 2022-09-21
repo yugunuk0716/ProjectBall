@@ -39,6 +39,9 @@ public class ReflectWall : ObjectTile
 
         StopCoroutine(ChangeSprite(sprites, target));
 
+        SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+        sm.Play("Wall");
+
         if (isHorizontalWall)
         {
             switch(tb.direction)
