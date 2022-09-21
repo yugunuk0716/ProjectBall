@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4391e5e42b0c9f346a3c186aa5bf2e26, type: 3}
   m_Name: Stage 35
   m_EditorClassIdentifier: 
-  stageIndex: 30
+  stageIndex: 35
   balls:
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}
   - {fileID: 5550844566456813297, guid: ff2808abda2c3524aba4fa45f1dc0bee, type: 3}

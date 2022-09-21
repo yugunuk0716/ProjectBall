@@ -114,6 +114,7 @@ public class BallSettingUI : UIBase
         {
             if (false == GameManager.CanNotInteract && gm.myBallList.Count >= gm.maxBallCount)
             {
+
                 gm.ballUIList.ForEach((x) => x.directionSetBtn.interactable = false);
                 StartCoroutine(MoveBallUis(gm.ballUIList));
             }
