@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4471876049379863194
@@ -99,8 +99,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 10
   cloudImgs:
-  - {fileID: 1115442134, guid: b60e6d86a4f0f084db4b6b0bfa2121d9, type: 3}
-  - {fileID: 1438715801, guid: b60e6d86a4f0f084db4b6b0bfa2121d9, type: 3}
-  - {fileID: 698724555, guid: b60e6d86a4f0f084db4b6b0bfa2121d9, type: 3}
-  - {fileID: 45021512, guid: b60e6d86a4f0f084db4b6b0bfa2121d9, type: 3}
-  - {fileID: 375943512, guid: b60e6d86a4f0f084db4b6b0bfa2121d9, type: 3}
+  - {fileID: -682990638, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: 1908055858, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: 1071971379, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -533431140, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -845633372, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: 2142602274, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -1762485220, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -1736079672, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: 1079844216, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -470984163, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -1331268199, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: 497538828, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: 460772585, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
+  - {fileID: -1790545260, guid: 1295869c9a5d98745bffec31085b130d, type: 3}

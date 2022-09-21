@@ -6,7 +6,6 @@ using UnityEngine;
 public class IsometricManager : MonoBehaviour
 {
     
-
     private static IsometricManager instance;
     public static IsometricManager Instance
     {

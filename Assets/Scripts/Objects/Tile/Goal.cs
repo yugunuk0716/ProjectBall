@@ -18,7 +18,7 @@ public class Goal : ObjectTile
     public override void InteractionTile(Ball tb)
     {
         PoolManager.Instance.Push(tb);
-        if (false == isChecked)
+        if (!isChecked)
         {
             SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
             sm.Play("Flag");
