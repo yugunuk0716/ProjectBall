@@ -61,8 +61,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     {
         swapUI.ballControllUI = this;
         swapUI.gameObject.SetActive(true);
-        gameObject.transform.localScale = new Vector3(0, 1, 1);
-
+        gameObject.transform.DOScaleX(0, 0.2f);
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         for (int i = order + 1; i < gm.ballUIList.Count; i++)
         {

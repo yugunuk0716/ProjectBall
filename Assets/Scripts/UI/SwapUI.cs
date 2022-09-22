@@ -43,7 +43,7 @@ public class SwapUI : MonoBehaviour
         }
         gm.BallUiSort();
 
-        ballControllUI.transform.DOScale(new Vector3(1, 1, 1), 0.3f);
+        ballControllUI.transform.DOScaleX(1, 0.2f);
         ballControllUI = null;
         gameObject.SetActive(false);
     }

@@ -106,6 +106,10 @@ public class GameManager : ManagerBase
     public void BallUiSort()
     {
         ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
+        for(int i = 0; i< ballUIList.Count; i++)
+        {
+            ballUIList[i].order = i;
+        }
     }
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)

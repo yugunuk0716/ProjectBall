@@ -99,8 +99,8 @@ public class BallSettingUI : UIBase
         #region 시퀀스
         Sequence rollbackUISeq = DOTween.Sequence();
         rollbackUISeq.SetAutoKill(false);
-        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-150, 170, 0), 0.5f).SetEase(Ease.OutCubic));
-        rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, -720), 0.5f, RotateMode.LocalAxisAdd));
+        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-100, 100, 0), 0.5f).SetEase(Ease.OutCubic));
+        rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, -360), 0.5f, RotateMode.LocalAxisAdd));
         rollbackUISeq.Join(shootBtn.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
@@ -147,7 +147,7 @@ public class BallSettingUI : UIBase
 
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.8f).SetEase(Ease.OutCubic));
-        changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
+        changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.8f, RotateMode.LocalAxisAdd));
         changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(2, 2, 2), 0.8f).OnComplete(() =>
         {
             GameManager.CanNotInteract = false;

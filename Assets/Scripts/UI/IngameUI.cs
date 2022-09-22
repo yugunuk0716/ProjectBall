@@ -1,10 +1,6 @@
 using DG.Tweening;
-using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class IngameUI : UIBase
 {
@@ -29,10 +25,10 @@ public class IngameUI : UIBase
 
     public void SetTimerText(string textString, Color? color = null)
     {
-        //timer_text.text = textString;
+        timer_text.text = textString;
         if (color != null)
         {
-            //timer_text.color = color ?? default(Color);
+            timer_text.color = color ?? default(Color);
         }
     }
 
