@@ -219,11 +219,11 @@ MonoBehaviour:
   _setting:
     _listType: 0
     _controlMode: 0
-    _alignMiddle: 0
+    _alignMiddle: 1
     _reverseDirection: 0
     _direction: 1
     _centeredContentID: 0
-    _centerSelectedBox: 0
+    _centerSelectedBox: 1
     _reverseOrder: 1
     _initializeOnStart: 1
     _boxDensity: 0.6

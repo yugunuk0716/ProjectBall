@@ -18,6 +18,7 @@ public class GameManager : ManagerBase
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
 
     public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
+    public List<TargetPointUI> targetPointUIList = new List<TargetPointUI>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -123,6 +124,8 @@ public class GameManager : ManagerBase
             ballUIList[i].transform.SetSiblingIndex(i);
             ballUIList[i].order = i + 1;
         }
+
+        
         ResetOrderTexts();
     }
 

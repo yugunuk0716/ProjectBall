@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AirFishLab.ScrollingList.BoxTransformCtrl;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace AirFishLab.ScrollingList
 {
@@ -126,18 +127,118 @@ namespace AirFishLab.ScrollingList
         /// Update the position of the box
         /// </summary>
         /// <param name="delta">The delta distance in the major direction</param>
+
+        public TouchPhase curState;
+
+        private float fullDelta = 0;
+
+        private int count = 0;
         public void UpdatePosition(float delta)
         {
+            fullDelta += delta;
+
+            if(Mathf.Abs(delta) <= 500)
+            {
+                if (MathF.Abs(fullDelta) > 450)
+                {
+                    if (count > 20)
+                    {
+                        count = 0;
+                        fullDelta = 0;
+                        print("ㅡ");
+                    }
+                    else
+                    {
+                        fullDelta -= delta;
+                        count++;
+                    }
+                    return;
+                }
+            }
+            else
+            {
+                fullDelta = 0;
+
+            }
+
             _boxTransformCtrl.SetLocalTransform(
-                transform, delta,
-                out var needToUpdateToLastContent,
-                out var needToUpdateToNextContent);
+            transform, delta,
+            out var needToUpdateToLastContent,
+            out var needToUpdateToNextContent);
 
             if (needToUpdateToLastContent)
                 UpdateToLastContent();
             else if (needToUpdateToNextContent)
                 UpdateToNextContent();
+
+
+
         }
+
+        float per = 0f;
+        float already = 0f;
+
+        Tween t;
+        public void CorrectionError()
+        {
+            print(fullDelta);
+            int a = fullDelta > 0 ? 1 : -1;
+
+            float fullD = fullDelta;
+
+            already = fullD;
+            float lastT = 0;
+
+
+            if(t != null)
+            {
+                t.Kill();
+            }
+            t = DOTween.To(() => per, x =>
+            {
+                per = x;
+                float cur = 450 - MathF.Abs(fullD) - (already * a);
+
+                float temp = cur * a * per;
+                if (Mathf.Abs(lastT) < Mathf.Abs(temp))
+                {
+                    lastT = temp;
+                }
+                already += temp;
+                _boxTransformCtrl.SetLocalTransform(
+                transform, temp,
+                out var needToUpdateToLastContent,
+                out var needToUpdateToNextContent);
+
+                if (needToUpdateToLastContent)
+                    UpdateToLastContent();
+                else if (needToUpdateToNextContent)
+                    UpdateToNextContent();
+
+            }, 1f ,1f).SetUpdate(true);
+            //.OnComplete(() =>
+            //{
+            //    _boxTransformCtrl.SetLocalTransform(
+            //    transform, -fullD,
+            //    out var needToUpdateToLastContent,
+            //    out var needToUpdateToNextContent);
+
+            //    if (needToUpdateToLastContent)
+            //        UpdateToLastContent();
+            //    else if (needToUpdateToNextContent)
+            //        UpdateToNextContent();
+            //    print($"cm {fullD}");
+            //    print(already - fullD);
+            //});
+
+
+
+            fullDelta = 0;
+            per = 0;
+            already = 0;
+        }
+
+        
 
         /// <summary>
         /// Pop to the to the front of the image sorting
