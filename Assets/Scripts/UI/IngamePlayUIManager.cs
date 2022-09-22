@@ -11,10 +11,6 @@ public class IngamePlayUIManager : UIBase
     [SerializeField] RectTransform settingPanel; // scroll value = 0
     [SerializeField] RectTransform shootPanel; // scroll value = 1
 
-    [Header("Button"), Space(10)]
-    [SerializeField] Image settingIcon;
-    [SerializeField] Image shootIcon;
-
     [Header("Float"), Space(10)]
     [SerializeField] float swipeTime = 0.2f;
 
@@ -45,15 +41,6 @@ public class IngamePlayUIManager : UIBase
     {
         GameManager.CanNotInteract = true;
 
-        if (isSetPanelActive)
-        {
-            BtnCloseUp(settingIcon, shootIcon);
-        }
-        else
-        {
-            BtnCloseUp(shootIcon, settingIcon);
-        }
-
         int targetPos = isSetPanelActive ? -1080 : 1080;
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
@@ -80,7 +67,6 @@ public class IngamePlayUIManager : UIBase
 
     public override void Init()
     {
-        settingIcon.transform.DOScale(big, 0.5f);
         playUIs.ForEach((x) => x.Init());
         playUIs.ForEach((x) =>
         {
@@ -88,8 +74,6 @@ public class IngamePlayUIManager : UIBase
             {
                 BallSettingUI ballSettingUI = x.GetComponent<BallSettingUI>();
                 ballSettingUI.SwitchUI = (x) => SwitchUI(isSetPanelActive, x);
-                ballSettingUI.setIcon = settingIcon.rectTransform;
-                ballSettingUI.shootIcon = shootIcon.rectTransform;
             }
         });
     }

@@ -3,31 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 using System;
+using DG.Tweening;
 
-public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class BallControllUI : UIBase
 {
     public Button directionSetBtn;
     public TextMeshProUGUI orderText; // 순서
     [HideInInspector] public int order = 0;
 
     [SerializeField] private Image directionImg;
-    Image bgImage;
-
-    public Action BeginDrag;
-    public Action<BallControllUI> EndDrag;
-
-    private void Awake()
-    {
-        bgImage = GetComponent<Image>();
-    }
 
     public void SetBallSprites(Sprite ballSprite)
     {
         directionSetBtn.image.sprite= ballSprite;
     }
-
+    
     public void SetDirection(TileDirection dir, bool active = true)
     {
         float z = 0;
@@ -64,62 +55,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public override void Reset()
     {
         directionSetBtn.interactable = true;
-        directionSetBtn.image.color = Color.white;
         directionSetBtn.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -50, 0);
         orderText.SetText(string.Empty);
-        order = 0;
         directionImg.gameObject.SetActive(false);
-    }
-
-    Transform beforeParent = null;
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        if (order > 10) return;
-
-        beforeParent = transform.parent;
-        transform.SetParent(transform.parent.parent);
-        transform.SetAsLastSibling();
-        BeginDrag();
-        MaskOn(false);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if (order > 10) return;
-        transform.SetParent(beforeParent);
-
-        BallControllUI ballControll = null;
-        foreach(var item in eventData.hovered)
-        {
-            //Debug.Log(item.name);
-            if(item.name.Contains("BallControllUI") && item != this.gameObject)
-            {
-                ballControll = item.GetComponent<BallControllUI>();
-                if (ballControll.order > 10) ballControll = null;
-            }
-        }
-
-        EndDrag(ballControll);
-        MaskOn(true);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (order > 10) return;
-        Vector3 pos = Input.mousePosition;
-        pos.z = 0;
-        pos.y = 100;
-        pos.x = Math.Clamp(pos.x, 100, 700);
-        transform.localPosition = pos;
-    }
-
-    public void MaskOn(bool on)
-    {
-        bgImage.color = on ? Color.white : Color.blue;
-
-        bgImage.maskable = on;
-        directionSetBtn.image.maskable = on;
-        directionImg.maskable = on;
     }
 }
