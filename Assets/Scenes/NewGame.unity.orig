@@ -1002,7 +1002,6 @@ GameObject:
   - component: {fileID: 926292804}
   - component: {fileID: 926292803}
   - component: {fileID: 926292802}
-  - component: {fileID: 926292806}
   m_Layer: 5
   m_Name: Titlecanvas
   m_TagString: Untagged
@@ -1092,18 +1091,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!225 &926292806
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926292801}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &1098504649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1137,11 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
+<<<<<<< HEAD
+    m_SensorSize: {x: 0.6, y: 1}
+=======
     m_SensorSize: {x: 0.4864865, y: 1}
+>>>>>>> origin/main
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3026,7 +3017,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6430633673595331154}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
