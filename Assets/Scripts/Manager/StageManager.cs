@@ -48,6 +48,8 @@ public class StageManager : ManagerBase
 
         stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
 
+        LoadStage(PlayerPrefs.GetInt("ClearMapsCount"));
+
     }
 
 

@@ -3111,6 +3111,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4246307515295252542, guid: 0dd588c50a819419d85b39f2dfe1e5df, type: 3}
   m_PrefabInstance: {fileID: 4246307513747140072}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+=======
 --- !u!1 &1761238876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3336,6 +3338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   director: {fileID: 1803624783}
+>>>>>>> origin/main
 --- !u!1 &1840431744
 GameObject:
   m_ObjectHideFlags: 0
