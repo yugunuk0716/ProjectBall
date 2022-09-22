@@ -128,13 +128,16 @@ namespace AirFishLab.ScrollingList
         /// </summary>
         /// <param name="delta">The delta distance in the major direction</param>
 
-        public TouchPhase curState;
+        public bool canUpdatePosition = true;
 
         private float fullDelta = 0;
 
         private int count = 0;
         public void UpdatePosition(float delta)
         {
+            if (!canUpdatePosition)
+                return;
+
             fullDelta += delta;
 
             if(Mathf.Abs(delta) <= 500)
@@ -145,7 +148,6 @@ namespace AirFishLab.ScrollingList
                     {
                         count = 0;
                         fullDelta = 0;
-                        print("ㅡ");
                     }
                     else
                     {
@@ -181,10 +183,9 @@ namespace AirFishLab.ScrollingList
         Tween t;
         public void CorrectionError()
         {
-            print(fullDelta);
-            int a = fullDelta > 0 ? 1 : -1;
-
             float fullD = fullDelta;
+            int a = fullD > 0 ? 1 : -1;
+
 
             already = fullD;
             float lastT = 0;
@@ -200,6 +201,7 @@ namespace AirFishLab.ScrollingList
                 float cur = 450 - MathF.Abs(fullD) - (already * a);
 
                 float temp = cur * a * per;
+                print(cur);
                 if (Mathf.Abs(lastT) < Mathf.Abs(temp))
                 {
                     lastT = temp;
@@ -215,21 +217,10 @@ namespace AirFishLab.ScrollingList
                 else if (needToUpdateToNextContent)
                     UpdateToNextContent();
 
-            }, 1f ,1f).SetUpdate(true);
-            //.OnComplete(() =>
-            //{
-            //    _boxTransformCtrl.SetLocalTransform(
-            //    transform, -fullD,
-            //    out var needToUpdateToLastContent,
-            //    out var needToUpdateToNextContent);
-
-            //    if (needToUpdateToLastContent)
-            //        UpdateToLastContent();
-            //    else if (needToUpdateToNextContent)
-            //        UpdateToNextContent();
-            //    print($"cm {fullD}");
-            //    print(already - fullD);
-            //});
+            }, 1f ,1f).SetUpdate(true).OnComplete(() =>
+            {
+                fullD = 0;
+            });
 
 
 
