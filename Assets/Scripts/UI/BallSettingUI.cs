@@ -15,29 +15,28 @@ public class BallSettingUI : UIBase
     [Header("Panel")]
     [SerializeField] SelectDirectionUI selectDirectionUI;
     [SerializeField] RectTransform shootPanel; // 공 발사할 때 볼 패널!
-    [SerializeField] RectTransform swapperPanel; // 
 
     [Header("Button")]
     public Button confirmBtn;
     [SerializeField] Button shootBtn;
-
-    public Action<bool> SwitchUI; // 세팅에서 슛으로.
-    public Action RollbackShootUI; // 변화했던 UI 돌려놓기.
-
     [SerializeField] RectTransform targetPoint_ShootBtn;
+    [SerializeField] SwapUI swapUi;
+
+    public Action<bool> SwitchUI;  // 세팅에서 슛으로.
+    public Action RollbackShootUI; // 변화했던 UI 돌려놓기.
 
     public override void Init()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        gm.swapperList = new List<Test>(swapperPanel.GetComponentsInChildren<Test>());
-
-        gm.MakeNewBallUI = (ball, isAutoSet) =>
+        gm.MakeNewBallUI = (ball, isAutoSet, index) =>
         {
             BallControllUI newBallControllUI = PoolManager.Instance.Pop("BallControllUI") as BallControllUI;
             newBallControllUI.transform.SetParent(ballContent);
             newBallControllUI.transform.localPosition = new Vector3(0,0, 0); 
-            newBallControllUI.transform.localScale = Vector3.one; 
+            newBallControllUI.transform.localScale = Vector3.one;
+            newBallControllUI.order = index;
+            newBallControllUI.swapUI = swapUi;
             gm.ballUIList.Add(newBallControllUI);
 
             bool isAdded = false;
@@ -56,9 +55,7 @@ public class BallSettingUI : UIBase
                 if (isAdded) // 다시 돌아오려는
                 {
                     newBallControllUI.SetDirection(TileDirection.RIGHTDOWN, false);
-
                     gm.myBallList.Remove(ball);
-                    gm.BallUiSort();
                 }
                 else // 추가 하려는
                 {
@@ -98,6 +95,8 @@ public class BallSettingUI : UIBase
 
         MakeTargetPoints();
         GameManager.CanNotInteract = true;
+
+        #region 시퀀스
         Sequence rollbackUISeq = DOTween.Sequence();
         rollbackUISeq.SetAutoKill(false);
         rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-150, 170, 0), 0.5f).SetEase(Ease.OutCubic));
@@ -107,13 +106,13 @@ public class BallSettingUI : UIBase
             SwitchUI(true);
             GameManager.CanNotInteract = false;
         }));
+        #endregion  
 
     }
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
         GameManager.CanNotInteract = true;
         shootBtn.interactable = false;
 
@@ -129,7 +128,7 @@ public class BallSettingUI : UIBase
 
         for (int i = 0; i < list.Count; i++)
         {
-            gm.ballUIList[i].order = i;
+           
             list[i].transform.SetParent(targetPoints[i + 1]);
             list[i].transform.DOMove(targetPoints[i + 1].position, 0.4f).SetEase(Ease.OutCubic);
             yield return new WaitForSeconds(duration);
@@ -138,13 +137,13 @@ public class BallSettingUI : UIBase
 
         yield return new WaitForSeconds(0.2f);
 
-        //List<BallControllUI> ballUiList = gm.ballUIList;
-        //foreach(var item in ballUiList)
-        //{
-        //    TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();
-        //    item.transform.SetParent(item.transform.parent.parent);
-        //    PoolManager.Instance.Push(tp);
-        //}
+        List<BallControllUI> ballUiList = gm.ballUIList;
+        foreach(var item in ballUiList)
+        {
+            TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();
+            item.transform.SetParent(item.transform.parent.parent);
+            PoolManager.Instance.Push(tp);
+        }
 
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.8f).SetEase(Ease.OutCubic));

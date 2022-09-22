@@ -49,9 +49,6 @@ public class SelectDirectionUI : UIBase
                 gm.lastBallList.Add(addBall);
                 
                 ballControllUI.SetDirection(addBall.shootDir);
-                gm.BallUiSort();
-
-                
             });
         }
     }

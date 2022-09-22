@@ -16,7 +16,6 @@ public class IngamePlayUIManager : UIBase
 
     [Header("UI About Ingame PlayUI"), Space(10)]
     [SerializeField] List<UIBase> playUIs = new List<UIBase>();
-
     private bool isSetPanelActive = true;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);

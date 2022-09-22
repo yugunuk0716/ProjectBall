@@ -13,12 +13,10 @@ public class GameManager : ManagerBase
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
-    public List<Ball> lastBallList = new List<Ball>();
-    public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
-    public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
-
-    public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
-    public List<Test> swapperList = new List<Test>(); // 삭제시킬 UI 리스트?
+    [HideInInspector] public List<Ball> lastBallList  = new List<Ball>();
+    [HideInInspector] public List<Ball> myBallList    = new List<Ball>(); // 사용 가능한 공들
+    [HideInInspector] public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
+    [HideInInspector] public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -37,7 +35,7 @@ public class GameManager : ManagerBase
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
     public Action<int> MakeNewStageUIs;
-    public Action<Ball, bool> MakeNewBallUI;
+    public Action<Ball, bool, int> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
     public Action UpdateUIContents;
@@ -105,11 +103,9 @@ public class GameManager : ManagerBase
         }
     }
 
-
-
     public void BallUiSort()
     {
-
+        ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
     }
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)
@@ -118,7 +114,7 @@ public class GameManager : ManagerBase
         {
             for (int i = 0; i < ballCount; i++)
             {
-                MakeNewBallUI(lastBallList[i], true);
+                MakeNewBallUI(lastBallList[i], true, i);
             }
 
             lastBallList = lastBallList.GetRange(0, ballCount);
@@ -128,7 +124,7 @@ public class GameManager : ManagerBase
             for (int i = 0; i < ballCount; i++)
             {
                 Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-                MakeNewBallUI(ball, false);
+                MakeNewBallUI(ball, false, i);
             }
         }
     }
@@ -199,7 +195,6 @@ public class GameManager : ManagerBase
             SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.white);
         }
     }
-
 
     public void StopTimer() => StopCoroutine(timerCo);
 
