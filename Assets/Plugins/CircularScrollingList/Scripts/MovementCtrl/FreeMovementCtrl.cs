@@ -183,7 +183,7 @@ namespace AirFishLab.ScrollingList.MovementCtrl
                 _aligningMovementCurve.SetMovement(_getAligningDistance());
                 distance = _aligningMovementCurve.GetDistance(deltaTime);
             }
-
+      
             return distance;
         }
 
