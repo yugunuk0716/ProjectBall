@@ -22,7 +22,7 @@ public class PauseRecevier : MonoBehaviour, INotificationReceiver
         if (notification is PauseMarker)
         {
             PauseMarker marker = notification as PauseMarker;
-
+            StartCoroutine(Waiting(marker));
         }
     }
 

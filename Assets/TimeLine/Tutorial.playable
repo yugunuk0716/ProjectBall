@@ -22,7 +22,8 @@ MonoBehaviour:
   m_Children: []
   m_Clips: []
   m_Markers:
-    m_Objects: []
+    m_Objects:
+    - {fileID: -3273675533407057017}
 --- !u!114 &-4873507767000735831
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,6 +40,22 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 53caeae5206e15e4c896a1431d78bf24
     defaultValue: {fileID: 0}
+--- !u!114 &-3273675533407057017
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a05f085c4276447ab0194dd9ee4d38, type: 3}
+  m_Name: Pause Marker
+  m_EditorClassIdentifier: 
+  m_Time: 1.4333333333333333
+  pauseId: 1
+  pauseTime: 2
+  rewindTime: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

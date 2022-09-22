@@ -993,6 +993,8 @@ GameObject:
   - component: {fileID: 617501194}
   - component: {fileID: 617501193}
   - component: {fileID: 617501192}
+  - component: {fileID: 617501196}
+  - component: {fileID: 617501197}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1100,6 +1102,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &617501196
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617501191}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 1cb5fb3e246828d4d9e8770cccf3f11e, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 4973793052721321409, guid: 1cb5fb3e246828d4d9e8770cccf3f11e, type: 2}
+    value: {fileID: 617501192}
+  - key: {fileID: 3940750792687581571, guid: 1cb5fb3e246828d4d9e8770cccf3f11e, type: 2}
+    value: {fileID: 926292801}
+  m_ExposedReferences:
+    m_References:
+    - 53caeae5206e15e4c896a1431d78bf24: {fileID: 1098504651}
+--- !u!114 &617501197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617501191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec83645a46a6c94281b28b36b4b3883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  director: {fileID: 617501196}
 --- !u!1 &671935599
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,79 +2120,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4246307515295252542, guid: 0dd588c50a819419d85b39f2dfe1e5df, type: 3}
   m_PrefabInstance: {fileID: 4246307513747140072}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1803624782
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1803624784}
-  - component: {fileID: 1803624783}
-  - component: {fileID: 1803624785}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!320 &1803624783
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803624782}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 1cb5fb3e246828d4d9e8770cccf3f11e, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 8963208307028837900, guid: b8da96a11e26e214986adad99566ec57, type: 2}
-    value: {fileID: 617501192}
-  - key: {fileID: 6850652486634883827, guid: b8da96a11e26e214986adad99566ec57, type: 2}
-    value: {fileID: 1636271302}
-  - key: {fileID: 4973793052721321409, guid: 1cb5fb3e246828d4d9e8770cccf3f11e, type: 2}
-    value: {fileID: 0}
-  - key: {fileID: 3940750792687581571, guid: 1cb5fb3e246828d4d9e8770cccf3f11e, type: 2}
-    value: {fileID: 0}
-  m_ExposedReferences:
-    m_References:
-    - d21b451263af0274d9f35a5a5025b78a: {fileID: 1098504651}
-    - 53caeae5206e15e4c896a1431d78bf24: {fileID: 1098504651}
---- !u!4 &1803624784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803624782}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1803624785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1803624782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec83645a46a6c94281b28b36b4b3883, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  director: {fileID: 1803624783}
 --- !u!1 &1840431744
 GameObject:
   m_ObjectHideFlags: 0
