@@ -20,16 +20,16 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         switch (dir)
         {
             case TileDirection.RIGHTUP:
-                z = 45f;
+                z = 0f;
                 break;
             case TileDirection.RIGHTDOWN:
-                z = 315f;
+                z = 270f;
                 break;
             case TileDirection.LEFTDOWN:
-                z = 225f;
+                z = 180f;
                 break;
             case TileDirection.LEFTUP:
-                z = 135;
+                z = 90;
                 break;
         }
 
