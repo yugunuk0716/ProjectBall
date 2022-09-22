@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R3CT80DBKVA",
         "name": "com.DefaultCompany.ProjectBall",
-        "processId": 11803,
+        "processId": 9411,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -45,6 +45,36 @@
             "exited": false
         },
         {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 17562,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 22099,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 10600,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 21809,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 9411,
+            "exited": false
+        },
+        {
             "deviceId": "R3CM601YGCH",
             "name": "com.sec.android.app.launcher",
             "processId": 1934,
@@ -72,6 +102,12 @@
             "deviceId": "R3CMB05GZPW",
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 28260,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CMB05GZPW",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 26961,
             "exited": false
         }
     ],
