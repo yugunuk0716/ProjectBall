@@ -10,6 +10,7 @@ public class GameOverUI : UIBase
     [SerializeField] private Button loadNextBtn;
     [SerializeField] private TextMeshProUGUI gameOverText;
     StageManager sm;
+    GameManager gm;
     public List<Image> starList = new List<Image>();
     public bool isClear = false;
 
@@ -35,7 +36,7 @@ public class GameOverUI : UIBase
         IsometricManager.Instance.GetManager<GameManager>().ActiveGameOverPanel = (bool isClear) => OnGameOver(isClear);
 
         sm = IsometricManager.Instance.GetManager<StageManager>();
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm = IsometricManager.Instance.GetManager<GameManager>();
 
         gm.OnClear = SetStar;
 
@@ -75,6 +76,9 @@ public class GameOverUI : UIBase
             starList[i].gameObject.SetActive(true);
             yield return new WaitForSeconds(0.75f);
         }
+
+        gm.clearParticle_Left.Play();
+        gm.clearParticle_Right.Play();
 
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;

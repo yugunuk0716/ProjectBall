@@ -144,7 +144,7 @@ namespace AirFishLab.ScrollingList
             {
                 if (MathF.Abs(fullDelta) > 450)
                 {
-                    if (count > 20)
+                    if (count > 30)
                     {
                         count = 0;
                         fullDelta = 0;
@@ -201,7 +201,7 @@ namespace AirFishLab.ScrollingList
                 float cur = 450 - MathF.Abs(fullD) - (already * a);
 
                 float temp = cur * a * per;
-                print(cur);
+                print(fullD);
                 if (Mathf.Abs(lastT) < Mathf.Abs(temp))
                 {
                     lastT = temp;
@@ -220,6 +220,7 @@ namespace AirFishLab.ScrollingList
             }, 1f ,1f).SetUpdate(true).OnComplete(() =>
             {
                 fullD = 0;
+                canUpdatePosition = false;
             });
 
 
