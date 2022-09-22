@@ -78,7 +78,7 @@ public class GameOverUI : UIBase
 
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
-        loadNextBtn.image.color = isClear ? Color.white : Color.gray;
+        //loadNextBtn.image.color = isClear ? Color.white : Color.gray;
     }
 
     public override void Load()
