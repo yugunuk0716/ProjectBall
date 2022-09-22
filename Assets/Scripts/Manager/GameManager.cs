@@ -18,7 +18,7 @@ public class GameManager : ManagerBase
     public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
 
     public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
-    public List<TargetPointUI> targetPointUIList = new List<TargetPointUI>(); // 삭제시킬 UI 리스트?
+    public List<Test> swapperList = new List<Test>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -105,28 +105,11 @@ public class GameManager : ManagerBase
         }
     }
 
-    public void ResetOrderTexts()
-    {
-        for (int i = 0; i < ballUIList.Count; i++)
-        {
-            string text = ballUIList[i].order <= ballUIList.Count ? (i + 1).ToString() : string.Empty;
-            ballUIList[i].orderText.SetText(text);
-        }
-    }
+
 
     public void BallUiSort()
     {
-        ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
 
-        for (int i = 0; i < ballUIList.Count; i++)
-        {
-            if (ballUIList[i].order > 10) continue;
-            ballUIList[i].transform.SetSiblingIndex(i);
-            ballUIList[i].order = i + 1;
-        }
-
-        
-        ResetOrderTexts();
     }
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)

@@ -6,19 +6,13 @@ using TMPro;
 using System;
 using DG.Tweening;
 
+
 public class BallControllUI : UIBase
 {
     public Button directionSetBtn;
-    public TextMeshProUGUI orderText; // 순서
-    [HideInInspector] public int order = 0;
-
+    public int order;
     [SerializeField] private Image directionImg;
 
-    public void SetBallSprites(Sprite ballSprite)
-    {
-        directionSetBtn.image.sprite= ballSprite;
-    }
-    
     public void SetDirection(TileDirection dir, bool active = true)
     {
         float z = 0;
@@ -56,7 +50,6 @@ public class BallControllUI : UIBase
     {
         directionSetBtn.interactable = true;
         directionSetBtn.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -50, 0);
-        orderText.SetText(string.Empty);
         directionImg.gameObject.SetActive(false);
     }
 }

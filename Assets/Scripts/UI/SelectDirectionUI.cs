@@ -10,17 +10,15 @@ public class SelectDirectionUI : UIBase
     [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
     [SerializeField] private Sprite directionSprites;
 
-    [HideInInspector] public int order;
     [HideInInspector] public BallControllUI ballControllUI;
     private MapLoadVideoPlayer mapLoadVideoPlayer;
 
     public bool isSelecting = false;
 
-    public void Set(Ball addBall, BallControllUI ballControllUI, int order)
+    public void Set(Ball addBall, BallControllUI ballControllUI)
     {
         this.addBall = addBall;
         this.ballControllUI = ballControllUI;
-        this.order = order;
     }
 
     public override void Init()
