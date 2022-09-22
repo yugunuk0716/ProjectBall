@@ -20,8 +20,8 @@ public class GameManager : ManagerBase
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
-    private ParticleSystem clearParticle_Left;
-    private ParticleSystem clearParticle_Right;
+    public ParticleSystem clearParticle_Left;
+    public ParticleSystem clearParticle_Right;
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
@@ -144,8 +144,7 @@ public class GameManager : ManagerBase
         if (list.Count == 0 && firstTime + limitTime >= Time.time)
         {
             Vibration.Vibrate(500);
-            clearParticle_Left.Play();
-            clearParticle_Right.Play();
+            
             UpdateUIContents?.Invoke();
             StopTimer();
             float clearTime = limitTime - realTime;

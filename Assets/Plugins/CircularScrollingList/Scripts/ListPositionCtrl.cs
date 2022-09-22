@@ -300,7 +300,7 @@ namespace AirFishLab.ScrollingList
             {
                 _listBoxes.ForEach(b =>
                 {
-                    b.canUpdatePosition = false;
+                    b.canUpdatePosition = true;
 
                 });
             }
@@ -310,8 +310,7 @@ namespace AirFishLab.ScrollingList
                 _listBoxes.ForEach(b =>
                 {
                     b.CorrectionError();
-                    b.canUpdatePosition = false;
-                
+                   
                 });
             }
 
