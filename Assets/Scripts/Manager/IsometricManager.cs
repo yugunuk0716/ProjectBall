@@ -30,11 +30,13 @@ public class IsometricManager : MonoBehaviour
         managers.Add(gameObject.AddComponent<TutorialManager>());
 
         Application.targetFrameRate = 300;
-        
+
+        PlayerPrefs.SetInt("ClearMapsCount", 1);
+
+
         UpdateState(eUpdateState.Init);
 
-        
-        //유니티에디터에서만 PlayerPrefs.SetInt("ClearMapsCount", 30) 실행.
+
         
 
     }

@@ -1852,6 +1852,10 @@ MonoBehaviour:
   - {fileID: 1655952923}
   - {fileID: 1575401815}
   - {fileID: 1598140278}
+  canvas:
+  - {fileID: 926292806}
+  - {fileID: 6430633673595331167}
+  - {fileID: 1636271307}
 --- !u!1 &1312025080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2903,6 +2907,7 @@ GameObject:
   - component: {fileID: 1636271305}
   - component: {fileID: 1636271304}
   - component: {fileID: 1636271303}
+  - component: {fileID: 1636271307}
   m_Layer: 5
   m_Name: BGcanvas
   m_TagString: Untagged
@@ -2992,6 +2997,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &1636271307
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636271302}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1649869144
 GameObject:
   m_ObjectHideFlags: 0
