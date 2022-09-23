@@ -24,7 +24,9 @@ public class SwapUI : MonoBehaviour
 
         if (obj != null)
         {
+            BallControllUI ui = obj.GetComponent<BallControllUI>();
             insertIndex = obj.GetComponent<BallControllUI>().order;
+            Debug.Log($"Test, {ui.rt.anchoredPosition.x + (Screen.width - 1000) / 2} / {transform.position.x}");
         }
         else
         {
@@ -36,15 +38,17 @@ public class SwapUI : MonoBehaviour
         Debug.Log($"{insertIndex}");
 
         ballControllUI.transform.SetSiblingIndex(insertIndex);
+        ballControllUI.transform.DOScaleX(1, 0.2f);
         ballControllUI.order = insertIndex;
-        for (int i = insertIndex + 1; i< gm.ballUIList.Count; i++)
+        ballControllUI = null;
+        
+        for (int i = insertIndex + 1; i < gm.ballUIList.Count; i++)
         {
             gm.ballUIList[i].order++;
         }
         gm.BallUiSort();
 
-        ballControllUI.transform.DOScaleX(1, 0.2f);
-        ballControllUI = null;
+       
         gameObject.SetActive(false);
     }
 }

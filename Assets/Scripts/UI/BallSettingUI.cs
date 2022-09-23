@@ -41,13 +41,12 @@ public class BallSettingUI : UIBase
 
             bool isAdded = false;
 
-            isAutoSet = false;
-            if (isAutoSet)
-            {
-                isAdded = true;
-                gm.myBallList.Add(ball);
-                newBallControllUI.SetDirection(ball.shootDir);
-            }
+            //if (isAutoSet)
+            //{
+            //    isAdded = true;
+            //    gm.myBallList.Add(ball);
+            //    newBallControllUI.SetDirection(ball.shootDir);
+            //}
 
             newBallControllUI.directionSetBtn.onClick.RemoveAllListeners();
             newBallControllUI.directionSetBtn.onClick.AddListener(() =>
@@ -101,7 +100,7 @@ public class BallSettingUI : UIBase
         rollbackUISeq.SetAutoKill(false);
         rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(new Vector3(-100, 100, 0), 0.5f).SetEase(Ease.OutCubic));
         rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, -360), 0.5f, RotateMode.LocalAxisAdd));
-        rollbackUISeq.Join(shootBtn.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f).OnComplete(() =>
+        rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
             GameManager.CanNotInteract = false;
@@ -148,7 +147,7 @@ public class BallSettingUI : UIBase
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPos(targetPoint_ShootBtn.anchoredPosition, 0.8f).SetEase(Ease.OutCubic));
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 360), 0.8f, RotateMode.LocalAxisAdd));
-        changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(2, 2, 2), 0.8f).OnComplete(() =>
+        changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.8f).OnComplete(() =>
         {
             GameManager.CanNotInteract = false;
             shootBtn.interactable = true;

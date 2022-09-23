@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AirFishLab.ScrollingList.BoxTransformCtrl;
 using UnityEngine;
@@ -201,7 +201,7 @@ namespace AirFishLab.ScrollingList
                 float cur = 450 - MathF.Abs(fullD) - (already * a);
 
                 float temp = cur * a * per;
-                print(fullD);
+                //print(fullD);
                 if (Mathf.Abs(lastT) < Mathf.Abs(temp))
                 {
                     lastT = temp;
