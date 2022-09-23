@@ -34,7 +34,6 @@ public class GameManager : ManagerBase
 
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
-    public Action<int> MakeNewStageUIs;
     public Action<Ball, bool, int> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
@@ -55,11 +54,6 @@ public class GameManager : ManagerBase
 
         CloudHandler Cloud = Instantiate(Resources.Load<CloudHandler>("Objects/CloudHandler"));
         StartCoroutine(Cloud.CloudMove());
-
-
-#if UNITY_EDITOR
-       // PlayerPrefs.SetInt("ClearMapsCount", 46);
-#endif
     }
 
 
@@ -120,7 +114,6 @@ public class GameManager : ManagerBase
             {
                 MakeNewBallUI(lastBallList[i], true, i);
             }
-
             lastBallList = lastBallList.GetRange(0, ballCount);
         }
         else
@@ -135,7 +128,7 @@ public class GameManager : ManagerBase
 
     public void CheckClear()
     {
-        if (isFirstBallNotArrived)
+        if (isFirstBallNotArrived || myBallList.Count != 0)
         {
             isFirstBallNotArrived = false;
             firstTime = Time.time;
@@ -145,7 +138,7 @@ public class GameManager : ManagerBase
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
-        if (list.Count == 0 && firstTime + limitTime >= Time.time)
+        if (list.Count == 0 && limitTime >= realTime)
         {
             Vibration.Vibrate(500);
             
@@ -155,26 +148,13 @@ public class GameManager : ManagerBase
             SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
-
             int star = sm.CalcStar(clearTime);
-
-            sm.SaveStar(sm.stageIndex - 1, star);
-
-            print($"idx: {sm.stageIndex} cc {sm.clearMapCount}");
+            sm.SaveStar(sm.stageIndex - 1, star); 
 
             if(sm.stageIndex - 1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
             {
                 sm.clearMapCount++;
-                print("update clear count");
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
-                
-                if(sm.clearMapCount % 3 == 0)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        MakeNewStageUIs(i + sm.stageIndex);
-                    }
-                }
             }
             ActiveGameOverPanel(true);
             OnClear?.Invoke(star);
@@ -185,7 +165,7 @@ public class GameManager : ManagerBase
     {
         while (true)
         {
-            if (limitTime - realTime <= 0)
+            if (limitTime < realTime)
             {
                 goalList.ForEach((x) => x.ResetFlag(false));
                 StopTimer();
@@ -195,7 +175,7 @@ public class GameManager : ManagerBase
 
             yield return null;
             realTime += Time.deltaTime;
-            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.white);
+            SetTimerText(string.Format("{0:0.00}", limitTime < realTime ? "0:00" : limitTime - realTime), Color.white);
         }
     }
 

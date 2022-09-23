@@ -164,7 +164,6 @@ public class SaveManager : ManagerBase
     {
         ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
         int index = 0;
-        int targetindex =0;
         if (data.isTransitionTile)
         {
             a.StartTransition();
@@ -274,29 +273,12 @@ public class SaveManager : ManagerBase
                 tp.portalIndex = portalIndex;
             }
 
-            if (data.type.Equals(TileType.ColorChanger))
-            {
-                //여기서 정보 주면 될듯
-                ColorChanger cc = a.GetComponent<ColorChanger>();
-                cc.targetColor = changeColor;
-            }
-
-            if (data.type.Equals(TileType.ColorGoal))
-            {
-                //깃발에 컬러정보 주기
-                ColorGoal cg = a.GetComponent<ColorGoal>();
-                cg.SetSuccessColor(changeColor);
-            }
-            
             a.btnIndex = index;
 
             a.btnString = data.targetstring;
-
-
             a.dataString = data.lastString;
 
             a.transform.position = mainMap.CellToWorld(new Vector3Int(data.pos.x + 1, data.pos.y + 1, 0));
-
             a.transform.position += new Vector3(0, 1, 0);
 
             a.SetDirection();
