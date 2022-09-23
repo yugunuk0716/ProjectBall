@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -301,7 +301,6 @@ namespace AirFishLab.ScrollingList
                 _listBoxes.ForEach(b =>
                 {
                     b.canUpdatePosition = true;
-
                 });
             }
 
