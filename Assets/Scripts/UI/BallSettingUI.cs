@@ -127,7 +127,6 @@ public class BallSettingUI : UIBase
 
         for (int i = 0; i < list.Count; i++)
         {
-           
             list[i].transform.SetParent(targetPoints[i + 1]);
             list[i].transform.DOMove(targetPoints[i + 1].position, 0.4f).SetEase(Ease.OutCubic);
             yield return new WaitForSeconds(duration);
