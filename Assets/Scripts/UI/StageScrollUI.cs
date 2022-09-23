@@ -34,9 +34,22 @@ public class StageScrollUI : UIBase
 
         IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) => { allContents.ForEach(c => c.UpdateContent()); };
 
+        FunctionUpdater.Create(CheckBackButton);
+
       // ScreenOn(true);
       // isScreenOn = true;
      
+    }
+
+    public void CheckBackButton()
+    {
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                ScreenOn(false);
+            }
+        }
     }
 
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
