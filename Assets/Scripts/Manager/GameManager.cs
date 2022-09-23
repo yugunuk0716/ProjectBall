@@ -46,6 +46,7 @@ public class GameManager : ManagerBase
 
     public override void Init()
     {
+        PlayerPrefs.SetInt("ClearMapsCount", 1);
         realTime = 0;
 
         PoolingObjectInit();
