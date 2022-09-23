@@ -7,7 +7,7 @@ public class TutorialManager : ManagerBase
     //ManagerBase 구현하기
     public override void Init()
     {
-        if (PlayerPrefs.GetInt("IsFirst") != 1)
+       /* if (PlayerPrefs.GetInt("IsFirst") != 1)
         {
             PlayerPrefs.SetInt("IsFirst", 0);
             StartTurotial();
@@ -15,7 +15,7 @@ public class TutorialManager : ManagerBase
         else
         {
             return;
-        }
+        }*/
     }
 
     public override void Load()

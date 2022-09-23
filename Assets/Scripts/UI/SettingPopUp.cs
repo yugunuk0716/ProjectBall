@@ -26,7 +26,7 @@ public class SettingPopUp : UIBase
         homeButton.onClick.AddListener(() => 
         {
             ScreenOn(false);
-
+            
             uimanager.canvas[0].gameObject.SetActive(true);
             uimanager.canvas[0].DOFade(1, 0.5f).SetUpdate(true);
             

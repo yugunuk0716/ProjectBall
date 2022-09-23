@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class IsometricManager : MonoBehaviour
 {
-    
+
     private static IsometricManager instance;
     public static IsometricManager Instance
     {
@@ -15,6 +15,7 @@ public class IsometricManager : MonoBehaviour
         }
     }
 
+    public bool isFirst = true;
     public List<ManagerBase> managers;
 
     private void Awake()
@@ -31,14 +32,29 @@ public class IsometricManager : MonoBehaviour
 
         Application.targetFrameRate = 300;
 
-        PlayerPrefs.SetInt("ClearMapsCount", 1);
+        PlayerPrefs.SetInt("IsFirst", PlayerPrefs.GetInt("IsFirst",1));
+
+        if (PlayerPrefs.GetInt("IsFirst") == 1)
+        {
+            FirstCall();
+            Debug.Log("최초실행");
+        }
+        else
+        {
+            Debug.Log("최초실행 아님");
+        }
 
 
+
+     
         UpdateState(eUpdateState.Init);
+    }
 
-
-        
-
+    private void FirstCall()
+    {
+        PlayerPrefs.SetInt("ClearMapsCount", 1);
+        PlayerPrefs.SetInt("IsFirst", 0);
+        PlayerPrefs.Save();
     }
 
     public static Vector2 GetIsoDir(TileDirection dir) // 등각투형에 걸맞는 벡터로..
@@ -68,7 +84,7 @@ public class IsometricManager : MonoBehaviour
         switch (dir)
         {
             case TileDirection.RIGHTUP:
-                vec = new Vector2(1,1);
+                vec = new Vector2(1, 1);
                 break;
             case TileDirection.LEFTDOWN:
                 vec = new Vector2(-1, -1);
