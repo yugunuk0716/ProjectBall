@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class UIManager : ManagerBase
 {
+    
     [SerializeField] List<UIBase> uis;
+
+    public List<CanvasGroup> canvas = new List<CanvasGroup>();
 
 
     public override void Init() => uis.ForEach(x => x.Init());

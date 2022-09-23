@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SettingPopUp : UIBase
 {
@@ -14,12 +15,23 @@ public class SettingPopUp : UIBase
     public Button sfxButton;
     public Button bgmButton;
 
+    private UIManager uimanager;
+
     public override void Init()
     {
+        uimanager = IsometricManager.Instance.GetManager<UIManager>();
         GetCanvasGroup();
         menuButton.onClick.AddListener(() => ScreenOn(true));
         resumeButton.onClick.AddListener(() => ScreenOn(false));
-        homeButton.onClick.AddListener(() => { SceneManager.LoadScene("Title"); }); // 버튼에 씬이동하게 만들기
+        homeButton.onClick.AddListener(() => 
+        {
+            ScreenOn(false);
+
+            uimanager.canvas[0].gameObject.SetActive(true);
+            uimanager.canvas[0].DOFade(1, 0.5f).SetUpdate(true);
+            
+            uimanager.canvas[1].DOFade(0, 0.5f).SetUpdate(true);
+        });
         quitButton.onClick.AddListener(() => Application.Quit());
 
         sfxButton.onClick.AddListener(() =>
