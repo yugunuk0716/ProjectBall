@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 5575668647192767572}
   - component: {fileID: 8738487046175299926}
   - component: {fileID: 46032322326663842}
+  - component: {fileID: 4253630776959566310}
   m_Layer: 5
   m_Name: InGamePlayUIManager
   m_TagString: Untagged
@@ -136,6 +137,18 @@ MonoBehaviour:
   playUIs:
   - {fileID: 6203848044275033492}
   - {fileID: 6328076305350715302}
+--- !u!225 &4253630776959566310
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465389087927230974}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1070719411099260654
 PrefabInstance:
   m_ObjectHideFlags: 0
