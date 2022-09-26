@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class UIManager : ManagerBase
 {
-    
-    [SerializeField] List<UIBase> uis;
+
+    public List<UIBase> uis;
 
     public List<CanvasGroup> canvas = new List<CanvasGroup>();
 

@@ -38,6 +38,7 @@ public class SaveManager : ManagerBase
             UnityWebRequest www = UnityWebRequest.Get(URL + "&gid=" + sheet + "&range=" + range);
 
             yield return www.SendWebRequest();
+            
             ClearTileMap();
             tileDatas.Clear();
             data = www.downloadHandler.text;
