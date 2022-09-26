@@ -8,14 +8,16 @@ using TMPro;
 
 public class TutorialManager : ManagerBase
 {
-    private List<Image> tutoPanels = new List<Image>();
+    private List<CanvasGroup> tutoPanels = new List<CanvasGroup>();
     private TuroritalUI turoritalUI;
     private GameManager gm;
     private UIManager um;
+    private BallControllUI currentBallUI;
     private int ballCount = 0;
     //ManagerBase 구현하기
     public override void Init()
     {
+        ballCount = 0;
     }
 
 
@@ -26,9 +28,8 @@ public class TutorialManager : ManagerBase
 
         turoritalUI = um.canvas[3].GetComponent<TuroritalUI>();
 
-        tutoPanels = turoritalUI.TutoPanels.ToList();
+        turoritalUI.TutoPanels.ForEach(x => tutoPanels.Add(x.GetComponent<CanvasGroup>()));
         ballCount = 0;
-
     }
 
     public override void Load()
@@ -41,17 +42,9 @@ public class TutorialManager : ManagerBase
 
     public IEnumerator StartTurotial()
     {
-
+        um.canvas[3].interactable = true;
+        um.canvas[3].blocksRaycasts = true;
         um.canvas[3].DOFade(1f, 1f);
-
-        Canvas c;
-        GameObject ingameUi = um.uis[3].gameObject;
-        ingameUi.AddComponent<GraphicRaycaster>();
-        ingameUi.AddComponent<Canvas>();
-        c = ingameUi.GetComponent<Canvas>();
-        c.overrideSorting = true;
-        c.sortingOrder = 210;
-        
         
         yield return null;
         SelectBall();
@@ -59,15 +52,21 @@ public class TutorialManager : ManagerBase
 
     public void SelectBall()
     {
-
-        gm.ballUIList.ForEach(x =>
-        {
-            x.directionSetBtn.onClick.AddListener(ChooseDir);
-        });
+        currentBallUI = gm.ballUIList[ballCount];
+        Canvas c;
+        currentBallUI.gameObject.AddComponent<GraphicRaycaster>();
+        currentBallUI.gameObject.AddComponent<Canvas>();
+        c = currentBallUI.gameObject.GetComponent<Canvas>();
+        c.overrideSorting = true;
+        c.sortingOrder = 210;
+        currentBallUI.directionSetBtn.onClick.AddListener(ChooseDir);
     }
 
     public void ChooseDir()
     {
-        
+        Destroy(currentBallUI.GetComponent<GraphicRaycaster>());
+        Destroy(currentBallUI.GetComponent<Canvas>());
+        tutoPanels[0].DOFade(0, 1f);
+        tutoPanels[1].DOFade(1, 1f);
     }
 }
