@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class SwapUI : MonoBehaviour
 {
@@ -37,23 +36,30 @@ public class SwapUI : MonoBehaviour
         }
         else
         {
-            insertIndex = Input.mousePosition.x < (width - 1000) / 2 + gm.ballUIList.Count * 190 ? 0 : gm.ballUIList.Count - 1;
+            insertIndex = Input.mousePosition.x < (width - 1000) / 2 + gm.ballUIList.Count - 1  * 190 ? 0 : gm.ballUIList.Count - 1;
         }
 
         insertIndex = Mathf.Clamp(insertIndex, 0, gm.ballUIList.Count - 1);
 
-        ballControllUI.transform.SetSiblingIndex(insertIndex);
-        ballControllUI.transform.DOScaleX(1, 0.3f);
         ballControllUI.order = insertIndex;
-        ballControllUI = null;
-        
         for (int i = insertIndex + 1; i < gm.ballUIList.Count; i++)
         {
             gm.ballUIList[i].order++;
         }
+
         gm.BallUiSort();
 
-       
-        gameObject.SetActive(false);
+        gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
+
+        ballControllUI.transform.SetSiblingIndex(insertIndex);
+
+        ballControllUI.directionImg.transform.DOScaleX(1, 0.3f);
+        ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.3f).OnComplete(() =>
+        {
+            gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
+
+            ballControllUI = null;
+            gameObject.SetActive(false);
+        });
     }
 }

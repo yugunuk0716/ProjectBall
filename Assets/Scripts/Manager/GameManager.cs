@@ -67,6 +67,8 @@ public class GameManager : ManagerBase
         SetTimerText("Ready", Color.white);
         firstTime = 0f;
         realTime = 0f;
+        curSetBallCount = 0;
+
         isFirstBallNotArrived = true;
         isShooting = false;
         timerCo = Timer();
