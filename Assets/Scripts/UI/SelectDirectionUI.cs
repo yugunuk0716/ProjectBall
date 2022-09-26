@@ -7,7 +7,6 @@ using DG.Tweening;
 
 public class SelectDirectionUI : UIBase
 {
-    [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
     [SerializeField] private Sprite directionSprites;
 
     [HideInInspector] public BallControllUI ballControllUI;
@@ -15,9 +14,8 @@ public class SelectDirectionUI : UIBase
 
     public bool isSelecting = false;
 
-    public void Set(Ball addBall, BallControllUI ballControllUI)
+    public void Set(BallControllUI ballControllUI)
     {
-        this.addBall = addBall;
         this.ballControllUI = ballControllUI;
     }
 
@@ -44,11 +42,10 @@ public class SelectDirectionUI : UIBase
                 anim.SetTrigger("OnClick");
                 ScreenOn(false);
 
-                addBall.shootDir = (TileDirection)(index);
-                gm.myBallList.Add(addBall);
-                gm.lastBallList.Add(addBall);
-                
-                ballControllUI.SetDirection(addBall.shootDir);
+                int insertIndex = Mathf.Clamp(ballControllUI.order, 0, gm.myBallList.Count);
+                ballControllUI.ball.shootDir = (TileDirection)(index);
+
+                ballControllUI.SetDirection(ballControllUI.ball.shootDir);
             });
         }
     }
@@ -64,7 +61,6 @@ public class SelectDirectionUI : UIBase
             mapLoadVideoPlayer.PlayVideo();
         }
     }
-
 
     public override void Load()
     {

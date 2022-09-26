@@ -13,10 +13,10 @@ public class GameManager : ManagerBase
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
-    [HideInInspector] public List<Ball> lastBallList  = new List<Ball>();
-    [HideInInspector] public List<Ball> myBallList    = new List<Ball>(); // 사용 가능한 공들
-    [HideInInspector] public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
-    [HideInInspector] public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
+    /*[HideInInspector]*/ public List<Ball> lastBallList  = new List<Ball>();
+    /*[HideInInspector]*/ public List<Ball> myBallList    = new List<Ball>(); // 사용 가능한 공들
+    /*[HideInInspector]*/ public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
+    /*[HideInInspector]*/ public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
@@ -25,6 +25,7 @@ public class GameManager : ManagerBase
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
+    [HideInInspector] public int curSetBallCount;
     [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
 
@@ -204,11 +205,6 @@ public class GameManager : ManagerBase
         tile = Resources.Load<ObjectTile>("Tiles/None");
         PoolManager.Instance.CreatePool(tile, "None", 10);
 
-        tile = Resources.Load<ObjectTile>("Tiles/ColorChanger");
-        PoolManager.Instance.CreatePool(tile, "ColorChanger", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/ColorFlag");
-        PoolManager.Instance.CreatePool(tile, "ColorGoal", 10);
 
         tile = Resources.Load<ObjectTile>("Tiles/Thorn");
         PoolManager.Instance.CreatePool(tile, "Thon", 10);
