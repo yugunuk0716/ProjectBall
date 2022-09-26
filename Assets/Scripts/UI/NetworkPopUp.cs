@@ -1,8 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class NetworkPopUp : MonoBehaviour
+public class NetworkPopUp : UIBase
 {
-    
+    public Button iseeBtn;
+
+
+    public override void ScreenOn(bool on)
+    {
+        canvasGroup.interactable = on;
+        canvasGroup.blocksRaycasts = on;
+        DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 1f).SetUpdate(true);
+    }
+
+    public override void Init()
+    {
+        GetCanvasGroup();
+        iseeBtn.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
+    }
+
+    public override void Load()
+    {
+     
+    }
+
+    public override void Reset()
+    {
+        
+    }
 }

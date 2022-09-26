@@ -45,13 +45,41 @@ public class SettingPopUp : UIBase
             SoundManager.isBGMMute = !SoundManager.isBGMMute;
             bgmButton.GetComponent<Image>().color = SoundManager.isBGMMute ? Color.gray : Color.white;
         });
+
+        FunctionUpdater.Create(CheckBack);
     }
 
     public override void Load()
     {
-        
+       
     }
 
+    public override void ScreenOn(bool on)
+    {
+        DOTween.KillAll();
+        base.ScreenOn(on);
+    }
+
+    public void CheckBack()
+    {
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                if (canvasGroup.interactable)
+                {
+                    ScreenOn(false);
+                }
+                else
+                {
+                    ScreenOn(true);
+                }
+            }
+        }
+        
+    }
+    
     public override void Reset()
     {
         throw new System.NotImplementedException();
