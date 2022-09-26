@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R3CT80DBKVA",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "R3CT80DBKVA",
+        "name": "com.DefaultCompany.ProjectBall",
+        "processId": 12991,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -31,6 +31,12 @@
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 9411,
             "exited": true
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 12991,
+            "exited": false
         },
         {
             "deviceId": "R3CM601YGCH",

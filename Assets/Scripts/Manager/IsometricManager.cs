@@ -54,6 +54,11 @@ public class IsometricManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("ClearMapsCount", 1);
         PlayerPrefs.SetInt("IsFirst", 0);
+        GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
+            titleBtns[1].onClick.AddListener(() =>
+            {
+                GetManager<TutorialManager>().StartTurotial();
+            });
         PlayerPrefs.Save();
     }
 
