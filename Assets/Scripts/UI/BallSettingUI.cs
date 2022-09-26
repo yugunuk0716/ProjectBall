@@ -73,6 +73,8 @@ public class BallSettingUI : UIBase
 
         confirmBtn.onClick.AddListener(() =>
         {
+            if (gm.maxBallCount != gm.curSetBallCount) return;
+
             gm.ballUIList.ForEach((x) =>
             {
                 x.directionSetBtn.interactable = false;
