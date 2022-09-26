@@ -9,6 +9,13 @@ public class SwapUI : MonoBehaviour
 {
     public BallControllUI ballControllUI { get; set; } = null;
 
+    float width = 0f;
+
+    private void Start()
+    {
+        width = Screen.width;
+    }
+
     private void Update()
     {
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -19,26 +26,24 @@ public class SwapUI : MonoBehaviour
     public void OnEndDrag(PointerEventData eventData)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        GameObject obj = eventData.hovered.Find((x) => x.name.Contains("BallControllUI"));
+        GameObject obj = eventData.hovered.Find((x) => x.transform.CompareTag("BallControllUI"));
+
         int insertIndex = 0;
 
         if (obj != null)
         {
-            BallControllUI ui = obj.GetComponent<BallControllUI>();
-            insertIndex = obj.GetComponent<BallControllUI>().order;
-            Debug.Log($"Test, {ui.rt.anchoredPosition.x + (Screen.width - 1000) / 2} / {transform.position.x}");
+            BallControllUI ui = obj.GetComponentInParent<BallControllUI>(); // 버튼 부모가 UI임
+            insertIndex = Input.mousePosition.x < ui.rt.anchoredPosition.x + (width - 1000) / 2 ? ui.order : ui.order + 1;
         }
         else
         {
-            float distFirst = Vector2.Distance(gm.ballUIList[0].rt.anchoredPosition, ballControllUI.rt.anchoredPosition);
-            float distLast  = Vector2.Distance(gm.ballUIList[gm.ballUIList.Count -1].rt.anchoredPosition, ballControllUI.rt.anchoredPosition);
-            insertIndex = distFirst < distLast ? 0 : gm.ballUIList.Count - 1;
+            insertIndex = Input.mousePosition.x < (width - 1000) / 2 + gm.ballUIList.Count * 190 ? 0 : gm.ballUIList.Count - 1;
         }
 
-        Debug.Log($"{insertIndex}");
+        insertIndex = Mathf.Clamp(insertIndex, 0, gm.ballUIList.Count - 1);
 
         ballControllUI.transform.SetSiblingIndex(insertIndex);
-        ballControllUI.transform.DOScaleX(1, 0.2f);
+        ballControllUI.transform.DOScaleX(1, 0.3f);
         ballControllUI.order = insertIndex;
         ballControllUI = null;
         

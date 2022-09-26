@@ -11,8 +11,9 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public Button directionSetBtn;
     public int order;
     [SerializeField] private Image directionImg;
-
     [HideInInspector] public SwapUI swapUI; // 이 친구한테 데이터를 넣어주고 얘가 알아서 조종하거
+
+    public Ball ball;
 
     public void SetDirection(TileDirection dir, bool active = true)
     {
@@ -53,6 +54,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public override void Reset()
     {
         directionSetBtn.interactable = true;
+        directionSetBtn.image.raycastTarget = true;
         directionSetBtn.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -50, 0);
         directionImg.gameObject.SetActive(false);
     }
@@ -61,7 +63,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     {
         swapUI.ballControllUI = this;
         swapUI.gameObject.SetActive(true);
-        gameObject.transform.DOScaleX(0, 0.2f);
+        gameObject.transform.DOScaleX(0, 0.3f);
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         this.order = 10;
         for (int i = order + 1; i < gm.ballUIList.Count; i++)

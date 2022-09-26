@@ -22,7 +22,7 @@ public class IngamePlayUIManager : UIBase
 
     Sequence seq;
 
-    private void SwitchUI(bool moveLeft, bool isForLoad)
+    private void SwitchUI(bool moveLeft, bool isForLoad) // 왼쪽으로 가나? 로딩할때 함수가 실행되는가?
     {
         if (isForLoad && isSetPanelActive) return;
 
@@ -40,7 +40,7 @@ public class IngamePlayUIManager : UIBase
     {
         GameManager.CanNotInteract = true;
 
-        int targetPos = isSetPanelActive ? -1080 : 1080;
+        int targetPos = isSetPanelActive ? -Screen.width : Screen.width;
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
