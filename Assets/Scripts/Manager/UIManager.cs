@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIManager : ManagerBase
 {
-
+    
     public List<UIBase> uis;
 
     public List<CanvasGroup> canvas = new List<CanvasGroup>();
@@ -27,6 +27,12 @@ public class UIManager : ManagerBase
                 break;
         }
     }
+
+    public UIBase FindUI(string name)
+    {
+        return uis.Find(x => x.name.Equals(name));
+    }
+
 
     
 

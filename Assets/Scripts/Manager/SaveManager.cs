@@ -38,7 +38,21 @@ public class SaveManager : ManagerBase
             UnityWebRequest www = UnityWebRequest.Get(URL + "&gid=" + sheet + "&range=" + range);
 
             yield return www.SendWebRequest();
-            
+           
+            switch (www.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                case UnityWebRequest.Result.InProgress:
+                case UnityWebRequest.Result.ProtocolError:
+                    IsometricManager.Instance.GetManager<UIManager>().FindUI("NetworkPanel").ScreenOn(true);
+                    yield break;
+
+                default:
+                    IsometricManager.Instance.GetManager<UIManager>().FindUI("NetworkPanel").ScreenOn(false);
+                    break;
+            }
+
             ClearTileMap();
             tileDatas.Clear();
             data = www.downloadHandler.text;
