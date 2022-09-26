@@ -14,6 +14,8 @@ public class GameOverUI : UIBase
     public List<Image> starList = new List<Image>();
     public bool isClear = false;
 
+ 
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
@@ -56,6 +58,8 @@ public class GameOverUI : UIBase
             ScreenOn(false);
             starList.ForEach(s => s.gameObject.SetActive(false));
         });
+
+
     }
 
     public void SetStar(int starCount)
@@ -83,6 +87,12 @@ public class GameOverUI : UIBase
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
         //loadNextBtn.image.color = isClear ? Color.white : Color.gray;
+    }
+
+    public override void ScreenOn(bool on)
+    {
+       
+        base.ScreenOn(on);
     }
 
     public override void Load()

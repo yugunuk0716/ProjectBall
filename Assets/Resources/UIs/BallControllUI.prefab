@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 386924408058051398}
   m_Layer: 5
   m_Name: DirectionImg
-  m_TagString: BallControllUI
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: -38, y: -38}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8921092343597899948
 CanvasRenderer:
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1415749751440488670}
   m_Layer: 5
   m_Name: TBevel
-  m_TagString: BallControllUI
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,7 +250,9 @@ MonoBehaviour:
   directionSetBtn: {fileID: 6284721513373542977}
   order: 0
   directionImg: {fileID: 386924408058051398}
+  bgImage: {fileID: 0}
   swapUI: {fileID: 0}
+  ball: {fileID: 0}
 --- !u!1 &6540829279029837358
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,11 +287,11 @@ RectTransform:
   m_Father: {fileID: 6540829278811098827}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -90, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6540829279029837347
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -385,7 +387,7 @@ GameObject:
   - component: {fileID: 1085498870991907591}
   m_Layer: 5
   m_Name: TBevel (1)
-  m_TagString: BallControllUI
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

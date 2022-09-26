@@ -11,7 +11,8 @@ public class StageScrollUI : UIBase
     public StageInfoUI stageInfoPanel;
     public List<int> stageIndexList;
     private bool isScreenOn = false;
-    
+
+    UIBase inGameUI;
     StageManager sm;
     public List<IntListBox> allContents = new List<IntListBox>();
 
@@ -80,6 +81,11 @@ public class StageScrollUI : UIBase
 
     public override void ScreenOn(bool on)
     {
+        if (inGameUI == null)
+        {
+            inGameUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("InGamePlayUIManager");
+        }
+        inGameUI.ScreenOn(!on);
         base.ScreenOn(on);
         Time.timeScale = on ? 0 : 1;
     }

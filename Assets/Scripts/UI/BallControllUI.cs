@@ -10,7 +10,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     [HideInInspector] public RectTransform rt;
     public Button directionSetBtn;
     public int order;
-    [SerializeField] private Image directionImg;
+     public Image directionImg;
+    [SerializeField] private Image bgImage;
     [HideInInspector] public SwapUI swapUI; // 이 친구한테 데이터를 넣어주고 얘가 알아서 조종하거
 
     public Ball ball;
@@ -49,32 +50,46 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     private void Awake()
     {
         rt = GetComponent<RectTransform>();
+        bgImage = GetComponent<Image>();
     }
 
     public override void Reset()
     {
         directionSetBtn.interactable = true;
         directionSetBtn.image.raycastTarget = true;
-        directionSetBtn.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -50, 0);
         directionImg.gameObject.SetActive(false);
+    }
+
+    public void SetInteractValues(bool on)
+    {
+        directionSetBtn.interactable = on;
+        directionSetBtn.image.raycastTarget = on;
+        bgImage.raycastTarget = on;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         swapUI.ballControllUI = this;
         swapUI.gameObject.SetActive(true);
-        gameObject.transform.DOScaleX(0, 0.3f);
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        this.order = 10;
-        for (int i = order + 1; i < gm.ballUIList.Count; i++)
+
+        directionImg.transform.DOScaleX(0, 0.3f);
+        this.rt.DOSizeDelta(new Vector2(0, 190), 0.3f).OnComplete(() =>
         {
-            gm.ballUIList[i].order--;
-        }
-        gm.BallUiSort();
+            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
+            this.order = 10;
+            for (int i = order + 1; i < gm.ballUIList.Count; i++)
+            {
+                gm.ballUIList[i].order--;
+            }
+
+            gm.BallUiSort();
+        });
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        rt.DOComplete();
         swapUI.OnEndDrag(eventData);
     }
 

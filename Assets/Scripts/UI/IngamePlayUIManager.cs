@@ -66,6 +66,7 @@ public class IngamePlayUIManager : UIBase
 
     public override void Init()
     {
+        GetCanvasGroup();
         playUIs.ForEach((x) => x.Init());
         playUIs.ForEach((x) =>
         {
