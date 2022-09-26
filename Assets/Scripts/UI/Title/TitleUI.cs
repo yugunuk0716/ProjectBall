@@ -16,6 +16,7 @@ public class TitleUI : MonoBehaviour
     {
         TitleLogoMove();
         titleBtns[1].onClick.AddListener(ClickStartBtn);
+        //StartCoroutine(BtninteractableSet());
     }
 
     //titleLogo를 위아래로 왔다갔다 하게 하는 함수
@@ -26,8 +27,20 @@ public class TitleUI : MonoBehaviour
 
     public void ClickStartBtn()
     {
+        titleBtns[1].interactable = false;
         //TitleUi CanvasGroup Alpha값을 0으로 만들어서 사라지게 하고 InGameUI CanvasGroup Alpha값을 1로 만들어서 나타나게 함
-        titleCanvasGroup.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() => { gameObject.SetActive(false);});
+        titleCanvasGroup.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+            titleBtns[1].interactable = true;
+        });
         ingameCanvasGroup.DOFade(1, 1f).SetUpdate(true);
+    }
+
+    public IEnumerator BtninteractableSet()
+    {
+        titleBtns.ForEach(x => x.interactable = false);
+        yield return new WaitForSeconds(2.5f);
+        titleBtns.ForEach(x => x.interactable = true);
     }
 }
