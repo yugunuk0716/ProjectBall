@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
+using DG.Tweening;
+using TMPro;
 
 public class TutorialManager : ManagerBase
 {
+    private List<Image> tutoPanels = new List<Image>();
+    private TuroritalUI turoritalUI;
     //ManagerBase 구현하기
     public override void Init()
     {
-       /* if (PlayerPrefs.GetInt("IsFirst") != 1)
-        {
-            PlayerPrefs.SetInt("IsFirst", 0);
-            StartTurotial();
-        }
-        else
-        {
-            return;
-        }*/
+        turoritalUI = IsometricManager.Instance.GetManager<UIManager>().canvas[3].GetComponent<TuroritalUI>();
+        
+        tutoPanels = turoritalUI.TutoPanels.ToList();
     }
 
     public override void Load()
@@ -28,6 +28,6 @@ public class TutorialManager : ManagerBase
 
     public void StartTurotial()
     {
-        
+        IsometricManager.Instance.GetManager<UIManager>().canvas[3].DOFade(1f, 1f);
     }
 }

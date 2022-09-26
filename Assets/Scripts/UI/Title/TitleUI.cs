@@ -10,11 +10,12 @@ public class TitleUI : MonoBehaviour
     [SerializeField] CanvasGroup ingameCanvasGroup;
     [SerializeField] CanvasGroup titleCanvasGroup;
     [SerializeField] Image titleLogo;
-    [SerializeField] List<Button> titleBtns;
+    public List<Button> titleBtns;
 
     public void Start()
     {
         TitleLogoMove();
+        titleBtns[1].onClick.AddListener(ClickStartBtn);
     }
 
     //titleLogo를 위아래로 왔다갔다 하게 하는 함수
