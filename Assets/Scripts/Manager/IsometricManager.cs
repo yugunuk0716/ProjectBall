@@ -45,7 +45,11 @@ public class IsometricManager : MonoBehaviour
 
         print($"캠{Mathf.Floor(4f / 3f * 100f) / 100f} 비{a}");
 
-        cvCam.m_Lens.OrthographicSize = ratioDic[Mathf.Floor(a * 100f) / 100f];
+        if (ratioDic.ContainsKey(Mathf.Floor(a * 100f) / 100f))
+        {
+            cvCam.m_Lens.OrthographicSize = ratioDic[Mathf.Floor(a * 100f) / 100f];
+
+        }
 
         managers.Add(GetComponent<UIManager>());
 
