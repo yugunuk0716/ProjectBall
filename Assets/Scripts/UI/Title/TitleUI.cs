@@ -16,7 +16,7 @@ public class TitleUI : MonoBehaviour
     {
         TitleLogoMove();
         titleBtns[1].onClick.AddListener(ClickStartBtn);
-        //StartCoroutine(BtninteractableSet());
+        StartCoroutine(BtninteractableSet());
     }
 
     //titleLogo를 위아래로 왔다갔다 하게 하는 함수
@@ -40,7 +40,7 @@ public class TitleUI : MonoBehaviour
     public IEnumerator BtninteractableSet()
     {
         titleBtns.ForEach(x => x.interactable = false);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         titleBtns.ForEach(x => x.interactable = true);
     }
 }
