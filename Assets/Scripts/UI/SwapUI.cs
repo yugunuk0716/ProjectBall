@@ -41,25 +41,29 @@ public class SwapUI : MonoBehaviour
 
         insertIndex = Mathf.Clamp(insertIndex, 0, gm.ballUIList.Count - 1);
 
-        ballControllUI.order = insertIndex;
-        for (int i = insertIndex + 1; i < gm.ballUIList.Count; i++)
+        Debug.Log(insertIndex);
+
+        for (int i = insertIndex; i < gm.ballUIList.Count; i++)
         {
             gm.ballUIList[i].order++;
         }
 
+        ballControllUI.order = insertIndex;
+
         gm.BallUiSort();
 
-        gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
+        gm.ballUIList.ForEach((x) => x.SetInteractValues(false));
 
         ballControllUI.transform.SetSiblingIndex(insertIndex);
 
         ballControllUI.directionImg.transform.DOScaleX(1, 0.3f);
+
         ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.3f).OnComplete(() =>
         {
             gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
-
             ballControllUI = null;
-            gameObject.SetActive(false);
         });
+
+        gameObject.SetActive(false);
     }
 }

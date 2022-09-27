@@ -1212,6 +1212,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 926292805}
     m_Modifications:
+    - target: {fileID: 7978084166113017687, guid: 995a9fb4a38f74baabfbe018f981d82d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 350.00003
+      objectReference: {fileID: 0}
     - target: {fileID: 7978084167911488489, guid: 995a9fb4a38f74baabfbe018f981d82d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2484,7 +2488,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1328202759
 MonoBehaviour:
@@ -2518,7 +2522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: dd73325902412db4d93bd3e803eae667, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3247,6 +3251,22 @@ PrefabInstance:
     - target: {fileID: 446519211751160076, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228167249362064793, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228167249927033440, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228167249927033440, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228167249927033440, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 2228167249927033440, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_SizeDelta.y
