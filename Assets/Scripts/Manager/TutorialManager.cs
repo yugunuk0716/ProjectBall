@@ -18,13 +18,15 @@ public class TutorialManager : ManagerBase
     //private BallControllUI currentBallUI;
     private Canvas currentSelectedCanvas;
     private int ballCount = 0;
-    private int shootTextCount = 1;
+    private int shootTextCount = 2;
     private List<UnityAction> tempAction = new List<UnityAction>();
+    private bool istuto = false;
     //ManagerBase 구현하기
     public override void Init()
     {
         ballCount = 0;
         tempAction.Clear();
+        istuto = false;
     }
 
 
@@ -40,8 +42,6 @@ public class TutorialManager : ManagerBase
         turoritalUI.TutoPanels.ForEach(x => tutoPanels.Add(x.GetComponent<CanvasGroup>()));
 
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
-
-        gm.OnClear += Tiles;
     }
 
     public override void Load()
@@ -80,6 +80,19 @@ public class TutorialManager : ManagerBase
         Destroy(obj.GetComponent<Canvas>());
     }
 
+    public UnityAction MakeDisposableAction(UnityAction inputAction,Button button)
+    {
+        UnityAction action = null;
+        
+        action = () =>
+        {
+            inputAction();
+            button.onClick.RemoveListener(action);
+        };
+        
+        return action;
+    }
+
     public void SelectBall()
     {
         Debug.Log("SelectBall");
@@ -97,7 +110,8 @@ public class TutorialManager : ManagerBase
 
             MakeObjectHighLight(gm.ballUIList[ballCount].gameObject);
             tempAction.Add(() => ChooseDir());
-            gm.ballUIList[ballCount].directionSetBtn.onClick.AddListener(tempAction[^1]);
+            gm.ballUIList[ballCount].directionSetBtn.onClick.AddListener(
+                MakeDisposableAction(tempAction[^1], gm.ballUIList[ballCount].directionSetBtn));
         }
     }
 
@@ -123,7 +137,7 @@ public class TutorialManager : ManagerBase
             SelectBall();
         });
 
-        selectDirectionBtn.onClick.AddListener(tempAction[^1]);
+        selectDirectionBtn.onClick.AddListener(MakeDisposableAction(tempAction[^1], selectDirectionBtn));
 
 
     }
@@ -144,7 +158,7 @@ public class TutorialManager : ManagerBase
             StartCoroutine(Shoot());
         });
 
-        confirmButton.onClick.AddListener(tempAction[^1]);
+        confirmButton.onClick.AddListener(MakeDisposableAction(tempAction[^1],confirmButton));
     }
 
     public IEnumerator Shoot()
@@ -163,7 +177,7 @@ public class TutorialManager : ManagerBase
             StartCoroutine(Shooted());
         });
 
-        shootbtn.onClick.AddListener(tempAction[^1]);
+        shootbtn.onClick.AddListener(MakeDisposableAction(tempAction[^1], shootbtn));
     }
 
     public IEnumerator Shooted()
@@ -188,7 +202,7 @@ public class TutorialManager : ManagerBase
         Debug.Log("ShootTextChange");
         TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
         Tilemap map = IsometricManager.Instance.GetManager<SaveManager>().mainMap;
-
+        
 
         switch (shootTextCount)
         {
@@ -206,34 +220,45 @@ public class TutorialManager : ManagerBase
                 um.canvas[3].alpha = 0f;
                 um.canvas[3].interactable = false;
                 um.canvas[3].blocksRaycasts = false;
-                shootbtn.onClick.RemoveListener(tempAction[^1]);
-                shootbtn.onClick.AddListener(() =>
+                istuto = true;
+                //Tiles();
+                //shootbtn.onClick.RemoveListener(tempAction[^1]);
+                shootbtn.onClick.AddListener(MakeDisposableAction(() =>
                 {
-                    if(Time.timeScale.Equals(0))
-                    {
-                        Time.timeScale = 1;
-                    }
-                });
+                    Time.timeScale = 1;
+                    //tutoPanels[4].GetComponent<Button>().onClick.RemoveListener(ShootTextChange);
+                }, shootbtn));
+                
                 break;
         }
         shootTextCount++;
     }
 
-    public void Tiles(int a)
+    public void Tiles()
     {
-        Debug.Log("Tiles");
-        Debug.Log(gm.ballUIList[0].directionSetBtn.onClick);
-        if(shootTextCount != 1)
+       /* Debug.Log(gm.ballUIList.Count);
+        if (istuto)
         {
+           
             Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
-            Button confirmButton = gm.ballUIList[ballCount -1].transform.GetComponentInParent<BallSettingUI>().confirmBtn;
+            Button confirmButton = GameObject.Find("Confirm").GetComponent<Button>();
+            Debug.Log("confirmButton");
+            SelectDirectionUI a = GameObject.Find("SelectDirectionUI").GetComponent<SelectDirectionUI>();
 
-            gm.ballUIList[0].directionSetBtn.onClick.RemoveListener(tempAction[0]);
-            gm.ballUIList[0].transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[0].onClick.RemoveListener(tempAction[1]);
-            gm.ballUIList[1].directionSetBtn.onClick.RemoveListener(tempAction[2]);
-            gm.ballUIList[1].transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[2].onClick.RemoveListener(tempAction[3]);
-            confirmButton.onClick.RemoveListener(tempAction[4]);
-            shootbtn.onClick.RemoveListener(tempAction[5]);
-        }
+
+            a.selectDirectionBtns[0].onClick.RemoveListener(tempAction[^5]);
+            a.selectDirectionBtns[2].onClick.RemoveListener(tempAction[^3]);
+            confirmButton.onClick.RemoveListener(tempAction[^2]);
+            shootbtn.onClick.RemoveListener(tempAction[^1]);
+
+        *//*foreach (var item in tempAction)
+        {
+            a.selectDirectionBtns[0].onClick.RemoveListener(item);
+            a.selectDirectionBtns[2].onClick.RemoveListener(item);
+            confirmButton.onClick.RemoveListener(item);
+            shootbtn.onClick.RemoveListener(item);
+        }*//*
+        istuto = false;
+        }*/
     }
 }
