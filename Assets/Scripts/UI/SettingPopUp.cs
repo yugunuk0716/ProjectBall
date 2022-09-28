@@ -8,9 +8,11 @@ using DG.Tweening;
 public class SettingPopUp : UIBase
 {
     public Button menuButton;
+    public Button stageUIButton;
     public Button resumeButton;
     public Button homeButton;
     public Button quitButton;
+    public Button sideButton;
 
     public Button sfxButton;
     public Button bgmButton;
@@ -32,6 +34,15 @@ public class SettingPopUp : UIBase
             
             uimanager.canvas[1].DOFade(0, 0.5f).SetUpdate(true);
         });
+
+        sideButton.onClick.AddListener(() => ScreenOn(false));
+
+        stageUIButton.onClick.AddListener(() =>
+        {
+ 
+            uimanager.FindUI("StageNumberPanel").ScreenOn(true);
+        });
+
         quitButton.onClick.AddListener(() => Application.Quit());
 
         sfxButton.onClick.AddListener(() =>
