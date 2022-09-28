@@ -34,7 +34,7 @@ public class TutorialManager : ManagerBase
 
         turoritalUI.TutoPanels.ForEach(x => tutoPanels.Add(x.GetComponent<CanvasGroup>()));
 
-        tutoPanels.ForEach(x => x.alpha = 0);
+        tutoPanels.ForEach(x => x.DOFade(0, .5f));
 
         ballCount = 0;
     }
@@ -51,7 +51,7 @@ public class TutorialManager : ManagerBase
     {
         um.canvas[3].interactable = true;
         um.canvas[3].blocksRaycasts = true;
-        um.canvas[3].DOFade(1f, 1f);
+        um.canvas[3].DOFade(1f, .5f);
         
         
         
@@ -61,8 +61,8 @@ public class TutorialManager : ManagerBase
 
     public void SelectBall()
     {
-        tutoPanels.ForEach(x => x.alpha = 0);
-        tutoPanels[0].alpha = 1;
+        tutoPanels.ForEach(x => x.DOFade(0, .5f));
+        tutoPanels[0].DOFade(1, .5f);
 
         if (gm.ballUIList.Count <= ballCount)
         {
@@ -84,9 +84,9 @@ public class TutorialManager : ManagerBase
 
     public void ChooseDir()
     {
-        tutoPanels.ForEach(x => x.alpha = 0);
-        tutoPanels[1].alpha = 1;
-        
+        tutoPanels.ForEach(x => x.DOFade(0, .5f));
+        tutoPanels[1].DOFade(1, .5f);
+
         Destroy(currentBallUI.GetComponent<GraphicRaycaster>());
         Destroy(currentBallUI.GetComponent<Canvas>());
 
@@ -96,20 +96,24 @@ public class TutorialManager : ManagerBase
         selectDirectionUI.gameObject.AddComponent<Canvas>();
         currentSelectedCanvas = selectDirectionUI.gameObject.GetComponent<Canvas>();
         currentSelectedCanvas.overrideSorting = true;
-        currentSelectedCanvas.sortingOrder = 210;
+        currentSelectedCanvas.sortingOrder = 220;
 
         ballCount++;
         selectDirectionUI.selectDirectionBtns.ForEach(x => x.onClick.AddListener(SelectBall));
 
-        tutoPanels[0].DOFade(0, 1f);
-        tutoPanels[1].DOFade(1, 1f);
+        
     }
 
     public void Confirm()
     {
-        tutoPanels.ForEach(x => x.alpha = 0);
-        tutoPanels[2].alpha = 1;
+        tutoPanels.ForEach(x => x.DOFade(0, .5f));
+        tutoPanels[2].DOFade(1, .5f);
 
-        
+        Button confirmButton = currentBallUI.transform.GetComponentInParent<BallSettingUI>().confirmBtn;
+        confirmButton.gameObject.AddComponent<GraphicRaycaster>();
+        confirmButton.gameObject.AddComponent<Canvas>();
+        currentSelectedCanvas = confirmButton.gameObject.GetComponent<Canvas>();
+        currentSelectedCanvas.overrideSorting = true;
+        currentSelectedCanvas.sortingOrder = 210;
     }
 }
