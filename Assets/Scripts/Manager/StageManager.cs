@@ -58,7 +58,6 @@ public class StageManager : ManagerBase
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
         gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
 
@@ -66,6 +65,7 @@ public class StageManager : ManagerBase
         bool isSameStageLoaded = false;
 
         int realIndex = stageIndex - 1;
+        gm.SetStageText(stageIndex);
 
         if (currentStageData == null) // 첫 로드
         {

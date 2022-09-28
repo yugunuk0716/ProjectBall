@@ -7,6 +7,7 @@ public class IngameUI : UIBase
     [Header("Text")]
     public TextMeshProUGUI debugText;
     public TextMeshProUGUI timer_text;
+    public TextMeshProUGUI stageText;
 
     Tween myTween;
     Vector3 originScale;
@@ -22,10 +23,16 @@ public class IngameUI : UIBase
 
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
         gm.SetTimerSize += SetTimerSize;
+        gm.SetStageText += SetStageText;
 
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
 
+    }
+
+    public void SetStageText(int stage)
+    {
+        stageText.text = stage.ToString();
     }
 
     public void SetTimerText(string textString, Color? color = null)
