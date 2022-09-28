@@ -73,7 +73,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public void OnBeginDrag(PointerEventData eventData)
     {
         swapUI.ballControllUI = this;
-        swapUI.gameObject.SetActive(true);
+        swapUI.On(true);
 
         this.order = 10;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
@@ -84,8 +84,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
             x.directionSetBtn.image.raycastTarget = false;
         });
 
-        directionImg.transform.DOScaleX(0,  0.45f);
-        rt.DOSizeDelta(new Vector2(0, 190), 0.45f);
+        rt.sizeDelta = new Vector2(0, 190);
+        directionImg.rectTransform.localScale = new Vector2(0, 1);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -96,6 +96,6 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnDrag(PointerEventData eventData)
     {
-        
+       
     }
 }

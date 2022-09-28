@@ -64,7 +64,7 @@ public class GameManager : ManagerBase
         myBallList.Clear();
         aliveBallList.Clear();
 
-        SetTimerText("Ready", Color.white);
+       
         firstTime = 0f;
         realTime = 0f;
         curSetBallCount = 0;
@@ -95,7 +95,7 @@ public class GameManager : ManagerBase
         if(myBallList.Count == 0 && aliveBallList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
         {
             StopTimer(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
-            SetTimerText("Failed", Color.red);
+            SetTimerText("off", Color.white);
             ActiveGameOverPanel(false);
         }
     }
@@ -136,6 +136,7 @@ public class GameManager : ManagerBase
             isFirstBallNotArrived = false;
             firstTime = Time.time;
             StartCoroutine(timerCo);
+            SetTimerText("on", Color.white);
         }
         checkedFlags++;
 
@@ -148,7 +149,7 @@ public class GameManager : ManagerBase
             UpdateUIContents?.Invoke();
             StopTimer();
             float clearTime = limitTime - realTime;
-            SetTimerText("Clear", Color.green);
+            SetTimerText("off", Color.white);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
             int star = sm.CalcStar(clearTime);
@@ -172,7 +173,7 @@ public class GameManager : ManagerBase
             {
                 goalList.ForEach((x) => x.ResetFlag(false));
                 StopTimer();
-                SetTimerText("Failed", Color.red);
+                SetTimerText("off", Color.white);
                 break;
             }
 

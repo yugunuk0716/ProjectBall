@@ -8,11 +8,13 @@ using UnityEngine.UI;
 public class StageScrollUI : UIBase
 {
     public Button stageOnBtn;
+    public Button closeBtn;
     public StageInfoUI stageInfoPanel;
     public List<int> stageIndexList;
     private bool isScreenOn = false;
 
     UIBase inGameUI;
+    UIBase settingPanel;
     StageManager sm;
     public List<IntListBox> allContents = new List<IntListBox>();
 
@@ -20,24 +22,33 @@ public class StageScrollUI : UIBase
     {
         GetCanvasGroup();
         sm = IsometricManager.Instance.GetManager<StageManager>();
-
-        stageOnBtn.onClick.AddListener(() =>
-        {
-            if(!GameManager.CanNotInteract)
-            {
-                ScreenOn(!isScreenOn);
-                isScreenOn = !isScreenOn;
-                allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
-            }
-
-        });
+        settingPanel = IsometricManager.Instance.GetManager<UIManager>().FindUI("SettingPopUp");
+      
+        closeBtn.onClick.AddListener(() => ScreenOn(false));
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
 
-        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) => { allContents.ForEach(c => c.UpdateContent()); };
+        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) =>
+        {
+            allContents.ForEach(c => c.UpdateContent());
+           
+        };
 
  
      
     }
+
+    public void SetButton()
+    {
+       
+        if (!GameManager.CanNotInteract)
+        {
+            ScreenOn(true);
+            //isScreenOn = !isScreenOn;
+            allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
+           
+        }
+    }
+
 
     public void CheckBackButton()
     {
@@ -72,6 +83,7 @@ public class StageScrollUI : UIBase
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
                 sm.stageIndex = index;
                 isScreenOn = false;
+                settingPanel.ScreenOn(false);
             }
         });
     }
