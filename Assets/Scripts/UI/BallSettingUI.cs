@@ -13,7 +13,7 @@ public class BallSettingUI : UIBase
     [SerializeField] private Transform targetPointContent;
 
     [Header("Panel")]
-    [SerializeField] SelectDirectionUI selectDirectionUI;
+    public SelectDirectionUI selectDirectionUI;
     [SerializeField] RectTransform shootPanel; // 공 발사할 때 볼 패널!
 
     [Header("Button")]

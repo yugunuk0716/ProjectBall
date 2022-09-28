@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Cinemachine;
 
 public class UIManager : ManagerBase
 {
@@ -9,6 +10,8 @@ public class UIManager : ManagerBase
     public List<UIBase> uis;
 
     public List<CanvasGroup> canvas = new List<CanvasGroup>();
+
+
 
 
     public override void Init() => uis.ForEach(x => x.Init());

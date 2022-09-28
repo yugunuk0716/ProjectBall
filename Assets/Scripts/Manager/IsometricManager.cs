@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using UnityEngine;
 
 public class IsometricManager : MonoBehaviour
@@ -18,9 +19,37 @@ public class IsometricManager : MonoBehaviour
     public bool isFirst = true;
     public List<ManagerBase> managers;
 
+    public CinemachineVirtualCamera cvCam;
+
+    private Dictionary<float, float> ratioDic = new Dictionary<float, float>();
+
     private void Awake()
     {
         instance = this;
+
+        float a = (float)Screen.height / (float)Screen.width;
+
+        ratioDic.Add(1f, 5f);
+        ratioDic.Add(2f, 10f);
+        ratioDic.Add(Mathf.Floor(4f / 3f * 100f) / 100f, 6.5f);
+        ratioDic.Add(Mathf.Floor(6f / 5f * 100f) / 100f, 6f);
+        ratioDic.Add(Mathf.Floor(16f / 10f * 100f) / 100f, 8f);
+        ratioDic.Add(Mathf.Floor(16f / 9f * 100f) / 100f, 8.5f);
+        ratioDic.Add(Mathf.Floor(18.5f / 9f * 100f) / 100f, 10f);
+        ratioDic.Add(Mathf.Floor(19f / 9f * 100f) / 100f, 10f);
+        ratioDic.Add(Mathf.Floor(19.5f / 9f * 100f) / 100f, 10f);
+        ratioDic.Add(Mathf.Floor(20f / 9f * 100f) / 100f, 10.5f);
+        ratioDic.Add(Mathf.Floor(21f / 9f * 100f) / 100f, 11f);
+        ratioDic.Add(Mathf.Floor(23.1f / 9f * 100f) / 100f, 12f);
+
+
+        print($"캠{Mathf.Floor(4f / 3f * 100f) / 100f} 비{a}");
+
+        if (ratioDic.ContainsKey(Mathf.Floor(a * 100f) / 100f))
+        {
+            cvCam.m_Lens.OrthographicSize = ratioDic[Mathf.Floor(a * 100f) / 100f];
+
+        }
 
         managers.Add(GetComponent<UIManager>());
 
@@ -57,7 +86,7 @@ public class IsometricManager : MonoBehaviour
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>
             {
-                StartCoroutine(GetManager<TutorialManager>().StartTurotial());
+                //StartCoroutine(GetManager<TutorialManager>().StartTurotial());
             });
         PlayerPrefs.Save();
     }

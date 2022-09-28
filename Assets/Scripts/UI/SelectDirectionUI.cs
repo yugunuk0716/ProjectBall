@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class SelectDirectionUI : UIBase
 {
@@ -11,6 +12,9 @@ public class SelectDirectionUI : UIBase
 
     [HideInInspector] public BallControllUI ballControllUI;
     private MapLoadVideoPlayer mapLoadVideoPlayer;
+
+    [HideInInspector]
+    public List<Button> selectDirectionBtns;
 
     public bool isSelecting = false;
 
@@ -24,13 +28,13 @@ public class SelectDirectionUI : UIBase
         GetCanvasGroup();
 
         mapLoadVideoPlayer = GetComponent<MapLoadVideoPlayer>();
-        Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
+        selectDirectionBtns = GetComponentsInChildren<Button>().ToList();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.TakeMapLoadVideo = () => mapLoadVideoPlayer.TakeVideo();
 
         
 
-        for (int i = 0; i< selectDirectionBtns.Length; i++) // 0번은 Nothing 들어갑니다.
+        for (int i = 0; i< selectDirectionBtns.Count; i++) // 0번은 Nothing 들어갑니다.
         {
             int index = 1;
 
