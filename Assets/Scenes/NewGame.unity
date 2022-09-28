@@ -1083,6 +1083,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 350
       objectReference: {fileID: 0}
+    - target: {fileID: 7978084167911488488, guid: 995a9fb4a38f74baabfbe018f981d82d, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7978084167911488489, guid: 995a9fb4a38f74baabfbe018f981d82d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1815,7 +1819,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1, y: 1}
+    m_SensorSize: {x: 0.5625, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2257,6 +2261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFirst: 1
   managers: []
+  cvCam: {fileID: 1098504651}
 --- !u!4 &1237503440
 Transform:
   m_ObjectHideFlags: 0
@@ -5038,7 +5043,6 @@ RectTransform:
   - {fileID: 2140423674}
   - {fileID: 1328202758}
   - {fileID: 1122376856}
-  - {fileID: 1655952922}
   - {fileID: 1673965014}
   - {fileID: 1655952922}
   m_Father: {fileID: 0}
