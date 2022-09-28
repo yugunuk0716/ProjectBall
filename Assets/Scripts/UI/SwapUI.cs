@@ -39,10 +39,7 @@ public class SwapUI : MonoBehaviour
     {
         gameObject.SetActive(on);
         paddingObj.gameObject.SetActive(on);
-        if(true == on)
-        {
-            //paddingObj.rectTransform.sizeDelta = new Vector2(190, 190);
-        }
+
     }
 
     public void MovePaddingObj(int index)
@@ -75,14 +72,15 @@ public class SwapUI : MonoBehaviour
 
         On(false);
 
-        ballControllUI.directionImg.rectTransform.DOScaleX(1, 0.4f);
-        ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.4f).OnComplete(() =>
+        Sequence seq = DOTween.Sequence();
+        seq.AppendInterval(0.1f);
+        seq.Append(ballControllUI.directionImg.rectTransform.DOScaleX(1, 0.4f));
+        seq.Join(ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.4f).OnComplete(() =>
         {
             gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
             ballControllUI = null;
-        });
+        }));
         
-        gameObject.SetActive(false);
 
     }
 }
