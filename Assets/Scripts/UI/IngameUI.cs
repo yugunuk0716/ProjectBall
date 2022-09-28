@@ -25,10 +25,21 @@ public class IngameUI : UIBase
 
     public void SetTimerText(string textString, Color? color = null)
     {
-        timer_text.text = textString;
-        if (color != null)
+        if (textString.Equals("on"))
         {
-            timer_text.color = color ?? default(Color);
+            timer_text.DOFade(1f, 0.5f);
+        }
+        else if(textString.Equals("off"))
+        {
+            timer_text.DOFade(0f, 0.5f);
+        }
+        else
+        {
+            timer_text.text = textString;
+            if (color != null)
+            {
+                timer_text.color = color ?? default(Color);
+            }
         }
     }
 

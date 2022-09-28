@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class StageScrollUI : UIBase
 {
     public Button stageOnBtn;
+    public Button closeBtn;
     public StageInfoUI stageInfoPanel;
     public List<int> stageIndexList;
     private bool isScreenOn = false;
@@ -31,14 +32,12 @@ public class StageScrollUI : UIBase
             }
 
         });
+        closeBtn.onClick.AddListener(() => ScreenOn(false));
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
 
         IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) => { allContents.ForEach(c => c.UpdateContent()); };
 
-        FunctionUpdater.Create(CheckBackButton);
-
-      // ScreenOn(true);
-      // isScreenOn = true;
+ 
      
     }
 

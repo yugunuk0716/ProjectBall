@@ -11,9 +11,11 @@ public class GameOverUI : UIBase
     [SerializeField] private TextMeshProUGUI gameOverText;
     StageManager sm;
     GameManager gm;
+    SoundManager soundm;
     public List<Image> starList = new List<Image>();
     public bool isClear = false;
 
+    private bool canRaiseStageIdx;
  
 
     private void Update()
@@ -39,11 +41,14 @@ public class GameOverUI : UIBase
 
         sm = IsometricManager.Instance.GetManager<StageManager>();
         gm = IsometricManager.Instance.GetManager<GameManager>();
+        soundm = IsometricManager.Instance.GetManager<SoundManager>();
+      
 
         gm.OnClear = SetStar;
 
         reloadBtn.onClick.AddListener(() =>
         {
+            canRaiseStageIdx = false;
             print(sm.stageIndex);
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
@@ -52,7 +57,7 @@ public class GameOverUI : UIBase
 
         loadNextBtn.onClick.AddListener(() =>
         {
-
+            canRaiseStageIdx = false;
             sm.stageIndex++;
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
@@ -78,12 +83,17 @@ public class GameOverUI : UIBase
         for (int i = 0; i < starCount; i++)
         {
             starList[i].gameObject.SetActive(true);
+            soundm.Play("Star");
             yield return new WaitForSeconds(0.75f);
         }
 
         gm.clearParticle_Left.Play();
         gm.clearParticle_Right.Play();
 
+        yield return new WaitForSeconds(0.25f);
+        soundm.Play("Trumpet");
+
+        canRaiseStageIdx = true;
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
         //loadNextBtn.image.color = isClear ? Color.white : Color.gray;
@@ -103,5 +113,16 @@ public class GameOverUI : UIBase
     public override void Reset()
     {
         throw new System.NotImplementedException();
+    }
+
+
+    private void OnApplicationQuit()
+    {
+        if (canRaiseStageIdx)
+        {
+            canRaiseStageIdx = false;
+            sm.stageIndex++;
+            PlayerPrefs.SetInt("ClearMapsCount", sm.stageIndex);
+        }
     }
 }
