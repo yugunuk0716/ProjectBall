@@ -15,7 +15,7 @@ public class CloudHandler : MonoBehaviour
             Cloud cloud = PoolManager.Instance.Pop("Cloud") as Cloud;
             ResetCloud(cloud);
             clouds.Add(cloud);
-            yield return new WaitForSeconds(Random.Range(.5f, 3f));
+            yield return new WaitForSecondsRealtime(Random.Range(.5f, 3f));
         }
     }
 
@@ -45,9 +45,9 @@ public class CloudHandler : MonoBehaviour
             speed = Random.Range(5f, 10f);
         }
 
-        sr.DOFade(alpha, .5f);
+        sr.DOFade(alpha, .5f).SetUpdate(true);
 
-        cloud.transform.DOMove(new Vector3(-10, cloud.transform.position.y + 5), speed).SetEase(Ease.Linear).OnComplete(() =>
+        cloud.transform.DOMove(new Vector3(-10, cloud.transform.position.y + 5), speed).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
         {
             ResetCloud(cloud);
         });
