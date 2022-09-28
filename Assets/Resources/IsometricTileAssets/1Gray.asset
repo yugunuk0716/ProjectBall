@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Gray
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 375443224, guid: a0b41e802fd71234e89fe1f2561be90e, type: 3}
-  m_Color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  m_Sprite: {fileID: -1389934834, guid: b6eed96a5b472d14e90a5c91821a8b07, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

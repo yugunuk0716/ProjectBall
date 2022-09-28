@@ -16,14 +16,13 @@ public class IngamePlayUIManager : UIBase
 
     [Header("UI About Ingame PlayUI"), Space(10)]
     [SerializeField] List<UIBase> playUIs = new List<UIBase>();
-
     private bool isSetPanelActive = true;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
     Sequence seq;
 
-    private void SwitchUI(bool moveLeft, bool isForLoad)
+    private void SwitchUI(bool moveLeft, bool isForLoad) // 왼쪽으로 가나? 로딩할때 함수가 실행되는가?
     {
         if (isForLoad && isSetPanelActive) return;
 
@@ -41,7 +40,15 @@ public class IngamePlayUIManager : UIBase
     {
         GameManager.CanNotInteract = true;
 
-        int targetPos = isSetPanelActive ? -1080 : 1080;
+        float ratio = 1f;
+
+        if (Screen.width < 1080)
+        {
+            ratio = 1080f / (float)Screen.width;
+            Debug.Log(ratio);
+        }
+
+        int targetPos = isSetPanelActive ? (int)(-Screen.width * ratio) : (int)(Screen.width * ratio);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
@@ -67,6 +74,7 @@ public class IngamePlayUIManager : UIBase
 
     public override void Init()
     {
+        GetCanvasGroup();
         playUIs.ForEach((x) => x.Init());
         playUIs.ForEach((x) =>
         {

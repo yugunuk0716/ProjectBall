@@ -11,7 +11,8 @@ public class StageScrollUI : UIBase
     public StageInfoUI stageInfoPanel;
     public List<int> stageIndexList;
     private bool isScreenOn = false;
-    
+
+    UIBase inGameUI;
     StageManager sm;
     public List<IntListBox> allContents = new List<IntListBox>();
 
@@ -34,9 +35,22 @@ public class StageScrollUI : UIBase
 
         IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) => { allContents.ForEach(c => c.UpdateContent()); };
 
-        ScreenOn(true);
-        isScreenOn = true;
+        FunctionUpdater.Create(CheckBackButton);
+
+      // ScreenOn(true);
+      // isScreenOn = true;
      
+    }
+
+    public void CheckBackButton()
+    {
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                ScreenOn(false);
+            }
+        }
     }
 
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
@@ -55,7 +69,7 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
-            print($"cc: {sm.clearMapCount + 1}  idx: {index}");
+            //print($"cc: {sm.clearMapCount + 1}  idx: {index}");
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
@@ -67,6 +81,11 @@ public class StageScrollUI : UIBase
 
     public override void ScreenOn(bool on)
     {
+        if (inGameUI == null)
+        {
+            inGameUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("InGamePlayUIManager");
+        }
+        inGameUI.ScreenOn(!on);
         base.ScreenOn(on);
         Time.timeScale = on ? 0 : 1;
     }

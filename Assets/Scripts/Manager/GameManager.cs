@@ -13,19 +13,19 @@ public class GameManager : ManagerBase
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
-    public List<Ball> lastBallList = new List<Ball>();
-    public List<Ball> myBallList = new List<Ball>(); // 사용 가능한 공들
-    public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
-
-    public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
+    /*[HideInInspector]*/ public List<Ball> lastBallList  = new List<Ball>();
+    /*[HideInInspector]*/ public List<Ball> myBallList    = new List<Ball>(); // 사용 가능한 공들
+    /*[HideInInspector]*/ public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
+    /*[HideInInspector]*/ public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
 
-    private ParticleSystem clearParticle_Left;
-    private ParticleSystem clearParticle_Right;
+    public ParticleSystem clearParticle_Left;
+    public ParticleSystem clearParticle_Right;
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
+    [HideInInspector] public int curSetBallCount;
     [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
 
@@ -35,8 +35,7 @@ public class GameManager : ManagerBase
 
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
-    public Action<int> MakeNewStageUIs;
-    public Action<Ball, bool> MakeNewBallUI;
+    public Action<Ball, bool, int> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
     public Action UpdateUIContents;
@@ -56,11 +55,6 @@ public class GameManager : ManagerBase
 
         CloudHandler Cloud = Instantiate(Resources.Load<CloudHandler>("Objects/CloudHandler"));
         StartCoroutine(Cloud.CloudMove());
-
-
-#if UNITY_EDITOR
-       // PlayerPrefs.SetInt("ClearMapsCount", 46);
-#endif
     }
 
 
@@ -73,6 +67,8 @@ public class GameManager : ManagerBase
         SetTimerText("Ready", Color.white);
         firstTime = 0f;
         realTime = 0f;
+        curSetBallCount = 0;
+
         isFirstBallNotArrived = true;
         isShooting = false;
         timerCo = Timer();
@@ -104,26 +100,13 @@ public class GameManager : ManagerBase
         }
     }
 
-    public void ResetOrderTexts()
-    {
-        for (int i = 0; i < ballUIList.Count; i++)
-        {
-            string text = ballUIList[i].order <= ballUIList.Count ? (i + 1).ToString() : string.Empty;
-            ballUIList[i].orderText.SetText(text);
-        }
-    }
-
     public void BallUiSort()
     {
         ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
-
-        for (int i = 0; i < ballUIList.Count; i++)
+        for(int i = 0; i < ballUIList.Count; i++)
         {
-            if (ballUIList[i].order > 10) continue;
-            ballUIList[i].transform.SetSiblingIndex(i);
-            ballUIList[i].order = i + 1;
+            ballUIList[i].order = i;
         }
-        ResetOrderTexts();
     }
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)
@@ -132,9 +115,8 @@ public class GameManager : ManagerBase
         {
             for (int i = 0; i < ballCount; i++)
             {
-                MakeNewBallUI(lastBallList[i], true);
+                MakeNewBallUI(lastBallList[i], true, i);
             }
-
             lastBallList = lastBallList.GetRange(0, ballCount);
         }
         else
@@ -142,14 +124,14 @@ public class GameManager : ManagerBase
             for (int i = 0; i < ballCount; i++)
             {
                 Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-                MakeNewBallUI(ball, false);
+                MakeNewBallUI(ball, false, i);
             }
         }
     }
 
     public void CheckClear()
     {
-        if (isFirstBallNotArrived)
+        if (isFirstBallNotArrived || myBallList.Count != 0)
         {
             isFirstBallNotArrived = false;
             firstTime = Time.time;
@@ -159,37 +141,23 @@ public class GameManager : ManagerBase
 
         List<Goal> list = goalList.FindAll(goal => !goal.isChecked);
 
-        if (list.Count == 0 && firstTime + limitTime >= Time.time)
+        if (list.Count == 0 && limitTime >= realTime)
         {
             Vibration.Vibrate(500);
-            clearParticle_Left.Play();
-            clearParticle_Right.Play();
+            
             UpdateUIContents?.Invoke();
             StopTimer();
             float clearTime = limitTime - realTime;
             SetTimerText("Clear", Color.green);
 
             StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
-
             int star = sm.CalcStar(clearTime);
-
-            sm.SaveStar(sm.stageIndex - 1, star);
-
-            print($"idx: {sm.stageIndex} cc {sm.clearMapCount}");
+            sm.SaveStar(sm.stageIndex - 1, star); 
 
             if(sm.stageIndex - 1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
             {
                 sm.clearMapCount++;
-                print("update clear count");
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
-                
-                if(sm.clearMapCount % 3 == 0)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        MakeNewStageUIs(i + sm.stageIndex);
-                    }
-                }
             }
             ActiveGameOverPanel(true);
             OnClear?.Invoke(star);
@@ -200,7 +168,7 @@ public class GameManager : ManagerBase
     {
         while (true)
         {
-            if (limitTime - realTime <= 0)
+            if (limitTime < realTime)
             {
                 goalList.ForEach((x) => x.ResetFlag(false));
                 StopTimer();
@@ -210,10 +178,9 @@ public class GameManager : ManagerBase
 
             yield return null;
             realTime += Time.deltaTime;
-            SetTimerText(string.Format("{0:0.00}", limitTime - realTime <= 0 ? "0:00" : limitTime - realTime), Color.white);
+            SetTimerText(string.Format("{0:0.00}", limitTime < realTime ? "0:00" : limitTime - realTime), Color.white);
         }
     }
-
 
     public void StopTimer() => StopCoroutine(timerCo);
 
@@ -240,11 +207,6 @@ public class GameManager : ManagerBase
         tile = Resources.Load<ObjectTile>("Tiles/None");
         PoolManager.Instance.CreatePool(tile, "None", 10);
 
-        tile = Resources.Load<ObjectTile>("Tiles/ColorChanger");
-        PoolManager.Instance.CreatePool(tile, "ColorChanger", 10);
-
-        tile = Resources.Load<ObjectTile>("Tiles/ColorFlag");
-        PoolManager.Instance.CreatePool(tile, "ColorGoal", 10);
 
         tile = Resources.Load<ObjectTile>("Tiles/Thorn");
         PoolManager.Instance.CreatePool(tile, "Thon", 10);

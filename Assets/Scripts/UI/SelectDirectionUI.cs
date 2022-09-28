@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class SelectDirectionUI : UIBase
 {
-    [HideInInspector] public Ball addBall; // 추가할 공.. 여기서 가지고 있으면 날먹이 가능해여
     [SerializeField] private Sprite directionSprites;
 
-    [HideInInspector] public int order;
     [HideInInspector] public BallControllUI ballControllUI;
     private MapLoadVideoPlayer mapLoadVideoPlayer;
 
+    [HideInInspector]
+    public List<Button> selectDirectionBtns;
+
     public bool isSelecting = false;
 
-    public void Set(Ball addBall, BallControllUI ballControllUI, int order)
+    public void Set(BallControllUI ballControllUI)
     {
-        this.addBall = addBall;
         this.ballControllUI = ballControllUI;
-        this.order = order;
     }
 
     public override void Init()
@@ -28,13 +28,13 @@ public class SelectDirectionUI : UIBase
         GetCanvasGroup();
 
         mapLoadVideoPlayer = GetComponent<MapLoadVideoPlayer>();
-        Button[] selectDirectionBtns = GetComponentsInChildren<Button>();
+        selectDirectionBtns = GetComponentsInChildren<Button>().ToList();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.TakeMapLoadVideo = () => mapLoadVideoPlayer.TakeVideo();
 
         
 
-        for (int i = 0; i< selectDirectionBtns.Length; i++) // 0번은 Nothing 들어갑니다.
+        for (int i = 0; i< selectDirectionBtns.Count; i++) // 0번은 Nothing 들어갑니다.
         {
             int index = 1;
 
@@ -46,14 +46,10 @@ public class SelectDirectionUI : UIBase
                 anim.SetTrigger("OnClick");
                 ScreenOn(false);
 
-                addBall.shootDir = (TileDirection)(index);
-                gm.myBallList.Add(addBall);
-                gm.lastBallList.Add(addBall);
-                
-                ballControllUI.SetDirection(addBall.shootDir);
-                gm.BallUiSort();
+                int insertIndex = Mathf.Clamp(ballControllUI.order, 0, gm.myBallList.Count);
+                ballControllUI.ball.shootDir = (TileDirection)(index);
 
-                
+                ballControllUI.SetDirection(ballControllUI.ball.shootDir);
             });
         }
     }
@@ -69,7 +65,6 @@ public class SelectDirectionUI : UIBase
             mapLoadVideoPlayer.PlayVideo();
         }
     }
-
 
     public override void Load()
     {

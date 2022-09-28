@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "R3CT80DBKVA",
+    "m_SelectedDeviceId": "R54NA03HB9B",
     "m_SelectedPackage": {
-        "deviceId": "R3CT80DBKVA",
+        "deviceId": "R54NA03HB9B",
         "name": "com.DefaultCompany.ProjectBall",
-        "processId": 11803,
+        "processId": 26467,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,37 +11,31 @@
         {
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
-            "processId": 8501,
+            "processId": 22099,
             "exited": true
         },
         {
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
-            "processId": 9025,
+            "processId": 10600,
             "exited": true
         },
         {
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
-            "processId": 9513,
+            "processId": 21809,
             "exited": true
         },
         {
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
-            "processId": 10779,
+            "processId": 9411,
             "exited": true
         },
         {
             "deviceId": "R3CT80DBKVA",
-            "name": "com.sec.android.app.launcher",
-            "processId": 3618,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
-            "processId": 11803,
+            "processId": 12991,
             "exited": false
         },
         {
@@ -72,6 +66,30 @@
             "deviceId": "R3CMB05GZPW",
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 28260,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CMB05GZPW",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 26961,
+            "exited": false
+        },
+        {
+            "deviceId": "R54NA03HB9B",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 9561,
+            "exited": false
+        },
+        {
+            "deviceId": "R54NA03HB9B",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 24180,
+            "exited": false
+        },
+        {
+            "deviceId": "R54NA03HB9B",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 26467,
             "exited": false
         }
     ],

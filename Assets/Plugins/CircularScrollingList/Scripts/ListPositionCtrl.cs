@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -295,6 +295,24 @@ namespace AirFishLab.ScrollingList
         {
             _inputPositionHandler(eventData, phase);
             _toRunLateUpdate = true;
+
+            if (phase.Equals(TouchPhase.Began))
+            {
+                _listBoxes.ForEach(b =>
+                {
+                    b.canUpdatePosition = true;
+                });
+            }
+
+            if (phase.Equals(TouchPhase.Ended))
+            {
+                _listBoxes.ForEach(b =>
+                {
+                    b.CorrectionError();
+                   
+                });
+            }
+
         }
 
         /// <summary>
@@ -417,12 +435,18 @@ namespace AirFishLab.ScrollingList
         /// <summary>
         /// Update the position of the boxes
         /// </summary>
+
+
+
         public void Update()
         {
             if (_movementCtrl.IsMovementEnded())
                 return;
 
-            var distance = _movementCtrl.GetDistance(Time.deltaTime);
+            float distance = _movementCtrl.GetDistance(Time.deltaTime);
+
+            distance = MathF.Round(distance);
+          
             foreach (var listBox in _listBoxes)
                 listBox.UpdatePosition(distance);
         }

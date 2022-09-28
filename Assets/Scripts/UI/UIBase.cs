@@ -14,7 +14,7 @@ public abstract class UIBase : PoolableMono
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
-        DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.5f).SetUpdate(true);
+        canvasGroup.DOFade(on ? 1 : 0, 0.5f).SetUpdate(true);
     }
 
     public abstract void Init();
