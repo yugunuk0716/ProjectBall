@@ -3,23 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SwapUI : MonoBehaviour
 {
     public BallControllUI ballControllUI { get; set; } = null;
+    [SerializeField] Image paddingObj;
 
     float width = 0f;
     float ratio = 1f;
+
+    public int paddingIndex = 0;
+
     private void Start()
     {
-
         width = Screen.width;
 
         if (Screen.width < 1080)
         {
             ratio = 1080f / (float)Screen.width;
         }
-        Debug.Log(ratio);
     }
 
     private void Update()
@@ -27,47 +30,59 @@ public class SwapUI : MonoBehaviour
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;
         transform.position = pos;
+
+        int index = (int)((Input.mousePosition.x + (95 / ratio) - ((width - 1000 / ratio) / 2)) / (int)(190 / ratio));
+        MovePaddingObj(index);
+    }
+
+    public void On(bool on)
+    {
+        gameObject.SetActive(on);
+        paddingObj.gameObject.SetActive(on);
+        if(true == on)
+        {
+            //paddingObj.rectTransform.sizeDelta = new Vector2(190, 190);
+        }
+    }
+
+    public void MovePaddingObj(int index)
+    {
+        Debug.Log(index);
+        if(paddingIndex != index)
+        {
+            paddingObj.transform.SetSiblingIndex(index);
+            paddingIndex = index;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        GameObject obj = eventData.hovered.Find((x) => x.transform.CompareTag("BallControllUI"));
+        
+        paddingIndex = Mathf.Clamp(paddingIndex, 0, gm.ballUIList.Count - 1);
 
-        int insertIndex = 0;
-
-        if (obj != null)
-        {
-            Debug.Log(obj.name);
-            BallControllUI ui = obj.GetComponentInParent<BallControllUI>(); // 버튼 부모가 UI임
-            Debug.Log($"{Input.mousePosition.x + 95 / ratio}     /     {(ui.rt.anchoredPosition.x + width - (1000 / ratio))}");
-            insertIndex = Input.mousePosition.x + 95 / ratio < ui.rt.anchoredPosition.x + (width - 1000 / ratio) / 2 ? ui.order : ui.order + 1;
-        }
-        else
-        {
-            insertIndex = Input.mousePosition.x + 95 / ratio < (width - 1000/ ratio) / 2 + gm.ballUIList.Count - 1  * 190 ? 0 : 10;
-        }
-
-        insertIndex = Mathf.Clamp(insertIndex, 0, gm.ballUIList.Count - 1);
-        Debug.Log(insertIndex);
-
-        for (int i = insertIndex; i < gm.ballUIList.Count; i++)
+        for (int i = paddingIndex; i < gm.ballUIList.Count; i++)
         {
             gm.ballUIList[i].order++;
         }
 
-        ballControllUI.order = insertIndex;
+        ballControllUI.order = paddingIndex;
 
         gm.BallUiSort();
-        ballControllUI.transform.SetSiblingIndex(insertIndex);
-        ballControllUI.directionImg.transform.DOScaleX(1, 0.45f);
-                                                               
-        ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.45f).OnComplete(() =>
+        ballControllUI.transform.SetSiblingIndex(paddingIndex);
+
+        gm.ballUIList.ForEach((x) => x.SetInteractValues(false));
+
+        On(false);
+
+        ballControllUI.directionImg.rectTransform.DOScaleX(1, 0.4f);
+        ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.4f).OnComplete(() =>
         {
             gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
+            ballControllUI = null;
         });
-
-        ballControllUI = null;
+        
         gameObject.SetActive(false);
+
     }
 }

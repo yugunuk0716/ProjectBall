@@ -8,8 +8,6 @@ using System.Linq;
 
 public class SelectDirectionUI : UIBase
 {
-    [SerializeField] private Sprite directionSprites;
-
     [HideInInspector] public BallControllUI ballControllUI;
     private MapLoadVideoPlayer mapLoadVideoPlayer;
 
