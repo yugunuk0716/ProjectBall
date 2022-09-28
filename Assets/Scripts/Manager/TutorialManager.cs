@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Tilemaps;
+using UnityEngine.Events;
 
 public class TutorialManager : ManagerBase
 {
@@ -16,6 +18,8 @@ public class TutorialManager : ManagerBase
     private BallControllUI currentBallUI;
     private Canvas currentSelectedCanvas;
     private int ballCount = 0;
+    private int shootTextCount = 1;
+    private UnityAction tempAction = null;
     //ManagerBase 구현하기
     public override void Init()
     {
@@ -37,6 +41,8 @@ public class TutorialManager : ManagerBase
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
 
         ballCount = 0;
+
+        gm.OnClear += Tiles;
     }
 
     public override void Load()
@@ -102,7 +108,7 @@ public class TutorialManager : ManagerBase
         Destroy(currentBallUI.GetComponent<Canvas>());
 
 
-        Button selectDirectionBtn = 
+        Button selectDirectionBtn =
             currentBallUI.transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[ballCount == 0 ? 0 : 2];
 
         MakeObjectHighLight(selectDirectionBtn.gameObject);
@@ -126,7 +132,7 @@ public class TutorialManager : ManagerBase
         Button confirmButton = currentBallUI.transform.GetComponentInParent<BallSettingUI>().confirmBtn;
 
         MakeObjectHighLight(confirmButton.gameObject);
-
+       
         confirmButton.onClick.AddListener(() =>
         {
             MakeObjectUnHighLight(confirmButton.gameObject);
@@ -139,26 +145,74 @@ public class TutorialManager : ManagerBase
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         yield return new WaitForSecondsRealtime(2.5f);
         tutoPanels[3].DOFade(1, .5f);
-        Button Shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
+        Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
 
-        MakeObjectHighLight(Shootbtn.gameObject);
+        MakeObjectHighLight(shootbtn.gameObject);
 
-        Shootbtn.onClick.AddListener(() =>
+        tempAction = () =>
         {
-            MakeObjectUnHighLight(Shootbtn.gameObject);
+            MakeObjectUnHighLight(shootbtn.gameObject);
             StartCoroutine(Shooted());
-        });
+        };
+
+       shootbtn.onClick.AddListener(tempAction);
     }
 
     public IEnumerator Shooted()
     {
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1.3f);
         tutoPanels[4].DOFade(1, .5f).SetUpdate(true);
 
         TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
 
         MakeObjectHighLight(timer.gameObject);
+        tutoPanels[4].GetComponent<Button>().onClick.AddListener(ShootTextChange);
+        tutoPanels[4].transform.GetChild(0).GetComponent<TextMeshProUGUI>().DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo).SetUpdate(true);
+        tutoPanels[4].transform.GetChild(1).GetComponent<CanvasGroup>().DOFade(1, 1f).SetUpdate(true);
+        
         Time.timeScale = 0;
+    }
+
+    public void ShootTextChange()
+    {
+        TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
+        Tilemap map = IsometricManager.Instance.GetManager<SaveManager>().mainMap;
+
+
+        switch (shootTextCount)
+        {
+            
+            case 2:
+                tutoPanels[4].transform.GetChild(shootTextCount - 1).GetComponent<CanvasGroup>().DOFade(0, .5f).SetUpdate(true);
+                MakeObjectUnHighLight(timer.gameObject);
+                //DOTween.To(() => map.color, x => map.color = x, new Color(1,1,1,0), .5f).SetUpdate(true);
+                tutoPanels[4].transform.GetChild(shootTextCount).GetComponent<CanvasGroup>().DOFade(1, .5f).SetUpdate(true);
+                break;
+            case 3:
+                tutoPanels[4].DOFade(0, .5f).SetUpdate(true);
+                //DOTween.To(() => map.color, x => map.color = x, new Color(1, 1, 1, 1), .5f).SetUpdate(true);
+                Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
+                um.canvas[3].interactable = false;
+                um.canvas[3].blocksRaycasts = false;
+                shootbtn.onClick.RemoveListener(tempAction);
+                shootbtn.onClick.AddListener(() =>
+                {
+                    if(Time.timeScale.Equals(0))
+                    {
+                        Time.timeScale = 1;
+                    }
+                });
+                break;
+        }
+        shootTextCount++;
+    }
+
+    public void Tiles(int a)
+    {
+        if(shootTextCount != 1)
+        {
+            Debug.Log("이제 제발..");
+        }
     }
 }
