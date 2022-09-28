@@ -7,6 +7,8 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.Tilemaps;
 using UnityEngine.Events;
+using System.Reflection;
+
 
 public class TutorialManager : ManagerBase
 {
