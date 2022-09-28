@@ -86,7 +86,7 @@ public class IsometricManager : MonoBehaviour
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>
             {
-                StartCoroutine(GetManager<TutorialManager>().StartTurotial());
+                //StartCoroutine(GetManager<TutorialManager>().StartTurotial());
             });
         PlayerPrefs.Save();
     }
