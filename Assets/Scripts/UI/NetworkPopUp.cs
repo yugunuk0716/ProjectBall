@@ -21,6 +21,15 @@ public class NetworkPopUp : UIBase
     {
         GetCanvasGroup();
         iseeBtn.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
+        FunctionUpdater.Create(Checknetwork);
+    }
+
+    public void Checknetwork()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable && !canvasGroup.interactable)
+        {
+            ScreenOn(true);
+        }
     }
 
     public override void Load()
