@@ -119,7 +119,13 @@ public class BallSettingUI : UIBase
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
-        gm.ballUIList.ForEach((x) => gm.myBallList.Add(x.ball));
+        gm.ballUIList.ForEach((x) =>
+        {
+            x.isTutoOrShooting = true;
+            gm.myBallList.Add(x.ball);
+        });
+
+
         gm.lastBallList = gm.myBallList;
 
         GameManager.CanNotInteract = true;

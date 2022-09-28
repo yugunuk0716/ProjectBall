@@ -44,7 +44,6 @@ public class SwapUI : MonoBehaviour
 
     public void MovePaddingObj(int index)
     {
-        Debug.Log(index);
         if(paddingIndex != index)
         {
             paddingObj.transform.SetSiblingIndex(index);

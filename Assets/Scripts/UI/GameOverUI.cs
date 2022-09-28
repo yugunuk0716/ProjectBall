@@ -31,30 +31,31 @@ public class GameOverUI : UIBase
         ScreenOn(true);
 
         this.isClear = isClear;
+        loadNextBtn.interactable = isClear;
+        loadNextBtn.image.color = isClear ? Color.white : new Color(1,1,1, 0.4f);
         gameOverText.text = isClear ? "Clear!" : "Failed..";
     }
 
     public override void Init()
     {
         GetCanvasGroup();
-        IsometricManager.Instance.GetManager<GameManager>().ActiveGameOverPanel = (bool isClear) => OnGameOver(isClear);
 
         sm = IsometricManager.Instance.GetManager<StageManager>();
         gm = IsometricManager.Instance.GetManager<GameManager>();
         soundm = IsometricManager.Instance.GetManager<SoundManager>();
       
-
-        gm.OnClear = SetStar;
+        gm.ActiveGameOverPanel = (bool isClear) => OnGameOver(isClear);
+        gm.OnClear += SetStar;
 
         reloadBtn.onClick.AddListener(() =>
         {
             if (isClear)
             {
                 sm.clearMapCount++;
+                
             }
             PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
             canRaiseStageIdx = false;
-            print(sm.stageIndex);
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
             starList.ForEach(s => s.gameObject.SetActive(false));
@@ -99,9 +100,13 @@ public class GameOverUI : UIBase
         soundm.Play("Trumpet");
 
         canRaiseStageIdx = true;
+
+        Debug.Log(isClear);
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
-        //loadNextBtn.image.color = isClear ? Color.white : Color.gray;
+
+        //한번 깼으면 다시 못 깬 상태.. 도전중인 상태로 변경
+        isClear = false;
     }
 
     public override void ScreenOn(bool on)
