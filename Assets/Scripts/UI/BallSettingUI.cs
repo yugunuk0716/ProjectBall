@@ -23,11 +23,17 @@ public class BallSettingUI : UIBase
     [SerializeField] SwapUI swapUi;
 
     public Action<bool> SwitchUI;  // 세팅에서 슛으로.
-    public Action RollbackShootUI; // 변화했던 UI 돌려놓기.
 
     public override void Init()
     {
-        shootPanel.anchoredPosition = new Vector3(Screen.width, shootPanel.anchoredPosition.y, 0);
+        float ratio = 1f;
+
+        if(Screen.width < 1080)
+        {
+            ratio = 1080f / (float)Screen.width;
+        }
+
+        shootPanel.anchoredPosition = new Vector3(Screen.width * ratio, shootPanel.anchoredPosition.y, 0);
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 

@@ -40,7 +40,15 @@ public class IngamePlayUIManager : UIBase
     {
         GameManager.CanNotInteract = true;
 
-        int targetPos = isSetPanelActive ? -Screen.width : Screen.width;
+        float ratio = 1f;
+
+        if (Screen.width < 1080)
+        {
+            ratio = 1080f / (float)Screen.width;
+            Debug.Log(ratio);
+        }
+
+        int targetPos = isSetPanelActive ? (int)(-Screen.width * ratio) : (int)(Screen.width * ratio);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
