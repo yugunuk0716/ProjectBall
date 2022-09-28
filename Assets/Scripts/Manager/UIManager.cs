@@ -28,8 +28,7 @@ public class UIManager : ManagerBase
             case eUpdateState.Load:
                 Load();
                 break;
-        }
-    }
+        }    }
 
     public UIBase FindUI(string name)
     {
