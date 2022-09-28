@@ -80,6 +80,9 @@ public class IsometricManager : MonoBehaviour
         }
         else
         {
+            CanvasGroup canvasGroup = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false; 
             Debug.Log("최초실행 아님");
         }
 
@@ -88,6 +91,12 @@ public class IsometricManager : MonoBehaviour
      
         UpdateState(eUpdateState.Init);
     }
+
+    /*public void Update()
+    {
+        Debug.Log(Time.timeScale);
+    }*/
+
 
     private void FirstCall()
     {
