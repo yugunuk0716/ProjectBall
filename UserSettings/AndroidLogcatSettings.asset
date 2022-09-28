@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R54NA03HB9B",
         "name": "com.DefaultCompany.ProjectBall",
-        "processId": 7322,
+        "processId": 26467,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -90,12 +90,6 @@
             "deviceId": "R54NA03HB9B",
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 26467,
-            "exited": false
-        },
-        {
-            "deviceId": "R54NA03HB9B",
-            "name": "com.DefaultCompany.ProjectBall",
-            "processId": 7322,
             "exited": false
         }
     ],

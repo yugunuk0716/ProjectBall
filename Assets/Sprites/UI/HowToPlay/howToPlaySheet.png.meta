@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -114,7 +114,364 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: howToPlaySheet_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 217
+        width: 133
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41b00ef2cca1d4a4ea09556c45b5402f
+      internalID: -1780495718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_3
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 209
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dbf7195e8c4bf54abda03a3b022fb8d
+      internalID: -345467885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_4
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 209
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc77438820acf104cb45c55b23b225ce
+      internalID: -342949425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 190
+        width: 180
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 561d8e96f0248bc49a9ea9b0498c271a
+      internalID: 16936295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_2
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 157
+        width: 180
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 462ea4d8aae3ab84f97ba643c5c0b62a
+      internalID: -2052366791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 121
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f078572f6417c94db2f88a8adb45129
+      internalID: -1079286324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_6
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 121
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9884a0aa0dfe6a4c8f5ecaa3772dfec
+      internalID: 767871639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_7
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 47
+        width: 30
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b3eb4c9d8c0e44a9704683c05562a9
+      internalID: -725051893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_8
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 47
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 067acbadea3d6bd4499b7d98ebe4eeff
+      internalID: -1026204092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_9
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 47
+        width: 30
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bec662a65863bf4b984320fbe41c2a9
+      internalID: -279342884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_10
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 47
+        width: 30
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b58949746251754abb1e398cce1212a
+      internalID: -601061303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_11
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 47
+        width: 30
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cbd92b942e30274ab4d3f7a2b94b2d5
+      internalID: -1297226096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_12
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 47
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cd70ec6f7ef3564c9c8d3326ee256fb
+      internalID: 290982277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_13
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 47
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09130d7f14af63a4e934d899d89b5076
+      internalID: -708786966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_14
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ec490d42159afd45a55d7edee466d4a
+      internalID: -1452196816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_15
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 0
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 658ae9fb42f082c47b7d47fc2630ea0e
+      internalID: 2022231331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_16
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20411dc8da5e88642888d62a176c85b2
+      internalID: -300176316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -125,7 +482,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      howToPlaySheet_11: -1297226096
+      howToPlaySheet_13: -708786966
+      howToPlaySheet_1: 16936295
+      howToPlaySheet_16: -300176316
+      howToPlaySheet_8: -1026204092
+      howToPlaySheet_10: -601061303
+      howToPlaySheet_2: -2052366791
+      howToPlaySheet_4: -342949425
+      howToPlaySheet_15: 2022231331
+      howToPlaySheet_9: -279342884
+      howToPlaySheet_5: -1079286324
+      howToPlaySheet_12: 290982277
+      howToPlaySheet_6: 767871639
+      howToPlaySheet_3: -345467885
+      howToPlaySheet_14: -1452196816
+      howToPlaySheet_7: -725051893
+      howToPlaySheet_0: -1780495718
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
