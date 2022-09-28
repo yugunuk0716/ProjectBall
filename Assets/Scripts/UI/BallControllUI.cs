@@ -62,8 +62,11 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void SetInteractValues(bool on)
     {
-        directionSetBtn.interactable = on;
-        directionSetBtn.image.raycastTarget = on;
+        if(on)
+        {
+            directionSetBtn.interactable = on;
+            directionSetBtn.image.raycastTarget = on;
+        }
         bgImage.raycastTarget = on;
     }
 
@@ -72,16 +75,17 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         swapUI.ballControllUI = this;
         swapUI.gameObject.SetActive(true);
 
-        directionImg.transform.DOScaleX(0, 0.3f);
         this.order = 10;
-
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.BallUiSort();
-
-        this.rt.DOSizeDelta(new Vector2(0, 190), 0.3f).OnComplete(() =>
+        gm.ballUIList.ForEach((x) =>
         {
-           
+            x.directionSetBtn.interactable = false;
+            x.directionSetBtn.image.raycastTarget = false;
         });
+
+        directionImg.transform.DOScaleX(0,  0.45f);
+        rt.DOSizeDelta(new Vector2(0, 190), 0.45f);
     }
 
     public void OnEndDrag(PointerEventData eventData)

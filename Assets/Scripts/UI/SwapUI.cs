@@ -9,10 +9,17 @@ public class SwapUI : MonoBehaviour
     public BallControllUI ballControllUI { get; set; } = null;
 
     float width = 0f;
-
+    float ratio = 1f;
     private void Start()
     {
+
         width = Screen.width;
+
+        if (Screen.width < 1080)
+        {
+            ratio = 1080f / (float)Screen.width;
+        }
+        Debug.Log(ratio);
     }
 
     private void Update()
@@ -31,16 +38,17 @@ public class SwapUI : MonoBehaviour
 
         if (obj != null)
         {
+            Debug.Log(obj.name);
             BallControllUI ui = obj.GetComponentInParent<BallControllUI>(); // 버튼 부모가 UI임
-            insertIndex = Input.mousePosition.x < ui.rt.anchoredPosition.x + (width - 1000) / 2 ? ui.order : ui.order + 1;
+            Debug.Log($"{Input.mousePosition.x + 95 / ratio}     /     {(ui.rt.anchoredPosition.x + width - (1000 / ratio))}");
+            insertIndex = Input.mousePosition.x + 95 / ratio < ui.rt.anchoredPosition.x + (width - 1000 / ratio) / 2 ? ui.order : ui.order + 1;
         }
         else
         {
-            insertIndex = Input.mousePosition.x < (width - 1000) / 2 + gm.ballUIList.Count - 1  * 190 ? 0 : gm.ballUIList.Count - 1;
+            insertIndex = Input.mousePosition.x + 95 / ratio < (width - 1000/ ratio) / 2 + gm.ballUIList.Count - 1  * 190 ? 0 : 10;
         }
 
         insertIndex = Mathf.Clamp(insertIndex, 0, gm.ballUIList.Count - 1);
-
         Debug.Log(insertIndex);
 
         for (int i = insertIndex; i < gm.ballUIList.Count; i++)
@@ -51,19 +59,15 @@ public class SwapUI : MonoBehaviour
         ballControllUI.order = insertIndex;
 
         gm.BallUiSort();
-
-        gm.ballUIList.ForEach((x) => x.SetInteractValues(false));
-
         ballControllUI.transform.SetSiblingIndex(insertIndex);
-
-        ballControllUI.directionImg.transform.DOScaleX(1, 0.3f);
-
-        ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.3f).OnComplete(() =>
+        ballControllUI.directionImg.transform.DOScaleX(1, 0.45f);
+                                                               
+        ballControllUI.rt.DOSizeDelta(new Vector2(190, 190), 0.45f).OnComplete(() =>
         {
             gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
-            ballControllUI = null;
         });
 
+        ballControllUI = null;
         gameObject.SetActive(false);
     }
 }
