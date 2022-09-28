@@ -101,7 +101,7 @@ public class StageScrollUI : UIBase
 
     public void UpdateHaptic()
     {
-        Vibration.Vibrate(5);
+        //Vibration.Vibrate(5);
     }
 
     public override void Load()
