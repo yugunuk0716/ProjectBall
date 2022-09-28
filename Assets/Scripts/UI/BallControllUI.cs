@@ -73,17 +73,14 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         swapUI.gameObject.SetActive(true);
 
         directionImg.transform.DOScaleX(0, 0.3f);
+        this.order = 10;
+
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.BallUiSort();
+
         this.rt.DOSizeDelta(new Vector2(0, 190), 0.3f).OnComplete(() =>
         {
-            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
-            this.order = 10;
-            for (int i = order + 1; i < gm.ballUIList.Count; i++)
-            {
-                gm.ballUIList[i].order--;
-            }
-
-            gm.BallUiSort();
+           
         });
     }
 

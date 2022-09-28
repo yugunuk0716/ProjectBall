@@ -88,14 +88,10 @@ public class BallSettingUI : UIBase
 
     public override void Load()
     {
+        //혹시 슛 패널로 이동 안했으면 남아있을거니까!
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
         for(int i = 1; i < arr.Length; i++)
         {
-            if (arr[i].transform.childCount > 0)
-            {
-                Debug.LogError("ㅇㅎ 있는 일이구나");
-                PoolManager.Instance.Push(arr[i].GetComponentInChildren<BallControllUI>());
-            }
             PoolManager.Instance.Push(arr[i]);
         }
 
