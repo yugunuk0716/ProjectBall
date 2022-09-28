@@ -1,4 +1,4 @@
-﻿using AirFishLab.ScrollingList;
+using AirFishLab.ScrollingList;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ public class IntListBox : ListBox
 
         if (lastIndex - 1 < minimapSpriteList.Count)
         {
-            //minimapImage.sprite = minimapSpriteList[lastIndex];
+            minimapImage.sprite = minimapSpriteList[lastIndex];
         }
 
         //int star = PlayerPrefs.GetInt($"{lastIndex - 1}Stage", 0);

@@ -8,7 +8,8 @@ public class IngameUI : UIBase
     public TextMeshProUGUI debugText;
     public TextMeshProUGUI timer_text;
 
-
+    Tween myTween;
+    Vector3 originScale;
 
     public override void Init()
     {
@@ -17,10 +18,14 @@ public class IngameUI : UIBase
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
 
+        originScale = timer_text.transform.localScale;
+
         gm.SetTimerText += (string textString, Color? color) => SetTimerText(textString, color);
+        gm.SetTimerSize += SetTimerSize;
 
         sm.SetDebugText += (string textString) => SetDebugText(textString);
         sm.FadeDebugText += () => FadeDebugText();
+
     }
 
     public void SetTimerText(string textString, Color? color = null)
@@ -35,12 +40,20 @@ public class IngameUI : UIBase
         }
         else
         {
+            
+
             timer_text.text = textString;
             if (color != null)
             {
                 timer_text.color = color ?? default(Color);
             }
         }
+    }
+
+    public void SetTimerSize(float t)
+    {
+        
+        timer_text.transform.localScale = originScale * (2f - t) * 2f;
     }
 
     public void SetDebugText(string textString)

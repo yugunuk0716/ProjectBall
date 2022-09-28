@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class StageScrollUI : UIBase
 {
-    public Button stageOnBtn;
     public Button closeBtn;
     public StageInfoUI stageInfoPanel;
     public List<int> stageIndexList;
@@ -101,7 +100,7 @@ public class StageScrollUI : UIBase
 
     public void UpdateHaptic()
     {
-        Vibration.Vibrate(5);
+        //Vibration.Vibrate(5);
     }
 
     public override void Load()

@@ -48,6 +48,11 @@ public class GameOverUI : UIBase
 
         reloadBtn.onClick.AddListener(() =>
         {
+            if (isClear)
+            {
+                sm.clearMapCount++;
+            }
+            PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
             canRaiseStageIdx = false;
             print(sm.stageIndex);
             sm.LoadStage(sm.stageIndex);
