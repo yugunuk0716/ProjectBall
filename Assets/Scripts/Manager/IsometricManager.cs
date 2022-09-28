@@ -63,16 +63,20 @@ public class IsometricManager : MonoBehaviour
 
         PlayerPrefs.SetInt("IsFirst", PlayerPrefs.GetInt("IsFirst",1));
 
+        CanvasGroup tutoCanvas = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();
+
         if (PlayerPrefs.GetInt("IsFirst") == 1)
         {
             FirstCall();
+            tutoCanvas.interactable = true;
+            tutoCanvas.blocksRaycasts = true;
             Debug.Log("최초실행");
         }
         else
         {
-            CanvasGroup canvasGroup = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false; 
+            
+            tutoCanvas.interactable = false;
+            tutoCanvas.blocksRaycasts = false; 
             Debug.Log("최초실행 아님");
         }
 

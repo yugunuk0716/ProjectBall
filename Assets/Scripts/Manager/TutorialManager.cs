@@ -59,6 +59,21 @@ public class TutorialManager : ManagerBase
         SelectBall();
     }
 
+    public void MakeObjectHighLight(GameObject obj)
+    {
+        obj.gameObject.AddComponent<GraphicRaycaster>();
+        obj.gameObject.AddComponent<Canvas>();
+        currentSelectedCanvas = obj.gameObject.GetComponent<Canvas>();
+        currentSelectedCanvas.overrideSorting = true;
+        currentSelectedCanvas.sortingOrder = 210;
+    }
+
+    public void MakeObjectUnHighLight(GameObject obj)
+    {
+        Destroy(obj.GetComponent<GraphicRaycaster>());
+        Destroy(obj.GetComponent<Canvas>());
+    }
+
     public void SelectBall()
     {
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
@@ -73,11 +88,7 @@ public class TutorialManager : ManagerBase
             arrowText.offsetMax = new Vector2(arrowText.offsetMax.x + 380 * ballCount, arrowText.offsetMax.y);
             currentBallUI = gm.ballUIList[ballCount];
 
-            currentBallUI.gameObject.AddComponent<GraphicRaycaster>();
-            currentBallUI.gameObject.AddComponent<Canvas>();
-            currentSelectedCanvas = currentBallUI.gameObject.GetComponent<Canvas>();
-            currentSelectedCanvas.overrideSorting = true;
-            currentSelectedCanvas.sortingOrder = 210;
+            MakeObjectHighLight(currentBallUI.gameObject);
             currentBallUI.directionSetBtn.onClick.AddListener(ChooseDir);
         }
     }
@@ -91,19 +102,16 @@ public class TutorialManager : ManagerBase
         Destroy(currentBallUI.GetComponent<Canvas>());
 
 
-        Button selectDirectionBtn = currentBallUI.transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[ballCount == 0 ? 0 : 2];
-        selectDirectionBtn.gameObject.AddComponent<GraphicRaycaster>();
-        selectDirectionBtn.gameObject.AddComponent<Canvas>();
-        currentSelectedCanvas = selectDirectionBtn.gameObject.GetComponent<Canvas>();
-        currentSelectedCanvas.overrideSorting = true;
-        currentSelectedCanvas.sortingOrder = 220;
+        Button selectDirectionBtn = 
+            currentBallUI.transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[ballCount == 0 ? 0 : 2];
+
+        MakeObjectHighLight(selectDirectionBtn.gameObject);
 
         ballCount++;
 
         selectDirectionBtn.onClick.AddListener(() =>
         {
-            Destroy(selectDirectionBtn.GetComponent<GraphicRaycaster>());
-            Destroy(selectDirectionBtn.GetComponent<Canvas>());
+            MakeObjectUnHighLight(selectDirectionBtn.gameObject);
             SelectBall();
         });
 
@@ -116,10 +124,41 @@ public class TutorialManager : ManagerBase
         tutoPanels[2].DOFade(1, .5f);
 
         Button confirmButton = currentBallUI.transform.GetComponentInParent<BallSettingUI>().confirmBtn;
-        confirmButton.gameObject.AddComponent<GraphicRaycaster>();
-        confirmButton.gameObject.AddComponent<Canvas>();
-        currentSelectedCanvas = confirmButton.gameObject.GetComponent<Canvas>();
-        currentSelectedCanvas.overrideSorting = true;
-        currentSelectedCanvas.sortingOrder = 210;
+
+        MakeObjectHighLight(confirmButton.gameObject);
+
+        confirmButton.onClick.AddListener(() =>
+        {
+            MakeObjectUnHighLight(confirmButton.gameObject);
+            StartCoroutine(Shoot());
+        });
+    }
+
+    public IEnumerator Shoot()
+    {
+        tutoPanels.ForEach(x => x.DOFade(0, .5f));
+        yield return new WaitForSecondsRealtime(2.5f);
+        tutoPanels[3].DOFade(1, .5f);
+        Button Shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
+
+        MakeObjectHighLight(Shootbtn.gameObject);
+
+        Shootbtn.onClick.AddListener(() =>
+        {
+            MakeObjectUnHighLight(Shootbtn.gameObject);
+            StartCoroutine(Shooted());
+        });
+    }
+
+    public IEnumerator Shooted()
+    {
+        tutoPanels.ForEach(x => x.DOFade(0, .5f));
+        yield return new WaitForSecondsRealtime(2f);
+        tutoPanels[4].DOFade(1, .5f).SetUpdate(true);
+
+        TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
+
+        MakeObjectHighLight(timer.gameObject);
+        Time.timeScale = 0;
     }
 }
