@@ -7,6 +7,7 @@ public class IntListBox : ListBox
 {
     public Text _contentText;
     public Image minimapImage;
+    public Image lockImage;
     public List<Sprite> minimapSpriteList;
 
     public int lastIndex = 0;
@@ -24,7 +25,8 @@ public class IntListBox : ListBox
 
         if (lastIndex - 1 < minimapSpriteList.Count)
         {
-            minimapImage.sprite = minimapSpriteList[lastIndex];
+            lockImage.sprite = minimapSpriteList[lastIndex - 1];
+            minimapImage.sprite = minimapSpriteList[lastIndex - 1];
         }
 
         //int star = PlayerPrefs.GetInt($"{lastIndex - 1}Stage", 0);

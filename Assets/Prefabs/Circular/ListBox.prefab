@@ -1058,6 +1058,7 @@ MonoBehaviour:
   canUpdatePosition: 1
   _contentText: {fileID: 3948709773892578525}
   minimapImage: {fileID: 1622115792282407023}
+  lockImage: {fileID: 6642770005397047445}
   minimapSpriteList:
   - {fileID: 21300000, guid: 037e62e577a2787409a5d9bb6d28172b, type: 3}
   - {fileID: 21300000, guid: 306962e76753d6b4ba2d3f8946e46d22, type: 3}
