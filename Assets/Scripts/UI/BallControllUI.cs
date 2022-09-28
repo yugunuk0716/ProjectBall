@@ -56,6 +56,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public override void Reset()
     {
         directionSetBtn.interactable = true;
+        directionSetBtn.onClick.RemoveAllListeners();
         directionSetBtn.image.raycastTarget = true;
         directionImg.gameObject.SetActive(false);
     }

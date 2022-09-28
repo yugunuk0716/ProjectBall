@@ -223,12 +223,23 @@ public class TutorialManager : ManagerBase
 
     public void Tiles(int a)
     {
+        Debug.Log(gm.ballUIList[0].directionSetBtn.onClick.GetPersistentEventCount());
+        gm.ballUIList[0].directionSetBtn.onClick.GetType().GetRuntimeMethods().ToList().ForEach((x) => Debug.Log(x.Name));
+
         Debug.Log("Tiles");
-        Debug.Log(gm.ballUIList[0].directionSetBtn.onClick);
-        if(shootTextCount != 1)
+
+
+        //Debug.Log(gm.ballUIList[0].directionSetBtn.onClick);
+
+
+        if (true)
         {
             Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
             Button confirmButton = gm.ballUIList[ballCount -1].transform.GetComponentInParent<BallSettingUI>().confirmBtn;
+
+            Debug.Log(gm.ballUIList[0].directionSetBtn.onClick.GetPersistentEventCount());
+            gm.ballUIList[0].directionSetBtn.onClick.GetType().GetRuntimeMethods().ToList().ForEach((x) => Debug.Log(x.Name));
+
 
             gm.ballUIList[0].directionSetBtn.onClick.RemoveListener(tempAction[0]);
             gm.ballUIList[0].transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[0].onClick.RemoveListener(tempAction[1]);

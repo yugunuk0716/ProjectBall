@@ -95,7 +95,7 @@ public class BallSettingUI : UIBase
     {
         //혹시 슛 패널로 이동 안했으면 남아있을거니까!
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
-        for(int i = 1; i < arr.Length; i++)
+        for(int i = 0; i < arr.Length; i++)
         {
             PoolManager.Instance.Push(arr[i]);
         }
