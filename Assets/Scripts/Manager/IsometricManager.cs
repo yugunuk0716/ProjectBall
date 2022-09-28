@@ -21,35 +21,45 @@ public class IsometricManager : MonoBehaviour
 
     public CinemachineVirtualCamera cvCam;
 
-    private Dictionary<float, float> ratioDic = new Dictionary<float, float>();
+    private List<(float, float)> ratioPairList = new List<(float, float)>();
 
     private void Awake()
     {
         instance = this;
 
-        float a = (float)Screen.height / (float)Screen.width;
-
-        ratioDic.Add(1f, 5f);
-        ratioDic.Add(2f, 10f);
-        ratioDic.Add(Mathf.Floor(4f / 3f * 100f) / 100f, 6.5f);
-        ratioDic.Add(Mathf.Floor(6f / 5f * 100f) / 100f, 6f);
-        ratioDic.Add(Mathf.Floor(16f / 10f * 100f) / 100f, 8f);
-        ratioDic.Add(Mathf.Floor(16f / 9f * 100f) / 100f, 8.5f);
-        ratioDic.Add(Mathf.Floor(18.5f / 9f * 100f) / 100f, 10f);
-        ratioDic.Add(Mathf.Floor(19f / 9f * 100f) / 100f, 10f);
-        ratioDic.Add(Mathf.Floor(19.5f / 9f * 100f) / 100f, 10f);
-        ratioDic.Add(Mathf.Floor(20f / 9f * 100f) / 100f, 10.5f);
-        ratioDic.Add(Mathf.Floor(21f / 9f * 100f) / 100f, 11f);
-        ratioDic.Add(Mathf.Floor(23.1f / 9f * 100f) / 100f, 12f);
+        float a = (float)Screen.height / Screen.width;
 
 
-        print($"캠{Mathf.Floor(4f / 3f * 100f) / 100f} 비{a}");
+        ratioPairList.Add((19f / 9f, 10f));
+        ratioPairList.Add((4f / 3f, 6.5f));
+        ratioPairList.Add((6f / 5f, 6f));
+        ratioPairList.Add((16f / 10f, 8f));
+        ratioPairList.Add((16f / 9f, 8.5f));
+        ratioPairList.Add((18.5f / 9f, 10f));
+        ratioPairList.Add((19f / 9f, 10f));
+        ratioPairList.Add((19.5f / 9f, 10f));
+        ratioPairList.Add((20f / 9f, 10.5f));
+        ratioPairList.Add((21f / 9f, 11f));
+        ratioPairList.Add((23.1f / 9f, 12f));
 
-        if (ratioDic.ContainsKey(Mathf.Floor(a * 100f) / 100f))
+
+
+        float minDif = float.MaxValue;
+        float minValue = 0f;
+
+        for (int i = 0; i < ratioPairList.Count; i++)
         {
-            cvCam.m_Lens.OrthographicSize = ratioDic[Mathf.Floor(a * 100f) / 100f];
-
+            float dif = Mathf.Abs(ratioPairList[i].Item1 - a);
+            if (dif < minDif)
+            {
+                minDif = dif;
+                minValue = ratioPairList[i].Item1;
+            }
         }
+        print($"민디{minDif} 민벨{minValue}");
+        cvCam.m_Lens.OrthographicSize = ratioPairList.Find(x => x.Item1.Equals(minValue)).Item2;
+
+
 
         managers.Add(GetComponent<UIManager>());
 
