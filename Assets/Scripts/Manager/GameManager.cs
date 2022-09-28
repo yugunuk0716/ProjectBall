@@ -35,6 +35,7 @@ public class GameManager : ManagerBase
 
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
+    public Action<float> SetTimerSize;
     public Action<Ball, bool, int> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
@@ -180,6 +181,7 @@ public class GameManager : ManagerBase
             yield return null;
             realTime += Time.deltaTime;
             SetTimerText(string.Format("{0:0.00}", limitTime < realTime ? "0:00" : limitTime - realTime), Color.white);
+            SetTimerSize(limitTime - realTime);
         }
     }
 
