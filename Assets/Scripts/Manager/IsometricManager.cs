@@ -56,7 +56,6 @@ public class IsometricManager : MonoBehaviour
                 minValue = ratioPairList[i].Item1;
             }
         }
-        print($"민디{minDif} 민벨{minValue}");
         cvCam.m_Lens.OrthographicSize = ratioPairList.Find(x => x.Item1.Equals(minValue)).Item2;
 
 
@@ -96,11 +95,11 @@ public class IsometricManager : MonoBehaviour
         UpdateState(eUpdateState.Init);
     }
 
-    /*public void Update()
+   /* public void Update()
     {
         Debug.Log(Time.timeScale);
-    }*/
-
+    }
+*/
 
     private void FirstCall()
     {
