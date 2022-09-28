@@ -15,15 +15,16 @@ public class TutorialManager : ManagerBase
     private RectTransform arrowText;
     private GameManager gm;
     private UIManager um;
-    private BallControllUI currentBallUI;
+    //private BallControllUI currentBallUI;
     private Canvas currentSelectedCanvas;
     private int ballCount = 0;
     private int shootTextCount = 1;
-    private UnityAction tempAction = null;
+    private List<UnityAction> tempAction = new List<UnityAction>();
     //ManagerBase 구현하기
     public override void Init()
     {
         ballCount = 0;
+        tempAction.Clear();
     }
 
 
@@ -39,8 +40,6 @@ public class TutorialManager : ManagerBase
         turoritalUI.TutoPanels.ForEach(x => tutoPanels.Add(x.GetComponent<CanvasGroup>()));
 
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
-
-        ballCount = 0;
 
         gm.OnClear += Tiles;
     }
@@ -67,8 +66,9 @@ public class TutorialManager : ManagerBase
 
     public void MakeObjectHighLight(GameObject obj)
     {
-        obj.gameObject.AddComponent<GraphicRaycaster>();
         obj.gameObject.AddComponent<Canvas>();
+        obj.gameObject.AddComponent<GraphicRaycaster>();
+        
         currentSelectedCanvas = obj.gameObject.GetComponent<Canvas>();
         currentSelectedCanvas.overrideSorting = true;
         currentSelectedCanvas.sortingOrder = 210;
@@ -82,66 +82,74 @@ public class TutorialManager : ManagerBase
 
     public void SelectBall()
     {
+        Debug.Log("SelectBall");
+        Debug.Log(ballCount);
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         tutoPanels[0].DOFade(1, .5f);
 
-        if (gm.ballUIList.Count <= ballCount)
+        if (2 == ballCount)
         {
             Confirm();
         }
         else
         {
             arrowText.offsetMax = new Vector2(arrowText.offsetMax.x + 380 * ballCount, arrowText.offsetMax.y);
-            currentBallUI = gm.ballUIList[ballCount];
 
-            MakeObjectHighLight(currentBallUI.gameObject);
-            currentBallUI.directionSetBtn.onClick.AddListener(ChooseDir);
+            MakeObjectHighLight(gm.ballUIList[ballCount].gameObject);
+            tempAction.Add(() => ChooseDir());
+            gm.ballUIList[ballCount].directionSetBtn.onClick.AddListener(tempAction[^1]);
         }
     }
 
     public void ChooseDir()
     {
+        Debug.Log("ChooseDir");
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         tutoPanels[1].DOFade(1, .5f);
 
-        Destroy(currentBallUI.GetComponent<GraphicRaycaster>());
-        Destroy(currentBallUI.GetComponent<Canvas>());
+        MakeObjectUnHighLight(gm.ballUIList[ballCount].gameObject);
 
 
         Button selectDirectionBtn =
-            currentBallUI.transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[ballCount == 0 ? 0 : 2];
+            gm.ballUIList[ballCount].transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[ballCount == 0 ? 0 : 2];
 
         MakeObjectHighLight(selectDirectionBtn.gameObject);
 
         ballCount++;
 
-        selectDirectionBtn.onClick.AddListener(() =>
+        tempAction.Add(() =>
         {
             MakeObjectUnHighLight(selectDirectionBtn.gameObject);
             SelectBall();
         });
+
+        selectDirectionBtn.onClick.AddListener(tempAction[^1]);
 
 
     }
 
     public void Confirm()
     {
+        Debug.Log("Confirm");
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         tutoPanels[2].DOFade(1, .5f);
 
-        Button confirmButton = currentBallUI.transform.GetComponentInParent<BallSettingUI>().confirmBtn;
+        Button confirmButton = gm.ballUIList[ballCount-1].transform.GetComponentInParent<BallSettingUI>().confirmBtn;
 
         MakeObjectHighLight(confirmButton.gameObject);
-       
-        confirmButton.onClick.AddListener(() =>
+
+        tempAction.Add(() =>
         {
             MakeObjectUnHighLight(confirmButton.gameObject);
             StartCoroutine(Shoot());
         });
+
+        confirmButton.onClick.AddListener(tempAction[^1]);
     }
 
     public IEnumerator Shoot()
     {
+        Debug.Log("Shoot");
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         yield return new WaitForSecondsRealtime(2.5f);
         tutoPanels[3].DOFade(1, .5f);
@@ -149,17 +157,18 @@ public class TutorialManager : ManagerBase
 
         MakeObjectHighLight(shootbtn.gameObject);
 
-        tempAction = () =>
+        tempAction.Add(() =>
         {
             MakeObjectUnHighLight(shootbtn.gameObject);
             StartCoroutine(Shooted());
-        };
+        });
 
-       shootbtn.onClick.AddListener(tempAction);
+        shootbtn.onClick.AddListener(tempAction[^1]);
     }
 
     public IEnumerator Shooted()
     {
+        Debug.Log("Shooted");
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         yield return new WaitForSecondsRealtime(1.3f);
         tutoPanels[4].DOFade(1, .5f).SetUpdate(true);
@@ -176,6 +185,7 @@ public class TutorialManager : ManagerBase
 
     public void ShootTextChange()
     {
+        Debug.Log("ShootTextChange");
         TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
         Tilemap map = IsometricManager.Instance.GetManager<SaveManager>().mainMap;
 
@@ -193,9 +203,10 @@ public class TutorialManager : ManagerBase
                 tutoPanels[4].DOFade(0, .5f).SetUpdate(true);
                 //DOTween.To(() => map.color, x => map.color = x, new Color(1, 1, 1, 1), .5f).SetUpdate(true);
                 Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
+                um.canvas[3].alpha = 0f;
                 um.canvas[3].interactable = false;
                 um.canvas[3].blocksRaycasts = false;
-                shootbtn.onClick.RemoveListener(tempAction);
+                shootbtn.onClick.RemoveListener(tempAction[^1]);
                 shootbtn.onClick.AddListener(() =>
                 {
                     if(Time.timeScale.Equals(0))
@@ -210,9 +221,19 @@ public class TutorialManager : ManagerBase
 
     public void Tiles(int a)
     {
+        Debug.Log("Tiles");
+        Debug.Log(gm.ballUIList[0].directionSetBtn.onClick);
         if(shootTextCount != 1)
         {
-            Debug.Log("이제 제발..");
+            Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
+            Button confirmButton = gm.ballUIList[ballCount -1].transform.GetComponentInParent<BallSettingUI>().confirmBtn;
+
+            gm.ballUIList[0].directionSetBtn.onClick.RemoveListener(tempAction[0]);
+            gm.ballUIList[0].transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[0].onClick.RemoveListener(tempAction[1]);
+            gm.ballUIList[1].directionSetBtn.onClick.RemoveListener(tempAction[2]);
+            gm.ballUIList[1].transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[2].onClick.RemoveListener(tempAction[3]);
+            confirmButton.onClick.RemoveListener(tempAction[4]);
+            shootbtn.onClick.RemoveListener(tempAction[5]);
         }
     }
 }
