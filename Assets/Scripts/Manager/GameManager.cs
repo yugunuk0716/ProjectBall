@@ -36,6 +36,7 @@ public class GameManager : ManagerBase
     public Action<bool> ActiveGameOverPanel = null;
     public Action<string, Color?> SetTimerText;
     public Action<float> SetTimerSize;
+    public Action<int> SetStageText;
     public Action<Ball, bool, int> MakeNewBallUI;
     public Action<int> OnClear;
     public Action Shoot;
