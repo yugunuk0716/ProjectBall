@@ -52,9 +52,9 @@ public class TutorialManager : ManagerBase
         um.canvas[3].interactable = true;
         um.canvas[3].blocksRaycasts = true;
         um.canvas[3].DOFade(1f, .5f);
-        
-        
-        
+
+
+
         yield return null;
         SelectBall();
     }
@@ -91,17 +91,23 @@ public class TutorialManager : ManagerBase
         Destroy(currentBallUI.GetComponent<Canvas>());
 
 
-        SelectDirectionUI selectDirectionUI = currentBallUI.transform.GetComponentInParent<BallSettingUI>().selectDirectionUI;
-        selectDirectionUI.gameObject.AddComponent<GraphicRaycaster>();
-        selectDirectionUI.gameObject.AddComponent<Canvas>();
-        currentSelectedCanvas = selectDirectionUI.gameObject.GetComponent<Canvas>();
+        Button selectDirectionBtn = currentBallUI.transform.GetComponentInParent<BallSettingUI>().selectDirectionUI.selectDirectionBtns[ballCount == 0 ? 0 : 2];
+        selectDirectionBtn.gameObject.AddComponent<GraphicRaycaster>();
+        selectDirectionBtn.gameObject.AddComponent<Canvas>();
+        currentSelectedCanvas = selectDirectionBtn.gameObject.GetComponent<Canvas>();
         currentSelectedCanvas.overrideSorting = true;
         currentSelectedCanvas.sortingOrder = 220;
 
         ballCount++;
-        selectDirectionUI.selectDirectionBtns.ForEach(x => x.onClick.AddListener(SelectBall));
 
-        
+        selectDirectionBtn.onClick.AddListener(() =>
+        {
+            Destroy(selectDirectionBtn.GetComponent<GraphicRaycaster>());
+            Destroy(selectDirectionBtn.GetComponent<Canvas>());
+            SelectBall();
+        });
+
+
     }
 
     public void Confirm()

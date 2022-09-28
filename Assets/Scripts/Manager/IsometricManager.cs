@@ -70,6 +70,9 @@ public class IsometricManager : MonoBehaviour
         }
         else
         {
+            CanvasGroup canvasGroup = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false; 
             Debug.Log("최초실행 아님");
         }
 
@@ -79,6 +82,12 @@ public class IsometricManager : MonoBehaviour
         UpdateState(eUpdateState.Init);
     }
 
+    /*public void Update()
+    {
+        Debug.Log(Time.timeScale);
+    }*/
+
+
     private void FirstCall()
     {
         PlayerPrefs.SetInt("ClearMapsCount", 1);
@@ -86,7 +95,7 @@ public class IsometricManager : MonoBehaviour
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>
             {
-                //StartCoroutine(GetManager<TutorialManager>().StartTurotial());
+                StartCoroutine(GetManager<TutorialManager>().StartTurotial());
             });
         PlayerPrefs.Save();
     }

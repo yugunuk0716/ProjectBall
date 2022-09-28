@@ -51,12 +51,11 @@ public class SettingPopUp : UIBase
 
     public override void Load()
     {
-       
     }
 
     public override void ScreenOn(bool on)
     {
-        DOTween.KillAll();
+       // DOTween.KillAll();
         base.ScreenOn(on);
     }
 
