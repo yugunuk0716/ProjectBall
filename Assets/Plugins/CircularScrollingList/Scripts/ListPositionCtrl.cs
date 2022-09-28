@@ -303,13 +303,14 @@ namespace AirFishLab.ScrollingList
                     b.canUpdatePosition = true;
                 });
             }
-
+            
             if (phase.Equals(TouchPhase.Ended))
             {
                 _listBoxes.ForEach(b =>
                 {
                     b.CorrectionError();
-                   
+                    b.canUpdatePosition = false;
+
                 });
             }
 
@@ -364,7 +365,7 @@ namespace AirFishLab.ScrollingList
 
                 case TouchPhase.Ended:
                     var deltaTime = Time.realtimeSinceStartup - _lastDraggingTime;
-                    _movementCtrl.SetMovement(_deltaInputDistance / deltaTime, false);
+                    //_movementCtrl.SetMovement(_deltaInputDistance / deltaTime, false);
                     _isEndingMovement = true;
                     break;
             }

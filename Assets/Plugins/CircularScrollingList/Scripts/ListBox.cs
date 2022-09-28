@@ -138,7 +138,13 @@ namespace AirFishLab.ScrollingList
         private int count = 0;
         public void UpdatePosition(float delta)
         {
+            if (!canUpdatePosition)
+            {
+                print("asd");
+                return;
+            }
             fullDelta += delta;
+
 
             if(Mathf.Abs(delta) <= 500)
             {
@@ -148,7 +154,7 @@ namespace AirFishLab.ScrollingList
                     {
                         count = 0;
                         fullDelta = 0;
-                        print("ㅡ");
+
                     }
                     else
                     {
@@ -184,7 +190,12 @@ namespace AirFishLab.ScrollingList
         Tween t;
         public void CorrectionError()
         {
-            print(fullDelta);
+            if (!canUpdatePosition)
+            {
+                print("asd");
+                return;
+            }
+
             int a = fullDelta > 0 ? 1 : -1;
 
             float fullD = fullDelta;
@@ -218,22 +229,10 @@ namespace AirFishLab.ScrollingList
                 else if (needToUpdateToNextContent)
                     UpdateToNextContent();
 
-            }, 1f ,1f).SetUpdate(true);
-            //.OnComplete(() =>
-            //{
-            //    _boxTransformCtrl.SetLocalTransform(
-            //    transform, -fullD,
-            //    out var needToUpdateToLastContent,
-            //    out var needToUpdateToNextContent);
-
-            //    if (needToUpdateToLastContent)
-            //        UpdateToLastContent();
-            //    else if (needToUpdateToNextContent)
-            //        UpdateToNextContent();
-            //    print($"cm {fullD}");
-            //    print(already - fullD);
-            //});
-
+            }, 1f ,1f).SetUpdate(true).OnComplete(() =>
+            {
+                fullD = 0;
+            });
 
 
             fullDelta = 0;
@@ -393,6 +392,7 @@ namespace AirFishLab.ScrollingList
         /// <param name="centerContentID">The content ID for the centered box</param>>
         public void Refresh(int centerBoxID, int centerContentID)
         {
+            return;
             var localPos = transform.localPosition;
             var posFactor =
                 _listSetting.direction == CircularScrollingList.Direction.Horizontal
