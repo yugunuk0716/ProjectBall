@@ -114,21 +114,25 @@ public class GameManager : ManagerBase
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)
     {
-        Debug.Log($"{isSameStageLoaded}, {lastBallList.Count}, {ballCount}");
         if (isSameStageLoaded && lastBallList.Count >= ballCount)
         {
-            for (int i = 0; i < ballCount; i++)
-            {
-                MakeNewBallUI(lastBallList[i], true, i);
-            }
+            lastBallList.ForEach((x) => Debug.Log(x.name));
         }
-        else
+
+        for (int i = 0; i < ballCount; i++)
         {
-            for (int i = 0; i < ballCount; i++)
+            Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+            Debug.Log(ball.name);
+            if (isSameStageLoaded && lastBallList.Count >= ballCount)
             {
-                Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+                ball.shootDir = lastBallList[i].shootDir;
+                MakeNewBallUI(ball, true, i);
+            }
+            else
+            {
                 MakeNewBallUI(ball, false, i);
             }
+            
         }
     }
 
@@ -235,7 +239,7 @@ public class GameManager : ManagerBase
         PoolManager.Instance.CreatePool(cloud, "Cloud", 10);
         
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
-        PoolManager.Instance.CreatePool(ball, null, 5);
+        PoolManager.Instance.CreatePool(ball, null, 10); // 이거 5개만 만든 사람 저주할거야
 
         BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);

@@ -68,6 +68,10 @@ public class PoolManager : MonoBehaviour
                 bdp.transform.position = obj.transform.position;
                 bdp.PlayParticle();
             }
+
+            pools["DefaultBall"].Push(obj);
+            obj.transform.SetParent(this.transform);
+            return;
         }
 
         pools[obj.name].Push(obj);

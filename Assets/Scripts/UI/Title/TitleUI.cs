@@ -41,7 +41,11 @@ public class TitleUI : MonoBehaviour
             gameObject.SetActive(false);
             titleBtns[1].interactable = true;
         });
-        ingameCanvasGroup.DOFade(1, 1f).SetUpdate(true);
+        ingameCanvasGroup.DOFade(1, 1f).SetUpdate(true).OnComplete(() =>
+        {
+            ingameCanvasGroup.interactable = true;
+            ingameCanvasGroup.blocksRaycasts = true;
+        });
     }
 
     public IEnumerator BtninteractableSet()

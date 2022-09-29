@@ -4,7 +4,7 @@ using UnityEngine;
 
 class Pool<T> where T : PoolableMono
 {
-    private Stack<T> _pool = new Stack<T>();
+    private Queue<T> _pool = new Queue<T>();
     private T _prefab; //???????? ????
     private Transform _parent;
 
@@ -17,8 +17,9 @@ class Pool<T> where T : PoolableMono
         {
             T obj = GameObject.Instantiate(prefab, parent);
             obj.gameObject.name = obj.gameObject.name.Replace("(Clone)", "");  //??????? ??? ????????? ??? ?? ?? ????.
+            if (obj.CompareTag("Ball")) obj.gameObject.name += i.ToString();
             obj.gameObject.SetActive(false);
-            _pool.Push(obj);
+            _pool.Enqueue(obj);
         }
     }
 
@@ -34,7 +35,7 @@ class Pool<T> where T : PoolableMono
         }
         else
         {
-            obj = _pool.Pop();
+            obj = _pool.Dequeue();
             obj.gameObject.SetActive(true);
         }
         return obj;
@@ -43,6 +44,6 @@ class Pool<T> where T : PoolableMono
     public void Push(T obj)
     {
         obj.gameObject.SetActive(false);
-        _pool.Push(obj);
+        _pool.Enqueue(obj);
     }
 }

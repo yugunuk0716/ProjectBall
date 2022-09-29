@@ -139,7 +139,7 @@ public class Ball : PoolableMono
         curActiveTime = 0;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-      
+        isUsing = false;
 
         if (gm.aliveBallList.Count > 0)
         {
@@ -152,7 +152,7 @@ public class Ball : PoolableMono
     public override void Reset()
     {
         gameObject.SetActive(false);
-
+        isUsing = true;
         slowAnim.gameObject.SetActive(false);
         speed = 0.4f;
         ColorChange(Color.white);

@@ -61,7 +61,13 @@ public class StageManager : ManagerBase
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
-        gm.aliveBallList.ForEach(b => PoolManager.Instance.Push(b));
+        gm.aliveBallList.ForEach(b =>
+        {
+            if(b != null)
+            {
+                PoolManager.Instance.Push(b);
+            }
+        });
 
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
         bool isSameStageLoaded = false;

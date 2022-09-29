@@ -35,6 +35,7 @@ public class ShooterTile : ObjectTile
         sm.Play("Cannon");
         Ball copyBall = gm.myBallList[0]; // 실제 데이터는 얘만 가짐.
         Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0) + ((Vector3)IsometricManager.GetRealDir(copyBall.shootDir) * 0.3f);
         
         Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);

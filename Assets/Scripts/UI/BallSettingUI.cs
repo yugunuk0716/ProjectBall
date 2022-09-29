@@ -52,7 +52,6 @@ public class BallSettingUI : UIBase
 
             if (isAutoSet)
             {
-                Debug.Log("ㅎㅇㅎㅇ");
                 isAdded = true;
                 gm.curSetBallCount++;
                 ballUI.SetDirection(ballUI.ball.shootDir);
@@ -146,7 +145,6 @@ public class BallSettingUI : UIBase
 
         for (int i = 0; i < list.Count; i++)
         {
-            Debug.Log(i);
             list[i].transform.SetParent(targetPoints[i + 1]);
             list[i].transform.DOMove(targetPoints[i + 1].position, 0.4f).SetEase(Ease.OutCubic);
             yield return new WaitForSeconds(duration);
@@ -160,7 +158,10 @@ public class BallSettingUI : UIBase
         {
             TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();
             item.transform.SetParent(item.transform.parent.parent);
-            PoolManager.Instance.Push(tp);
+            if(tp != null)
+            {
+                PoolManager.Instance.Push(tp);
+            }
         }
 
         Sequence changeUISeq2 = DOTween.Sequence();
