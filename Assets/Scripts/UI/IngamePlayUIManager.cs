@@ -18,6 +18,8 @@ public class IngamePlayUIManager : UIBase
     [SerializeField] List<UIBase> playUIs = new List<UIBase>();
     private bool isSetPanelActive = true;
 
+    public Button retryBtn;
+
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
     Sequence seq;
@@ -83,6 +85,13 @@ public class IngamePlayUIManager : UIBase
                 BallSettingUI ballSettingUI = x.GetComponent<BallSettingUI>();
                 ballSettingUI.SwitchUI = (x) => SwitchUI(isSetPanelActive, x);
             }
+        });
+
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+
+        retryBtn.onClick.AddListener(() =>
+        {
+            sm.LoadStage(sm.stageIndex);
         });
     }
 
