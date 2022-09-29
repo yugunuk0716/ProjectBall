@@ -58,6 +58,7 @@ MonoBehaviour:
   spriteList:
   - {fileID: 1911631213, guid: 18ba94ed2b22fc6478351ce480d47275, type: 3}
   - {fileID: 1546442308, guid: 18ba94ed2b22fc6478351ce480d47275, type: 3}
+  isChecked: 0
 --- !u!1 &3432228913819585876
 GameObject:
   m_ObjectHideFlags: 0
