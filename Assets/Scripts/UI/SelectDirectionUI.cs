@@ -16,6 +16,10 @@ public class SelectDirectionUI : UIBase
 
     public bool isSelecting = false;
 
+    Image myImage;
+
+    float width, height;
+
     public void Set(BallControllUI ballControllUI)
     {
         this.ballControllUI = ballControllUI;
@@ -24,6 +28,9 @@ public class SelectDirectionUI : UIBase
     public override void Init()
     {
         GetCanvasGroup();
+        myImage = GetComponent<Image>();
+        width = myImage.rectTransform.rect.width;
+        height = myImage.rectTransform.rect.height;
 
         mapLoadVideoPlayer = GetComponent<MapLoadVideoPlayer>();
         selectDirectionBtns = GetComponentsInChildren<Button>().ToList();
@@ -58,6 +65,7 @@ public class SelectDirectionUI : UIBase
         canvasGroup.blocksRaycasts = on;
         DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.75f).SetUpdate(true);
 
+        myImage.rectTransform.DOSizeDelta(new Vector2(width, on ? height : 0), 0.75f);
         if (on)
         {
             mapLoadVideoPlayer.PlayVideo();

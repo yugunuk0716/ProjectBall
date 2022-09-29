@@ -16,7 +16,7 @@ public class MapLoadVideoPlayer : MonoBehaviour
 
     private void Awake()
     {
-        ws = new WaitForSeconds(0.03f);
+        ws = new WaitForSeconds(2f / videoLength);
         texes = new Texture2D[videoLength];
         for (int i = 0; i < videoLength; i++)
         {

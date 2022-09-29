@@ -225,7 +225,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.251}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -384.23434, y: -472.16116}
+  m_AnchoredPosition: {x: -384.23438, y: -472.16116}
   m_SizeDelta: {x: 0, y: 116.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &72487645
@@ -4206,6 +4206,14 @@ PrefabInstance:
       propertyPath: swapUi
       value: 
       objectReference: {fileID: 1328202759}
+    - target: {fileID: 6328076305350715300, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328076305350715300, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: m_FillMethod
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7465389087927230974, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_Name
       value: InGamePlayUIManager

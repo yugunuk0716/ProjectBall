@@ -113,13 +113,13 @@ public class GameManager : ManagerBase
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)
     {
+        Debug.Log($"{isSameStageLoaded}, {lastBallList.Count}, {ballCount}");
         if (isSameStageLoaded && lastBallList.Count >= ballCount)
         {
             for (int i = 0; i < ballCount; i++)
             {
                 MakeNewBallUI(lastBallList[i], true, i);
             }
-            lastBallList = lastBallList.GetRange(0, ballCount);
         }
         else
         {

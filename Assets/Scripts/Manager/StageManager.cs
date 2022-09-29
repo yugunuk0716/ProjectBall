@@ -78,7 +78,6 @@ public class StageManager : ManagerBase
         else
         {
             currentStageData = stageDataList[realIndex];
-            gm.lastBallList.Clear();
         }
 
         sm.range = stageDataList[realIndex].range;

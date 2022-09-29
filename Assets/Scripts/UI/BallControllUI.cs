@@ -61,7 +61,6 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     private void Update()
     {
-        Debug.Log(pressedTime);
         if (bPressed)
         {
             pressedTime += Time.deltaTime;

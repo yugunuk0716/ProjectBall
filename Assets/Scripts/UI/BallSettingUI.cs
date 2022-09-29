@@ -52,6 +52,7 @@ public class BallSettingUI : UIBase
 
             if (isAutoSet)
             {
+                Debug.Log("ㅎㅇㅎㅇ");
                 isAdded = true;
                 gm.curSetBallCount++;
                 ballUI.SetDirection(ballUI.ball.shootDir);
@@ -118,15 +119,17 @@ public class BallSettingUI : UIBase
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.lastBallList.Clear();
+
         gm.ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
         gm.ballUIList.ForEach((x) =>
         {
             x.isTutoOrShooting = true;
             gm.myBallList.Add(x.ball);
+            gm.lastBallList.Add(x.ball);
         });
 
-
-        gm.lastBallList = gm.myBallList;
+         
 
         GameManager.CanNotInteract = true;
         shootBtn.interactable = false;
