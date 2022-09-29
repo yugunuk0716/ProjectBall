@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MapLoadVideoPlayer : MonoBehaviour
 {
-    int videoLength = 100;
+    int videoLength = 60;
     private Texture2D[] texes;
 
     public RawImage img;
