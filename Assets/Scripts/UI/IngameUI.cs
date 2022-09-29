@@ -59,8 +59,10 @@ public class IngameUI : UIBase
 
     public void SetTimerSize(float t)
     {
-        
-        timer_text.transform.localScale = originScale * (2f - t) * 2f;
+        float value = (2f - t) * 2f;
+        if (value <= 1f)
+            value = 1f;
+        timer_text.transform.localScale = originScale * value;
     }
 
     public void SetDebugText(string textString)

@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 4246307515295252528}
   - component: {fileID: 4246307515295252543}
   - component: {fileID: 2047433619778600705}
-  - component: {fileID: 8093250356851241759}
+  - component: {fileID: 1594467942363243640}
   m_Layer: 5
   m_Name: TitleSettingPopUp
   m_TagString: Untagged
@@ -730,11 +730,11 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4246307515295252541}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &8093250356851241759
+--- !u!114 &1594467942363243640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -743,13 +743,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4246307515295252541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64313cc57df0e443a87c75aac432edd9, type: 3}
+  m_Script: {fileID: 11500000, guid: eec374c7ed3484e9f8e553459c816c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
-  bgmButton: {fileID: 3587396703527881616}
-  sfxButton: {fileID: 3186505958760226092}
   cancleButton: {fileID: 5975507048665195581}
+  bgmMuteBtn: {fileID: 3587396703527881616}
+  sfxMuteBtn: {fileID: 3186505958760226092}
 --- !u!1 &6176545206220278326
 GameObject:
   m_ObjectHideFlags: 0

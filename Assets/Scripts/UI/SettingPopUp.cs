@@ -22,6 +22,7 @@ public class SettingPopUp : UIBase
     public override void Init()
     {
         uimanager = IsometricManager.Instance.GetManager<UIManager>();
+        SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         GetCanvasGroup();
         menuButton.onClick.AddListener(() => ScreenOn(true));
         resumeButton.onClick.AddListener(() => ScreenOn(false));
@@ -47,13 +48,13 @@ public class SettingPopUp : UIBase
 
         sfxButton.onClick.AddListener(() =>
         {
-            SoundManager.isSFXMute = !SoundManager.isSFXMute;
+            sm.Mute(AudioType.SFX);
             sfxButton.GetComponent<Image>().color = SoundManager.isSFXMute ? Color.gray : Color.white;
         });
 
         bgmButton.onClick.AddListener(() =>
         {
-            SoundManager.isBGMMute = !SoundManager.isBGMMute;
+            sm.Mute(AudioType.BGM);
             bgmButton.GetComponent<Image>().color = SoundManager.isBGMMute ? Color.gray : Color.white;
         });
 
