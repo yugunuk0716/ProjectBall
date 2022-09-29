@@ -13,7 +13,9 @@ public class GameManager : ManagerBase
     public List<Teleporter> portalList = new List<Teleporter>();
     public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
-    /*[HideInInspector]*/ public List<Ball> lastBallList  = new List<Ball>();
+    /*[HideInInspector]*/ public List<TileDirection> lastBallList  = new List<TileDirection>();
+
+
     /*[HideInInspector]*/ public List<Ball> myBallList    = new List<Ball>(); // 사용 가능한 공들
     /*[HideInInspector]*/ public List<Ball> aliveBallList = new List<Ball>(); // 쏘아진 공들
     /*[HideInInspector]*/ public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
@@ -114,18 +116,12 @@ public class GameManager : ManagerBase
 
     public void SetBallUI(int ballCount, bool isSameStageLoaded)
     {
-        if (isSameStageLoaded && lastBallList.Count >= ballCount)
-        {
-            lastBallList.ForEach((x) => Debug.Log(x.name));
-        }
-
         for (int i = 0; i < ballCount; i++)
         {
             Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
-            Debug.Log(ball.name);
             if (isSameStageLoaded && lastBallList.Count >= ballCount)
             {
-                ball.shootDir = lastBallList[i].shootDir;
+                ball.shootDir = lastBallList[i];
                 MakeNewBallUI(ball, true, i);
             }
             else
@@ -185,6 +181,7 @@ public class GameManager : ManagerBase
                 {
                     if (x.gameObject.activeInHierarchy)
                     {
+                        
                         PoolManager.Instance.Push(x);
                     }
                 });
@@ -239,7 +236,7 @@ public class GameManager : ManagerBase
         PoolManager.Instance.CreatePool(cloud, "Cloud", 10);
         
         Ball ball = Resources.Load<Ball>("Balls/DefaultBall");
-        PoolManager.Instance.CreatePool(ball, null, 10); // 이거 5개만 만든 사람 저주할거야
+        PoolManager.Instance.CreatePool(ball, null, 12); // 이거 5개만 만든 사람 저주할거야
 
         BallDestryParticle pMono = Resources.Load<BallDestryParticle>("Effects/BallDestroyParticle");
         PoolManager.Instance.CreatePool(pMono, null, 10);

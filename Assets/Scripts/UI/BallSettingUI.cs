@@ -125,7 +125,7 @@ public class BallSettingUI : UIBase
         {
             x.isTutoOrShooting = true;
             gm.myBallList.Add(x.ball);
-            gm.lastBallList.Add(x.ball);
+            gm.lastBallList.Add(x.ball.shootDir);
         });
 
          

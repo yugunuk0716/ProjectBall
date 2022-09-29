@@ -36,6 +36,12 @@ class Pool<T> where T : PoolableMono
         else
         {
             obj = _pool.Dequeue();
+            if(obj.isUsing)
+            {
+                Push(obj);
+                obj = Pop();
+            }
+            
             obj.gameObject.SetActive(true);
         }
         return obj;

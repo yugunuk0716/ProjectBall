@@ -122,7 +122,7 @@ public class StageManager : ManagerBase
 
     private void ClearActiveBalls()
     {
-        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => x.gameObject.SetActive(false));
+        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => PoolManager.Instance.Push(x));
     }
 
     public void SetStageIndex(string stageIndexStr)
