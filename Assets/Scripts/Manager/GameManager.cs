@@ -90,6 +90,7 @@ public class GameManager : ManagerBase
         maxBallCount = stageData.balls.Length;
 
         SetBallUI(stageData.balls.Length, isSameStageLoaded);
+        CanNotInteract = false;
     }
 
     public void CheckFail() 

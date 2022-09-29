@@ -18,7 +18,9 @@ public class IngamePlayUIManager : UIBase
     [SerializeField] List<UIBase> playUIs = new List<UIBase>();
     private bool isSetPanelActive = true;
 
+    [Header("RetryBtn")]
     public Button retryBtn;
+    public Image repeatImg;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
@@ -91,7 +93,15 @@ public class IngamePlayUIManager : UIBase
 
         retryBtn.onClick.AddListener(() =>
         {
+            retryBtn.interactable = false;
+            repeatImg.fillAmount = 0;
+
             sm.LoadStage(sm.stageIndex);
+
+            repeatImg.DOFillAmount(1, 4f).OnComplete(() =>
+            {
+                retryBtn.interactable = true;
+            });
         });
     }
 
@@ -99,6 +109,7 @@ public class IngamePlayUIManager : UIBase
     {
         playUIs.ForEach((x) => x.Load());
     }
+
 
     public override void Reset()
     {

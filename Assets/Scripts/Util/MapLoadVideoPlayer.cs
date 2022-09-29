@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MapLoadVideoPlayer : MonoBehaviour
 {
-    int videoLength = 100;
+    int videoLength = 60;
     private Texture2D[] texes;
 
     public RawImage img;
@@ -18,21 +18,28 @@ public class MapLoadVideoPlayer : MonoBehaviour
     {
         ws = new WaitForSeconds(2f / videoLength);
         texes = new Texture2D[videoLength];
+        StartCoroutine(MakeTextures());
+
+    }
+
+    IEnumerator MakeTextures()
+    {
         for (int i = 0; i < videoLength; i++)
         {
             texes[i] = new Texture2D(rt.width, rt.height); // 전체적으로 생성
+            yield return null;
         }
     }
 
     public void PlayVideo()
     {
-        if(playVideo != null)
+        if (playVideo != null)
         {
             StopCoroutine(playVideo);
         }
         playVideo = StartCoroutine(CoPlayVideo());
-    }  
-    
+    }
+
     public void TakeVideo()
     {
         StartCoroutine(CoTakeVideo());
