@@ -8,13 +8,20 @@ public class ButtonTile : ObjectTile
     public List<ObjectTile> target = new List<ObjectTile>();
     public List<Sprite> spriteList = new List<Sprite>();
     private SpriteRenderer sr;
+    public bool isChecked = false;
+
     public override void InteractionTile(Ball tb)
     {
-        InvokeData();
+        if (isChecked)
+        {
+            tb.SetMove();
+            return;
+        }
 
+        InvokeData();
+        isChecked = true;
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Button");
-
         if (sr.sprite.Equals(spriteList[0]))
         {
             sr.sprite = spriteList[1];
@@ -27,6 +34,7 @@ public class ButtonTile : ObjectTile
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         sr.sprite = spriteList[0];
+        isChecked = false;
     }
 
 /*    public void SetTarget(ObjectTile t,string ts)

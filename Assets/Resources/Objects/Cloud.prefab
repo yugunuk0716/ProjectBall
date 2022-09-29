@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 10
+  isUsing: 0
   cloudImgs:
   - {fileID: -682990638, guid: 1295869c9a5d98745bffec31085b130d, type: 3}
   - {fileID: 1908055858, guid: 1295869c9a5d98745bffec31085b130d, type: 3}

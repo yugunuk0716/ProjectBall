@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
+  isUsing: 0
   dataString: 
   myType: 4
   worldPos: {x: 0, y: 0}

@@ -7880,6 +7880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
+  isUsing: 0
   debugText: {fileID: 6430633672251267050}
   timer_text: {fileID: 6430633673962792754}
   stageText: {fileID: 648580464}

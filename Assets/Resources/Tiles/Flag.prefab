@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
+  isUsing: 0
   dataString: 
   myType: 3
   worldPos: {x: 0, y: 0}
