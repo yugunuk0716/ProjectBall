@@ -786,6 +786,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123936222}
   m_CullTransparentMesh: 1
+--- !u!114 &179330899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6517459433056319147, guid: 31964e4b8558c4cdc8bfc7366ef9f6ea, type: 3}
+  m_PrefabInstance: {fileID: 1798804582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &203389925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,7 +2866,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.625, y: 1}
+    m_SensorSize: {x: 0.5625, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4045,9 +4056,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 6430633673477226738}
     m_Modifications:
     - target: {fileID: 46032322326663842, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: bgImg
+      value: 
+      objectReference: {fileID: 179330899}
+    - target: {fileID: 46032322326663842, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: retryBtn
       value: 
       objectReference: {fileID: 1798804583}
+    - target: {fileID: 46032322326663842, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
+      propertyPath: repeatImg
+      value: 
+      objectReference: {fileID: 179330899}
     - target: {fileID: 446519211751160076, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4765,10 +4784,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6430633673477226738}
     m_Modifications:
-    - target: {fileID: 6517459433056319147, guid: 31964e4b8558c4cdc8bfc7366ef9f6ea, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e2d250309abac2e4ca33f40abc02f45a, type: 3}
     - target: {fileID: 8640551158078891921, guid: 31964e4b8558c4cdc8bfc7366ef9f6ea, type: 3}
       propertyPath: m_Name
       value: RetryBtn
@@ -4855,6 +4870,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8640551158078891922, guid: 31964e4b8558c4cdc8bfc7366ef9f6ea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640551158078891923, guid: 31964e4b8558c4cdc8bfc7366ef9f6ea, type: 3}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640551158078891923, guid: 31964e4b8558c4cdc8bfc7366ef9f6ea, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

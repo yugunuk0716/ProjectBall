@@ -56,6 +56,8 @@ public class StageManager : ManagerBase
 
     public void LoadStage(int stageIndex)
     {
+        GameManager.CanNotInteract = true;
+
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
@@ -108,7 +110,7 @@ public class StageManager : ManagerBase
 
     IEnumerator WaitUntilObjectTileCreated(Action callBack)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         callBack();
     }
 
