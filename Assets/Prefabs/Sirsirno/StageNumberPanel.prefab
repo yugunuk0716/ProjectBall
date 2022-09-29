@@ -107,7 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
-  stageOnBtn: {fileID: 0}
   closeBtn: {fileID: 6366800438413543285}
   stageInfoPanel: {fileID: 3205980653400225482}
   stageIndexList: 0100000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000005000000060000000700000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
@@ -352,8 +351,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: -0.00012300875
-        value: 0.80004853
+        time: 0.000090053305
+        value: 0.7250214
         inSlope: 0
         outSlope: 0
         tangentMode: 0
