@@ -16,6 +16,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public Ball ball;
 
+    public bool isTutoOrShooting = false;
+
     public void SetDirection(TileDirection dir, bool active = true)
     {
         float z = 0;
@@ -56,8 +58,10 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public override void Reset()
     {
         directionSetBtn.interactable = true;
+        directionSetBtn.onClick.RemoveAllListeners();
         directionSetBtn.image.raycastTarget = true;
         directionImg.gameObject.SetActive(false);
+        isTutoOrShooting = false;
     }
 
     public void SetInteractValues(bool on)
@@ -72,6 +76,11 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if(isTutoOrShooting)
+        {
+            return;
+        }
+
         swapUI.ballControllUI = this;
         swapUI.On(true);
 
@@ -90,6 +99,11 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (isTutoOrShooting)
+        {
+            return;
+        }
+
         rt.DOComplete();
         swapUI.OnEndDrag(eventData);
     }

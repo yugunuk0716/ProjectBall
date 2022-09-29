@@ -163,7 +163,7 @@ public class GameManager : ManagerBase
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
             }
             ActiveGameOverPanel(true);
-            OnClear?.Invoke(star);
+            OnClear(star);
         }
     }
 

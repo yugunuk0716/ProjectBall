@@ -95,11 +95,11 @@ public class IsometricManager : MonoBehaviour
         UpdateState(eUpdateState.Init);
     }
 
-    /*public void Update()
+   /* public void Update()
     {
         Debug.Log(Time.timeScale);
-    }*/
-
+    }
+*/
 
     private void FirstCall()
     {
