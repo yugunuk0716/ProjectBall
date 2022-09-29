@@ -83,12 +83,7 @@ public class Teleporter : ObjectTile
     {
         if (pairTeleporter != null)
         {
-            if(lastBall == tb)
-            {
-                return;
-            }
-
-            lastBall = tb;
+         
 
             SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
             sm.Play("Portal");
