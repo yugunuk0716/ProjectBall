@@ -48,7 +48,7 @@ public class StageManager : ManagerBase
 
         stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
 
-        stageIndex = PlayerPrefs.GetInt("LastStage");
+        stageIndex = PlayerPrefs.GetInt("LastStage", 1);
         LoadStage(stageIndex);
 
     }
@@ -166,6 +166,10 @@ public class StageManager : ManagerBase
 
     private void OnApplicationQuit()
     {
+        if(stageIndex == 0)
+        {
+            stageIndex = 1;
+        }
         PlayerPrefs.SetInt("LastStage", stageIndex);
     }
 
