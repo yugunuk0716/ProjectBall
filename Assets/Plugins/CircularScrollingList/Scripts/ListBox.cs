@@ -138,9 +138,9 @@ namespace AirFishLab.ScrollingList
         private int count = 0;
         public void UpdatePosition(float delta)
         {
-            if (!canUpdatePosition)
+            if (!canUpdatePosition || delta < 2f)
             {
-                print("asd");
+                //print("asd");
                 return;
             }
             fullDelta += delta;
