@@ -17,6 +17,10 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public Ball ball;
 
     public bool isTutoOrShooting = false;
+    float pressedTime = 0f;
+    bool bPressed;
+
+    float checkTime = 0.2f;
 
     public void SetDirection(TileDirection dir, bool active = true)
     {
@@ -55,6 +59,20 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         bgImage = GetComponent<Image>();
     }
 
+    private void Update()
+    {
+        Debug.Log(pressedTime);
+        if (bPressed)
+        {
+            pressedTime += Time.deltaTime;
+            if (pressedTime >= checkTime)
+            {
+                BeginSwapping();
+                bPressed = false;
+            }
+        }
+    }
+
     public override void Reset()
     {
         directionSetBtn.interactable = true;
@@ -81,6 +99,34 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
             return;
         }
 
+        bPressed = true;
+    }
+
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (isTutoOrShooting)
+        {
+            return;
+        }
+
+        bPressed = false;
+        rt.DOComplete();
+        if(pressedTime > checkTime)
+        {
+            swapUI.OnEndDrag(eventData);
+        }
+
+        pressedTime = 0f;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+
+    }
+    
+    public void BeginSwapping()
+    {
         swapUI.ballControllUI = this;
         swapUI.On(true);
 
@@ -95,21 +141,5 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
         rt.sizeDelta = new Vector2(0, 190);
         directionImg.rectTransform.localScale = new Vector2(0, 1);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if (isTutoOrShooting)
-        {
-            return;
-        }
-
-        rt.DOComplete();
-        swapUI.OnEndDrag(eventData);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-       
     }
 }
