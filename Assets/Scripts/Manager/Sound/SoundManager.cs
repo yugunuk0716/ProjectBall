@@ -74,6 +74,39 @@ public class SoundManager : ManagerBase
         }
     }
 
+
+    public void Mute(AudioType type)
+    {
+        if (type.Equals(AudioType.BGM))
+        {
+            if (isBGMMute)
+            {
+                isBGMMute = false;
+                Play("BGM", 0.5f);
+            }
+            else
+            {
+                
+                    _bgmSource.Stop();
+                    isBGMMute = true;
+
+            }
+    }
+        else
+        {
+            if (!isSFXMute)
+            {
+
+                _sfxSourceList.ForEach(s => s.Stop());
+                isSFXMute = true;
+            }
+            else
+            {
+                isSFXMute = false;
+            }
+        }
+    }
+
     /// <summary>
     /// 특정 음원을 재생하는 함수
     /// </summary>
@@ -115,6 +148,7 @@ public class SoundManager : ManagerBase
                 {
                     return;
                 }
+
                 AudioSource sfxSource = FindEmptySFXSource();
 
                 sfxSource.loop = false;

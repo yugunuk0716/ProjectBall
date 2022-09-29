@@ -22,6 +22,8 @@ public class TitleUI : MonoBehaviour
         TitleLogoMove();
         titleBtns[1].onClick.AddListener(ClickStartBtn);
         StartCoroutine(BtninteractableSet());
+        UIManager um = IsometricManager.Instance.GetManager<UIManager>();
+        titleBtns[0].onClick.AddListener(() => um.FindUI("TitleSettingPopUp").ScreenOn(true));
     }
 
     //titleLogo를 위아래로 왔다갔다 하게 하는 함수
