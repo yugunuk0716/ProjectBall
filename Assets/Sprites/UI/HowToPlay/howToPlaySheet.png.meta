@@ -185,7 +185,7 @@ TextureImporter:
         x: 12
         y: 190
         width: 180
-        height: 23
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: howToPlaySheet_5
       rect:
         serializedVersion: 2
-        x: 16
+        x: 17
         y: 121
         width: 21
-        height: 21
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
