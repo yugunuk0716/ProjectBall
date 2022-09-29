@@ -176,6 +176,15 @@ public class GameManager : ManagerBase
                 goalList.ForEach((x) => x.ResetFlag(false));
                 StopTimer();
                 SetTimerText("off", Color.white);
+                PoolManager.Instance.GetComponentsInChildren<Ball>().ToList().ForEach(x =>
+                {
+                    if (x.gameObject.activeInHierarchy)
+                    {
+                        PoolManager.Instance.Push(x);
+                    }
+                });
+                ActiveGameOverPanel(false);
+                
                 break;
             }
 

@@ -79,7 +79,7 @@ public class SwapUI : MonoBehaviour
             gm.ballUIList.ForEach((x) => x.SetInteractValues(true));
             ballControllUI = null;
         }));
-        
-
     }
+
+
 }
