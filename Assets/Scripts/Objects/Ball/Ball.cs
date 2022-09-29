@@ -133,6 +133,7 @@ public class Ball : PoolableMono
 
     private void OnDisable()
     {
+        this.DOKill();
         speed = 0.4f;
         curActiveTime = 0;
 

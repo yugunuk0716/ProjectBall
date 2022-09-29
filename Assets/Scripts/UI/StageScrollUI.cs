@@ -35,7 +35,6 @@ public class StageScrollUI : UIBase
 
     public void SetButton()
     {
-       
         if (!GameManager.CanNotInteract)
         {
             ScreenOn(true);

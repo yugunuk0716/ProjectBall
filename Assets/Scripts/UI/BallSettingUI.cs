@@ -101,7 +101,7 @@ public class BallSettingUI : UIBase
         }
 
         MakeTargetPoints();
-        GameManager.CanNotInteract = true;
+        shootBtn.interactable = false;
 
         Sequence rollbackUISeq = DOTween.Sequence();
         rollbackUISeq.SetAutoKill(false);
@@ -110,7 +110,7 @@ public class BallSettingUI : UIBase
         rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
-            GameManager.CanNotInteract = false;
+            shootBtn.interactable = true;
         }));
 
     }
@@ -129,8 +129,6 @@ public class BallSettingUI : UIBase
         });
 
          
-
-        GameManager.CanNotInteract = true;
         shootBtn.interactable = false;
 
         SwitchUI(false);
@@ -154,6 +152,7 @@ public class BallSettingUI : UIBase
         yield return new WaitForSeconds(0.2f);
 
         List<BallControllUI> ballUiList = gm.ballUIList;
+        ballUiList.ForEach((x) => x.SetInteractValues(false));
         foreach(var item in ballUiList)
         {
             TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();
@@ -169,7 +168,6 @@ public class BallSettingUI : UIBase
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
         changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.8f).OnComplete(() =>
         {
-            GameManager.CanNotInteract = false;
             shootBtn.interactable = true;
         }));
     }

@@ -17,7 +17,6 @@ class Pool<T> where T : PoolableMono
         {
             T obj = GameObject.Instantiate(prefab, parent);
             obj.gameObject.name = obj.gameObject.name.Replace("(Clone)", "");  //??????? ??? ????????? ??? ?? ?? ????.
-            if (obj.CompareTag("Ball")) obj.gameObject.name += i.ToString();
             obj.gameObject.SetActive(false);
             _pool.Enqueue(obj);
         }

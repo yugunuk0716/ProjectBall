@@ -14,8 +14,6 @@ public class StageManager : ManagerBase
 
     public Action<string> SetDebugText;
     public Action FadeDebugText;
-    public Action ClearBallUis;
-    public Action ReuseUI;
 
     public Dictionary<int, int> stageProgressDictionary = new Dictionary<int, int>();
 
@@ -27,7 +25,6 @@ public class StageManager : ManagerBase
 
     public override void Init()
     {
-        ClearBallUis = () => IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => PoolManager.Instance.Push(x));
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
 
         for (int i = 0; i < clearMapCount; i++)
@@ -52,24 +49,14 @@ public class StageManager : ManagerBase
         LoadStage(stageIndex);
 
     }
+    public override void Load() { }
 
 
     public void LoadStage(int stageIndex)
     {
-        GameManager.CanNotInteract = true;
-
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
-        gm.myBallList.ForEach(b => PoolManager.Instance.Push(b));
-        gm.aliveBallList.ForEach(b =>
-        {
-            if(b != null)
-            {
-                PoolManager.Instance.Push(b);
-            }
-        });
-
         SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
+
         bool isSameStageLoaded = false;
 
         int realIndex = stageIndex - 1;
@@ -89,20 +76,16 @@ public class StageManager : ManagerBase
         }
 
         sm.range = stageDataList[realIndex].range;
-      
         sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
 
         sm.LoadMapSpreadsheets(() =>
         {
-            ClearBallUis();
-            ClearActiveBalls();
-            ReuseUI?.Invoke();
-
             gm.TakeMapLoadVideo();
             foreach (var item in sm.tileDatas)
             {
                 sm.SetAnimationForMapLoading(item);
             }
+
 
             StartCoroutine(WaitUntilObjectTileCreated(() =>
             {
@@ -120,10 +103,7 @@ public class StageManager : ManagerBase
         callBack();
     }
 
-    private void ClearActiveBalls()
-    {
-        PoolManager.Instance.gameObject.GetComponentsInChildren<Ball>().ToList().ForEach(x => PoolManager.Instance.Push(x));
-    }
+
 
     public void SetStageIndex(string stageIndexStr)
     {
@@ -140,10 +120,7 @@ public class StageManager : ManagerBase
         }
     }
 
-    public override void Load()
-    {
-        
-    }
+
 
     public int CalcStar(float leftTime)
     {

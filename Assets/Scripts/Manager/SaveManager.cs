@@ -137,7 +137,6 @@ public class SaveManager : ManagerBase
         }
     }
 
-
     public void SetAnimationForMapLoading(TileData data)
     {
         Tilemap map = mainMap;

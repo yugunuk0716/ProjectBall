@@ -61,14 +61,21 @@ public class GameManager : ManagerBase
         StartCoroutine(Cloud.CloudMove());
     }
 
+    public override void Load()
+    {
+
+    }
 
     public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
     {
+        aliveBallList.ForEach((x) => PoolManager.Instance.Push(x));
+        myBallList.ForEach(x => PoolManager.Instance.Push(x));
+        ballUIList.ForEach((x) => PoolManager.Instance.Push(x));
+
         ballUIList.Clear();
         myBallList.Clear();
         aliveBallList.Clear();
 
-       
         firstTime = 0f;
         realTime = 0f;
         curSetBallCount = 0;
@@ -121,7 +128,6 @@ public class GameManager : ManagerBase
             Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
             if (isSameStageLoaded && lastBallList.Count >= ballCount)
             {
-                Debug.Log(ball.name);
                 ball.shootDir = lastBallList[i];
                 MakeNewBallUI(ball, true, i);
             }
@@ -181,9 +187,8 @@ public class GameManager : ManagerBase
                 SetTimerText("off", Color.white);
                 PoolManager.Instance.GetComponentsInChildren<Ball>().ToList().ForEach(x =>
                 {
-                    if (x.gameObject.activeInHierarchy)
+                    if (x.gameObject.activeSelf)
                     {
-                        
                         PoolManager.Instance.Push(x);
                     }
                 });
@@ -244,7 +249,7 @@ public class GameManager : ManagerBase
         PoolManager.Instance.CreatePool(pMono, null, 10);
 
         BallControllUI ballControll = Resources.Load<BallControllUI>("UIs/BallControllUI");
-        PoolManager.Instance.CreatePool(ballControll, null, 10);
+        PoolManager.Instance.CreatePool(ballControll, null, 4);
 
         TargetPointUI targetPointUI = Resources.Load<TargetPointUI>("UIs/TargetPointUI");
         PoolManager.Instance.CreatePool(targetPointUI, null, 10);
@@ -260,10 +265,6 @@ public class GameManager : ManagerBase
         }
     }
 
-    public override void Load()
-    {
-        
-    }
 }
 
 [System.Serializable]

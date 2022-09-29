@@ -21,11 +21,12 @@ public class ShooterTile : ObjectTile
 
     public void Shoot()
     {
+        GameManager.CanNotInteract = true;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         Vibration.Vibrate(5);
 
-        if (GameManager.CanNotInteract || gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
+        if (gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
         {
             return;
         }
