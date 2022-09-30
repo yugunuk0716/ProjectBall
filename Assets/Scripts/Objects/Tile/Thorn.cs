@@ -15,7 +15,15 @@ public class Thorn : ObjectTile
     public override void InteractionTile(Ball tb)
     {
         print("네");
-        PoolManager.Instance.Push(tb);
+        BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+
+        if (bdp != null)
+        {
+            bdp.transform.position = tb.transform.position;
+            bdp.PlayParticle();
+        }
+        tb.gameObject.SetActive(false);
+
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Thorn");
         anim.SetTrigger("TriggerBall");

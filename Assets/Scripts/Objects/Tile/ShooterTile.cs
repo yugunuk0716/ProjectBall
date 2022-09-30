@@ -34,7 +34,7 @@ public class ShooterTile : ObjectTile
         anim.SetBool("isClick", true);
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Cannon");
-        Ball ball = gm.myBallList[0]; // 실제 데이터는 얘만 가짐.
+        Ball ball = gm.ballUIList[0].ball; // 실제 데이터는 얘만 가짐.
         ball.Reset();
 
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0) + ((Vector3)IsometricManager.GetRealDir(ball.shootDir) * 0.3f);

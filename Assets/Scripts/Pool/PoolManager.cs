@@ -59,17 +59,6 @@ public class PoolManager : MonoBehaviour
     {
         //print($"{obj.name} ??????");
 
-        if (obj.CompareTag("Ball"))
-        {
-            BallDestryParticle bdp = Pop("BallDestroyParticle") as BallDestryParticle;
-
-            if (bdp != null)
-            {
-                bdp.transform.position = obj.transform.position;
-                bdp.PlayParticle();
-            }
-        }
-
         pools[obj.name].Push(obj);
         obj.transform.SetParent(this.transform);
     }

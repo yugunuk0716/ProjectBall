@@ -126,8 +126,15 @@ public class Ball : PoolableMono
         }
         else
         {
-            PoolManager.Instance.Push(this);
-            Debug.Log("공 자체적 제거");
+            BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+
+            if (bdp != null)
+            {
+                bdp.transform.position = this.transform.position;
+                bdp.PlayParticle();
+            }
+
+            gameObject.SetActive(false);
         }
     }
 
