@@ -221,7 +221,7 @@ namespace AirFishLab.ScrollingList
                 else if (needToUpdateToNextContent)
                     UpdateToNextContent();
 
-            }, 1f ,.75f).SetUpdate(true).OnComplete(() =>
+            }, 1f ,.25f).SetUpdate(true).OnComplete(() =>
             {
                 fullD = 0;
                 t = null;
