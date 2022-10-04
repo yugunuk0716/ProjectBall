@@ -296,16 +296,27 @@ namespace AirFishLab.ScrollingList
             _inputPositionHandler(eventData, phase);
             _toRunLateUpdate = true;
 
-           
+            //if (phase.Equals(TouchPhase.Began))
+            //{
+            //    _listBoxes.ForEach(b =>
+            //    {
+            //        b.canUpdatePosition = false;
+
+
+            //    });
+               
+            //}
             
             if (phase.Equals(TouchPhase.Ended))
             {
-                _listBoxes.ForEach(b =>
-                {
-                    b.CorrectionError();
-                    
 
-                });
+
+                for (int i = 0; i < _listBoxes.Count; i++)
+                {
+                    _listBoxes[i].canUpdatePosition = true;
+                    _listBoxes[i].CorrectionError();
+
+                }
             }
 
         }

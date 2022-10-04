@@ -138,19 +138,20 @@ namespace AirFishLab.ScrollingList
         private int count = 0;
         public void UpdatePosition(float delta)
         {
-            if (!canUpdatePosition)
+            if (!canUpdatePosition || t != null)
             {
                 print("asd");
                 return;
             }
             fullDelta += delta;
+            canUpdatePosition = false;
 
 
-            if(Mathf.Abs(delta) <= 500)
+            if(Mathf.Abs(delta) <= 450)
             {
                 if (MathF.Abs(fullDelta) > 450)
                 {
-                    if (count > 20)
+                    if (count > 10)
                     {
                         count = 0;
                         fullDelta = 0;
@@ -181,7 +182,6 @@ namespace AirFishLab.ScrollingList
                 UpdateToNextContent();
 
 
-
         }
 
         float per = 0f;
@@ -190,7 +190,7 @@ namespace AirFishLab.ScrollingList
         Tween t;
         public void CorrectionError()
         {
-            if (!canUpdatePosition)
+            if (t != null)
             {
                 print("asd");
                 return;
@@ -229,9 +229,10 @@ namespace AirFishLab.ScrollingList
                 else if (needToUpdateToNextContent)
                     UpdateToNextContent();
 
-            }, 1f ,1f).SetUpdate(true).OnComplete(() =>
+            }, 1f ,.5f).SetUpdate(true).OnComplete(() =>
             {
                 fullD = 0;
+                t = null;
             });
 
 
