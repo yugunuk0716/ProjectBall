@@ -21,11 +21,12 @@ public class ShooterTile : ObjectTile
 
     public void Shoot()
     {
+        GameManager.CanNotInteract = true;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         Vibration.Vibrate(5);
 
-        if (GameManager.CanNotInteract || gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
+        if (gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
         {
             return;
         }
@@ -33,17 +34,16 @@ public class ShooterTile : ObjectTile
         anim.SetBool("isClick", true);
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Cannon");
-        Ball copyBall = gm.myBallList[0]; // 실제 데이터는 얘만 가짐.
-        Ball ball = PoolManager.Instance.Pop($"DefaultBall") as Ball;
+        Ball ball = gm.ballUIList[0].ball; // 실제 데이터는 얘만 가짐.
+        ball.Reset();
 
-        ball.transform.position = transform.position - new Vector3(0, 0.25f, 0) + ((Vector3)IsometricManager.GetRealDir(copyBall.shootDir) * 0.3f);
+        ball.transform.position = transform.position - new Vector3(0, 0.25f, 0) + ((Vector3)IsometricManager.GetRealDir(ball.shootDir) * 0.3f);
         
-        Vector2 shootDir = IsometricManager.GetIsoDir(copyBall.shootDir);
+        Vector2 shootDir = IsometricManager.GetIsoDir(ball.shootDir);
         
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
 
-        ball.shootDir = copyBall.shootDir;
         ball.SetBall(shootDir, ball.speed);
         ball.SetPos(new Vector2(jumpPad.gridPos.x, jumpPad.gridPos.y));
         ball.SetMove();
@@ -54,7 +54,7 @@ public class ShooterTile : ObjectTile
 
         gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
         gm.ballUIList.Remove(ballControllUI);
-        gm.myBallList.Remove(copyBall); // 얘는 데이터만 가지고 있는 더미 볼 리스트니까.
+        gm.myBallList.Remove(ball); // 얘는 데이터만 가지고 있는 더미 볼 리스트니까.
         gm.aliveBallList.Add(ball);
     }
 

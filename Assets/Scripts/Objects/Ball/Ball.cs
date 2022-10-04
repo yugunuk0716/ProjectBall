@@ -126,20 +126,26 @@ public class Ball : PoolableMono
         }
         else
         {
-            PoolManager.Instance.Push(this);
-            Debug.Log("공 자체적 제거");
+            BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+
+            if (bdp != null)
+            {
+                bdp.transform.position = this.transform.position;
+                bdp.PlayParticle();
+            }
+
+            gameObject.SetActive(false);
         }
     }
 
     private void OnDisable()
     {
+        this.DOKill();
         speed = 0.4f;
         curActiveTime = 0;
 
         curActiveTime = 0;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
-        isUsing = false;
 
         if (gm.aliveBallList.Count > 0)
         {
@@ -152,7 +158,6 @@ public class Ball : PoolableMono
     public override void Reset()
     {
         gameObject.SetActive(false);
-        isUsing = true;
         slowAnim.gameObject.SetActive(false);
         speed = 0.4f;
         ColorChange(Color.white);

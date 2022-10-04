@@ -17,7 +17,15 @@ public class Goal : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
-        PoolManager.Instance.Push(tb);
+        BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+
+        if (bdp != null)
+        {
+            bdp.transform.position = tb.transform.position;
+            bdp.PlayParticle();
+        }
+        tb.gameObject.SetActive(false);
+
         if (!isChecked)
         {
             SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();

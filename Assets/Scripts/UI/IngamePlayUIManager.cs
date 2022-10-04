@@ -26,6 +26,42 @@ public class IngamePlayUIManager : UIBase
 
     Sequence seq;
 
+    public override void Init()
+    {
+        GetCanvasGroup();
+        playUIs.ForEach((x) => x.Init());
+        playUIs.ForEach((x) =>
+        {
+            if (x is BallSettingUI)
+            {
+                BallSettingUI ballSettingUI = x.GetComponent<BallSettingUI>();
+                ballSettingUI.SwitchUI = (x) => SwitchUI(isSetPanelActive, x);
+            }
+        });
+
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+
+        retryBtn.onClick.AddListener(() =>
+        {
+            if (GameManager.CanNotInteract) return;
+
+            sm.LoadStage(sm.stageIndex);
+            retryBtn.interactable = false;
+            repeatImg.fillAmount = 0;
+        });
+    }
+
+    public override void Load()
+    {
+        playUIs.ForEach((x) => x.Load());
+
+        retryBtn.interactable = false;
+
+        repeatImg.DOKill();
+        repeatImg.fillAmount = 0;
+        repeatImg.DOFillAmount(1, 4f).OnComplete(() => retryBtn.interactable = true);
+    }
+
     private void SwitchUI(bool moveLeft, bool isForLoad) // 왼쪽으로 가나? 로딩할때 함수가 실행되는가?
     {
         if (isForLoad && isSetPanelActive) return;
@@ -42,8 +78,6 @@ public class IngamePlayUIManager : UIBase
 
     public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
-        GameManager.CanNotInteract = true;
-
         float ratio = 1f;
 
         if (Screen.width < 1080)
@@ -60,7 +94,6 @@ public class IngamePlayUIManager : UIBase
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
-                GameManager.CanNotInteract = false;
             }));
     }
 
@@ -76,39 +109,6 @@ public class IngamePlayUIManager : UIBase
         image2.color = Color.white;
     }
 
-    public override void Init()
-    {
-        GetCanvasGroup();
-        playUIs.ForEach((x) => x.Init());
-        playUIs.ForEach((x) =>
-        {
-            if(x is BallSettingUI)
-            {
-                BallSettingUI ballSettingUI = x.GetComponent<BallSettingUI>();
-                ballSettingUI.SwitchUI = (x) => SwitchUI(isSetPanelActive, x);
-            }
-        });
-
-        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
-
-        retryBtn.onClick.AddListener(() =>
-        {
-            retryBtn.interactable = false;
-            repeatImg.fillAmount = 0;
-
-            sm.LoadStage(sm.stageIndex);
-
-            repeatImg.DOFillAmount(1, 4f).OnComplete(() =>
-            {
-                retryBtn.interactable = true;
-            });
-        });
-    }
-
-    public override void Load()
-    {
-        playUIs.ForEach((x) => x.Load());
-    }
 
 
     public override void Reset()
