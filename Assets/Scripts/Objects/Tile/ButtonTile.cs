@@ -10,6 +10,11 @@ public class ButtonTile : ObjectTile
     private SpriteRenderer sr;
     public bool isChecked = false;
 
+    public void OnEnable()
+    {
+        Spawned();
+    }
+
     public override void InteractionTile(Ball tb)
     {
         if (isChecked)

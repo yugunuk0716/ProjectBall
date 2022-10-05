@@ -188,7 +188,10 @@ public class GameManager : ManagerBase
 
     public void StopGame()
     {
-        StopCoroutine(timerCo);
+        if(timerCo != null)
+        {
+            StopCoroutine(timerCo);
+        }
         SetTimerText("off", Color.white);
     }
 
