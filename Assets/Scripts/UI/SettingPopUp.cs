@@ -19,6 +19,8 @@ public class SettingPopUp : UIBase
 
     private UIManager uimanager;
 
+    private bool isActive = false;
+
     public override void Init()
     {
         uimanager = IsometricManager.Instance.GetManager<UIManager>();
@@ -68,23 +70,27 @@ public class SettingPopUp : UIBase
     public override void ScreenOn(bool on)
     { 
         base.ScreenOn(on);
+        isActive = on;
         Time.timeScale = on ? 0 : 1;
     }
 
     public void CheckBack()
     {
 
-        if (Application.platform == RuntimePlatform.Android)
+        if (isActive)
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (Application.platform == RuntimePlatform.Android)
             {
-                if (canvasGroup.interactable)
+                if (Input.GetKey(KeyCode.Escape))
                 {
-                    ScreenOn(false);
-                }
-                else
-                {
-                    ScreenOn(true);
+                    if (canvasGroup.interactable)
+                    {
+                        ScreenOn(false);
+                    }
+                    else
+                    {
+                        ScreenOn(true);
+                    }
                 }
             }
         }
