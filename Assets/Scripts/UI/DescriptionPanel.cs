@@ -30,9 +30,5 @@ public class DescriptionPanel : UIBase
 
     }
 
-    public override void Reset()
-    {
-
-    }
 
 }
