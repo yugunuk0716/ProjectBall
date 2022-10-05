@@ -9,7 +9,6 @@ public class IngameUI : UIBase
     public TextMeshProUGUI timer_text;
     public TextMeshProUGUI stageText;
 
-    Tween myTween;
     Vector3 originScale;
 
     public override void Init()
@@ -82,8 +81,4 @@ public class IngameUI : UIBase
 
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
 }

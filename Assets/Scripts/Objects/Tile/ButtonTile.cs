@@ -27,21 +27,15 @@ public class ButtonTile : ObjectTile
             sr.sprite = spriteList[1];
         }
 
-        PoolManager.Instance.Push(tb);
+        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
     }
 
-    public override void Reset()
+    public new void Spawned()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         sr.sprite = spriteList[0];
         isChecked = false;
     }
-
-/*    public void SetTarget(ObjectTile t,string ts)
-    {
-        target = t;
-        targetString = ts;
-    }*/
 
     public override IEnumerator Transition()
     {

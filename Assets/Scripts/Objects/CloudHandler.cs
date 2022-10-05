@@ -12,7 +12,7 @@ public class CloudHandler : MonoBehaviour
     {
         for (int i = 0; i < 12; i++)
         {
-            Cloud cloud = PoolManager.Instance.Pop("Cloud") as Cloud;
+            Cloud cloud = GameObjectPoolManager.Instance.GetGameObject("Objects/Cloud", GameObjectPoolManager.Instance.transform).GetComponent<Cloud>();
             ResetCloud(cloud);
             clouds.Add(cloud);
             yield return new WaitForSecondsRealtime(Random.Range(.5f, 3f));
@@ -22,7 +22,8 @@ public class CloudHandler : MonoBehaviour
     public void ResetCloud(Cloud cloud)
     {
         cloud.transform.position = new Vector3(10f, Random.Range(-12f, 8), 0);
-        cloud.gameObject.SetActive(true);
+        
+
         SpriteRenderer sr = cloud.GetComponent<SpriteRenderer>();
         sr.sprite = cloud.GetSprite();
 

@@ -14,15 +14,15 @@ public class Thorn : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
-        print("네");
-        BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+        BallDestroyParticle bdp = GameObjectPoolManager.Instance.GetGameObject("Effects/BallDestroyParticle", 
+            GameObjectPoolManager.Instance.transform).GetComponent<BallDestroyParticle>();
 
         if (bdp != null)
         {
             bdp.transform.position = tb.transform.position;
             bdp.PlayParticle();
         }
-        tb.gameObject.SetActive(false);
+        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
 
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Thorn");
@@ -30,14 +30,9 @@ public class Thorn : ObjectTile
         
     }
 
-    public override void Reset()
-    {
-        
-    }
-
     public override IEnumerator Transition()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 
 }

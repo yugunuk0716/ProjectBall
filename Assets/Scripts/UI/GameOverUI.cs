@@ -120,12 +120,6 @@ public class GameOverUI : UIBase
 
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
-
-
     private void OnApplicationQuit()
     {
         if (canRaiseStageIdx)

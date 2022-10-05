@@ -17,14 +17,18 @@ public class Goal : ObjectTile
 
     public override void InteractionTile(Ball tb)
     {
-        BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+        BallDestroyParticle bdp = GameObjectPoolManager.Instance.GetGameObject("Effects/BallDestroyParticle", GameObjectPoolManager.Instance.transform).GetComponent<BallDestroyParticle>();
+
 
         if (bdp != null)
         {
             bdp.transform.position = tb.transform.position;
             bdp.PlayParticle();
         }
-        tb.gameObject.SetActive(false);
+        else
+        {
+        }
+        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
 
         if (!isChecked)
         {
@@ -37,7 +41,7 @@ public class Goal : ObjectTile
 
         
 
-    public override void Reset()
+    public new void Spawned()
     {
         ResetFlag(false);
         StopCoroutine("Transition");
@@ -45,6 +49,6 @@ public class Goal : ObjectTile
 
     public override IEnumerator Transition()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 }

@@ -1,21 +1,20 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cloud : MonoBehaviour, IPoolableComponent
+public class BallDestroyParticle : MonoBehaviour, IPoolableComponent
 {
-    public List<Sprite> cloudImgs;
+    public ParticleSystem ps;
 
     public void Despawned()
     {
         
     }
 
-    public Sprite GetSprite()
+    public void PlayParticle()
     {
-        int a = UnityEngine.Random.Range(0, cloudImgs.Count);
-        return cloudImgs[a];
+        ps.Play();
+
     }
 
     public void SetDisable()

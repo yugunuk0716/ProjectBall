@@ -33,29 +33,6 @@ public class StageScrollUI : UIBase
      
     }
 
-    public void SetButton()
-    {
-        if (!GameManager.CanNotInteract)
-        {
-            ScreenOn(true);
-            //isScreenOn = !isScreenOn;
-            allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
-           
-        }
-    }
-
-
-    public void CheckBackButton()
-    {
-        if(Application.platform == RuntimePlatform.Android)
-        {
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                ScreenOn(false);
-            }
-        }
-    }
-
     public void UpdateButtonListener(IntListBox myBox, int lastIndex)
     {
    
@@ -72,7 +49,6 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
-            //print($"cc: {sm.clearMapCount + 1}  idx: {index}");
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
@@ -91,12 +67,6 @@ public class StageScrollUI : UIBase
         }
         inGameUI.ScreenOn(!on);
         base.ScreenOn(on);
-        Time.timeScale = on ? 0 : 1;
-    }
-
-    public void UpdateHaptic()
-    {
-        //Vibration.Vibrate(5);
     }
 
     public override void Load()
@@ -104,8 +74,5 @@ public class StageScrollUI : UIBase
         
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
+
 }

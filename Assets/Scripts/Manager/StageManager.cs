@@ -63,9 +63,16 @@ public class StageManager : ManagerBase
 
     public void LoadStage(int stageIndex)
     {
-        if(!isMapLoading)
+        if (!isMapLoading)
         {
-            isMapLoading = true;
+
+            gm.canInteract = false;
+            gm.usableBallList.ForEach((x) =>
+            {
+                GameObjectPoolManager.Instance.UnusedGameObject(x.gameObject);
+            });
+
+
             bool isSameStageLoaded = false;
 
             int realIndex = stageIndex - 1;

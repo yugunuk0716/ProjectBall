@@ -51,7 +51,7 @@ public class SelectDirectionUI : UIBase
                 anim.SetTrigger("OnClick");
                 ScreenOn(false);
 
-                int insertIndex = Mathf.Clamp(ballControllUI.order, 0, gm.myBallList.Count);
+                int insertIndex = Mathf.Clamp(ballControllUI.order, 0, gm.maxBallCount);
                 ballControllUI.ball.shootDir = (TileDirection)(index);
 
                 ballControllUI.SetDirection(ballControllUI.ball.shootDir);
@@ -77,8 +77,4 @@ public class SelectDirectionUI : UIBase
         ScreenOn(false);
     }
 
-    public override void Reset()
-    {
-        throw new NotImplementedException();
-    }
 }

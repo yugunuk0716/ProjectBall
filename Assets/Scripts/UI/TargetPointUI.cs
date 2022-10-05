@@ -1,9 +1,20 @@
 
 
-public class TargetPointUI : PoolableMono
+using UnityEngine;
+
+public class TargetPointUI : MonoBehaviour, IPoolableComponent
 {
-    public override void Reset()
+    public void Despawned()
     {
         
+    }
+
+    public void SetDisable()
+    {
+        GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
+    }
+
+    public void Spawned()
+    {
     }
 }

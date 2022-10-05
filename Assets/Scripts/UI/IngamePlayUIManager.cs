@@ -43,7 +43,6 @@ public class IngamePlayUIManager : UIBase
 
         retryBtn.onClick.AddListener(() =>
         {
-            if (GameManager.CanNotInteract) return;
 
             sm.LoadStage(sm.stageIndex);
             retryBtn.interactable = false;
@@ -109,10 +108,4 @@ public class IngamePlayUIManager : UIBase
         image2.color = Color.white;
     }
 
-
-
-    public override void Reset()
-    {
-        throw new NotImplementedException();
-    }
 }

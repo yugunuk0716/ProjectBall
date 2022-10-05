@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
 
 public class StageInfoUI : UIBase
 {
@@ -25,10 +21,7 @@ public class StageInfoUI : UIBase
         
     }
 
-    public override void Reset()
-    {
-        throw new System.NotImplementedException();
-    }
+
 
     // Start is called before the first frame update
     public void ScreenOn(bool on, int stageIndex, StageScrollUI ssUI)
@@ -55,8 +48,6 @@ public class StageInfoUI : UIBase
         });
         stageIndexText.SetText(stageIndex.ToString());
         int starCount = sm.GetStar(stageIndex - 1);
-
-        print($"star count: {starCount} stage Idx{stageIndex - 1}");
 
         for (int i = 0; i < starCount; i++)
         {

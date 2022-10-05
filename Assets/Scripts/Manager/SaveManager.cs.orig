@@ -6,7 +6,11 @@ using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
 using System;
+<<<<<<< HEAD
+using System.Reflection;
+=======
 using System.Linq;
+>>>>>>> origin/main
 
 public class SaveManager : ManagerBase
 {
@@ -142,6 +146,10 @@ public class SaveManager : ManagerBase
         Tilemap map = mainMap;
         Tilemap animMap = animationMap;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/main
         animMap.SetTile(data.pos, data.animatedTile);
         animMap.SetAnimationFrame(data.pos, 0);
         data.animatedTile.m_AnimationStartFrame = 0;
@@ -153,6 +161,26 @@ public class SaveManager : ManagerBase
 
         updateAction = () =>
         {
+<<<<<<< HEAD
+            try
+            {
+                string currentName = animMap.GetSprite(pos).name;
+
+                if (currentName.Equals(animatedTile.m_AnimatedSprites[animatedTile.m_AnimatedSprites.Length - 1].name))
+                {
+                    animMap.SetTile(pos, null);
+                    map.SetTile(pos, realTile);
+                    SettingObjectTiles(data);
+                    FunctionUpdater.Delete(updateAction);
+                }
+            }
+            catch
+            {
+                //Debug.Log(map.GetSprite(_data.pos));
+               // Debug.LogError(data.pos + e.ToString());
+                FunctionUpdater.Delete(updateAction);
+            }
+=======
             string currentName = animMap.GetSprite(pos).name;
 
             if (currentName.Equals(animatedTile.m_AnimatedSprites[animatedTile.m_AnimatedSprites.Length - 1].name))
@@ -165,12 +193,19 @@ public class SaveManager : ManagerBase
 
 
 
+>>>>>>> origin/main
         };
         FunctionUpdater.Create(updateAction);
     }
 
     private void SettingObjectTiles(TileData data)
     {
+<<<<<<< HEAD
+        ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
+        int index = 0;
+        if (data.isTransitionTile)
+        {
+=======
         ObjectTile a = GameObjectPoolManager.Instance.GetGameObject($"Tiles/{data.type.ToString()}", GameObjectPoolManager.Instance.transform).GetComponent<ObjectTile>();
         int index = 0;
 
@@ -178,6 +213,7 @@ public class SaveManager : ManagerBase
         {
             Debug.Log($"{a.name}");
 
+>>>>>>> origin/main
             a.StartTransition();
         }
 
@@ -198,9 +234,15 @@ public class SaveManager : ManagerBase
             {
                 data.lineDir = data.lineDir[1..];
             }
+<<<<<<< HEAD
+            Line line = PoolManager.Instance.Pop("Line") as Line;
+
+            
+=======
             Line line = GameObjectPoolManager.Instance.GetGameObject("Tiles/Line", GameObjectPoolManager.Instance.transform).GetComponent<Line>();
 
 
+>>>>>>> origin/main
 
 
             switch (data.lineDir)
@@ -304,6 +346,8 @@ public class SaveManager : ManagerBase
             {
                 sr = a.GetComponentInChildren<SpriteRenderer>();
             }
+<<<<<<< HEAD
+=======
             
             if (sr == null)
             {
@@ -311,6 +355,7 @@ public class SaveManager : ManagerBase
             }
 
 
+>>>>>>> origin/main
             float alpha = sr.color.a;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
             sr.DOFade(alpha, .7f).SetEase(Ease.Linear);
@@ -430,7 +475,11 @@ public class SaveManager : ManagerBase
                         {
                             return TileType.ColorGoal;
                         }
+<<<<<<< HEAD
+                        return TileType.Goal;
+=======
                         return TileType.Flag;
+>>>>>>> origin/main
                     case TileColors.White:
                         return TileType.Slow;
                     case TileColors.Yellow:
@@ -438,7 +487,11 @@ public class SaveManager : ManagerBase
                     case TileColors.Any:
                         return TileType.ColorChanger;
                     case TileColors.Gray:
+<<<<<<< HEAD
+                        return TileType.Thon;
+=======
                         return TileType.Thorn;
+>>>>>>> origin/main
                     case TileColors.Deepblue:
                         return TileType.ButtonTile;
                 }
@@ -450,6 +503,18 @@ public class SaveManager : ManagerBase
 
     public void ClearTileMap()
     {
+<<<<<<< HEAD
+        mainMap.ClearAllTiles();
+        var child = mainMap.GetComponentsInChildren<Transform>();
+        foreach (var c in child)
+        {
+            if (c != mainMap.transform)
+            {
+                Destroy(c.gameObject);
+            }
+        }
+
+=======
         List<ObjectTile> tiles = mainMap.GetComponentsInChildren<ObjectTile>().ToList();
         tiles.ForEach((x) =>
         {
@@ -461,6 +526,7 @@ public class SaveManager : ManagerBase
         GameObjectPoolManager.Instance.GetComponentsInChildren<ObjectTile>().ToList().ForEach((x) => x.SetDisable());
 
         mainMap.ClearAllTiles();
+>>>>>>> origin/main
     }
 
     public override void Init()

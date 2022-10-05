@@ -11,11 +11,6 @@ public class Line : ObjectTile
 
     }
 
-    public override void Reset()
-    {
-
-    }
-
     public override IEnumerator Transition()
     {
         yield return null;
