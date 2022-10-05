@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R54NA03HB9B",
         "name": "com.DefaultCompany.ProjectBall",
-        "processId": 32706,
+        "processId": 26324,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -114,6 +114,24 @@
             "deviceId": "R54NA03HB9B",
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 32706,
+            "exited": false
+        },
+        {
+            "deviceId": "R54NA03HB9B",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 22873,
+            "exited": false
+        },
+        {
+            "deviceId": "R54NA03HB9B",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 25266,
+            "exited": false
+        },
+        {
+            "deviceId": "R54NA03HB9B",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 26324,
             "exited": false
         }
     ],

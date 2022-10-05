@@ -12,6 +12,8 @@ public class StageManager : ManagerBase
     public List<ObjectTile> objectTileList = new List<ObjectTile>();
     public List<GameObject> stageObjList = new List<GameObject>();
 
+
+
     public Action<string> SetDebugText;
     public Action FadeDebugText;
 
@@ -23,6 +25,9 @@ public class StageManager : ManagerBase
     public List<StageDataSO> stageDataList = new List<StageDataSO>();
     private StageDataSO currentStageData;
 
+    private GameManager gm;
+    private SaveManager sm;
+    private bool isMapLoading = false;
     public override void Init()
     {
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
@@ -46,6 +51,10 @@ public class StageManager : ManagerBase
         stageDataList.Sort((x, y) => x.stageIndex.CompareTo(y.stageIndex));
 
         stageIndex = PlayerPrefs.GetInt("LastStage", 1);
+
+        gm = IsometricManager.Instance.GetManager<GameManager>();
+        sm = IsometricManager.Instance.GetManager<SaveManager>();
+
         LoadStage(stageIndex);
 
     }
@@ -54,52 +63,54 @@ public class StageManager : ManagerBase
 
     public void LoadStage(int stageIndex)
     {
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-
-        bool isSameStageLoaded = false;
-
-        int realIndex = stageIndex - 1;
-        gm.SetStageText(stageIndex);
-
-        if (currentStageData == null) // 첫 로드
+        if(!isMapLoading)
         {
-            currentStageData = stageDataList[realIndex];
-        }
-        else if (currentStageData.Equals(stageDataList[realIndex])) // 현 스테이지랑 목표 스테이지랑 다르면
-        {
-            isSameStageLoaded = true;
-        }
-        else
-        {
-            currentStageData = stageDataList[realIndex];
-        }
+            isMapLoading = true;
+            bool isSameStageLoaded = false;
 
-        sm.range = stageDataList[realIndex].range;
-        sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
+            int realIndex = stageIndex - 1;
+            gm.SetStageText(stageIndex);
 
-        sm.LoadMapSpreadsheets(() =>
-        {
-            gm.TakeMapLoadVideo();
-            foreach (var item in sm.tileDatas)
+            if (currentStageData == null) // 첫 로드
             {
-                sm.SetAnimationForMapLoading(item);
+                currentStageData = stageDataList[realIndex];
+            }
+            else if (currentStageData.Equals(stageDataList[realIndex])) // 현 스테이지랑 목표 스테이지랑 다르면
+            {
+                isSameStageLoaded = true;
+            }
+            else
+            {
+                currentStageData = stageDataList[realIndex];
             }
 
+            sm.range = stageDataList[realIndex].range;
+            sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
 
-            StartCoroutine(WaitUntilObjectTileCreated(() =>
+            sm.LoadMapSpreadsheets(() =>
             {
-                IsometricManager.Instance.UpdateState(eUpdateState.Load);
-                gm.ResetData(stageDataList[realIndex], isSameStageLoaded);
-            }));
-        });
+                gm.TakeMapLoadVideo();
+                foreach (var item in sm.tileDatas)
+                {
+                    sm.SetAnimationForMapLoading(item);
+                }
 
-        FadeDebugText();
+
+                StartCoroutine(WaitUntilObjectTileCreated(() =>
+                {
+                    IsometricManager.Instance.UpdateState(eUpdateState.Load);
+                    gm.ResetData(stageDataList[realIndex], isSameStageLoaded);
+                }));
+            });
+
+            FadeDebugText();
+        }
     }
 
     IEnumerator WaitUntilObjectTileCreated(Action callBack)
     {
         yield return new WaitForSeconds(1.5f);
+        isMapLoading = false;
         callBack();
     }
 
@@ -124,11 +135,11 @@ public class StageManager : ManagerBase
 
     public int CalcStar(float leftTime)
     {
-        if(leftTime > threeStarTime)
+        if (leftTime > threeStarTime)
         {
             return 3;
         }
-        else if(leftTime > twoStarTime)
+        else if (leftTime > twoStarTime)
         {
             return 2;
         }
@@ -149,7 +160,7 @@ public class StageManager : ManagerBase
 
     private void OnApplicationQuit()
     {
-        if(stageIndex == 0)
+        if (stageIndex == 0)
         {
             stageIndex = 1;
         }
