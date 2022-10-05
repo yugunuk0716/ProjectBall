@@ -940,7 +940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC77C\uC2DC\uC815\uC9C0"
+  m_text: PAUSE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f99c40c7b4424f13904863109ddac52, type: 2}
   m_sharedMaterial: {fileID: -8332483103806573361, guid: 3f99c40c7b4424f13904863109ddac52, type: 2}
@@ -1250,6 +1250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: 2
+  isUsing: 0
   menuButton: {fileID: 0}
   stageUIButton: {fileID: 5386980603712431422}
   resumeButton: {fileID: 1900651482827557766}

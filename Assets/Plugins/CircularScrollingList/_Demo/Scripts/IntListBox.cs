@@ -29,14 +29,6 @@ public class IntListBox : ListBox
             minimapImage.sprite = minimapSpriteList[lastIndex - 1];
         }
 
-        //int star = PlayerPrefs.GetInt($"{lastIndex - 1}Stage", 0);
-        //print(lastIndex);
-        //int clearStage = PlayerPrefs.GetInt("ClearMapsCount", 0);
-        //print($"별 {star}");
-
-       
-
-
     }
 
     public void SetLock(bool on)
