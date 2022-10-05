@@ -6369,6 +6369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 261901563}
     m_Modifications:
+    - target: {fileID: 109422082815532123, guid: 43a7f74e8ce7c4abea739f1097c38c58, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 466919330644837472, guid: 43a7f74e8ce7c4abea739f1097c38c58, type: 3}
       propertyPath: descButton
       value: 
