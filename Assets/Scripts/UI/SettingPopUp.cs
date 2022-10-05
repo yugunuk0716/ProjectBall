@@ -66,9 +66,9 @@ public class SettingPopUp : UIBase
     }
 
     public override void ScreenOn(bool on)
-    {
-       // DOTween.KillAll();
+    { 
         base.ScreenOn(on);
+        Time.timeScale = on ? 0 : 1;
     }
 
     public void CheckBack()
