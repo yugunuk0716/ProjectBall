@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99371d590e6c4458aa33bc59ba080065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  isUsing: 0
   dataString: 
   myType: 7
   worldPos: {x: 0, y: 0}

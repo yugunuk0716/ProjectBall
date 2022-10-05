@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82122c7971e6a9342b06d9089abbaf96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  isUsing: 0
   dataString: 
   myType: 10
   worldPos: {x: 0, y: 0}
@@ -156,4 +154,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90fe50bf00ee65f45a87af14e926151a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOnce: 0
+  isOnce: 1
