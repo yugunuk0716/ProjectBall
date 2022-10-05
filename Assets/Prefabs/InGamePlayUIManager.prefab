@@ -29,8 +29,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2228167249927033440}
-  - {fileID: 6328076305350715301}
   - {fileID: 1980944259826965675}
+  - {fileID: 6328076305350715301}
   m_Father: {fileID: 446519211751160076}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -130,13 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc5ddb982c483246bf37589a962d470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
   settingPanel: {fileID: 2228167249927033440}
   shootPanel: {fileID: 1980944259826965675}
   swipeTime: 0.3
   playUIs:
   - {fileID: 6203848044275033492}
   - {fileID: 6328076305350715302}
+  retryBtn: {fileID: 0}
+  repeatImg: {fileID: 0}
 --- !u!225 &4253630776959566310
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -307,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5234662906778200560, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5234662906778200560, guid: 49106249808b63c498dffe5d64ff433e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -429,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3121602689619010363, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3121602689619010363, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_AnchorMax.x
