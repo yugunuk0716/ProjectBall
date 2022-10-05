@@ -8,11 +8,11 @@ public enum TileType
     JumpPad,
     Slow,
     Teleporter,
-    Goal,
+    Flag,
     DirectionChanger,
     ColorChanger,
     Reflect,
-    Thon,
+    Thorn,
     None,
     ColorGoal,
     ButtonTile,
@@ -34,7 +34,7 @@ public class ObjectTileInfo
     public int tileType;
 }
 
-public abstract class ObjectTile : PoolableMono
+public abstract class ObjectTile : MonoBehaviour, IPoolableComponent
 {
     public string dataString;
     public TileType myType;
@@ -73,5 +73,20 @@ public abstract class ObjectTile : PoolableMono
         {
             return;
         }
+    }
+
+    public void Despawned()
+    {
+        StopCoroutine(Transition());
+    }
+
+    public void Spawned()
+    {
+        //StartCoroutine(Transition());
+    }
+
+    public void SetDisable()
+    {
+        GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
     }
 }

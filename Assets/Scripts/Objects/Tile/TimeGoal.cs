@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class TimeGoal : Goal
 {
-
-
     public override string ParseTileInfo()
     {
         return $"{{\\\"tileType\\\":" + (int)myType + "}";
@@ -21,19 +19,4 @@ public class TimeGoal : Goal
         myType = (TileType)goalInfo.tileType;
     }
 
- 
-    public override void InteractionTile(Ball tb)
-    {
-        base.InteractionTile(tb);
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-    }
-
-    public override IEnumerator Transition()
-    {
-        throw new System.NotImplementedException();
-    }
 }

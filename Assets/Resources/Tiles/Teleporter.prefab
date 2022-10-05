@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5719220033854615490}
   - component: {fileID: 6158795722642010255}
   m_Layer: 6
-  m_Name: Portal_Hole
+  m_Name: Teleporter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

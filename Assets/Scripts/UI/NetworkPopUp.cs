@@ -36,9 +36,4 @@ public class NetworkPopUp : UIBase
     {
      
     }
-
-    public override void Reset()
-    {
-        
-    }
 }

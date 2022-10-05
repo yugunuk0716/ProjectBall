@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragHandler, IPoolableComponent
 {
     [HideInInspector] public RectTransform rt;
     public Button directionSetBtn;
@@ -72,15 +72,6 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         }
     }
 
-    public override void Reset()
-    {
-        directionSetBtn.interactable = true;
-        directionSetBtn.onClick.RemoveAllListeners();
-        directionSetBtn.image.raycastTarget = true;
-        directionImg.gameObject.SetActive(false);
-        isTutoOrShooting = false;
-    }
-
     public void SetInteractValues(bool on)
     {
         if(on)
@@ -140,5 +131,25 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
         rt.sizeDelta = new Vector2(0, 190);
         directionImg.rectTransform.localScale = new Vector2(0, 1);
+    }
+
+
+    public void Despawned()
+    {
+       
+    }
+
+    public void Spawned()
+    {
+        directionSetBtn.interactable = true;
+        directionSetBtn.onClick.RemoveAllListeners();
+        directionSetBtn.image.raycastTarget = true;
+        directionImg.gameObject.SetActive(false);
+        isTutoOrShooting = false;
+    }
+
+    public void SetDisable()
+    {
+        GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
     }
 }

@@ -35,10 +35,10 @@ public class BallSettingUI : UIBase
         shootPanel.anchoredPosition = new Vector3(Screen.width * ratio, shootPanel.anchoredPosition.y, 0);
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
+        gm.ActiveGameOverPanel += (x) => shootBtn.interactable = false;
         gm.MakeNewBallUI = (ball, isAutoSet, index) =>
         {
-            BallControllUI ballUI = PoolManager.Instance.Pop("BallControllUI") as BallControllUI;
+            BallControllUI ballUI = GameObjectPoolManager.Instance.GetGameObject("UIs/BallControllUI", GameObjectPoolManager.Instance.transform).GetComponent<BallControllUI>();
             ballUI.transform.SetParent(ballContent);
             ballUI.transform.localPosition = new Vector3(0,0, 0); 
             ballUI.transform.localScale = Vector3.one;
@@ -97,7 +97,7 @@ public class BallSettingUI : UIBase
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
         for(int i = 0; i < arr.Length; i++)
         {
-            PoolManager.Instance.Push(arr[i]);
+            GameObjectPoolManager.Instance.UnusedGameObject(arr[i].gameObject);
         }
 
         MakeTargetPoints();
@@ -110,7 +110,6 @@ public class BallSettingUI : UIBase
         rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
-            shootBtn.interactable = true;
         }));
 
     }
@@ -124,13 +123,10 @@ public class BallSettingUI : UIBase
         gm.ballUIList.ForEach((x) =>
         {
             x.isTutoOrShooting = true;
-            gm.myBallList.Add(x.ball);
             gm.lastBallList.Add(x.ball.shootDir);
         });
 
-         
         shootBtn.interactable = false;
-
         SwitchUI(false);
         yield return new WaitForSeconds(1.3f);
 
@@ -159,7 +155,7 @@ public class BallSettingUI : UIBase
             item.transform.SetParent(item.transform.parent.parent);
             if(tp != null)
             {
-                PoolManager.Instance.Push(tp);
+                GameObjectPoolManager.Instance.UnusedGameObject(tp.gameObject);
             }
         }
 
@@ -179,15 +175,11 @@ public class BallSettingUI : UIBase
 
         for (int i = 0; i < count; i++)
         {
-            TargetPointUI obj = PoolManager.Instance.Pop("TargetPointUI") as TargetPointUI;
+            TargetPointUI obj = GameObjectPoolManager.Instance.GetGameObject("UIs/TargetPointUI", GameObjectPoolManager.Instance.transform).GetComponent<TargetPointUI>();
             obj.transform.SetParent(targetPointContent);
             obj.transform.localPosition = new Vector3(0, 0, 0);
             obj.transform.localScale = Vector3.one;
         }
     }
 
-    public override void Reset()
-    {
-        throw new NotImplementedException();
-    }
 }

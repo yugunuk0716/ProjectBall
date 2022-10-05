@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
 using DG.Tweening;
 using System;
-using System.Reflection;
+using System.Linq;
 
 public class SaveManager : ManagerBase
 {
@@ -142,7 +142,6 @@ public class SaveManager : ManagerBase
         Tilemap map = mainMap;
         Tilemap animMap = animationMap;
 
-
         animMap.SetTile(data.pos, data.animatedTile);
         animMap.SetAnimationFrame(data.pos, 0);
         data.animatedTile.m_AnimationStartFrame = 0;
@@ -154,34 +153,31 @@ public class SaveManager : ManagerBase
 
         updateAction = () =>
         {
-            try
-            {
-                string currentName = animMap.GetSprite(pos).name;
+            string currentName = animMap.GetSprite(pos).name;
 
-                if (currentName.Equals(animatedTile.m_AnimatedSprites[animatedTile.m_AnimatedSprites.Length - 1].name))
-                {
-                    animMap.SetTile(pos, null);
-                    map.SetTile(pos, realTile);
-                    SettingObjectTiles(data);
-                    FunctionUpdater.Delete(updateAction);
-                }
-            }
-            catch
+            if (currentName.Equals(animatedTile.m_AnimatedSprites[animatedTile.m_AnimatedSprites.Length - 1].name))
             {
-                //Debug.Log(map.GetSprite(_data.pos));
-               // Debug.LogError(data.pos + e.ToString());
+                animMap.SetTile(pos, null);
+                map.SetTile(pos, realTile);
+                SettingObjectTiles(data);
                 FunctionUpdater.Delete(updateAction);
             }
+
+
+
         };
         FunctionUpdater.Create(updateAction);
     }
 
     private void SettingObjectTiles(TileData data)
     {
-        ObjectTile a = PoolManager.Instance.Pop(data.type.ToString()) as ObjectTile;
+        ObjectTile a = GameObjectPoolManager.Instance.GetGameObject($"Tiles/{data.type.ToString()}", GameObjectPoolManager.Instance.transform).GetComponent<ObjectTile>();
         int index = 0;
+
         if (data.isTransitionTile)
         {
+            Debug.Log($"{a.name}");
+
             a.StartTransition();
         }
 
@@ -202,9 +198,9 @@ public class SaveManager : ManagerBase
             {
                 data.lineDir = data.lineDir[1..];
             }
-            Line line = PoolManager.Instance.Pop("Line") as Line;
+            Line line = GameObjectPoolManager.Instance.GetGameObject("Tiles/Line", GameObjectPoolManager.Instance.transform).GetComponent<Line>();
 
-            
+
 
 
             switch (data.lineDir)
@@ -308,6 +304,13 @@ public class SaveManager : ManagerBase
             {
                 sr = a.GetComponentInChildren<SpriteRenderer>();
             }
+            
+            if (sr == null)
+            {
+                Debug.Log($"{sr == null} / {a?.name}");
+            }
+
+
             float alpha = sr.color.a;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
             sr.DOFade(alpha, .7f).SetEase(Ease.Linear);
@@ -427,7 +430,7 @@ public class SaveManager : ManagerBase
                         {
                             return TileType.ColorGoal;
                         }
-                        return TileType.Goal;
+                        return TileType.Flag;
                     case TileColors.White:
                         return TileType.Slow;
                     case TileColors.Yellow:
@@ -435,7 +438,7 @@ public class SaveManager : ManagerBase
                     case TileColors.Any:
                         return TileType.ColorChanger;
                     case TileColors.Gray:
-                        return TileType.Thon;
+                        return TileType.Thorn;
                     case TileColors.Deepblue:
                         return TileType.ButtonTile;
                 }
@@ -447,16 +450,17 @@ public class SaveManager : ManagerBase
 
     public void ClearTileMap()
     {
-        mainMap.ClearAllTiles();
-        var child = mainMap.GetComponentsInChildren<Transform>();
-        foreach (var c in child)
+        List<ObjectTile> tiles = mainMap.GetComponentsInChildren<ObjectTile>().ToList();
+        tiles.ForEach((x) =>
         {
-            if (c != mainMap.transform)
+            if(!x.name.Contains("ShooterTile"))
             {
-                Destroy(c.gameObject);
+                x.SetDisable();
             }
-        }
+        });
+        GameObjectPoolManager.Instance.GetComponentsInChildren<ObjectTile>().ToList().ForEach((x) => x.SetDisable());
 
+        mainMap.ClearAllTiles();
     }
 
     public override void Init()
