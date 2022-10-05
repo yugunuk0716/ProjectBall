@@ -84,6 +84,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (Input.touchCount >= 1) return;
+
         if(isTutoOrShooting)
         {
             return;
@@ -95,6 +97,8 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (Input.touchCount >= 1) return;
+
         if (isTutoOrShooting)
         {
             return;
