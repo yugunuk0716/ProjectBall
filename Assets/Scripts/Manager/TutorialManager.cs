@@ -22,6 +22,7 @@ public class TutorialManager : ManagerBase
     private List<UnityAction> tempAction = new List<UnityAction>();
     private bool istuto = false;
     //ManagerBase 구현하기
+
     public override void Init()
     {
         ballCount = 0;
@@ -234,31 +235,5 @@ public class TutorialManager : ManagerBase
         shootTextCount++;
     }
 
-    public void Tiles()
-    {
-       /* Debug.Log(gm.ballUIList.Count);
-        if (istuto)
-        {
-           
-            Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
-            Button confirmButton = GameObject.Find("Confirm").GetComponent<Button>();
-            Debug.Log("confirmButton");
-            SelectDirectionUI a = GameObject.Find("SelectDirectionUI").GetComponent<SelectDirectionUI>();
 
-
-            a.selectDirectionBtns[0].onClick.RemoveListener(tempAction[^5]);
-            a.selectDirectionBtns[2].onClick.RemoveListener(tempAction[^3]);
-            confirmButton.onClick.RemoveListener(tempAction[^2]);
-            shootbtn.onClick.RemoveListener(tempAction[^1]);
-
-        *//*foreach (var item in tempAction)
-        {
-            a.selectDirectionBtns[0].onClick.RemoveListener(item);
-            a.selectDirectionBtns[2].onClick.RemoveListener(item);
-            confirmButton.onClick.RemoveListener(item);
-            shootbtn.onClick.RemoveListener(item);
-        }*//*
-        istuto = false;
-        }*/
-    }
 }

@@ -40,13 +40,10 @@ public class AirFlow : ObjectTile
     }
 
 
-    public override void Reset()
-    {
-        StopCoroutine("Transition");
-    }
+
 
     public override IEnumerator Transition()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 }

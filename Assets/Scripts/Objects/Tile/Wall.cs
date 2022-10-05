@@ -6,14 +6,9 @@ public class Wall : ObjectTile
 {
     public override void InteractionTile(Ball tb)
     {
-        PoolManager.Instance.Push(tb);
+        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Thorn");
-    }
-
-    public override void Reset()
-    {
-        StopCoroutine("Transition");
     }
 
     public override IEnumerator Transition()

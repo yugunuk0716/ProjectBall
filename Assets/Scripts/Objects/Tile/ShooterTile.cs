@@ -16,17 +16,19 @@ public class ShooterTile : ObjectTile
     {
         jumpPad = GetComponentInParent<JumpPad>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        gm.Shoot = () => Shoot();
+        gm.Shoot = () =>
+        {
+            if (gm.canInteract) Shoot();
+        };
     }
 
     public void Shoot()
     {
-        GameManager.CanNotInteract = true;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         Vibration.Vibrate(5);
 
-        if (gm.myBallList.Count == 0 || gm.myBallList.Count < gm.maxBallCount )
+        if (gm.ballUIList.Count <= 0)
         {
             return;
         }
@@ -35,7 +37,7 @@ public class ShooterTile : ObjectTile
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Cannon");
         Ball ball = gm.ballUIList[0].ball; // 실제 데이터는 얘만 가짐.
-        ball.Reset();
+        ball.Spawned();
 
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0) + ((Vector3)IsometricManager.GetRealDir(ball.shootDir) * 0.3f);
         
@@ -50,23 +52,15 @@ public class ShooterTile : ObjectTile
         ball.Rollin();
 
         BallControllUI ballControllUI = gm.ballUIList[0];
-        PoolManager.Instance.Push(ballControllUI);
 
-        gm.maxBallCount--; // 하나 쏘면 이제 하나 줄여줘야 다음 공을 던져용
         gm.ballUIList.Remove(ballControllUI);
-        gm.myBallList.Remove(ball); // 얘는 데이터만 가지고 있는 더미 볼 리스트니까.
-        gm.aliveBallList.Add(ball);
+        ballControllUI.SetDisable();
     }
 
 
     public void SetEnd()
     {
         anim.SetBool("isClick", false);
-    }
-
-    public override void Reset()
-    {
-
     }
 
     public override void InteractionTile(Ball tb)
@@ -76,6 +70,6 @@ public class ShooterTile : ObjectTile
 
     public override IEnumerator Transition()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 }

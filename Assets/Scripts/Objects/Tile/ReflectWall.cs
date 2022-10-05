@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class ReflectWall : ObjectTile
 {
@@ -123,11 +122,6 @@ public class ReflectWall : ObjectTile
             isHorizontalWall = false;
             sr.sprite = verSprites[0];
         }
-    }
-
-    public override void Reset()
-    {
-        StopCoroutine("Transition");
     }
 
     public override IEnumerator Transition()

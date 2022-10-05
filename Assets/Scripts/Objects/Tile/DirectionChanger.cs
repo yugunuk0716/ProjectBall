@@ -95,10 +95,6 @@ public class DirectionChanger : ObjectTile
         }
     }
 
-    public override void Reset()
-    {
-        StopCoroutine("Transition");
-    }
 
     public override void SettingTile(string info)
     {

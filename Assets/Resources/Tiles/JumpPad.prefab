@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8845006092190290298}
   - component: {fileID: 8738736997347960496}
   m_Layer: 6
-  m_Name: Sprite
+  m_Name: ShooterTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,8 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97182844ff5ec2942b2f7f0f6e780dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  isUsing: 0
   dataString: 
   myType: 0
   worldPos: {x: 0, y: 0}
@@ -216,8 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db619493fec1744dae4126761bff5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 1
-  isUsing: 0
   dataString: 
   myType: 0
   worldPos: {x: 0, y: 0}

@@ -10,14 +10,8 @@ public class None : ObjectTile
         tb.SetMove();
     }
 
-    public override void Reset()
-    {
-
-    }
-
     public override IEnumerator Transition()
     {
         yield return null;
-        //throw new System.NotImplementedException();
     }
 }

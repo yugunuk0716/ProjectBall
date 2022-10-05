@@ -80,6 +80,4 @@ public class SwapUI : MonoBehaviour
             ballControllUI = null;
         }));
     }
-
-
 }

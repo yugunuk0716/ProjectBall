@@ -9,12 +9,8 @@ public class JumpPad : ObjectTile
         tb.SetMove();
     }
 
-    public override void Reset()
-    {
-    }
-
     public override IEnumerator Transition()
     {
-        throw new System.NotImplementedException();
+        yield return null;
     }
 }

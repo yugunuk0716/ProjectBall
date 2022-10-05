@@ -14,7 +14,7 @@ public enum ECollisionTile
     AirFlow,
 }
 
-public class Ball : PoolableMono
+public class Ball : MonoBehaviour, IPoolableComponent
 {
     public Animator anim;
     public SpriteRenderer sr;
@@ -109,6 +109,7 @@ public class Ball : PoolableMono
         if (gm.tileDict.ContainsKey(myPos))
         {
             ObjectTile tile = gm.tileDict[myPos];
+
             transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
             {
                 tile.InteractionTile(this);
@@ -126,7 +127,7 @@ public class Ball : PoolableMono
         }
         else
         {
-            BallDestryParticle bdp = PoolManager.Instance.Pop("BallDestroyParticle") as BallDestryParticle;
+            BallDestroyParticle bdp = GameObjectPoolManager.Instance.GetGameObject("Effects/BallDestroyParticle", GameObjectPoolManager.Instance.transform).GetComponent<BallDestroyParticle>();
 
             if (bdp != null)
             {
@@ -134,33 +135,8 @@ public class Ball : PoolableMono
                 bdp.PlayParticle();
             }
 
-            gameObject.SetActive(false);
+            GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
         }
-    }
-
-    private void OnDisable()
-    {
-        this.DOKill();
-        speed = 0.4f;
-        curActiveTime = 0;
-
-        curActiveTime = 0;
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
-        if (gm.aliveBallList.Count > 0)
-        {
-            gm.aliveBallList.Remove(this);
-            gm.CheckFail();
-            StopCoroutine(SetBaseVector());
-        }
-    }
-
-    public override void Reset()
-    {
-        gameObject.SetActive(false);
-        slowAnim.gameObject.SetActive(false);
-        speed = 0.4f;
-        ColorChange(Color.white);
     }
 
     public void Rollin()
@@ -172,5 +148,36 @@ public class Ball : PoolableMono
     {
         currentColor = newColor;
         sr.color = currentColor;
+    }
+
+    public void Despawned()
+    {
+        this.DOKill();
+        speed = 0.4f;
+        curActiveTime = 0;
+
+        curActiveTime = 0;
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+
+        //혹시 한명의 바보정도는 4개중 하나도 못 맞출 수 있으니까..
+        if (gm.maxBallCount == gm.curShootBallCount)
+        {
+            gm.CheckFail();
+        }
+        StopCoroutine(SetBaseVector());
+    }
+
+    public void Spawned()
+    {
+        gameObject.SetActive(false);
+        slowAnim.gameObject.SetActive(false);
+        speed = 0.4f;
+        ColorChange(Color.white);
+    }
+
+    public void SetDisable()
+    {
+        this.DOKill();
+        GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
     }
 }

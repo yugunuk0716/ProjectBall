@@ -30,10 +30,4 @@ public class TitleSettingUI : UIBase
         
     }
 
-    public override void Reset()
-    {
-        
-    }
-
-    
 }
