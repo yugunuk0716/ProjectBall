@@ -426,17 +426,11 @@ public class SaveManager : ManagerBase
                     case TileColors.Purple:
                         return TileType.Teleporter;
                     case TileColors.Red:
-                        if (!changeColor.Equals(Color.white))
-                        {
-                            return TileType.ColorGoal;
-                        }
                         return TileType.Flag;
                     case TileColors.White:
                         return TileType.Slow;
                     case TileColors.Yellow:
                         return TileType.JumpPad;
-                    case TileColors.Any:
-                        return TileType.ColorChanger;
                     case TileColors.Gray:
                         return TileType.Thorn;
                     case TileColors.Deepblue:
