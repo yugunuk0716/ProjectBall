@@ -67,7 +67,6 @@ public class StageScrollUI : UIBase
         }
         inGameUI.ScreenOn(!on);
         base.ScreenOn(on);
-        Time.timeScale = on ? 0 : 1;
     }
 
     public override void Load()
