@@ -145,8 +145,6 @@ namespace AirFishLab.ScrollingList
             fullDelta += delta;
             canUpdatePosition = false;
 
-            print(delta);
-
             if(Mathf.Abs(delta) <= 450)
             {
                 if (MathF.Abs(fullDelta) > 450)
