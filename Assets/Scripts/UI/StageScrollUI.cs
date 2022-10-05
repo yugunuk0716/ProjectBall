@@ -26,7 +26,7 @@ public class StageScrollUI : UIBase
         closeBtn.onClick.AddListener(() => ScreenOn(false));
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
 
-        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) =>
+        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x, y) =>
         {
             allContents.ForEach(c => c.UpdateContent());
         };
