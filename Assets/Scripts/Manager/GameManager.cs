@@ -37,7 +37,7 @@ public class GameManager : ManagerBase
     public Action<float> SetTimerSize;
     public Action<int> SetStageText;
     public Action<Ball, bool, int> MakeNewBallUI;
-    public Action<int> OnClear;
+    public Action<int,float> OnClear;
     public Action Shoot;
     public Action UpdateUIContents;
     public Action TakeMapLoadVideo;
@@ -162,7 +162,7 @@ public class GameManager : ManagerBase
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
             }
             ActiveGameOverPanel(true);
-            OnClear(star);
+            OnClear(star, clearTime);
         }
     }
 

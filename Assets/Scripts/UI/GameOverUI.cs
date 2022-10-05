@@ -9,6 +9,7 @@ public class GameOverUI : UIBase
     [SerializeField] private Button reloadBtn;
     [SerializeField] private Button loadNextBtn;
     [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private TextMeshProUGUI recordText;
     StageManager sm;
     GameManager gm;
     SoundManager soundm;
@@ -73,16 +74,20 @@ public class GameOverUI : UIBase
 
     }
 
-    public void SetStar(int starCount)
+    public void SetStar(int starCount, float clearTime)
     {
-        StartCoroutine(StarOnRoutine(starCount));
+        StartCoroutine(StarOnRoutine(starCount, clearTime));
     }
 
 
-    IEnumerator StarOnRoutine(int starCount)
+    IEnumerator StarOnRoutine(int starCount, float clearTime)
     {
         reloadBtn.interactable = false;
         loadNextBtn.interactable = false;
+
+        print(clearTime);
+        recordText.text = $"Left Time : {clearTime.ToString("F2")}";
+    
 
         yield return new WaitForSeconds(0.75f);
 
@@ -90,7 +95,7 @@ public class GameOverUI : UIBase
         {
             starList[i].gameObject.SetActive(true);
             soundm.Play("Star");
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         gm.clearParticle_Left.Play();
@@ -104,6 +109,7 @@ public class GameOverUI : UIBase
         Debug.Log(isClear);
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
+
 
         //한번 깼으면 다시 못 깬 상태.. 도전중인 상태로 변경
         isClear = false;
