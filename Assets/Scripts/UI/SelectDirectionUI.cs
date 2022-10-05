@@ -48,6 +48,7 @@ public class SelectDirectionUI : UIBase
             Animator anim = selectDirectionBtns[i].GetComponentInChildren<Animator>();
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
+                isSelecting = false;
                 gm.curSetBallCount++;
                 anim.SetTrigger("OnClick");
                 ScreenOn(false);
@@ -64,6 +65,7 @@ public class SelectDirectionUI : UIBase
     {
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
+        isSelecting = on;
         DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.75f).SetUpdate(true);
 
         myImage.rectTransform.DOSizeDelta(new Vector2(width, on ? height : 0), 0.75f);

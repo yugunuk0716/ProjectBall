@@ -77,7 +77,14 @@ public class BallSettingUI : UIBase
 
         confirmBtn.onClick.AddListener(() =>
         {
-            if (gm.maxBallCount != gm.curSetBallCount) return;
+            if (!GameManager.canInteract || selectDirectionUI.isSelecting) return;
+            if (Input.touchCount > 1) return;
+
+            if (gm.maxBallCount != gm.curSetBallCount)
+            {
+                Debug.Log($"{gm.maxBallCount} / {gm.curSetBallCount}");
+                return;
+            }
 
             gm.ballUIList.ForEach((x) =>
             {
