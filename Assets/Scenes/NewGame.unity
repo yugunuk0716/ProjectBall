@@ -2411,7 +2411,6 @@ MonoBehaviour:
   titleBtns:
   - {fileID: 1414238433}
   - {fileID: 1851060372}
-  - {fileID: 529321604}
   ratioY: 0
   moveDist: 0
 --- !u!1 &961348813
@@ -4239,7 +4238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6328076305350715300, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_Type
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6328076305350715300, guid: 02c3df5f3e5d78b4a97fb44bdbac85c8, type: 3}
       propertyPath: m_Sprite

@@ -69,7 +69,6 @@ public class BallSettingUI : UIBase
                 {
                     selectDirectionUI.Set(ballUI);
                     selectDirectionUI.ScreenOn(true);
-                    gm.curSetBallCount++;
                 }
 
                 isAdded = !isAdded;
@@ -102,6 +101,7 @@ public class BallSettingUI : UIBase
 
         MakeTargetPoints();
         shootBtn.interactable = false;
+        GameManager.canInteract = false;
 
         Sequence rollbackUISeq = DOTween.Sequence();
         rollbackUISeq.SetAutoKill(false);
@@ -110,6 +110,7 @@ public class BallSettingUI : UIBase
         rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
+            GameManager.canInteract = true;
         }));
 
     }
@@ -159,12 +160,14 @@ public class BallSettingUI : UIBase
             }
         }
 
+        GameManager.canInteract = false;
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(450, 0.8f).SetEase(Ease.OutCubic));
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
         changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.8f).OnComplete(() =>
         {
             shootBtn.interactable = true;
+            GameManager.canInteract = true;
         }));
     }
 

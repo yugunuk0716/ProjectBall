@@ -69,7 +69,7 @@ public class StageManager : ManagerBase
             GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
             SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
             gm.StopGame();
-            gm.canInteract = false;
+            GameManager.canInteract = false;
             gm.usableBallList.ForEach((x) =>
             {
                 GameObjectPoolManager.Instance.UnusedGameObject(x.gameObject);

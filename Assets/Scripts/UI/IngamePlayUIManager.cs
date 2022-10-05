@@ -20,7 +20,6 @@ public class IngamePlayUIManager : UIBase
 
     [Header("RetryBtn")]
     public Button retryBtn;
-    public Image repeatImg;
 
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
@@ -43,10 +42,10 @@ public class IngamePlayUIManager : UIBase
 
         retryBtn.onClick.AddListener(() =>
         {
-
-            sm.LoadStage(sm.stageIndex);
-            //retryBtn.interactable = false;
-            //repeatImg.fillAmount = 0;
+            if(GameManager.canInteract)
+            {
+                sm.LoadStage(sm.stageIndex);
+            }
         });
     }
 
@@ -54,11 +53,6 @@ public class IngamePlayUIManager : UIBase
     {
         playUIs.ForEach((x) => x.Load());
 
-        //retryBtn.interactable = false;
-        //
-        //repeatImg.DOKill();
-        //repeatImg.fillAmount = 0;
-        //repeatImg.DOFillAmount(1, 4f).OnComplete(() => retryBtn.interactable = true);
     }
 
     private void SwitchUI(bool moveLeft, bool isForLoad) // 왼쪽으로 가나? 로딩할때 함수가 실행되는가?

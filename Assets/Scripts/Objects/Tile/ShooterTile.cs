@@ -18,7 +18,7 @@ public class ShooterTile : ObjectTile
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.Shoot = () =>
         {
-            if (gm.canInteract) Shoot();
+            if (GameManager.canInteract) Shoot();
         };
     }
 

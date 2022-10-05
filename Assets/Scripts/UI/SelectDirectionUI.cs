@@ -48,6 +48,7 @@ public class SelectDirectionUI : UIBase
             Animator anim = selectDirectionBtns[i].GetComponentInChildren<Animator>();
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
+                gm.curSetBallCount++;
                 anim.SetTrigger("OnClick");
                 ScreenOn(false);
 

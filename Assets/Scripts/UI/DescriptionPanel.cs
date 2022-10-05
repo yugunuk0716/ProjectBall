@@ -19,6 +19,8 @@ public class DescriptionPanel : UIBase
 
         descButton.onClick.AddListener(() =>
         {
+            if (Input.touchCount > 1) return;
+
             ScreenOn(true);
             print("on");
         });

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameManager : ManagerBase
 {
-    public bool canInteract = true;
+    public static bool canInteract = true;
 
     public List<Goal> goalList = new List<Goal>();
     public List<Teleporter> portalList = new List<Teleporter>();
