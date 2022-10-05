@@ -75,7 +75,7 @@ public class IsometricManager : MonoBehaviour
         CanvasGroup tutoCanvas = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();
 
         if (PlayerPrefs.GetInt("IsFirst") == 1)
-        {
+        { 
             FirstCall();
             tutoCanvas.interactable = true;
             tutoCanvas.blocksRaycasts = true;
@@ -95,11 +95,16 @@ public class IsometricManager : MonoBehaviour
         UpdateState(eUpdateState.Init);
     }
 
-   /* public void Update()
+    public void Start()
     {
-        Debug.Log(Time.timeScale);
+        UpdateState(eUpdateState.Start);
     }
-*/
+
+    /* public void Update()
+     {
+         Debug.Log(Time.timeScale);
+     }
+ */
 
     private void FirstCall()
     {
