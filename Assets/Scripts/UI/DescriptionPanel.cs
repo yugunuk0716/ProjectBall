@@ -7,10 +7,15 @@ public class DescriptionPanel : UIBase
 {
     public Button descButton;
     public Button closeButton;
+    public Button leftBtn;
+    public Button rightBtn;
+
+    SwipeUI helpSwipeUI;
 
     public override void Init()
     {
         GetCanvasGroup();
+        helpSwipeUI = GetComponentInChildren<SwipeUI>();
 
         descButton.onClick.AddListener(() =>
         {
@@ -23,6 +28,9 @@ public class DescriptionPanel : UIBase
             ScreenOn(false);
             print("off");
         });
+
+        leftBtn.onClick.AddListener(() => helpSwipeUI.UpdateSwipe(true, false));
+        rightBtn.onClick.AddListener(() => helpSwipeUI.UpdateSwipe(true, true));
     }
 
     public override void Load()
@@ -30,9 +38,5 @@ public class DescriptionPanel : UIBase
 
     }
 
-    public override void Reset()
-    {
-
-    }
 
 }

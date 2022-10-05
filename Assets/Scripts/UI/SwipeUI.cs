@@ -5,44 +5,44 @@ using UnityEngine.UI;
 public class SwipeUI : MonoBehaviour
 {
 	[SerializeField]
-	private Scrollbar scrollBar;                // ScrollbarÀÇ À§Ä¡¸¦ ¹ÙÅÁÀ¸·Î ÇöÀç ÆäÀÌÁö °Ë»ç
+	private Scrollbar scrollBar;                // Scrollbarì˜ ìœ„ì¹˜ë¥¼ ë°”íƒ•ìœ¼ë¡œ í˜„ì¬ í˜ì´ì§€ ê²€ì‚¬
 	[SerializeField]
-	private Transform[] circleContents;         // ÇöÀç ÆäÀÌÁö¸¦ ³ªÅ¸³»´Â ¿ø Image UIµéÀÇ Transform
+	private Transform[] circleContents;         // í˜„ì¬ í˜ì´ì§€ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ì› Image UIë“¤ì˜ Transform
 	[SerializeField]
-	private float swipeTime = 0.2f;             // ÆäÀÌÁö°¡ Swipe µÇ´Â ½Ã°£
+	private float swipeTime = 0.2f;             // í˜ì´ì§€ê°€ Swipe ë˜ëŠ” ì‹œê°„
 	[SerializeField]
-	private float swipeDistance = 50.0f;        // ÆäÀÌÁö°¡ SwipeµÇ±â À§ÇØ ¿òÁ÷¿©¾ß ÇÏ´Â ÃÖ¼Ò °Å¸®
+	private float swipeDistance = 50.0f;        // í˜ì´ì§€ê°€ Swipeë˜ê¸° ìœ„í•´ ì›€ì§ì—¬ì•¼ í•˜ëŠ” ìµœì†Œ ê±°ë¦¬
 
-	private float[] scrollPageValues;           // °¢ ÆäÀÌÁöÀÇ À§Ä¡ °ª [0.0 - 1.0]
-	private float valueDistance = 0;            // °¢ ÆäÀÌÁö »çÀÌÀÇ °Å¸®
-	private int currentPage = 0;                // ÇöÀç ÆäÀÌÁö
-	private int maxPage = 0;                    // ÃÖ´ë ÆäÀÌÁö
-	private float startTouchX;                  // ÅÍÄ¡ ½ÃÀÛ À§Ä¡
-	private float endTouchX;                    // ÅÍÄ¡ Á¾·á À§Ä¡
-	private bool isSwipeMode = false;           // ÇöÀç Swipe°¡ µÇ°í ÀÖ´ÂÁö Ã¼Å©
-	private float circleContentScale = 1.3f;    // ÇöÀç ÆäÀÌÁöÀÇ ¿ø Å©±â(¹èÀ²)
+	private float[] scrollPageValues;           // ê° í˜ì´ì§€ì˜ ìœ„ì¹˜ ê°’ [0.0 - 1.0]
+	private float valueDistance = 0;            // ê° í˜ì´ì§€ ì‚¬ì´ì˜ ê±°ë¦¬
+	private int currentPage = 0;                // í˜„ì¬ í˜ì´ì§€
+	private int maxPage = 0;                    // ìµœëŒ€ í˜ì´ì§€
+	private float startTouchX;                  // í„°ì¹˜ ì‹œì‘ ìœ„ì¹˜
+	private float endTouchX;                    // í„°ì¹˜ ì¢…ë£Œ ìœ„ì¹˜
+	private bool isSwipeMode = false;           // í˜„ì¬ Swipeê°€ ë˜ê³  ìˆëŠ”ì§€ ì²´í¬
+	private float circleContentScale = 1.3f;    // í˜„ì¬ í˜ì´ì§€ì˜ ì› í¬ê¸°(ë°°ìœ¨)
 
 	private void Awake()
 	{
-		// ½ºÅ©·Ñ µÇ´Â ÆäÀÌÁöÀÇ °¢ value °ªÀ» ÀúÀåÇÏ´Â ¹è¿­ ¸Ş¸ğ¸® ÇÒ´ç
+		// ìŠ¤í¬ë¡¤ ë˜ëŠ” í˜ì´ì§€ì˜ ê° value ê°’ì„ ì €ì¥í•˜ëŠ” ë°°ì—´ ë©”ëª¨ë¦¬ í• ë‹¹
 		scrollPageValues = new float[transform.childCount];
 
-		// ½ºÅ©·Ñ µÇ´Â ÆäÀÌÁö »çÀÌÀÇ °Å¸®
+		// ìŠ¤í¬ë¡¤ ë˜ëŠ” í˜ì´ì§€ ì‚¬ì´ì˜ ê±°ë¦¬
 		valueDistance = 1f / (scrollPageValues.Length - 1f);
 
-		// ½ºÅ©·Ñ µÇ´Â ÆäÀÌÁöÀÇ °¢ value À§Ä¡ ¼³Á¤ [0 <= value <= 1]
+		// ìŠ¤í¬ë¡¤ ë˜ëŠ” í˜ì´ì§€ì˜ ê° value ìœ„ì¹˜ ì„¤ì • [0 <= value <= 1]
 		for (int i = 0; i < scrollPageValues.Length; ++i)
 		{
 			scrollPageValues[i] = valueDistance * i;
 		}
 
-		// ÃÖ´ë ÆäÀÌÁöÀÇ ¼ö
+		// ìµœëŒ€ í˜ì´ì§€ì˜ ìˆ˜
 		maxPage = transform.childCount;
 	}
 
 	private void Start()
 	{
-		// ÃÖÃÊ ½ÃÀÛÇÒ ¶§ 0¹ø ÆäÀÌÁö¸¦ º¼ ¼ö ÀÖµµ·Ï ¼³Á¤
+		// ìµœì´ˆ ì‹œì‘í•  ë•Œ 0ë²ˆ í˜ì´ì§€ë¥¼ ë³¼ ìˆ˜ ìˆë„ë¡ ì„¤ì •
 		SetScrollBarValue(0);
 	}
 
@@ -56,25 +56,25 @@ public class SwipeUI : MonoBehaviour
 	{
 		UpdateInput();
 
-		// ¾Æ·¡¿¡ ¹èÄ¡µÈ ÆäÀÌÁö ¹öÆ° Á¦¾î
+		// ì•„ë˜ì— ë°°ì¹˜ëœ í˜ì´ì§€ ë²„íŠ¼ ì œì–´
 		UpdateCircleContent();
 	}
 
 	private void UpdateInput()
 	{
-		// ÇöÀç Swipe¸¦ ÁøÇàÁßÀÌ¸é ÅÍÄ¡ ºÒ°¡
+		// í˜„ì¬ Swipeë¥¼ ì§„í–‰ì¤‘ì´ë©´ í„°ì¹˜ ë¶ˆê°€
 		if (isSwipeMode == true) return;
 
 #if UNITY_EDITOR
-		// ¸¶¿ì½º ¿ŞÂÊ ¹öÆ°À» ´­·¶À» ¶§ 1È¸
+		// ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ 1íšŒ
 		if (Input.GetMouseButtonDown(0))
 		{
-			// ÅÍÄ¡ ½ÃÀÛ ÁöÁ¡ (Swipe ¹æÇâ ±¸ºĞ)
+			// í„°ì¹˜ ì‹œì‘ ì§€ì  (Swipe ë°©í–¥ êµ¬ë¶„)
 			startTouchX = Input.mousePosition.x;
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
-			// ÅÍÄ¡ Á¾·á ÁöÁ¡ (Swipe ¹æÇâ ±¸ºĞ)
+			// í„°ì¹˜ ì¢…ë£Œ ì§€ì  (Swipe ë°©í–¥ êµ¬ë¶„)
 			endTouchX = Input.mousePosition.x;
 
 			UpdateSwipe();
@@ -88,12 +88,12 @@ public class SwipeUI : MonoBehaviour
 
 			if (touch.phase == TouchPhase.Began)
 			{
-				// ÅÍÄ¡ ½ÃÀÛ ÁöÁ¡ (Swipe ¹æÇâ ±¸ºĞ)
+				// í„°ì¹˜ ì‹œì‘ ì§€ì  (Swipe ë°©í–¥ êµ¬ë¶„)
 				startTouchX = touch.position.x;
 			}
 			else if (touch.phase == TouchPhase.Ended)
 			{
-				// ÅÍÄ¡ Á¾·á ÁöÁ¡ (Swipe ¹æÇâ ±¸ºĞ)
+				// í„°ì¹˜ ì¢…ë£Œ ì§€ì  (Swipe ë°©í–¥ êµ¬ë¶„)
 				endTouchX = touch.position.x;
 
 				UpdateSwipe();
@@ -102,44 +102,47 @@ public class SwipeUI : MonoBehaviour
 #endif
 	}
 
-	private void UpdateSwipe()
+	public void UpdateSwipe(bool isBtnPressed = false, bool isLeft_btnPressed = false)
 	{
-		// ³Ê¹« ÀÛÀº °Å¸®¸¦ ¿òÁ÷¿´À» ¶§´Â Swipe X
-		if (Mathf.Abs(startTouchX - endTouchX) < swipeDistance)
+		// ë„ˆë¬´ ì‘ì€ ê±°ë¦¬ë¥¼ ì›€ì§ì˜€ì„ ë•ŒëŠ” Swipe X, í•˜ì§€ë§Œ ë²„íŠ¼ì´ ëˆŒë¦¬ë©´ ë¬´ì‹œ
+		if (!isBtnPressed && Mathf.Abs(startTouchX - endTouchX) < swipeDistance)
 		{
-			// ¿ø·¡ ÆäÀÌÁö·Î SwipeÇØ¼­ µ¹¾Æ°£´Ù
+			// ì›ë˜ í˜ì´ì§€ë¡œ Swipeí•´ì„œ ëŒì•„ê°„ë‹¤
 			StartCoroutine(OnSwipeOneStep(currentPage));
 			return;
 		}
 
-		// Swipe ¹æÇâ
+		// Swipe ë°©í–¥
 		bool isLeft = startTouchX < endTouchX ? true : false;
 
-		// ÀÌµ¿ ¹æÇâÀÌ ¿ŞÂÊÀÏ ¶§
+        //ë²„íŠ¼ì´ ëˆŒë ¸ìœ¼ë©´ ë²„íŠ¼ ë¨¼ì €!
+        if (isBtnPressed) isLeft = isLeft_btnPressed;
+
+		// ì´ë™ ë°©í–¥ì´ ì™¼ìª½ì¼ ë•Œ
 		if (isLeft == true)
 		{
-			// ÇöÀç ÆäÀÌÁö°¡ ¿ŞÂÊ ³¡ÀÌ¸é Á¾·á
+			// í˜„ì¬ í˜ì´ì§€ê°€ ì™¼ìª½ ëì´ë©´ ì¢…ë£Œ
 			if (currentPage == 0) return;
 
-			// ¿ŞÂÊÀ¸·Î ÀÌµ¿À» À§ÇØ ÇöÀç ÆäÀÌÁö¸¦ 1 °¨¼Ò
+			// ì™¼ìª½ìœ¼ë¡œ ì´ë™ì„ ìœ„í•´ í˜„ì¬ í˜ì´ì§€ë¥¼ 1 ê°ì†Œ
 			currentPage--;
 		}
-		// ÀÌµ¿ ¹æÇâÀÌ ¿À¸¥ÂÊÀÏ ‹š
+		// ì´ë™ ë°©í–¥ì´ ì˜¤ë¥¸ìª½ì¼ ë–„
 		else
 		{
-			// ÇöÀç ÆäÀÌÁö°¡ ¿À¸¥ÂÊ ³¡ÀÌ¸é Á¾·á
+			// í˜„ì¬ í˜ì´ì§€ê°€ ì˜¤ë¥¸ìª½ ëì´ë©´ ì¢…ë£Œ
 			if (currentPage == maxPage - 1) return;
 
-			// ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿À» À§ÇØ ÇöÀç ÆäÀÌÁö¸¦ 1 Áõ°¡
+			// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™ì„ ìœ„í•´ í˜„ì¬ í˜ì´ì§€ë¥¼ 1 ì¦ê°€
 			currentPage++;
 		}
 
-		// currentIndex¹øÂ° ÆäÀÌÁö·Î SwipeÇØ¼­ ÀÌµ¿
+		// currentIndexë²ˆì§¸ í˜ì´ì§€ë¡œ Swipeí•´ì„œ ì´ë™
 		StartCoroutine(OnSwipeOneStep(currentPage));
 	}
 
 	/// <summary>
-	/// ÆäÀÌÁö¸¦ ÇÑ Àå ¿·À¸·Î ³Ñ±â´Â Swipe È¿°ú Àç»ı
+	/// í˜ì´ì§€ë¥¼ í•œ ì¥ ì˜†ìœ¼ë¡œ ë„˜ê¸°ëŠ” Swipe íš¨ê³¼ ì¬ìƒ
 	/// </summary>
 	private IEnumerator OnSwipeOneStep(int index)
 	{
@@ -164,13 +167,13 @@ public class SwipeUI : MonoBehaviour
 
 	private void UpdateCircleContent()
 	{
-		// ¾Æ·¡¿¡ ¹èÄ¡µÈ ÆäÀÌÁö ¹öÆ° Å©±â, »ö»ó Á¦¾î (ÇöÀç ¸Ó¹°°í ÀÖ´Â ÆäÀÌÁöÀÇ ¹öÆ°¸¸ ¼öÁ¤)
+		// ì•„ë˜ì— ë°°ì¹˜ëœ í˜ì´ì§€ ë²„íŠ¼ í¬ê¸°, ìƒ‰ìƒ ì œì–´ (í˜„ì¬ ë¨¸ë¬¼ê³  ìˆëŠ” í˜ì´ì§€ì˜ ë²„íŠ¼ë§Œ ìˆ˜ì •)
 		for (int i = 0; i < scrollPageValues.Length; ++i)
 		{
 			circleContents[i].localScale = Vector2.one;
 			circleContents[i].GetComponent<Image>().color = Color.white;
 
-			// ÆäÀÌÁöÀÇ Àı¹İÀ» ³Ñ¾î°¡¸é ÇöÀç ÆäÀÌÁö ¿øÀ» ¹Ù²Ùµµ·Ï
+			// í˜ì´ì§€ì˜ ì ˆë°˜ì„ ë„˜ì–´ê°€ë©´ í˜„ì¬ í˜ì´ì§€ ì›ì„ ë°”ê¾¸ë„ë¡
 			if (scrollBar.value < scrollPageValues[i] + (valueDistance / 2) && scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
 			{
 				circleContents[i].localScale = Vector2.one * circleContentScale;
