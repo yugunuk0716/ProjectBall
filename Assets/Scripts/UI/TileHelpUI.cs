@@ -63,7 +63,7 @@ public class TileHelpUI : UIBase
             }
 
             isMoving = true;
-            scrollView.DOAnchorPosX(isViewing ? width : 0, 1f).OnComplete(() =>
+            scrollView.DOAnchorPosX(isViewing ? width : 0, 0.65f).SetEase(Ease.OutSine).OnComplete(() =>
             {
                 isMoving = false;
             });
