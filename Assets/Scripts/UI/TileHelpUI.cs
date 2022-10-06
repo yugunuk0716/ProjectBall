@@ -25,31 +25,18 @@ public class TileHelpUI : UIBase
     {
         foreach (var item in descUIDict.Values)
         {
-            if(item.gameObject.activeSelf)
+            if (item.gameObject.activeSelf)
             {
                 item.gameObject.SetActive(false);
             }
         }
 
-        bool isTransitionTileExist = false;
         foreach (ObjectTile tile in tiles)
         {
-            if(tile.isTransitionTile)
+            if (descUIDict.ContainsKey(tile.myType))
             {
-                isTransitionTileExist = true;
-            }
-
-            if(tile.myType != TileType.None && tile.myType != TileType.Thorn &&
-               tile.myType != TileType.Flag && tile.myType != TileType.JumpPad)
-            {
-                Debug.Log((TileType)tile.myType);
                 descUIDict[tile.myType].gameObject.SetActive(true);
             }
-        }
-
-        if(isTransitionTileExist)
-        {
-            descUIDict[TileType.None].gameObject.SetActive(true);
         }
     }
 
