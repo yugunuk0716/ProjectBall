@@ -96,7 +96,7 @@ public class GameManager : ManagerBase
     {
         if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
         {
-            StopGame(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
+            StopGame(); 
             SetTimerText("off", Color.white);
             ActiveGameOverPanel(false);
         }
@@ -156,7 +156,7 @@ public class GameManager : ManagerBase
             int star = sm.CalcStar(clearTime);
             sm.SaveStar(sm.stageIndex - 1, star); 
 
-            if(sm.stageIndex - 1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
+            if(sm.stageIndex - 1 == sm.clearMapCount)
             {
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);

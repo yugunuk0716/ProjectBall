@@ -81,11 +81,11 @@ public class StageManager : ManagerBase
             int realIndex = stageIndex - 1;
             gm.SetStageText(stageIndex);
 
-            if (currentStageData == null) // 첫 로드
+            if (currentStageData == null) // first load
             {
                 currentStageData = stageDataList[realIndex];
             }
-            else if (currentStageData.Equals(stageDataList[realIndex])) // 현 스테이지랑 목표 스테이지랑 다르면
+            else if (currentStageData.Equals(stageDataList[realIndex])) // if curstage and target stage not same
             {
                 isSameStageLoaded = true;
             }

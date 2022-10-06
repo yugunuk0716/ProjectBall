@@ -61,16 +61,15 @@ public class ButtonTile : ObjectTile
 
     private void SetData()
     {
-        //target 내용중 .dataString에 targetstring을 넣는다
+       
         target.ForEach(x => x.dataString = x.btnString);
 
-        /*//target에 있는 .btnstring을 유니티 콘솔에 출력한다
-        target.ForEach(x => Debug.Log(x));*/
+
     }
 
     private void InvokeData()
     {
-        //target 의 Setdiraction()을 실행
+
         target.ForEach(x => x.SetDirection());
     }
 }

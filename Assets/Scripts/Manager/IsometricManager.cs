@@ -118,7 +118,7 @@ public class IsometricManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public static Vector2 GetIsoDir(TileDirection dir) // 등각투형에 걸맞는 벡터로..
+    public static Vector2 GetIsoDir(TileDirection dir) 
     {
         Vector2 vec = Vector2.zero;
         switch (dir)
