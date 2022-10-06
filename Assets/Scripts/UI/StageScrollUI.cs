@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AirFishLab.ScrollingList.Demo;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,9 @@ public class StageScrollUI : UIBase
     UIBase settingPanel;
     StageManager sm;
     public List<IntListBox> allContents = new List<IntListBox>();
+
+    public TextMeshProUGUI heartCountText;
+    public TextMeshProUGUI heartCoolText;
 
     public override void Init()
     {
@@ -67,6 +71,13 @@ public class StageScrollUI : UIBase
         }
         inGameUI.ScreenOn(!on);
         base.ScreenOn(on);
+    }
+
+
+    public void UpdateHeartText(int count, string timer)
+    {
+        heartCountText.text = $"{count}/5";
+        heartCoolText.text = timer;
     }
 
     public override void Load()

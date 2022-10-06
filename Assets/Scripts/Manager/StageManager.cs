@@ -27,6 +27,8 @@ public class StageManager : ManagerBase
 
     private GameManager gm;
     private SaveManager sm;
+    private LifeManager lm;
+    private UIManager um;
     private bool isFirstLoad = true;
     private bool isMapLoading = false;
     public override void Init()
@@ -55,6 +57,8 @@ public class StageManager : ManagerBase
 
         gm = IsometricManager.Instance.GetManager<GameManager>();
         sm = IsometricManager.Instance.GetManager<SaveManager>();
+        lm = IsometricManager.Instance.GetComponent<LifeManager>();
+        um = IsometricManager.Instance.GetComponent<UIManager>();
 
         LoadStage(stageIndex);
 
@@ -67,11 +71,7 @@ public class StageManager : ManagerBase
         if (!isMapLoading)
         {
             isMapLoading = true;
-            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-            SaveManager sm = IsometricManager.Instance.GetManager<SaveManager>();
-            LifeManager lm = IsometricManager.Instance.GetComponent<LifeManager>();
 
-            
             gm.StopGame();
             GameManager.canInteract = false;
             gm.usableBallList.ForEach((x) =>
@@ -90,19 +90,28 @@ public class StageManager : ManagerBase
                
                 currentStageData = stageDataList[realIndex];
             }
-            else if (currentStageData.Equals(stageDataList[realIndex])) // if curstage and target stage not same
+            else
             {
                 if (!lm.CanEnterStage())
                 {
+                    print("광고보기");
+                    um.FindUI("WatchAddPanel").ScreenOn(true);
                     return;
                 }
-                isSameStageLoaded = true;
                 lm.EnterStage();
+
+                if (currentStageData.Equals(stageDataList[realIndex])) // if curstage and target stage not same
+                {
+                  
+                    isSameStageLoaded = true;
+                   
+                }
+                else
+                {
+                    currentStageData = stageDataList[realIndex];
+                }
             }
-            else
-            {
-                currentStageData = stageDataList[realIndex];
-            }
+           
             
             sm.range = stageDataList[realIndex].range;
             sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
