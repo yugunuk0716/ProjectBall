@@ -13,7 +13,7 @@ public class GameManager : ManagerBase
     public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
     public List<TileDirection> lastBallList  = new List<TileDirection>();
-    public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
+    public List<BallControllUI> ballUIList = new List<BallControllUI>(); 
     public List<Ball> usableBallList = new List<Ball>();
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();

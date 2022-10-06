@@ -14,6 +14,7 @@ public enum TileType
     Thorn,
     None,
     ButtonTile,
+    Line
 }
 
 [System.Serializable]

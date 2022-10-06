@@ -42,12 +42,10 @@ public class SaveManager : ManagerBase
 
             if (www.result.Equals(UnityWebRequest.Result.Success))
             {
-                print("성공");
                 IsometricManager.Instance.GetManager<UIManager>().FindUI("NetworkPanel").ScreenOn(false);
             }
             else
             {
-                print("실패");
                 IsometricManager.Instance.GetManager<UIManager>().FindUI("NetworkPanel").ScreenOn(true);
                 yield break;
             }

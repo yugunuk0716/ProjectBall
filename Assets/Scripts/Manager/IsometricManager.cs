@@ -79,14 +79,12 @@ public class IsometricManager : MonoBehaviour
             FirstCall();
             tutoCanvas.interactable = true;
             tutoCanvas.blocksRaycasts = true;
-            Debug.Log("최초실행");
         }
         else
         {
             
             tutoCanvas.interactable = false;
             tutoCanvas.blocksRaycasts = false; 
-            Debug.Log("최초실행 아님");
         }
 
 
@@ -108,7 +106,7 @@ public class IsometricManager : MonoBehaviour
 
     private void FirstCall()
     {
-        PlayerPrefs.SetInt("ClearMapsCount", 1);
+        PlayerPrefs.SetInt("ClearMapsCount", 65);
         PlayerPrefs.SetInt("IsFirst", 0);
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>

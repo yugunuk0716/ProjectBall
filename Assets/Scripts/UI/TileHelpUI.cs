@@ -39,15 +39,17 @@ public class TileHelpUI : UIBase
                 isTransitionTileExist = true;
             }
 
-            if(tile.myType != TileType.None && tile.myType != TileType.Thorn && tile.myType != TileType.Flag)
+            if(tile.myType != TileType.None && tile.myType != TileType.Thorn &&
+               tile.myType != TileType.Flag && tile.myType != TileType.JumpPad)
             {
+                Debug.Log((TileType)tile.myType);
                 descUIDict[tile.myType].gameObject.SetActive(true);
             }
         }
 
         if(isTransitionTileExist)
         {
-            descUIDict[TileType.None].gameObject.SetActive(true); // None에다가 가변 타일 설명 UI 넣어두려구용
+            descUIDict[TileType.None].gameObject.SetActive(true);
         }
     }
 

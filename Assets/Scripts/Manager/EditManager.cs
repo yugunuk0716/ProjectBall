@@ -13,7 +13,7 @@ public class NodeClass
     public float x;
     public float y;
 
-    public string tileInfo; //이 타일 인포를 각각 TileObject를 상속받고 있는 스크립트에서 해체해서 쓰면 될 듯
+    public string tileInfo; 
 
     public List<NodeClass> data;
  
@@ -308,7 +308,6 @@ public class EditManager : MonoBehaviour
                 }
                 else
                 {
-                    print("없음");
                     result += $"{{\"name\":" + "\"" + tr.name + "\"" + ", \"sprite\":" + "\"" + sr.sprite.name + "\"" + ", \"x\":" + "\"" + tr.position.x + "\"" + ", \"y\":" + "\"" + tr.position.y + "\"}";
                 }
             }

@@ -26,7 +26,6 @@ public class SoundManager : ManagerBase
     private Dictionary<string, int> _audioCountDic; 
 
     [SerializeField]
-    [Header("초기 SFX재생기 갯수")]
     private int _sfxSourceCount;
 
     private AudioMixer _audioMixer;
@@ -165,12 +164,12 @@ public class SoundManager : ManagerBase
             }
             else
             {
-                Debug.LogError($"{audioName}의 AudioType을 확인해주세요");
+                Debug.LogError($"Check {audioName}'s AudioType");
             }
         }
         else
         {
-            Debug.LogError($"{audioName}이 존재하지 않습니다");
+            Debug.LogError($"{audioName} not Exist");
         }
     }
 
@@ -195,7 +194,7 @@ public class SoundManager : ManagerBase
         }
         else
         {
-            Debug.LogError($"{audioName}이 존재하지 않습니다");
+            Debug.LogError($"{audioName} not Exist");
         }
     }
 
