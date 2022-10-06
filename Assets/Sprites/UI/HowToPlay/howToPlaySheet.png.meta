@@ -472,6 +472,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: howToPlaySheet_17
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 96
+        width: 112
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc4794fe29c7d4d05a241637e2977651
+      internalID: 2031166745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -489,6 +510,7 @@ TextureImporter:
       howToPlaySheet_16: -300176316
       howToPlaySheet_8: -1026204092
       howToPlaySheet_10: -601061303
+      howToPlaySheet_17: 2031166745
       howToPlaySheet_2: -2052366791
       howToPlaySheet_4: -342949425
       howToPlaySheet_15: 2022231331

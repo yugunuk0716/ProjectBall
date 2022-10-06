@@ -317,7 +317,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036728610267623106}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -2868,8 +2868,8 @@ MonoBehaviour:
   descriptionBtn: {fileID: 2386758671526819001}
   gameOverText: {fileID: 7978084166830699558}
   recordText: {fileID: 4887227216080231454}
-  descriptionPanel: {fileID: 1036728610267623108}
-  descriptionCancleBtn: {fileID: 1036728611528370810}
+  descCG: {fileID: 0}
+  descCancleBtn: {fileID: 0}
   starList:
   - {fileID: 7456000330450639992}
   - {fileID: 5193253053520234001}
