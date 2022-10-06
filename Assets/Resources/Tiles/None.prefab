@@ -97,12 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f39a020185c8a4b9cb78196b054d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  isUsing: 0
   dataString: 
-  myType: 8
+  myType: 7
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
   btnIndex: 0
   btnString: 
+  isTransitionTile: 0
