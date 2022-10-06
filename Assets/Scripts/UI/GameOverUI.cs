@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class GameOverUI : UIBase
 {
     [SerializeField] private Button reloadBtn;
     [SerializeField] private Button loadNextBtn;
+    [SerializeField] private Button descriptionBtn;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private TextMeshProUGUI recordText;
+
+    public CanvasGroup descriptionPanel;
+    public Button descriptionCancleBtn;
+
     StageManager sm;
     GameManager gm;
     SoundManager soundm;
@@ -18,14 +24,6 @@ public class GameOverUI : UIBase
 
     private bool canRaiseStageIdx;
  
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            print($"cc: {sm.clearMapCount + 1}  idx: {sm.stageIndex}");
-        }
-    }
 
     public void OnGameOver(bool isClear)
     {
@@ -71,6 +69,22 @@ public class GameOverUI : UIBase
             starList.ForEach(s => s.gameObject.SetActive(false));
         });
 
+        descriptionBtn.onClick.AddListener(() =>
+        {
+
+            descriptionPanel.interactable = true;
+            descriptionPanel.blocksRaycasts = true;
+            descriptionPanel.DOFade(1f, 0.5f).SetUpdate(true);
+        });
+
+        descriptionCancleBtn.onClick.AddListener(() =>
+        {
+    
+            descriptionPanel.interactable = false;
+            descriptionPanel.blocksRaycasts = false;
+            descriptionPanel.DOFade(0f, 0.5f).SetUpdate(true);
+        });
+
 
     }
 
@@ -85,7 +99,7 @@ public class GameOverUI : UIBase
         reloadBtn.interactable = false;
         loadNextBtn.interactable = false;
 
-        print(clearTime);
+      
         recordText.text = $"Left Time : {clearTime.ToString("F2")}";
     
 
@@ -106,7 +120,7 @@ public class GameOverUI : UIBase
 
         canRaiseStageIdx = true;
 
-        Debug.Log(isClear);
+ 
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
 
