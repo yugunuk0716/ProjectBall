@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class GameOverUI : UIBase
 {
     [SerializeField] private Button reloadBtn;
     [SerializeField] private Button loadNextBtn;
+    [SerializeField] private Button descriptionBtn;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private TextMeshProUGUI recordText;
+
+
+    public CanvasGroup descCG;
+    public Button descCancleBtn;
+
+
     StageManager sm;
     GameManager gm;
     SoundManager soundm;
@@ -18,14 +26,6 @@ public class GameOverUI : UIBase
 
     private bool canRaiseStageIdx;
  
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            print($"cc: {sm.clearMapCount + 1}  idx: {sm.stageIndex}");
-        }
-    }
 
     public void OnGameOver(bool isClear)
     {
@@ -71,6 +71,19 @@ public class GameOverUI : UIBase
             starList.ForEach(s => s.gameObject.SetActive(false));
         });
 
+        descriptionBtn.onClick.AddListener(() =>
+        {
+            descCG.interactable = true;
+            descCG.blocksRaycasts = true;
+            descCG.DOFade(1f, 0.5f).SetUpdate(true);
+        });
+
+        descCancleBtn.onClick.AddListener(() =>
+        {
+            descCG.interactable = false;
+            descCG.blocksRaycasts = false;
+            descCG.DOFade(0, 0.5f).SetUpdate(true);
+        });
 
     }
 
