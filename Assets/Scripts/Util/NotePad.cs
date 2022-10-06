@@ -18,7 +18,7 @@ public class NotePad : EditorWindow
     void OnGUI()
     {
         GUILayout.Label("", EditorStyles.boldLabel);
-        GUILayout.Label("준형이 전용 메모장", EditorStyles.boldLabel);
+        GUILayout.Label("lostArk only", EditorStyles.boldLabel);
         GUILayout.Label("", EditorStyles.boldLabel);
         GUILayout.Label(PlayerPrefs.GetString("data"), EditorStyles.boldLabel);
         GUILayout.Label("", EditorStyles.boldLabel);

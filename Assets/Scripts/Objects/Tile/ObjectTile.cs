@@ -10,12 +10,11 @@ public enum TileType
     Teleporter,
     Flag,
     DirectionChanger,
-    ColorChanger,
     Reflect,
     Thorn,
     None,
-    ColorGoal,
     ButtonTile,
+    Line
 }
 
 [System.Serializable]
@@ -34,6 +33,19 @@ public class ObjectTileInfo
     public int tileType;
 }
 
+public class ObjectTileComparer : IEqualityComparer<ObjectTile>
+{
+    public bool Equals(ObjectTile x, ObjectTile y)
+    {
+        return x.myType.Equals(y.myType);
+    }
+
+    public int GetHashCode(ObjectTile obj)
+    {
+        return 0;
+    }
+}
+
 public abstract class ObjectTile : MonoBehaviour, IPoolableComponent
 {
     public string dataString;
@@ -44,7 +56,13 @@ public abstract class ObjectTile : MonoBehaviour, IPoolableComponent
     public int btnIndex;
     public string btnString;
 
-    public void StartTransition() => StartCoroutine(Transition());
+    public bool isTransitionTile = false;
+
+    public void StartTransition()
+    {
+        StartCoroutine(Transition());
+        isTransitionTile = true;
+    }
     public abstract IEnumerator Transition();
 
 
@@ -88,5 +106,8 @@ public abstract class ObjectTile : MonoBehaviour, IPoolableComponent
     public void SetDisable()
     {
         GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
+        isTransitionTile = false;
     }
+
+
 }
