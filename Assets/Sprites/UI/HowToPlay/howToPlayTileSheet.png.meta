@@ -325,6 +325,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: howToPlayTileSheet_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ca005a745f6caa4597735c8c616968b
+      internalID: 471376811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -337,6 +358,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       howToPlayTileSheet_7: -1550138412
+      howToPlayTileSheet_10: 471376811
       howToPlayTileSheet_3: 1015021562
       howToPlayTileSheet_1: 964470912
       howToPlayTileSheet_5: 244742428

@@ -39,7 +39,7 @@ public class TileHelpUI : UIBase
                 isTransitionTileExist = true;
             }
 
-            if(tile.myType != TileType.None)
+            if(tile.myType != TileType.None && tile.myType != TileType.Thorn && tile.myType != TileType.Flag)
             {
                 descUIDict[tile.myType].gameObject.SetActive(true);
             }
