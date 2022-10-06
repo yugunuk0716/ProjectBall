@@ -111,7 +111,7 @@ public class GameOverUI : UIBase
         loadNextBtn.interactable = isClear;
 
 
-        //한번 깼으면 다시 못 깬 상태.. 도전중인 상태로 변경
+        
         isClear = false;
     }
 

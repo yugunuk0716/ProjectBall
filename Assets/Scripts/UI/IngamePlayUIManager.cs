@@ -55,15 +55,15 @@ public class IngamePlayUIManager : UIBase
 
     }
 
-    private void SwitchUI(bool moveLeft, bool isForLoad) // 왼쪽으로 가나? 로딩할때 함수가 실행되는가?
+    private void SwitchUI(bool moveLeft, bool isForLoad) 
     {
         if (isForLoad && isSetPanelActive) return;
 
-        if (!moveLeft) // 슛 패널 켜기
+        if (!moveLeft)
         {
             MoveUI(shootPanel, settingPanel);
         }
-        else        // 세팅 패널 켜기
+        else     
         {
             MoveUI(settingPanel, shootPanel);
         }

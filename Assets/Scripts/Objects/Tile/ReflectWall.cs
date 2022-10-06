@@ -6,8 +6,8 @@ public class ReflectWall : ObjectTile
 {
     public bool isHorizontalWall = true;
     
-    public Sprite[] horSprites; // 0 기본 1  오른쪽으로  2 왼쪽으로
-    public Sprite[] verSprites; // 0 기본 1  위쪽으로    2 아래쪽으로
+    public Sprite[] horSprites;
+    public Sprite[] verSprites; 
     public Sprite[] horEffect;
     public Sprite[] verEffect;
     private SpriteRenderer sr;

@@ -12,7 +12,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public int order;
      public Image directionImg;
     [SerializeField] private Image bgImage;
-    [HideInInspector] public SwapUI swapUI; // 이 친구한테 데이터를 넣어주고 얘가 알아서 조종하거
+    [HideInInspector] public SwapUI swapUI; // it have evry data and controll others
 
     public Ball ball;
 
@@ -50,7 +50,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     }
     public override void Load()
     {
-        // 할 거 없음
+        // Do nothing
     }
 
     private void Awake()

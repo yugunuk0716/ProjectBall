@@ -82,7 +82,7 @@ public abstract class ObjectTile : MonoBehaviour, IPoolableComponent
         IsometricManager.Instance.GetManager<StageManager>().objectTileList.Add(this);
     }
 
-    public abstract void InteractionTile(Ball tb); // 공에 무엇을 해줄까요?
+    public abstract void InteractionTile(Ball tb);
 
     public virtual void SetDirection()
     {
