@@ -30,7 +30,7 @@ public class SpriteLayerSorter : MonoBehaviour
         {
             rd.sortingOrder -= 10;
             
-            //자식을 가져와서 자식의 Sorting Order를 부모와 같게 해준다.
+       
             foreach (Transform child in transform)
             {
                 child.GetComponent<SpriteRenderer>().sortingOrder = rd.sortingOrder;

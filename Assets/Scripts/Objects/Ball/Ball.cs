@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
 {
     public Animator anim;
     public SpriteRenderer sr;
-    public Sprite uiSprite; // UI에 적용할 스프라이트, 공처럼 생김!
+    public Sprite uiSprite; // UI sprite
 
     public Animator slowAnim;
     public GameObject spriteObject;
@@ -159,7 +159,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
         curActiveTime = 0;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
-        //혹시 한명의 바보정도는 4개중 하나도 못 맞출 수 있으니까..
+        //every ball is not in flag
         if (gm.maxBallCount == gm.curShootBallCount)
         {
             gm.CheckFail();

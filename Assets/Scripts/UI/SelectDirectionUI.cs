@@ -39,7 +39,7 @@ public class SelectDirectionUI : UIBase
 
         
 
-        for (int i = 0; i< selectDirectionBtns.Count; i++) // 0번은 Nothing 들어갑니다.
+        for (int i = 0; i< selectDirectionBtns.Count; i++) 
         {
             int index = 1;
 

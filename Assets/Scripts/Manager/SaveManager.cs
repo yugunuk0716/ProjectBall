@@ -10,10 +10,10 @@ using System.Linq;
 
 public class SaveManager : ManagerBase
 {
-    [SerializeField, Header("해당 타일맵")] public Tilemap mainMap;
-    [SerializeField, Header("에니메이션 타일맵")] public Tilemap animationMap;
-    [SerializeField, Header("스프레드시트 범위")] public string range;
-    [SerializeField, Header("스프레드시트 시트")] public string sheet;
+    [SerializeField, Header("Tile map")] public Tilemap mainMap;
+    [SerializeField, Header("Animation Tilemap")] public Tilemap animationMap;
+    [SerializeField, Header("Sheet Range")] public string range;
+    [SerializeField, Header("Sheet Type")] public string sheet;
 
 
     public List<TileData> tileDatas = new List<TileData>();
@@ -27,7 +27,7 @@ public class SaveManager : ManagerBase
     private Color changeColor = new Color();
     private AnimatedTile riseAnimatedTile;
 
-    public void LoadMapSpreadsheets(Action callback) // 맵 데이터 초기화 콜백
+    public void LoadMapSpreadsheets(Action callback)
     {
         IsometricManager.Instance.GetManager<GameManager>().tileDict.Clear();
         string data;
@@ -183,7 +183,7 @@ public class SaveManager : ManagerBase
 
         if(data.targetstring != null)
         {
-            //data.targetstring을 ! 기준으로 나눠서 0번 인덱스를 다시 넣어주기
+           
             string[] str = data.targetstring.Split('!');
             data.targetstring = str[0];
             
@@ -254,10 +254,6 @@ public class SaveManager : ManagerBase
 
             }
 
-
-            //sr.color를  DoTween을 이용하여 알파값을 1로 1초안에 바꿔주기
-            
-            
 
             SpriteRenderer sr = line.GetComponent<SpriteRenderer>();
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
@@ -426,17 +422,11 @@ public class SaveManager : ManagerBase
                     case TileColors.Purple:
                         return TileType.Teleporter;
                     case TileColors.Red:
-                        if (!changeColor.Equals(Color.white))
-                        {
-                            return TileType.ColorGoal;
-                        }
                         return TileType.Flag;
                     case TileColors.White:
                         return TileType.Slow;
                     case TileColors.Yellow:
                         return TileType.JumpPad;
-                    case TileColors.Any:
-                        return TileType.ColorChanger;
                     case TileColors.Gray:
                         return TileType.Thorn;
                     case TileColors.Deepblue:

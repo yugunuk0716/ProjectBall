@@ -21,7 +21,7 @@ public class TutorialManager : ManagerBase
     private int shootTextCount = 2;
     private List<UnityAction> tempAction = new List<UnityAction>();
     private bool istuto = false;
-    //ManagerBase 구현하기
+
 
     public override void Init()
     {

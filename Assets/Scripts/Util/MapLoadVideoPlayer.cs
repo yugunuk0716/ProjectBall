@@ -26,7 +26,7 @@ public class MapLoadVideoPlayer : MonoBehaviour
     {
         for (int i = 0; i < videoLength; i++)
         {
-            texes[i] = new Texture2D(rt.width, rt.height); // 전체적으로 생성
+            texes[i] = new Texture2D(rt.width, rt.height); 
             yield return null;
         }
     }

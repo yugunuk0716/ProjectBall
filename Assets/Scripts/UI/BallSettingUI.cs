@@ -14,14 +14,14 @@ public class BallSettingUI : UIBase
 
     [Header("Panel")]
     public SelectDirectionUI selectDirectionUI;
-    [SerializeField] RectTransform shootPanel; // 공 발사할 때 볼 패널!
+    [SerializeField] RectTransform shootPanel; // ball panel at shoot Time
 
     [Header("Button")]
     public Button confirmBtn;
     [SerializeField] Button shootBtn;
     [SerializeField] SwapUI swapUi;
 
-    public Action<bool> SwitchUI;  // 세팅에서 슛으로.
+    public Action<bool> SwitchUI;  // seting to shoot.
 
     public override void Init()
     {
@@ -60,12 +60,12 @@ public class BallSettingUI : UIBase
             ballUI.directionSetBtn.onClick.RemoveAllListeners();
             ballUI.directionSetBtn.onClick.AddListener(() =>
             {
-                if (isAdded) // 다시 돌아오려는
+                if (isAdded) // return
                 {
                     ballUI.SetDirection(TileDirection.RIGHTDOWN, false);
                     gm.curSetBallCount--;
                 }
-                else // 추가 하려는
+                else // add
                 {
                     selectDirectionUI.Set(ballUI);
                     selectDirectionUI.ScreenOn(true);
@@ -94,12 +94,12 @@ public class BallSettingUI : UIBase
             StartCoroutine(MoveBallUis(gm.ballUIList));
         });
 
-        shootBtn.onClick.AddListener(() => gm.Shoot()); // 확인 버튼 누르면 슛 버튼에 함수 구독
+        shootBtn.onClick.AddListener(() => gm.Shoot()); // press confirm button, add listner shoot;
     }
 
     public override void Load()
     {
-        //혹시 슛 패널로 이동 안했으면 남아있을거니까!
+        
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
         for(int i = 0; i < arr.Length; i++)
         {
@@ -138,7 +138,7 @@ public class BallSettingUI : UIBase
         SwitchUI(false);
         yield return new WaitForSeconds(1.3f);
 
-        Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // 걍 0번은 무시하고 가죠
+        Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // skip zero
 
         float duration = 0.2f;
         float minusDuration = duration / targetPoints.Length / 2;
