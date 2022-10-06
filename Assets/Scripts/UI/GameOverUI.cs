@@ -98,7 +98,6 @@ public class GameOverUI : UIBase
         reloadBtn.interactable = false;
         loadNextBtn.interactable = false;
 
-        print(clearTime);
         recordText.text = $"Left Time : {clearTime.ToString("F2")}";
     
 
@@ -119,7 +118,6 @@ public class GameOverUI : UIBase
 
         canRaiseStageIdx = true;
 
-        Debug.Log(isClear);
         reloadBtn.interactable = true;
         loadNextBtn.interactable = isClear;
 
