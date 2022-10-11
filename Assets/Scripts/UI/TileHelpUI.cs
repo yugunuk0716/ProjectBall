@@ -15,8 +15,6 @@ public class TileHelpUI : UIBase
     bool isViewing = false;
     bool isMoving = false;
 
-    float width;
-
     public List<TileDescUI> descUIList = new List<TileDescUI>();
 
     private Transform mainMap;
@@ -46,14 +44,7 @@ public class TileHelpUI : UIBase
         mainMap = GameObject.Find("MainMap").transform;
         SetDict();
 
-        float ratio = 1f;
-        if (Screen.width < 1080)
-        {
-            ratio = 1080f / (float)Screen.width;
-        }
-        width = Screen.width * ratio;
-
-        scrollView.anchoredPosition = new Vector3(width, scrollView.anchoredPosition.y, 0);
+        scrollView.anchoredPosition = new Vector3(1080, scrollView.anchoredPosition.y, 0);
 
         onBtn.onClick.AddListener(() =>
         {
@@ -63,7 +54,7 @@ public class TileHelpUI : UIBase
             }
 
             isMoving = true;
-            scrollView.DOAnchorPosX(isViewing ? width : 0, 0.65f).SetEase(Ease.OutSine).OnComplete(() =>
+            scrollView.DOAnchorPosX(isViewing ? 1080 : 0, 0.65f).SetEase(Ease.OutSine).OnComplete(() =>
             {
                 isMoving = false;
             });

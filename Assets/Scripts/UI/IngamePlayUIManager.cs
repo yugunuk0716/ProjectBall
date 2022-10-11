@@ -86,6 +86,7 @@ public class IngamePlayUIManager : UIBase
         seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.6f).SetDelay(0.2f).SetEase(Ease.OutBack).
             OnComplete(() =>
             {
+                retryBtn.gameObject.SetActive(isSetPanelActive);
                 isSetPanelActive = !isSetPanelActive;
             }));
     }
