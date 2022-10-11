@@ -30,7 +30,7 @@ public class StageManager : ManagerBase
     private LifeManager lm;
     private UIManager um;
     private bool isFirstLoad = true;
-    private bool isMapLoading = false;
+    public bool isMapLoading = false;
     public override void Init()
     {
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);

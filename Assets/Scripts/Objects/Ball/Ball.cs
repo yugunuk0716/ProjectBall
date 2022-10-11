@@ -45,6 +45,9 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     private ParticleSystem interactParticle;
 
+    private GameManager gm;
+    private StageManager sm;
+
     private void Awake()
     {
         interactParticle = GetComponentInChildren<ParticleSystem>();
@@ -98,12 +101,16 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void SetMove()
     {
+        if(gm == null)
+        {
+            gm = IsometricManager.Instance.GetManager<GameManager>();
+            sm = IsometricManager.Instance.GetManager<StageManager>();
+        }
+
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }
-
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
 
         myPos += direction;
         if (gm.tileDict.ContainsKey(myPos))
@@ -152,15 +159,21 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void Despawned()
     {
+        
+        Debug.Log("대체 어디서 쳐 ..");
+
         this.DOKill();
         speed = 0.4f;
         curActiveTime = 0;
 
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-        gm.curDestroyedBallsCount++;
 
-        gm.CheckClear();
-        StopCoroutine(SetBaseVector());
+        if(!sm.isMapLoading)
+        {
+            gm.curDestroyedBallsCount++;
+            gm.CheckClear();
+            StopCoroutine(SetBaseVector());
+        }
+
     }
 
     public void Spawned()
