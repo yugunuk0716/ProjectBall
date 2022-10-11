@@ -21,6 +21,8 @@ public class GameOverUI : UIBase
     StageManager sm;
     GameManager gm;
     SoundManager soundm;
+    UIManager um;
+    LifeManager lm;
     public List<Image> starList = new List<Image>();
     public bool isClear = false;
 
@@ -44,6 +46,9 @@ public class GameOverUI : UIBase
 
         sm = IsometricManager.Instance.GetManager<StageManager>();
         gm = IsometricManager.Instance.GetManager<GameManager>();
+        um = IsometricManager.Instance.GetManager<UIManager>();
+        lm = IsometricManager.Instance.GetManager<LifeManager>();
+
         soundm = IsometricManager.Instance.GetManager<SoundManager>();
       
         gm.ActiveGameOverPanel = (bool isClear) => OnGameOver(isClear);
@@ -51,12 +56,21 @@ public class GameOverUI : UIBase
 
         reloadBtn.onClick.AddListener(() =>
         {
+
             if (isClear)
             {
                 sm.clearMapCount++;
                 
             }
             PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
+            if (!lm.CanEnterStage())
+            {
+                print("광고보기");
+                um.FindUI("WatchAddPanel").ScreenOn(true);
+                return;
+            }
+            lm.EnterStage();
+
             canRaiseStageIdx = false;
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
@@ -65,6 +79,16 @@ public class GameOverUI : UIBase
 
         loadNextBtn.onClick.AddListener(() =>
         {
+            if (!lm.CanEnterStage())
+            {
+                print("광고보기");
+                sm.clearMapCount++;
+                PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
+                um.FindUI("WatchAddPanel").ScreenOn(true);
+                return;
+            }
+            lm.EnterStage();
+
             canRaiseStageIdx = false;
             sm.stageIndex++;
             sm.LoadStage(sm.stageIndex);

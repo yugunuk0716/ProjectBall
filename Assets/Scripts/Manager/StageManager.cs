@@ -85,6 +85,9 @@ public class StageManager : ManagerBase
             int realIndex = stageIndex - 1;
             gm.SetStageText(stageIndex);
 
+            
+
+
             if (currentStageData == null) // first load
             {
                
@@ -92,14 +95,8 @@ public class StageManager : ManagerBase
             }
             else
             {
-                if (!lm.CanEnterStage())
-                {
-                    print("광고보기");
-                    um.FindUI("WatchAddPanel").ScreenOn(true);
-                    return;
-                }
-                lm.EnterStage();
 
+               
                 if (currentStageData.Equals(stageDataList[realIndex])) // if curstage and target stage not same
                 {
                   

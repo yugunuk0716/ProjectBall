@@ -12,6 +12,7 @@ public class LifeManager : ManagerBase
     int sec = 0;
 
     private StageScrollUI ssUI;
+    private TitleSettingUI tsUI;
     private int heartCount = 5;
 
     private void Start()
@@ -37,6 +38,7 @@ public class LifeManager : ManagerBase
        
         int totalSec  = (int)timeDif.TotalSeconds;
         ssUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
+        tsUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
@@ -52,7 +54,11 @@ public class LifeManager : ManagerBase
     public void EnterStage()
     {
         heartCount--;
-        ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+        if (ssUI != null && tsUI != null)
+        {
+            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+        }
     }
 
     public override void Load()
@@ -91,7 +97,11 @@ public class LifeManager : ManagerBase
                 ResetTimer();
             }
 
-            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+            if (ssUI != null && tsUI != null)
+            {
+                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+            }
         }
     }
 
