@@ -23,6 +23,8 @@ public class BallSettingUI : UIBase
 
     public Action<bool> SwitchUI;  // seting to shoot.
 
+    private UIManager um;
+
     public override void Init()
     {
         float ratio = 1f;
@@ -35,6 +37,7 @@ public class BallSettingUI : UIBase
         shootPanel.anchoredPosition = new Vector3(Screen.width * ratio, shootPanel.anchoredPosition.y, 0);
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        um = IsometricManager.Instance.GetManager<UIManager>();
         gm.ActiveGameOverPanel += (x) => shootBtn.interactable = false;
         gm.MakeNewBallUI = (ball, isAutoSet, index) =>
         {
@@ -78,11 +81,15 @@ public class BallSettingUI : UIBase
         confirmBtn.onClick.AddListener(() =>
         {
             if (!GameManager.canInteract || selectDirectionUI.isSelecting) return;
+
+            
+
             if (Input.touchCount > 1) return;
 
             if (gm.maxBallCount != gm.curSetBallCount)
             {
                 Debug.Log($"{gm.maxBallCount} / {gm.curSetBallCount}");
+                um.FindUI("CantEnterPanel").ScreenOn(true);
                 return;
             }
 

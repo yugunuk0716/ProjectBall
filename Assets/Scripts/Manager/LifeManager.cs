@@ -26,7 +26,7 @@ public class LifeManager : ManagerBase
         int totalSec  = (int)timeDif.TotalSeconds;
         ssUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
         int plusHeartCount = totalSec / coolTime;
-        heartCount += Mathf.Clamp(plusHeartCount, 0, 5);
+        heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
         StartCoroutine(HeartCoolRoutine());
 
