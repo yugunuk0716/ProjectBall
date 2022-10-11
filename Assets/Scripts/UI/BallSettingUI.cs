@@ -26,9 +26,22 @@ public class BallSettingUI : UIBase
     private UIManager um;
 
     float width = 0f;
+    float heightDevideFive;
+    
     public override void Init()
     {
-        width = Screen.width > 1080 ? Screen.width : 1080;
+        width = transform.root.GetComponent<RectTransform>().rect.width;
+
+        if (width < 1080)
+        {
+            width = 1080 * 1080 / Screen.width;
+        }
+        else
+        {
+            width *= (float)Screen.width / Screen.height / 0.5625f * ((float)1080 / Screen.width);
+        }
+
+        heightDevideFive = Screen.height > 1920 ? Screen.height / 6 : 350;
 
         shootPanel.anchoredPosition = new Vector3(width, shootPanel.anchoredPosition.y, 0);
 
@@ -66,8 +79,11 @@ public class BallSettingUI : UIBase
                 }
                 else // add
                 {
-                    selectDirectionUI.Set(ballUI);
-                    selectDirectionUI.ScreenOn(true);
+                    if(selectDirectionUI.ballControllUI == null)
+                    {
+                        selectDirectionUI.Set(ballUI);
+                        selectDirectionUI.ScreenOn(true);
+                    }
                 }
 
                 isAdded = !isAdded;
@@ -78,13 +94,10 @@ public class BallSettingUI : UIBase
         {
             if (!GameManager.canInteract || selectDirectionUI.isSelecting) return;
 
-            
-
             if (Input.touchCount > 1) return;
 
             if (gm.maxBallCount != gm.curSetBallCount)
             {
-                Debug.Log($"{gm.maxBallCount} / {gm.curSetBallCount}");
                 um.FindUI("CantEnterPanel").ScreenOn(true);
                 return;
             }
@@ -115,7 +128,7 @@ public class BallSettingUI : UIBase
 
         Sequence rollbackUISeq = DOTween.Sequence();
         rollbackUISeq.SetAutoKill(false);
-        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(-450, 0.5f).SetEase(Ease.OutCubic));
+        rollbackUISeq.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(-heightDevideFive, 0.5f).SetEase(Ease.OutCubic));
         rollbackUISeq.Join(shootBtn.transform.DORotate(new Vector3(0, 0, -720), 0.5f, RotateMode.LocalAxisAdd));
         rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
@@ -172,7 +185,7 @@ public class BallSettingUI : UIBase
 
         GameManager.canInteract = false;
         Sequence changeUISeq2 = DOTween.Sequence();
-        changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(450, 0.8f).SetEase(Ease.OutCubic));
+        changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(heightDevideFive, 0.8f).SetEase(Ease.OutCubic));
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
         changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(1.5f, 1.5f, 0.8f), 0.8f).OnComplete(() =>
         {

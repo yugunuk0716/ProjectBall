@@ -19,6 +19,8 @@ public class TileHelpUI : UIBase
 
     private Transform mainMap;
 
+    float width;
+
     public void SetTexts(List<ObjectTile> tiles)
     {
         foreach (var item in descUIDict.Values)
@@ -38,11 +40,20 @@ public class TileHelpUI : UIBase
         }
     }
 
-    float width;
-
     public override void Init()
     {
-        width = Screen.width > 1080 ? Screen.width : 1080;
+        width = transform.root.GetComponent<RectTransform>().sizeDelta.x;
+
+        Debug.Log(width);
+        if (width < 1080)
+        {
+            width = 1080 * 1080 / Screen.width;
+        }
+        else
+        {
+            width *= (float)Screen.width / Screen.height / 0.5625f * ((float)1080 / Screen.width);
+        }
+        Debug.Log(width);
 
         GetCanvasGroup();
         mainMap = GameObject.Find("MainMap").transform;

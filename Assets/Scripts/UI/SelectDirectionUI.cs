@@ -57,6 +57,8 @@ public class SelectDirectionUI : UIBase
                 ballControllUI.ball.shootDir = (TileDirection)(index);
 
                 ballControllUI.SetDirection(ballControllUI.ball.shootDir);
+
+                ballControllUI = null;
             });
         }
     }

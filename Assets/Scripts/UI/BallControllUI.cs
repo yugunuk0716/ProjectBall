@@ -10,7 +10,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     [HideInInspector] public RectTransform rt;
     public Button directionSetBtn;
     public int order;
-     public Image directionImg;
+    public Image directionImg;
     [SerializeField] private Image bgImage;
     [HideInInspector] public SwapUI swapUI; // it have evry data and controll others
 
@@ -46,7 +46,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     }
     public override void Init()
     {
-        
+
     }
     public override void Load()
     {
@@ -74,7 +74,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void SetInteractValues(bool on)
     {
-        if(on)
+        if (on)
         {
             directionSetBtn.interactable = on;
             directionSetBtn.image.raycastTarget = on;
@@ -86,7 +86,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     {
         if (Input.touchCount > 1) return;
 
-        if(isTutoOrShooting)
+        if (isTutoOrShooting)
         {
             return;
         }
@@ -104,9 +104,11 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
             return;
         }
 
+
+        GameManager.canInteract = false;
         bPressed = false;
         rt.DOComplete();
-        if(pressedTime > checkTime)
+        if (pressedTime > checkTime)
         {
             swapUI.OnEndDrag(eventData);
         }
@@ -118,7 +120,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     {
 
     }
-    
+
     public void BeginSwapping()
     {
         swapUI.ballControllUI = this;
@@ -140,7 +142,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void Despawned()
     {
-       
+
     }
 
     public void Spawned()

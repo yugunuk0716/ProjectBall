@@ -573,7 +573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC124\uC815"
+  m_text: Setting
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f99c40c7b4424f13904863109ddac52, type: 2}
   m_sharedMaterial: {fileID: -8332483103806573361, guid: 3f99c40c7b4424f13904863109ddac52, type: 2}
@@ -746,10 +746,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec374c7ed3484e9f8e553459c816c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
   cancleButton: {fileID: 5975507048665195581}
   bgmMuteBtn: {fileID: 3587396703527881616}
   sfxMuteBtn: {fileID: 3186505958760226092}
+  heartCountText: {fileID: 0}
+  heartCoolText: {fileID: 0}
 --- !u!1 &6176545206220278326
 GameObject:
   m_ObjectHideFlags: 0

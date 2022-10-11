@@ -731,7 +731,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.251}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -164.23442, y: -329.47058}
+  m_AnchoredPosition: {x: -164.23444, y: -329.47058}
   m_SizeDelta: {x: 0, y: 116.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &92460398
@@ -3752,7 +3752,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.6, y: 1}
+    m_SensorSize: {x: 0.75, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7881,6 +7881,10 @@ PrefabInstance:
       propertyPath: heartCountText
       value: 
       objectReference: {fileID: 1542515}
+    - target: {fileID: 2047433619778600705, guid: 32ec784c301c145298f5f871aad34e9b, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4246307515295252541, guid: 32ec784c301c145298f5f871aad34e9b, type: 3}
       propertyPath: m_Name
       value: TitleSettingPopUp
