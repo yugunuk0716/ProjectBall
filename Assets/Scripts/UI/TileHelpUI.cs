@@ -68,6 +68,9 @@ public class TileHelpUI : UIBase
                 isMoving = false;
             });
             isViewing = !isViewing;
+
+            onBtn.DOComplete();
+            onBtn.transform.DORotate(new Vector3(0,0, onBtn.transform.localEulerAngles.z + 180), 0.2f);
         });
     }
 
