@@ -42,7 +42,7 @@ public class TileHelpUI : UIBase
 
     public override void Init()
     {
-        width = 1080 * ((float)Screen.width / Screen.height / 0.56f);
+        width = Screen.width > 1080 ? Screen.width : 1080;
 
         GetCanvasGroup();
         mainMap = GameObject.Find("MainMap").transform;

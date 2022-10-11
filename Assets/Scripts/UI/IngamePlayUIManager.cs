@@ -28,7 +28,7 @@ public class IngamePlayUIManager : UIBase
     float width = 0f;
     public override void Init()
     {
-        width = 1080 * ((float)Screen.width / Screen.height / 0.56f);
+        width = Screen.width > 1080 ? Screen.width : 1080;
 
         GetCanvasGroup();
         playUIs.ForEach((x) => x.Init());
@@ -74,15 +74,9 @@ public class IngamePlayUIManager : UIBase
 
     public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
-        float ratio = 1f;
+        width = Screen.width > 1080 ? Screen.width : 1080;
 
-        if (Screen.width < 1080)
-        {
-            ratio = 1080f / (float)Screen.width;
-            Debug.Log(ratio);
-        }
-
-        int targetPos = isSetPanelActive ? (int)(-width * ratio) : (int)(width * ratio);
+        int targetPos = isSetPanelActive ? (int)(-width) : (int)(width);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.5f).SetEase(Ease.OutCubic));

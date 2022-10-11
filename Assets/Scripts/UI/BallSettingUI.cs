@@ -28,8 +28,7 @@ public class BallSettingUI : UIBase
     float width = 0f;
     public override void Init()
     {
-        width = 1080 * ((float)Screen.width / Screen.height / 0.56f);
-
+        width = Screen.width > 1080 ? Screen.width : 1080;
 
         shootPanel.anchoredPosition = new Vector3(width, shootPanel.anchoredPosition.y, 0);
 
