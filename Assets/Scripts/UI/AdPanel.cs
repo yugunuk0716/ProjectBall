@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddPanel : UIBase
+public class AdPanel : UIBase
 {
     public Button watchButton;
     public Button cancleButton;
