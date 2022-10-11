@@ -25,14 +25,14 @@ public class Goal : ObjectTile
             bdp.PlayParticle();
         }
 
-        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
-
         if (!isChecked)
         {
             SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
             sm.Play("Flag");
             ResetFlag(true);
         }
+
+        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
     }
 
         

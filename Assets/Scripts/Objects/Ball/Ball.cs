@@ -42,16 +42,20 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public Color currentColor = Color.white;
 
-
     private ParticleSystem interactParticle;
 
-    private GameManager gm;
-    private StageManager sm;
+    private GameManager gm = null;
+    private StageManager sm = null;
 
-    private void Awake()
+    private void Start()
     {
         interactParticle = GetComponentInChildren<ParticleSystem>();
         tpCool = 0.1f;
+
+        gm = IsometricManager.Instance.GetManager<GameManager>();
+        sm = IsometricManager.Instance.GetManager<StageManager>();
+
+        Debug.Log(gm == null);
     }
 
     IEnumerator SetBaseVector()
@@ -101,10 +105,9 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void SetMove()
     {
-        if(gm == null)
+        if (gm == null)
         {
             gm = IsometricManager.Instance.GetManager<GameManager>();
-            sm = IsometricManager.Instance.GetManager<StageManager>();
         }
 
         if (!gameObject.activeSelf)
@@ -113,6 +116,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
         }
 
         myPos += direction;
+
         if (gm.tileDict.ContainsKey(myPos))
         {
             ObjectTile tile = gm.tileDict[myPos];
@@ -159,13 +163,15 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void Despawned()
     {
-        
-        Debug.Log("대체 어디서 쳐 ..");
+        if (gm == null)
+        {
+            gm = IsometricManager.Instance.GetManager<GameManager>();
+            sm = IsometricManager.Instance.GetManager<StageManager>();
+        }
 
         this.DOKill();
         speed = 0.4f;
         curActiveTime = 0;
-
 
         if(!sm.isMapLoading)
         {
@@ -173,7 +179,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
             gm.CheckClear();
             StopCoroutine(SetBaseVector());
         }
-
     }
 
     public void Spawned()
