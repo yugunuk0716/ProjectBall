@@ -37,7 +37,7 @@ public class GameOverUI : UIBase
         loadNextBtn.interactable = isClear;
         loadNextBtn.image.color = isClear ? Color.white : new Color(1,1,1, 0.4f);
         gameOverText.text = isClear ? "Clear!" : "Failed..";
-        recordText.text = $"Left Time : {0.ToString("F2")}";
+        recordText.text = $"Time Remaining : {0.ToString("F2")}";
     }
 
     public override void Init()
@@ -123,7 +123,7 @@ public class GameOverUI : UIBase
         reloadBtn.interactable = false;
         loadNextBtn.interactable = false;
 
-        recordText.text = $"Left Time : {clearTime.ToString("F2")}";
+        recordText.text = $"Time Remaining  : {clearTime.ToString("F2")}";
     
 
         yield return new WaitForSeconds(0.75f);
