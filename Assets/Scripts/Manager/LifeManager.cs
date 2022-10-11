@@ -48,7 +48,8 @@ public class LifeManager : ManagerBase
 
     public bool CanEnterStage()
     {
-        return heartCount > 0;
+        return true;
+        //return heartCount > 0;
     }
 
     public void EnterStage()
