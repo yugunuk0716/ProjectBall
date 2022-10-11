@@ -25,8 +25,11 @@ public class IngamePlayUIManager : UIBase
 
     Sequence seq;
 
+    float width = 0f;
     public override void Init()
     {
+        width = 1080 * ((float)Screen.width / Screen.height / 0.56f);
+
         GetCanvasGroup();
         playUIs.ForEach((x) => x.Init());
         playUIs.ForEach((x) =>
@@ -79,7 +82,7 @@ public class IngamePlayUIManager : UIBase
             Debug.Log(ratio);
         }
 
-        int targetPos = isSetPanelActive ? (int)(-Screen.width * ratio) : (int)(Screen.width * ratio);
+        int targetPos = isSetPanelActive ? (int)(-width * ratio) : (int)(width * ratio);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.5f).SetEase(Ease.OutCubic));

@@ -38,15 +38,17 @@ public class TileHelpUI : UIBase
         }
     }
 
-    float height;
+    float width;
 
     public override void Init()
     {
+        width = 1080 * ((float)Screen.width / Screen.height / 0.56f);
+
         GetCanvasGroup();
         mainMap = GameObject.Find("MainMap").transform;
         SetDict();
 
-        scrollView.anchoredPosition = new Vector3(1080, scrollView.anchoredPosition.y, 0);
+        scrollView.anchoredPosition = new Vector3(width, scrollView.anchoredPosition.y, 0);
 
         onBtn.onClick.AddListener(() =>
         {
@@ -56,7 +58,7 @@ public class TileHelpUI : UIBase
             }
 
             isMoving = true;
-            scrollView.DOAnchorPosX(isViewing ? 1080 : 0, 0.5f).SetEase(Ease.OutSine).OnComplete(() =>
+            scrollView.DOAnchorPosX(isViewing ? width : 0, 0.5f).SetEase(Ease.OutSine).OnComplete(() =>
             {
                 isMoving = false;
             });

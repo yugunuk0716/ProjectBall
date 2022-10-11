@@ -25,16 +25,13 @@ public class BallSettingUI : UIBase
 
     private UIManager um;
 
+    float width = 0f;
     public override void Init()
     {
-        float ratio = 1f;
+        width = 1080 * ((float)Screen.width / Screen.height / 0.56f);
 
-        if(Screen.width < 1080)
-        {
-            ratio = 1080f / (float)Screen.width;
-        }
 
-        shootPanel.anchoredPosition = new Vector3(Screen.width * ratio, shootPanel.anchoredPosition.y, 0);
+        shootPanel.anchoredPosition = new Vector3(width, shootPanel.anchoredPosition.y, 0);
 
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         um = IsometricManager.Instance.GetManager<UIManager>();

@@ -159,10 +159,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         gm.curDestroyedBallsCount++;
 
-        if (gm.maxBallCount == gm.curDestroyedBallsCount)
-        {
-            gm.CheckFail();
-        }
+        gm.CheckClear();
         StopCoroutine(SetBaseVector());
     }
 

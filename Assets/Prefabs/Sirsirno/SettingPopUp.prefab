@@ -1249,8 +1249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2735567b954d43d195e868cc4259dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  isUsing: 0
   menuButton: {fileID: 0}
   stageUIButton: {fileID: 5386980603712431422}
   resumeButton: {fileID: 1900651482827557766}

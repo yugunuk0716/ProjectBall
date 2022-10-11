@@ -94,8 +94,7 @@ public class GameManager : ManagerBase
 
     public void CheckFail() 
     {
-        Debug.Log("?");
-        if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
+        if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0 && curDestroyedBallsCount == maxBallCount)
         {
             StopGame(); 
             ActiveGameOverPanel(false);
@@ -163,6 +162,10 @@ public class GameManager : ManagerBase
             }
             ActiveGameOverPanel(true);
             OnClear(star, clearTime);
+        }
+        else
+        {
+            CheckFail();
         }
     }
 
