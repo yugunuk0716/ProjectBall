@@ -14,6 +14,9 @@ public class TitleUI : MonoBehaviour
     public float ratioY = 0f;
     public float moveDist = 0f;
 
+    private LifeManager lm;
+    private UIManager um;
+
     public void Start()
     {
         ratioY = (float)Screen.height / 1920;
@@ -22,7 +25,9 @@ public class TitleUI : MonoBehaviour
         TitleLogoMove();
         titleBtns[1].onClick.AddListener(ClickStartBtn);
         StartCoroutine(BtninteractableSet());
-        UIManager um = IsometricManager.Instance.GetManager<UIManager>();
+        um = IsometricManager.Instance.GetManager<UIManager>();
+        lm = IsometricManager.Instance.GetManager<LifeManager>();
+       
         titleBtns[0].onClick.AddListener(() =>
         {
             if (Input.touchCount > 1) return;
@@ -40,6 +45,14 @@ public class TitleUI : MonoBehaviour
     public void ClickStartBtn()
     {
         if (Input.touchCount > 1) return;
+
+        if (!lm.CanEnterStage())
+        {
+            print("광고보기");
+            um.FindUI("WatchAddPanel").ScreenOn(true);
+            return;
+        }
+        lm.EnterStage();
 
         titleBtns[1].interactable = false;
         

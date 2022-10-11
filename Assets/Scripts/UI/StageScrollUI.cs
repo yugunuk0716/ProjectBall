@@ -16,6 +16,8 @@ public class StageScrollUI : UIBase
     UIBase inGameUI;
     UIBase settingPanel;
     StageManager sm;
+    LifeManager lm;
+    UIManager um;
     public List<IntListBox> allContents = new List<IntListBox>();
 
     public TextMeshProUGUI heartCountText;
@@ -25,6 +27,8 @@ public class StageScrollUI : UIBase
     {
         GetCanvasGroup();
         sm = IsometricManager.Instance.GetManager<StageManager>();
+        lm = IsometricManager.Instance.GetManager<LifeManager>();
+        um = IsometricManager.Instance.GetManager<UIManager>();
         settingPanel = IsometricManager.Instance.GetManager<UIManager>().FindUI("SettingPopUp");
       
         closeBtn.onClick.AddListener(() => ScreenOn(false));
@@ -53,6 +57,7 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
+           
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
