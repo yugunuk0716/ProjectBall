@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CantEnterPanel : UIBase
 {
+    Button btn;
+
     public override void Init()
     {
+        btn = GetComponent<Button>();
+        btn.onClick.AddListener(() =>
+        {
+            ScreenOn(false);
+        });
+
         GetCanvasGroup();
 
     }
@@ -13,23 +22,12 @@ public class CantEnterPanel : UIBase
 
     public override void ScreenOn(bool on)
     {
-        if (on)
-        {
-            Invoke("SetFalse", 3f);
-        }
-
         base.ScreenOn(on);
     }
 
-    private void SetFalse()
-    {
-        ScreenOn(false);
-    }
-
-
     public override void Load()
     {
-
+        
     }
 
 

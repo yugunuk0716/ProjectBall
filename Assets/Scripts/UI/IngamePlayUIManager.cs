@@ -82,13 +82,17 @@ public class IngamePlayUIManager : UIBase
         int targetPos = isSetPanelActive ? (int)(-Screen.width * ratio) : (int)(Screen.width * ratio);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
-        seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
-        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.6f).SetDelay(0.2f).SetEase(Ease.OutBack).
+        seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.5f).SetEase(Ease.OutCubic));
+        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.4f).SetDelay(0.15f).SetEase(Ease.OutCubic).
             OnComplete(() =>
             {
-                retryBtn.gameObject.SetActive(isSetPanelActive);
                 isSetPanelActive = !isSetPanelActive;
             }));
+
+        seq.AppendInterval(2.5f).OnComplete(() =>
+        {
+            retryBtn.gameObject.SetActive(!isSetPanelActive);
+        });
     }
 
     public void BtnCloseUp(Image image1, Image image2)

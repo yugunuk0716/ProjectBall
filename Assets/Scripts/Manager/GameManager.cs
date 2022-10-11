@@ -23,7 +23,7 @@ public class GameManager : ManagerBase
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
-    [HideInInspector] public int curShootBallCount;
+    [HideInInspector] public int curDestroyedBallsCount;
     [HideInInspector] public int curSetBallCount;
     [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
@@ -57,7 +57,7 @@ public class GameManager : ManagerBase
 
     public override void Load()
     {
-        curShootBallCount = 0;
+        curDestroyedBallsCount = 0;
     }
 
     public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
@@ -94,10 +94,10 @@ public class GameManager : ManagerBase
 
     public void CheckFail() 
     {
+        Debug.Log("?");
         if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
         {
             StopGame(); 
-            SetTimerText("off", Color.white);
             ActiveGameOverPanel(false);
         }
     }

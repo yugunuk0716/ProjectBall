@@ -38,6 +38,8 @@ public class TileHelpUI : UIBase
         }
     }
 
+    float height;
+
     public override void Init()
     {
         GetCanvasGroup();
@@ -54,7 +56,7 @@ public class TileHelpUI : UIBase
             }
 
             isMoving = true;
-            scrollView.DOAnchorPosX(isViewing ? 1080 : 0, 0.65f).SetEase(Ease.OutSine).OnComplete(() =>
+            scrollView.DOAnchorPosX(isViewing ? 1080 : 0, 0.5f).SetEase(Ease.OutSine).OnComplete(() =>
             {
                 isMoving = false;
             });

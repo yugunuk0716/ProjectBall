@@ -14,6 +14,18 @@ public class LifeManager : ManagerBase
     private StageScrollUI ssUI;
     private int heartCount = 5;
 
+    private void Start()
+    {
+        Debug.Log("Start, Update 전부 지우기");
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            heartCount = 5;
+        }
+    }
+
     public override void Init()
     {
         heartCount = PlayerPrefs.GetInt("heartCount", 5);

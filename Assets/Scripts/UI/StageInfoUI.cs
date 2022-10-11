@@ -10,10 +10,12 @@ public class StageInfoUI : UIBase
     public Image[] starImages;
 
     private StageManager sm;
+    private LifeManager lm;
+
 
     public override void Init()
     {
-        
+       
     }
 
     public override void Load()
@@ -40,7 +42,16 @@ public class StageInfoUI : UIBase
         enterButton.onClick.RemoveAllListeners();
         enterButton.onClick.AddListener(() =>
         {
-            
+            if (lm == null) 
+            {
+                lm = IsometricManager.Instance.GetManager<LifeManager>();
+            }
+
+            if (!lm.CanEnterStage()) 
+            {
+                return;
+            }
+
             sm.LoadStage(stageIndex);
             ScreenOn(false);
             ssUI.ScreenOn(false);

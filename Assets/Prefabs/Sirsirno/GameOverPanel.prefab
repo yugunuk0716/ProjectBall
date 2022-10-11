@@ -3967,8 +3967,8 @@ MonoBehaviour:
   descCancleBtn: {fileID: 4827999319709276495}
   starList:
   - {fileID: 7456000330450639992}
-  - {fileID: 5193253053520234001}
   - {fileID: 8081668246440072921}
+  - {fileID: 5193253053520234001}
   isClear: 0
 --- !u!1 &8189751978794926945
 GameObject:

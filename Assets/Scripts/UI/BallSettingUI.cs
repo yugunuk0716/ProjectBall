@@ -143,11 +143,11 @@ public class BallSettingUI : UIBase
 
         shootBtn.interactable = false;
         SwitchUI(false);
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(0.8f);
 
         Transform[] targetPoints = targetPointContent.GetComponentsInChildren<Transform>(); // skip zero
 
-        float duration = 0.2f;
+        float duration = 0.16f;
         float minusDuration = duration / targetPoints.Length / 2;
 
         yield return null;
@@ -155,7 +155,7 @@ public class BallSettingUI : UIBase
         for (int i = 0; i < list.Count; i++)
         {
             list[i].transform.SetParent(targetPoints[i + 1]);
-            list[i].transform.DOMove(targetPoints[i + 1].position, 0.4f).SetEase(Ease.OutCubic);
+            list[i].transform.DOMove(targetPoints[i + 1].position, 0.35f).SetEase(Ease.OutCubic);
             yield return new WaitForSeconds(duration);
             duration -= minusDuration;
         }
@@ -178,7 +178,7 @@ public class BallSettingUI : UIBase
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(450, 0.8f).SetEase(Ease.OutCubic));
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
-        changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.8f).OnComplete(() =>
+        changeUISeq2.Join(shootBtn.transform.DOScale(new Vector3(1.5f, 1.5f, 0.8f), 0.8f).OnComplete(() =>
         {
             shootBtn.interactable = true;
             GameManager.canInteract = true;

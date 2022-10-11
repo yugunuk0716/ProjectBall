@@ -156,11 +156,10 @@ public class Ball : MonoBehaviour, IPoolableComponent
         speed = 0.4f;
         curActiveTime = 0;
 
-        curActiveTime = 0;
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        gm.curDestroyedBallsCount++;
 
-        //every ball is not in flag
-        if (gm.maxBallCount == gm.curShootBallCount)
+        if (gm.maxBallCount == gm.curDestroyedBallsCount)
         {
             gm.CheckFail();
         }
