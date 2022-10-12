@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.EventSystems;
+
 
 public class TileHelpUI : UIBase
 {
@@ -58,22 +60,29 @@ public class TileHelpUI : UIBase
 
         onBtn.onClick.AddListener(() =>
         {
-            if (isMoving)
-            {
-                return;
-            }
-
-            isMoving = true;
-            scrollView.DOAnchorPosX(isViewing ? width : 0, 0.5f).SetEase(Ease.OutSine).SetUpdate(true).OnComplete(() =>
-            {
-                isMoving = false;
-            });
-            isViewing = !isViewing;
-
-            onBtn.DOComplete();
-            onBtn.transform.DORotate(new Vector3(0, 0, onBtn.transform.localEulerAngles.z + 180), 0.2f);
+            MoveUI();
         });
 
+    }
+
+    private void MoveUI()
+    {
+        if (isMoving)
+        {
+            return;
+        }
+
+        isMoving = true;
+
+
+        scrollView.DOAnchorPosX(isViewing ? width : 0, 0.5f).SetEase(Ease.OutSine).SetUpdate(true).OnComplete(() =>
+        {
+            isMoving = false;
+        });
+        isViewing = !isViewing;
+
+        onBtn.DOComplete();
+        onBtn.transform.DORotate(new Vector3(0, 0, onBtn.transform.localEulerAngles.z + 180), 0.2f);
     }
 
     public override void Init()
@@ -95,4 +104,7 @@ public class TileHelpUI : UIBase
         List<ObjectTile> tiles = mainMap.GetComponentsInChildren<ObjectTile>().Distinct(new ObjectTileComparer()).ToList();
         SetTexts(tiles);
     }
+
+
+
 }

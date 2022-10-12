@@ -11,13 +11,8 @@ public class CantEnterPanel : UIBase
 
     bool isOpenning = false;
 
-    //float ratioY, ratioX;
-
     public override void Init()
     {
-        //ratioY = (float)Screen.height / 1920;
-        //ratioX = (float)Screen.width / 1080;
-
         bgImage.rectTransform.sizeDelta = new Vector2(880, 0);
         btn = GetComponent<Button>();
         btn.onClick.AddListener(() =>
@@ -43,7 +38,6 @@ public class CantEnterPanel : UIBase
 
         canvasGroup.interactable = on;
         canvasGroup.blocksRaycasts = on;
-        canvasGroup.alpha = on ? 1 : 0;
 
         float y = on ? 1110 : 0;
         if(on)
@@ -51,7 +45,10 @@ public class CantEnterPanel : UIBase
             bgImage.rectTransform.DOComplete(); 
             bgImage.rectTransform.sizeDelta = new Vector2(880, 0);
         }
-        bgImage.rectTransform.DOSizeDelta(new Vector2(880, y), 1f).SetEase(Ease.OutCubic).OnComplete(() =>
+
+
+        canvasGroup.DOFade(on ? 1 : 0, 0.5f);
+        bgImage.rectTransform.DOSizeDelta(new Vector2(880, y), 1f).SetEase(Ease.InOutBack).OnComplete(() =>
         {
             isOpenning = false;
         });

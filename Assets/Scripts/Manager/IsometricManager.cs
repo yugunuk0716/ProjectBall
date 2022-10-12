@@ -27,6 +27,7 @@ public class IsometricManager : MonoBehaviour
     public UnityEvent<int> AddHearts;
     public UnityEvent ShowRewardAD;
     public UnityEvent ShowinterstitialAD;
+    public UnityEvent NoAdsEvent;
 
     private void Awake()
     {

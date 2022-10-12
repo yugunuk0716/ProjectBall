@@ -101,6 +101,10 @@ public class ADManager : MonoBehaviour
             rewardedAd.Show();
             RequestRewards();
         }
+        else
+        {
+            IsometricManager.Instance.NoAdsEvent.Invoke();
+        }
     }
 
     private void RequestRewards()

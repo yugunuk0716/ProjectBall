@@ -14,6 +14,7 @@ public class LifeManager : ManagerBase
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
     private HeartProvideUI hpUI;
+    private HeartProvideUI naUI;
     private int heartCount = 5;
     private UIManager um;
 
@@ -21,6 +22,7 @@ public class LifeManager : ManagerBase
     {
         Debug.Log("Start, Update 전부 지우기");
         IsometricManager.Instance.AddHearts.AddListener(AddingHeart);
+        IsometricManager.Instance.NoAdsEvent.AddListener(OnNoAdvertiseUI);
     }
     private void Update()
     {
@@ -44,6 +46,7 @@ public class LifeManager : ManagerBase
         ssUI = um.FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
         tsUI = um.FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
         hpUI = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
+        naUI = um.FindUI("NoAnyAdPanel").GetComponent<HeartProvideUI>();
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
@@ -71,6 +74,9 @@ public class LifeManager : ManagerBase
             ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
             tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
         }
+        lastTime = DateTime.Now;
+        PlayerPrefs.SetString("startTime", lastTime.ToString());
+        PlayerPrefs.SetInt("heartCount", heartCount);
     }
 
     public override void Load()
@@ -136,7 +142,11 @@ public class LifeManager : ManagerBase
     private void OnHeartProvideUI()
     {
         hpUI.ScreenOn(true);
+        um.FindUI("WatchAddPanel").GetComponent<AdPanel>().ScreenOn(false);
     }
 
-                               
+    private void OnNoAdvertiseUI()
+    {
+        naUI.ScreenOn(true);
+    }
 }
