@@ -13,7 +13,7 @@ public class LifeManager : ManagerBase
 
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
-    private HeartProvideUI hpUIl
+    private HeartProvideUI hpUIl;
     private int heartCount = 5;
     private UIManager um;
 
