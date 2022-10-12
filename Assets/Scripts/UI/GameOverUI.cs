@@ -128,12 +128,43 @@ public class GameOverUI : UIBase
 
         yield return new WaitForSeconds(0.75f);
 
-        for (int i = 0; i < starCount; i++)
+
+        Sequence sequence = DOTween.Sequence();
+
+
+       if(starCount > 0)
         {
-            starList[i].gameObject.SetActive(true);
-            soundm.Play("Star");
-            yield return new WaitForSeconds(0.5f);
+            starList[0].gameObject.SetActive(true);
+            sequence.Append(starList[0].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+            {
+                soundm.Play("Star");
+                if(starCount > 1)
+                {
+                    starList[1].gameObject.SetActive(true);
+                }
+            }));
+            if(starCount > 1)
+            {
+                sequence.Append(starList[1].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+                {
+                    soundm.Play("Star");
+                    if(starCount > 2)
+                    {
+                        starList[2].gameObject.SetActive(true);
+                    }
+                }));
+            }
+            if(starCount > 2)
+            {
+                sequence.Append(starList[2].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+                {
+                    soundm.Play("Star");
+                }));
+            }
         }
+
+        
+
 
         gm.clearParticle_Left.Play();
         gm.clearParticle_Right.Play();
@@ -153,6 +184,14 @@ public class GameOverUI : UIBase
 
     public override void ScreenOn(bool on)
     {
+        if (!on)
+        {
+            starList.ForEach(x =>
+            {
+                x.gameObject.SetActive(false);
+                x.transform.localScale = Vector3.one * 3;
+            });
+        }
        
         base.ScreenOn(on);
     }
