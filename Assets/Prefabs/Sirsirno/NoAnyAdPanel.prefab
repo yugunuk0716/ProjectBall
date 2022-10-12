@@ -632,7 +632,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Heart is provided
+  m_text: 'No Advertise
+
+    Please try again
+
+    in a few minutes'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3f99c40c7b4424f13904863109ddac52, type: 2}
   m_sharedMaterial: {fileID: -8332483103806573361, guid: 3f99c40c7b4424f13904863109ddac52, type: 2}
@@ -713,9 +717,9 @@ GameObject:
   - component: {fileID: 4246307515295252528}
   - component: {fileID: 4246307515295252543}
   - component: {fileID: 2047433619778600705}
-  - component: {fileID: 3050305430913299632}
+  - component: {fileID: 161972512146599957}
   m_Layer: 5
-  m_Name: RewardSuppliedPanel
+  m_Name: NoAnyAdPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -792,7 +796,7 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &3050305430913299632
+--- !u!114 &161972512146599957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

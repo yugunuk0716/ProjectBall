@@ -14,6 +14,7 @@ public class LifeManager : ManagerBase
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
     private HeartProvideUI hpUIl;
+    private HeartProvideUI naUI;
     private int heartCount = 5;
     private UIManager um;
 
@@ -43,6 +44,7 @@ public class LifeManager : ManagerBase
         ssUI = um.FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
         tsUI = um.FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
         hpUIl = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
+        naUI = um.FindUI("NoAnyAdPanel").GetComponent<HeartProvideUI>();
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
@@ -131,5 +133,8 @@ public class LifeManager : ManagerBase
         hpUIl.ScreenOn(true);
     }
 
-                               
+    private void OnNoAdvertiseUI()
+    {
+        hpUIl.ScreenOn(true);
+    }
 }
