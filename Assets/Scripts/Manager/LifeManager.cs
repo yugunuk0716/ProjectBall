@@ -50,6 +50,7 @@ public class LifeManager : ManagerBase
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
+
         StartCoroutine(HeartCoolRoutine());
 
     }
@@ -93,7 +94,6 @@ public class LifeManager : ManagerBase
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(1f);
 
             if(heartCount != 5)
             {
@@ -114,6 +114,7 @@ public class LifeManager : ManagerBase
                 ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
                 tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
             }
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 

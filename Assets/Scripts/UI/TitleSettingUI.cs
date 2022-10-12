@@ -36,7 +36,8 @@ public class TitleSettingUI : UIBase
         if (isADSkip)
         {
             heartCountText.text = $"∞/∞";
-            heartCoolText.text = "∞:∞";
+            heartCoolText.text = "∞ : ∞";
+            return;
         }
 
         heartCountText.text = $"{count}/5";
