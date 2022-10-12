@@ -128,6 +128,10 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     public void BeginSwapping()
     {
         swapUI.ballControllUI = this;
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        swapUI.transform.position = pos;
+
         swapUI.On(true);
 
         this.order = 10;

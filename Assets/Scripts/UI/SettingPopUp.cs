@@ -28,6 +28,8 @@ public class SettingPopUp : UIBase
         GetCanvasGroup();
         menuButton.onClick.AddListener(() => ScreenOn(true));
         resumeButton.onClick.AddListener(() => ScreenOn(false));
+
+        TileHelpUI tileHelp = uimanager.FindUI("HelpPanel").GetComponent<TileHelpUI>();
         homeButton.onClick.AddListener(() => 
         {
             ScreenOn(false);
@@ -36,6 +38,9 @@ public class SettingPopUp : UIBase
             uimanager.canvas[0].DOFade(1, 0.5f).SetUpdate(true);
             
             uimanager.canvas[1].DOFade(0, 0.5f).SetUpdate(true);
+
+            tileHelp.MoveUI(false);
+
         });
 
         sideButton.onClick.AddListener(() => ScreenOn(false));
