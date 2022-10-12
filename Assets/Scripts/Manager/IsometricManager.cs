@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class IsometricManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class IsometricManager : MonoBehaviour
     public CinemachineVirtualCamera cvCam;
 
     private List<(float, float)> ratioPairList = new List<(float, float)>();
+
+    public UnityEvent<int> AddHearts;
 
     private void Awake()
     {
