@@ -6,7 +6,6 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine.EventSystems;
 
-
 public class TileHelpUI : UIBase
 {
     [SerializeField] Button onBtn;
@@ -21,7 +20,7 @@ public class TileHelpUI : UIBase
 
     private Transform mainMap;
 
-    float width;
+    public float width, start, end;
 
     public void SetTexts(List<ObjectTile> tiles)
     {
@@ -60,15 +59,67 @@ public class TileHelpUI : UIBase
 
         onBtn.onClick.AddListener(() =>
         {
-            MoveUI();
+            MoveUI(!isViewing);
         });
 
     }
 
-    private void MoveUI()
+    private void Update()
     {
-        if (isMoving)
+#if UNITY_ANDROID
+        if (Input.touchCount != 1)
         {
+            Debug.Log("ㅎㅇㅎㅇ");
+            return;
+        }
+
+        Vector3 pos = Input.GetTouch(0).position;
+
+        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            start = pos.x;
+        }
+
+        if (Input.GetTouch(0).phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject())
+        {
+            end = pos.x;
+
+            if(Mathf.Abs(start - end) > 100 && pos.y < Screen.height * 0.75f & pos.y > Screen.height * 0.25f)
+            {
+                bool on = start > end ? true : false;
+                MoveUI(on);
+            }
+        }
+#elif UNITY_EDITOR
+        if (Input.GetMouseButtonDown(0))
+        {
+            start = Input.mousePosition.x;
+        }
+
+        if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            if (Input.mousePosition.y < Screen.height * 0.75f && Input.mousePosition.y > Screen.height * 0.25f)
+            {
+                end = Input.mousePosition.x;
+
+                if (start > end)
+                {
+                    MoveUI(true);
+                }
+                else
+                {
+                    MoveUI(false);
+                }
+            }
+        }
+#endif
+    }
+
+    private void MoveUI(bool on)
+    {
+        if (isMoving || isViewing == on)
+        {
+            Debug.Log("왜..?");
             return;
         }
 
@@ -104,7 +155,5 @@ public class TileHelpUI : UIBase
         List<ObjectTile> tiles = mainMap.GetComponentsInChildren<ObjectTile>().Distinct(new ObjectTileComparer()).ToList();
         SetTexts(tiles);
     }
-
-
 
 }
