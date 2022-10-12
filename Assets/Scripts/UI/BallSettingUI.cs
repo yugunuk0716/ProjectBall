@@ -69,6 +69,8 @@ public class BallSettingUI : UIBase
             ballUI.directionSetBtn.onClick.RemoveAllListeners();
             ballUI.directionSetBtn.onClick.AddListener(() =>
             {
+                if (Input.touchCount > 1) return;
+
                 if (isAdded) // return
                 {
                     ballUI.SetDirection(TileDirection.RIGHTDOWN, false);
