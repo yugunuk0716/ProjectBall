@@ -42,7 +42,7 @@ public class LifeManager : ManagerBase
         um = IsometricManager.Instance.GetManager<UIManager>();
         ssUI = um.FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
         tsUI = um.FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
-        hpUIl = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
+        //hpUIl = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 

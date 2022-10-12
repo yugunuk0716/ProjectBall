@@ -1545,8 +1545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df055ea496a44e089e12754abcd1b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 2
-  isUsing: 0
   stageIndexText: {fileID: 7978084166830699558}
   enterButton: {fileID: 7978084166113017686}
   cancleButton: {fileID: 6164578880216978112}
