@@ -72,13 +72,11 @@ public class SelectDirectionUI : UIBase
         isSelecting = on;
         DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.75f).SetUpdate(true);
 
-        myImage.rectTransform.DOSizeDelta(new Vector2(width, on ? height : 0), 0.75f).SetUpdate(true).OnComplete(() =>
+        myImage.rectTransform.DOSizeDelta(new Vector2(width, on ? height : 0), 0.75f).SetUpdate(true);
+        if (on)
         {
-            if (on)
-            {
-                mapLoadVideoPlayer.PlayVideo();
-            }
-        });
+            mapLoadVideoPlayer.PlayVideo();
+        }
         
     }
 
