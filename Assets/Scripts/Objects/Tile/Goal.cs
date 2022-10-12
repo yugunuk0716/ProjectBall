@@ -19,24 +19,20 @@ public class Goal : ObjectTile
     {
         BallDestroyParticle bdp = GameObjectPoolManager.Instance.GetGameObject("Effects/BallDestroyParticle", GameObjectPoolManager.Instance.transform).GetComponent<BallDestroyParticle>();
 
-
         if (bdp != null)
         {
             bdp.transform.position = tb.transform.position;
             bdp.PlayParticle();
         }
-        else
-        {
-        }
-        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
 
         if (!isChecked)
         {
             SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
             sm.Play("Flag");
             ResetFlag(true);
-            IsometricManager.Instance.GetManager<GameManager>().CheckClear();
         }
+
+        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
     }
 
         

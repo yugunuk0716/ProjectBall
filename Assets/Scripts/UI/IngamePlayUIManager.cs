@@ -25,8 +25,18 @@ public class IngamePlayUIManager : UIBase
 
     Sequence seq;
 
-    public override void Init()
+    float width;
+    
+    IEnumerator CoInit()
     {
+        yield return null;
+        width = transform.root.GetComponent<RectTransform>().sizeDelta.x;
+
+        if (Screen.width > width)
+        {
+            width = Screen.width;
+        }
+
         GetCanvasGroup();
         playUIs.ForEach((x) => x.Init());
         playUIs.ForEach((x) =>
@@ -42,11 +52,16 @@ public class IngamePlayUIManager : UIBase
 
         retryBtn.onClick.AddListener(() =>
         {
-            if(GameManager.canInteract)
+            if (GameManager.canInteract)
             {
                 sm.LoadStage(sm.stageIndex);
             }
         });
+    }
+    
+    public override void Init()
+    {
+        StartCoroutine(CoInit());
     }
 
     public override void Load()
@@ -55,15 +70,15 @@ public class IngamePlayUIManager : UIBase
 
     }
 
-    private void SwitchUI(bool moveLeft, bool isForLoad) // 왼쪽으로 가나? 로딩할때 함수가 실행되는가?
+    private void SwitchUI(bool moveLeft, bool isForLoad) 
     {
         if (isForLoad && isSetPanelActive) return;
 
-        if (!moveLeft) // 슛 패널 켜기
+        if (!moveLeft)
         {
             MoveUI(shootPanel, settingPanel);
         }
-        else        // 세팅 패널 켜기
+        else     
         {
             MoveUI(settingPanel, shootPanel);
         }
@@ -71,23 +86,20 @@ public class IngamePlayUIManager : UIBase
 
     public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
-        float ratio = 1f;
-
-        if (Screen.width < 1080)
-        {
-            ratio = 1080f / (float)Screen.width;
-            Debug.Log(ratio);
-        }
-
-        int targetPos = isSetPanelActive ? (int)(-Screen.width * ratio) : (int)(Screen.width * ratio);
+        int targetPos = isSetPanelActive ? (int)(-width) : (int)(width);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
-        seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.6f).SetEase(Ease.OutCubic));
-        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.6f).SetDelay(0.2f).SetEase(Ease.OutBack).
+        seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.5f).SetEase(Ease.OutCubic));
+        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.4f).SetDelay(0.15f).SetEase(Ease.OutCubic).
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
             }));
+
+        seq.AppendInterval(2.5f).OnComplete(() =>
+        {
+            retryBtn.gameObject.SetActive(!isSetPanelActive);
+        });
     }
 
     public void BtnCloseUp(Image image1, Image image2)

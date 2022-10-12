@@ -70,6 +70,7 @@ public class IsometricManager : MonoBehaviour
         managers.Add(gameObject.AddComponent<SaveManager>());
         managers.Add(gameObject.AddComponent<SoundManager>());
         managers.Add(gameObject.AddComponent<TutorialManager>());
+        managers.Add(gameObject.AddComponent<LifeManager>());
 
         Application.targetFrameRate = 300;
 
@@ -82,14 +83,12 @@ public class IsometricManager : MonoBehaviour
             FirstCall();
             tutoCanvas.interactable = true;
             tutoCanvas.blocksRaycasts = true;
-            Debug.Log("최초실행");
         }
         else
         {
             
             tutoCanvas.interactable = false;
             tutoCanvas.blocksRaycasts = false; 
-            Debug.Log("최초실행 아님");
         }
 
 
@@ -111,7 +110,7 @@ public class IsometricManager : MonoBehaviour
 
     private void FirstCall()
     {
-        PlayerPrefs.SetInt("ClearMapsCount", 1);
+        PlayerPrefs.SetInt("ClearMapsCount", 65);
         PlayerPrefs.SetInt("IsFirst", 0);
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>
@@ -121,7 +120,7 @@ public class IsometricManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public static Vector2 GetIsoDir(TileDirection dir) // 등각투형에 걸맞는 벡터로..
+    public static Vector2 GetIsoDir(TileDirection dir) 
     {
         Vector2 vec = Vector2.zero;
         switch (dir)

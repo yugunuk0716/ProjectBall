@@ -10,10 +10,13 @@ public class StageInfoUI : UIBase
     public Image[] starImages;
 
     private StageManager sm;
+    private LifeManager lm;
+    private UIManager um;
+
 
     public override void Init()
     {
-        
+       
     }
 
     public override void Load()
@@ -40,7 +43,20 @@ public class StageInfoUI : UIBase
         enterButton.onClick.RemoveAllListeners();
         enterButton.onClick.AddListener(() =>
         {
-            
+            if (lm == null || um == null) 
+            {
+                lm = IsometricManager.Instance.GetManager<LifeManager>();
+                um = IsometricManager.Instance.GetManager<UIManager>();
+            }
+
+            if (!lm.CanEnterStage())
+            {
+                print("광고보기");
+                um.FindUI("WatchAddPanel").ScreenOn(true);
+                return;
+            }
+            lm.EnterStage();
+
             sm.LoadStage(stageIndex);
             ScreenOn(false);
             ssUI.ScreenOn(false);

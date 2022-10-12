@@ -39,15 +39,17 @@ public class SelectDirectionUI : UIBase
 
         
 
-        for (int i = 0; i< selectDirectionBtns.Count; i++) // 0번은 Nothing 들어갑니다.
+        for (int i = 0; i< selectDirectionBtns.Count; i++) 
         {
             int index = 1;
+            for (int j = 0; j < i; j++) index <<= 1;
 
-            for (int j = 0; j < i; j++)
-                index <<= 1;
             Animator anim = selectDirectionBtns[i].GetComponentInChildren<Animator>();
+
             selectDirectionBtns[i].onClick.AddListener(() =>
             {
+                if (Input.touchCount > 1) return;
+
                 isSelecting = false;
                 gm.curSetBallCount++;
                 anim.SetTrigger("OnClick");
@@ -57,6 +59,8 @@ public class SelectDirectionUI : UIBase
                 ballControllUI.ball.shootDir = (TileDirection)(index);
 
                 ballControllUI.SetDirection(ballControllUI.ball.shootDir);
+
+                ballControllUI = null;
             });
         }
     }
@@ -68,11 +72,14 @@ public class SelectDirectionUI : UIBase
         isSelecting = on;
         DOTween.To(() => canvasGroup.alpha, a => canvasGroup.alpha = a, on ? 1 : 0, 0.75f).SetUpdate(true);
 
-        myImage.rectTransform.DOSizeDelta(new Vector2(width, on ? height : 0), 0.75f);
-        if (on)
+        myImage.rectTransform.DOSizeDelta(new Vector2(width, on ? height : 0), 0.75f).SetUpdate(true).OnComplete(() =>
         {
-            mapLoadVideoPlayer.PlayVideo();
-        }
+            if (on)
+            {
+                mapLoadVideoPlayer.PlayVideo();
+            }
+        });
+        
     }
 
     public override void Load()

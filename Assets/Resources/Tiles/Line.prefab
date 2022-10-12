@@ -284,12 +284,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataString: 
-  myType: 0
+  myType: 9
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
   btnIndex: 0
   btnString: 
+  isTransitionTile: 0
   LT: {fileID: 394979104203436661}
   RT: {fileID: 3579097355650007427}
   RB: {fileID: 1874229636779344708}

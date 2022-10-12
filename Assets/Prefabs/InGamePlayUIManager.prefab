@@ -137,7 +137,6 @@ MonoBehaviour:
   - {fileID: 6203848044275033492}
   - {fileID: 6328076305350715302}
   retryBtn: {fileID: 0}
-  repeatImg: {fileID: 0}
 --- !u!225 &4253630776959566310
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -419,6 +418,10 @@ PrefabInstance:
     - target: {fileID: 3121602689619010340, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_Name
       value: SelectDirectionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3121602689619010340, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3121602689619010363, guid: 55389c70a251e8547b59ed942b66d05e, type: 3}
       propertyPath: m_Pivot.x

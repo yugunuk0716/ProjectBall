@@ -46,12 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataString: 
-  myType: 10
+  myType: 8
   worldPos: {x: 0, y: 0}
   keyPos: {x: 0, y: 0}
   gridPos: {x: 0, y: 0, z: 0}
   btnIndex: 0
   btnString: 
+  isTransitionTile: 0
   target: []
   spriteList:
   - {fileID: 1911631213, guid: 18ba94ed2b22fc6478351ce480d47275, type: 3}

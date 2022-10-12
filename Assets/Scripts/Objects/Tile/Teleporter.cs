@@ -54,10 +54,6 @@ public class Teleporter : ObjectTile
                         sr.sprite = mySprite[portalIndex];
                         tp.sr.sprite = mySprite[portalIndex];
                     }
-                    else
-                    {
-                        Debug.LogError("스프라이트 배열이 비었어");
-                    }
                     pairTeleporter = tp;
                 }
             }

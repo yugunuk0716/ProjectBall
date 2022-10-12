@@ -44,7 +44,7 @@ public class BallAfterImage : MonoBehaviour
         for (int i = 0; i < renderers.Length; i++) SetSprite(i, renderers);
         for (int i = 0; i < renderers2.Length; i++) SetSprite(i, renderers2);
 
-        //OnEnable에서 처음엔 인식 못하게 막아뒀음
+        //at OnEnable, first time block
         StartCoroutine(MoveAfterImageEffect(renderers2));
         StartCoroutine(RotateAfterImageEffect(renderers));
         StartCoroutine(CallMyAfterImages(renderers));

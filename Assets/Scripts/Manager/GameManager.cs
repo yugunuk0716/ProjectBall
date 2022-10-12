@@ -13,7 +13,7 @@ public class GameManager : ManagerBase
     public List<ButtonTile> buttonTileList = new List<ButtonTile>();
 
     public List<TileDirection> lastBallList  = new List<TileDirection>();
-    public List<BallControllUI> ballUIList = new List<BallControllUI>(); // 삭제시킬 UI 리스트?
+    public List<BallControllUI> ballUIList = new List<BallControllUI>(); 
     public List<Ball> usableBallList = new List<Ball>();
 
     public Dictionary<Vector2, ObjectTile> tileDict = new Dictionary<Vector2, ObjectTile>();
@@ -23,7 +23,7 @@ public class GameManager : ManagerBase
 
     public int checkedFlags = 0;
     [HideInInspector] public int maxBallCount;
-    [HideInInspector] public int curShootBallCount;
+    [HideInInspector] public int curDestroyedBallsCount;
     [HideInInspector] public int curSetBallCount;
     [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
@@ -37,7 +37,7 @@ public class GameManager : ManagerBase
     public Action<float> SetTimerSize;
     public Action<int> SetStageText;
     public Action<Ball, bool, int> MakeNewBallUI;
-    public Action<int> OnClear;
+    public Action<int,float> OnClear;
     public Action Shoot;
     public Action UpdateUIContents;
     public Action TakeMapLoadVideo;
@@ -57,7 +57,7 @@ public class GameManager : ManagerBase
 
     public override void Load()
     {
-        curShootBallCount = 0;
+        curDestroyedBallsCount = 0;
     }
 
     public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
@@ -94,10 +94,9 @@ public class GameManager : ManagerBase
 
     public void CheckFail() 
     {
-        if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0)
+        if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0 && curDestroyedBallsCount == maxBallCount)
         {
-            StopGame(); // 리셋 먼저하면 timerCo가 가리키는 포인터가 달라지는 듯?
-            SetTimerText("off", Color.white);
+            StopGame(); 
             ActiveGameOverPanel(false);
         }
     }
@@ -156,13 +155,17 @@ public class GameManager : ManagerBase
             int star = sm.CalcStar(clearTime);
             sm.SaveStar(sm.stageIndex - 1, star); 
 
-            if(sm.stageIndex - 1 == sm.clearMapCount) // 맨 마지막걸 깨야  다음거 열어줘야 하니까!
+            if(sm.stageIndex - 1 == sm.clearMapCount)
             {
                 sm.clearMapCount++;
                 PlayerPrefs.SetInt("ClearMapsCount", sm.clearMapCount);
             }
             ActiveGameOverPanel(true);
-            OnClear(star);
+            OnClear(star, clearTime);
+        }
+        else
+        {
+            CheckFail();
         }
     }
 

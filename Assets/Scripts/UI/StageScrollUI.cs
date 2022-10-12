@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AirFishLab.ScrollingList.Demo;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,18 +16,25 @@ public class StageScrollUI : UIBase
     UIBase inGameUI;
     UIBase settingPanel;
     StageManager sm;
+    LifeManager lm;
+    UIManager um;
     public List<IntListBox> allContents = new List<IntListBox>();
+
+    public TextMeshProUGUI heartCountText;
+    public TextMeshProUGUI heartCoolText;
 
     public override void Init()
     {
         GetCanvasGroup();
         sm = IsometricManager.Instance.GetManager<StageManager>();
+        lm = IsometricManager.Instance.GetManager<LifeManager>();
+        um = IsometricManager.Instance.GetManager<UIManager>();
         settingPanel = IsometricManager.Instance.GetManager<UIManager>().FindUI("SettingPopUp");
       
         closeBtn.onClick.AddListener(() => ScreenOn(false));
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
 
-        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x) =>
+        IsometricManager.Instance.GetManager<GameManager>().OnClear += (x, y) =>
         {
             allContents.ForEach(c => c.UpdateContent());
         };
@@ -49,6 +57,7 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
+           
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);
@@ -67,6 +76,13 @@ public class StageScrollUI : UIBase
         }
         inGameUI.ScreenOn(!on);
         base.ScreenOn(on);
+    }
+
+
+    public void UpdateHeartText(int count, string timer)
+    {
+        heartCountText.text = $"{count}/5";
+        heartCoolText.text = timer;
     }
 
     public override void Load()

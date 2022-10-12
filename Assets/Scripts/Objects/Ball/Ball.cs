@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
 {
     public Animator anim;
     public SpriteRenderer sr;
-    public Sprite uiSprite; // UI에 적용할 스프라이트, 공처럼 생김!
+    public Sprite uiSprite; // UI sprite
 
     public Animator slowAnim;
     public GameObject spriteObject;
@@ -42,13 +42,20 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public Color currentColor = Color.white;
 
-
     private ParticleSystem interactParticle;
 
-    private void Awake()
+    private GameManager gm = null;
+    private StageManager sm = null;
+
+    private void Start()
     {
         interactParticle = GetComponentInChildren<ParticleSystem>();
         tpCool = 0.1f;
+
+        gm = IsometricManager.Instance.GetManager<GameManager>();
+        sm = IsometricManager.Instance.GetManager<StageManager>();
+
+        Debug.Log(gm == null);
     }
 
     IEnumerator SetBaseVector()
@@ -98,14 +105,18 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void SetMove()
     {
+        if (gm == null)
+        {
+            gm = IsometricManager.Instance.GetManager<GameManager>();
+        }
+
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }
 
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
         myPos += direction;
+
         if (gm.tileDict.ContainsKey(myPos))
         {
             ObjectTile tile = gm.tileDict[myPos];
@@ -152,19 +163,22 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void Despawned()
     {
+        if (gm == null)
+        {
+            gm = IsometricManager.Instance.GetManager<GameManager>();
+            sm = IsometricManager.Instance.GetManager<StageManager>();
+        }
+
         this.DOKill();
         speed = 0.4f;
         curActiveTime = 0;
 
-        curActiveTime = 0;
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-
-        //혹시 한명의 바보정도는 4개중 하나도 못 맞출 수 있으니까..
-        if (gm.maxBallCount == gm.curShootBallCount)
+        if(!sm.isMapLoading)
         {
-            gm.CheckFail();
+            gm.curDestroyedBallsCount++;
+            gm.CheckClear();
+            StopCoroutine(SetBaseVector());
         }
-        StopCoroutine(SetBaseVector());
     }
 
     public void Spawned()
