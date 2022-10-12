@@ -40,20 +40,15 @@ public class TileHelpUI : UIBase
         }
     }
 
-    public override void Init()
+    IEnumerator CoInit()
     {
+        yield return null;
         width = transform.root.GetComponent<RectTransform>().sizeDelta.x;
 
-        Debug.Log(width);
-        if (width < 1080)
+        if (Screen.width > width)
         {
-            width = 1080 * 1080 / Screen.width;
+            width = Screen.width;
         }
-        else
-        {
-            width *= (float)Screen.width / Screen.height / 0.5625f * ((float)1080 / Screen.width);
-        }
-        Debug.Log(width);
 
         GetCanvasGroup();
         mainMap = GameObject.Find("MainMap").transform;
@@ -76,8 +71,14 @@ public class TileHelpUI : UIBase
             isViewing = !isViewing;
 
             onBtn.DOComplete();
-            onBtn.transform.DORotate(new Vector3(0,0, onBtn.transform.localEulerAngles.z + 180), 0.2f);
+            onBtn.transform.DORotate(new Vector3(0, 0, onBtn.transform.localEulerAngles.z + 180), 0.2f);
         });
+
+    }
+
+    public override void Init()
+    {
+        StartCoroutine(CoInit());
     }
 
     public void SetDict()

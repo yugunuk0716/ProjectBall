@@ -26,17 +26,15 @@ public class IngamePlayUIManager : UIBase
     Sequence seq;
 
     float width;
-    public override void Init()
+    
+    IEnumerator CoInit()
     {
-        width = transform.root.GetComponent<RectTransform>().rect.width;
+        yield return null;
+        width = transform.root.GetComponent<RectTransform>().sizeDelta.x;
 
-        if (width < 1080)
+        if (Screen.width > width)
         {
-            width = 1080 * 1080 / Screen.width;
-        }
-        else
-        {
-            width *= (float)Screen.width / Screen.height / 0.5625f * ((float)1080 / Screen.width);
+            width = Screen.width;
         }
 
         GetCanvasGroup();
@@ -54,11 +52,16 @@ public class IngamePlayUIManager : UIBase
 
         retryBtn.onClick.AddListener(() =>
         {
-            if(GameManager.canInteract)
+            if (GameManager.canInteract)
             {
                 sm.LoadStage(sm.stageIndex);
             }
         });
+    }
+    
+    public override void Init()
+    {
+        StartCoroutine(CoInit());
     }
 
     public override void Load()

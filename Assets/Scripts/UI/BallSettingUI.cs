@@ -27,21 +27,18 @@ public class BallSettingUI : UIBase
 
     float width = 0f;
     float heightDevideFive;
-    
-    public override void Init()
+
+    IEnumerator CoInit()
     {
-        width = transform.root.GetComponent<RectTransform>().rect.width;
+        yield return null;
+        width = transform.root.GetComponent<RectTransform>().sizeDelta.x;
 
-        if (width < 1080)
+        if (Screen.width > width)
         {
-            width = 1080 * 1080 / Screen.width;
-        }
-        else
-        {
-            width *= (float)Screen.width / Screen.height / 0.5625f * ((float)1080 / Screen.width);
+            width = Screen.width;
         }
 
-        heightDevideFive = Screen.height > 1920 ? Screen.height / 6 : 350;
+        heightDevideFive = 350;
 
         shootPanel.anchoredPosition = new Vector3(width, shootPanel.anchoredPosition.y, 0);
 
@@ -52,7 +49,7 @@ public class BallSettingUI : UIBase
         {
             BallControllUI ballUI = GameObjectPoolManager.Instance.GetGameObject("UIs/BallControllUI", GameObjectPoolManager.Instance.transform).GetComponent<BallControllUI>();
             ballUI.transform.SetParent(ballContent);
-            ballUI.transform.localPosition = new Vector3(0,0, 0); 
+            ballUI.transform.localPosition = new Vector3(0, 0, 0);
             ballUI.transform.localScale = Vector3.one;
             ballUI.order = index;
             ballUI.swapUI = swapUi;
@@ -79,7 +76,7 @@ public class BallSettingUI : UIBase
                 }
                 else // add
                 {
-                    if(selectDirectionUI.ballControllUI == null)
+                    if (selectDirectionUI.ballControllUI == null)
                     {
                         selectDirectionUI.Set(ballUI);
                         selectDirectionUI.ScreenOn(true);
@@ -89,10 +86,11 @@ public class BallSettingUI : UIBase
                 isAdded = !isAdded;
             });
         };
-
         confirmBtn.onClick.AddListener(() =>
         {
             if (!GameManager.canInteract || selectDirectionUI.isSelecting) return;
+
+
 
             if (Input.touchCount > 1) return;
 
@@ -109,8 +107,12 @@ public class BallSettingUI : UIBase
             });
             StartCoroutine(MoveBallUis(gm.ballUIList));
         });
-
         shootBtn.onClick.AddListener(() => gm.Shoot()); // press confirm button, add listner shoot;
+    }
+
+    public override void Init()
+    {
+        StartCoroutine(CoInit());
     }
 
     public override void Load()

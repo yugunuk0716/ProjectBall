@@ -112,6 +112,10 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         {
             swapUI.OnEndDrag(eventData);
         }
+        else
+        {
+            GameManager.canInteract = true;
+        }
 
         pressedTime = 0f;
     }
