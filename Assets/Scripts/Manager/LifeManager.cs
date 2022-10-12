@@ -18,6 +18,7 @@ public class LifeManager : ManagerBase
     private void Start()
     {
         Debug.Log("Start, Update 전부 지우기");
+        IsometricManager.Instance.AddHearts.AddListener(AddingHeart);
     }
     private void Update()
     {
@@ -46,10 +47,15 @@ public class LifeManager : ManagerBase
 
     }
 
+    public void AddingHeart(int count)
+    {
+        heartCount += count;
+    }
+
     public bool CanEnterStage()
     {
-        return true;
-        //return heartCount > 0;
+        //return true;
+        return heartCount > 0;
     }
 
     public void EnterStage()

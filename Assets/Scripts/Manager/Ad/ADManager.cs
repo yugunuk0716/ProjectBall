@@ -12,6 +12,8 @@ public class ADManager : MonoBehaviour
     public void Awake()
     {
         MobileAds.Initialize(initStatus => { });
+
+        IsometricManager.Instance.RequestRewardAd.AddListener(RequestRewards);
     }
 
     public void Start()
@@ -23,6 +25,8 @@ public class ADManager : MonoBehaviour
 
     private void RequestRewards()
     {
+        print("리워드 광고 요청");
+        
         #if UNITY_ANDROID
         string adUnitId = "ca-app-pub-3131514107827460/7431890272";
 #elif UNITY_IPHONE
@@ -56,6 +60,7 @@ public class ADManager : MonoBehaviour
     public void HandleRewardedAdLoaded(object sender, EventArgs args)
     {
         print("HandleRewardedAdLoaded event received");
+        rewardedAd.Show();
     }
 
     public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
@@ -90,13 +95,14 @@ public class ADManager : MonoBehaviour
             "HandleRewardedAdRewarded event received for "
                         + amount.ToString() + " " + type);
 
+
         if(type.ToLower().Contains("heart"))
         {
             IsometricManager.Instance.AddHearts.Invoke((int)amount);
         }
         else
         {
-            print("type error");
+            print("type error :" + type);
         }
     }
 

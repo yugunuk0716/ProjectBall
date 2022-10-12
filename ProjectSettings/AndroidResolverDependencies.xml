@@ -4,7 +4,9 @@
     <package>androidx.lifecycle:lifecycle-process:2.4.1</package>
     <package>com.google.android.gms:play-services-ads:21.0.0</package>
   </packages>
-  <files />
+  <files>
+    <file>Assets/Plugins/Android/androidx.lifecycle.lifecycle-livedata-2.1.0.aar</file>
+  </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
     <setting name="bundleId" value="com.DefaultCompany.ProjectBall" />
