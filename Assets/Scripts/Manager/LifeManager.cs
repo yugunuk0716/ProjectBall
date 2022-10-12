@@ -13,7 +13,9 @@ public class LifeManager : ManagerBase
 
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
+    private HeartProvideUI hpUIl
     private int heartCount = 5;
+    private UIManager um;
 
     private void Start()
     {
@@ -37,8 +39,10 @@ public class LifeManager : ManagerBase
         TimeSpan timeDif = curTime - lastTime;
        
         int totalSec  = (int)timeDif.TotalSeconds;
-        ssUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
-        tsUI = IsometricManager.Instance.GetManager<UIManager>().FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
+        um = IsometricManager.Instance.GetManager<UIManager>();
+        ssUI = um.FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
+        tsUI = um.FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
+        hpUIl = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
@@ -121,5 +125,11 @@ public class LifeManager : ManagerBase
         PlayerPrefs.SetString("startTime", lastTime.ToString());
         PlayerPrefs.SetInt("heartCount", heartCount);
     }
+
+    private void OnHeartProvideUI()
+    {
+        hpUIl.ScreenOn(true);
+    }
+
                                
 }
