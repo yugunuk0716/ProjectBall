@@ -15,7 +15,7 @@ public class AdPanel : UIBase
         watchButton.onClick.AddListener(() =>
         {
             //print("리워드 광고 요청");
-            IsometricManager.Instance.RequestRewardAd.Invoke();
+            IsometricManager.Instance.ShowRewardAD.Invoke();
         });
     }
 

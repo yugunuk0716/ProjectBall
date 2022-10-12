@@ -25,7 +25,8 @@ public class IsometricManager : MonoBehaviour
     private List<(float, float)> ratioPairList = new List<(float, float)>();
 
     public UnityEvent<int> AddHearts;
-    public UnityEvent RequestRewardAd;
+    public UnityEvent ShowRewardAD;
+    public UnityEvent ShowinterstitialAD;
 
     private void Awake()
     {

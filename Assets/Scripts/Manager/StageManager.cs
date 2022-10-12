@@ -136,6 +136,7 @@ public class StageManager : ManagerBase
     IEnumerator WaitUntilObjectTileCreated(Action callBack)
     {
         yield return new WaitForSeconds(1.5f);
+        IsometricManager.Instance.ShowinterstitialAD.Invoke();
         isMapLoading = false;
         callBack();
     }

@@ -1,31 +1,13 @@
 {
-    "m_SelectedDeviceId": "R54NA03HB9B",
+    "m_SelectedDeviceId": "R3CT80DBKVA",
     "m_SelectedPackage": {
-        "deviceId": "R54NA03HB9B",
+        "deviceId": "R3CT80DBKVA",
         "name": "com.DefaultCompany.ProjectBall",
-        "processId": 20700,
+        "processId": 10850,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "R3CT80DBKVA",
-            "name": "com.DefaultCompany.ProjectBall",
-            "processId": 22099,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CT80DBKVA",
-            "name": "com.DefaultCompany.ProjectBall",
-            "processId": 10600,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CT80DBKVA",
-            "name": "com.DefaultCompany.ProjectBall",
-            "processId": 21809,
-            "exited": true
-        },
         {
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
@@ -36,12 +18,30 @@
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 12991,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CT80DBKVA",
             "name": "com.DefaultCompany.ProjectBall",
             "processId": 23497,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.sec.android.app.launcher",
+            "processId": 3693,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 10183,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CT80DBKVA",
+            "name": "com.DefaultCompany.ProjectBall",
+            "processId": 10850,
             "exited": false
         },
         {
@@ -161,7 +161,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -177,7 +177,7 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",

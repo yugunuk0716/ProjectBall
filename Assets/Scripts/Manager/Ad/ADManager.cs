@@ -7,31 +7,108 @@ using System;
 public class ADManager : MonoBehaviour
 {
     private RewardedAd rewardedAd;
+    private InterstitialAd interstitial;
 
 
     public void Awake()
     {
         MobileAds.Initialize(initStatus => { });
+        
+        RequestInterstitial();
+        RequestRewards();
 
-        IsometricManager.Instance.RequestRewardAd.AddListener(RequestRewards);
+        IsometricManager.Instance.ShowRewardAD.AddListener(ShowReward);
+        IsometricManager.Instance.ShowinterstitialAD.AddListener(ShowInterstitial);
     }
 
-    public void Start()
+
+    #region 전면광고
+
+    public void ShowInterstitial()
     {
+        int a = UnityEngine.Random.Range(0, 101);
+
+
+        if (interstitial.IsLoaded() && a < 20)
+        {
+            interstitial.Show();
+            RequestInterstitial();
+        }
+
+        print(a);
     }
 
-    
-    
+
+    public void RequestInterstitial()
+    {
+
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-3131514107827460/4392424279";
+#elif UNITY_IPHONE
+            string adUnitId = "unexpected_platform";
+#else
+            string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+#endif
+
+        // Initialize an InterstitialAd.
+        interstitial = new InterstitialAd(adUnitId);
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the interstitial with the request.
+        interstitial.LoadAd(request);
+
+        // Called when an ad request has successfully loaded.
+        interstitial.OnAdLoaded += HandleOnAdLoaded;
+        // Called when an ad request failed to load.
+        interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+        // Called when an ad is shown.
+        interstitial.OnAdOpening += HandleOnAdOpening;
+        // Called when the ad is closed.
+        interstitial.OnAdClosed += HandleOnAdClosed;
+    }
+
+    public void HandleOnAdLoaded(object sender, EventArgs args)
+    {
+        print("HandleAdLoaded event received");
+        
+    }
+
+    public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        print("HandleFailedToReceiveAd event received with message: "
+                            + args.LoadAdError.GetMessage());
+    }
+
+    public void HandleOnAdOpening(object sender, EventArgs args)
+    {
+        print("HandleAdOpening event received");
+    }
+
+    public void HandleOnAdClosed(object sender, EventArgs args)
+    {
+        print("HandleAdClosed event received");
+    }
+
+    #endregion
 
 
     #region 리워드광고
 
+    public void ShowReward()
+    {
+        if (rewardedAd.IsLoaded())
+        {
+            rewardedAd.Show();
+            RequestRewards();
+        }
+    }
+
     private void RequestRewards()
     {
         print("리워드 광고 요청");
-        
-        #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3131514107827460/7431890272";
+
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-3131514107827460/3401504714";
 #elif UNITY_IPHONE
             string adUnitId = "unexpected_platform";
 #else
@@ -63,14 +140,13 @@ public class ADManager : MonoBehaviour
     public void HandleRewardedAdLoaded(object sender, EventArgs args)
     {
         print("HandleRewardedAdLoaded event received");
-        rewardedAd.Show();
     }
 
     public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-       print(
-            "HandleRewardedAdFailedToLoad event received with message: "
-                             + args.LoadAdError.GetMessage());
+        print(
+             "HandleRewardedAdFailedToLoad event received with message: "
+                              + args.LoadAdError.GetMessage());
     }
 
     public void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -98,10 +174,11 @@ public class ADManager : MonoBehaviour
             "HandleRewardedAdRewarded event received for "
                         + amount.ToString() + " " + type);
 
-        IsometricManager.Instance.AddHearts.Invoke((int)amount);
+      
 
         if (type.ToLower().Contains("heart"))
         {
+            IsometricManager.Instance.AddHearts.Invoke((int)amount);
         }
         else
         {
@@ -111,5 +188,5 @@ public class ADManager : MonoBehaviour
 
 
     #endregion
-    
+
 }
