@@ -66,6 +66,9 @@ public class LifeManager : ManagerBase
             ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
             tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
         }
+        lastTime = DateTime.Now;
+        PlayerPrefs.SetString("startTime", lastTime.ToString());
+        PlayerPrefs.SetInt("heartCount", heartCount);
     }
 
     public override void Load()
