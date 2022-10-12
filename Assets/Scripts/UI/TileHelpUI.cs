@@ -69,7 +69,6 @@ public class TileHelpUI : UIBase
 #if UNITY_ANDROID
         if (Input.touchCount != 1)
         {
-            Debug.Log("ㅎㅇㅎㅇ");
             return;
         }
 
@@ -115,11 +114,10 @@ public class TileHelpUI : UIBase
 #endif
     }
 
-    private void MoveUI(bool on)
+    public void MoveUI(bool on)
     {
         if (isMoving || isViewing == on)
         {
-            Debug.Log("왜..?");
             return;
         }
 
