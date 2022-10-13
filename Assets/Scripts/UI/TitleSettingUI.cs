@@ -31,8 +31,15 @@ public class TitleSettingUI : UIBase
     }
 
 
-    public void UpdateHeartText(int count, string timer)
+    public void UpdateHeartText(int count, string timer, bool isADSkip)
     {
+        if (isADSkip)
+        {
+            heartCountText.text = $"∞/∞";
+            heartCoolText.text = "∞ : ∞";
+            return;
+        }
+
         heartCountText.text = $"{count}/5";
         heartCoolText.text = timer;
     }

@@ -11,6 +11,8 @@ public class LifeManager : ManagerBase
     int min = 0;
     int sec = 0;
 
+    public bool isADSkip = true;
+
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
     private HeartProvideUI hpUIl;
@@ -48,6 +50,7 @@ public class LifeManager : ManagerBase
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
 
+
         StartCoroutine(HeartCoolRoutine());
 
     }
@@ -63,8 +66,8 @@ public class LifeManager : ManagerBase
         heartCount--;
         if (ssUI != null && tsUI != null)
         {
-            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
-            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
+            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
         }
         lastTime = DateTime.Now;
         PlayerPrefs.SetString("startTime", lastTime.ToString());
@@ -91,7 +94,6 @@ public class LifeManager : ManagerBase
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(1f);
 
             if(heartCount != 5)
             {
@@ -109,9 +111,10 @@ public class LifeManager : ManagerBase
 
             if (ssUI != null && tsUI != null)
             {
-                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
-                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
+                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
             }
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 
