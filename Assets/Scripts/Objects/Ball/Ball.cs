@@ -151,8 +151,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
             GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
             if (!stageManager.isMapLoading)
             {
-                Debug.Log("ㅇㅁㄴㅇㅁㄴ");
-                gm.curDestroyedBallsCount++;
+                ++gm.curDestroyedBallsCount;
                 gm.CheckFail();
             }
         }

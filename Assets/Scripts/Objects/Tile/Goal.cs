@@ -38,7 +38,7 @@ public class Goal : ObjectTile
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         if (!stageManager.isMapLoading)
         {
-            gm.curDestroyedBallsCount++;
+            ++gm.curDestroyedBallsCount;
             gm.CheckClear();
         }
     }

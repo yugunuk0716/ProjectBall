@@ -189,7 +189,10 @@ public class StageManager : ManagerBase
         {
             stageIndex = 1;
         }
-        PlayerPrefs.SetInt("LastStage", stageIndex);
+        Debug.Log("여기 주석 풀고 밑에거 지워");
+        //PlayerPrefs.SetInt("LastStage", stageIndex);
+        PlayerPrefs.SetInt("LastStage", 1);
+
     }
 
 }

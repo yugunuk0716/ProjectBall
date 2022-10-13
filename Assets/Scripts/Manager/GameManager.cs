@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : ManagerBase
 {
@@ -58,6 +59,14 @@ public class GameManager : ManagerBase
     public override void Load()
     {
         curDestroyedBallsCount = 0;
+    }
+
+    private void Update()
+    {
+        if(EventSystem.current.currentSelectedGameObject)
+        {
+            Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+        }
     }
 
     public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
@@ -163,6 +172,11 @@ public class GameManager : ManagerBase
             ActiveGameOverPanel(true);
             OnClear(star, clearTime);
         }
+        else
+        {
+            Debug.Log("gd");
+            CheckFail();
+        }
     }
 
     public IEnumerator Timer()
@@ -190,6 +204,10 @@ public class GameManager : ManagerBase
         if(timerCo != null)
         {
             StopCoroutine(timerCo);
+        }
+        else
+        {
+            Debug.Log("아이 ㅅㅂ");
         }
         SetTimerText("off", Color.white);
     }
