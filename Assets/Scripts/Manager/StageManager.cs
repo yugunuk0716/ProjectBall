@@ -85,7 +85,7 @@ public class StageManager : ManagerBase
             GameManager.canInteract = false;
             gm.usableBallList.ForEach((x) =>
             {
-                GameObjectPoolManager.Instance.UnusedGameObject(x.gameObject);
+                x.SetDisable();
             });
 
             bool isSameStageLoaded = false;

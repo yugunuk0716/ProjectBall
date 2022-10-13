@@ -20,10 +20,7 @@ public class LifeManager : ManagerBase
     private int heartCount = 5;
     private UIManager um;
 
-    private void Start()
-    {
-        Debug.Log("Start, Update 전부 지우기");
-    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))

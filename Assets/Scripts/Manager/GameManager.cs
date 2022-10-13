@@ -61,14 +61,6 @@ public class GameManager : ManagerBase
         curDestroyedBallsCount = 0;
     }
 
-    private void Update()
-    {
-        if(EventSystem.current.currentSelectedGameObject)
-        {
-            Debug.Log(EventSystem.current.currentSelectedGameObject.name);
-        }
-    }
-
     public void ResetData(StageDataSO stageData, bool isSameStageLoaded)
     {
         ballUIList.ForEach((x) => x.SetDisable());
@@ -95,6 +87,7 @@ public class GameManager : ManagerBase
 
         limitTime = stageData.countDown;
         maxBallCount = stageData.balls.Length;
+        curDestroyedBallsCount = 0;
 
         SetBallUI(stageData.balls.Length, isSameStageLoaded);
 
@@ -103,6 +96,7 @@ public class GameManager : ManagerBase
 
     public void CheckFail() 
     {
+        Debug.Log($"{ballUIList.Count} / {curDestroyedBallsCount} / {maxBallCount}");
         if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0 && curDestroyedBallsCount == maxBallCount)
         {
             StopGame(); 
@@ -204,10 +198,6 @@ public class GameManager : ManagerBase
         if(timerCo != null)
         {
             StopCoroutine(timerCo);
-        }
-        else
-        {
-            Debug.Log("아이 ㅅㅂ");
         }
         SetTimerText("off", Color.white);
     }

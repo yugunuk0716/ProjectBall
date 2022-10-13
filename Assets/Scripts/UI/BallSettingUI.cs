@@ -180,7 +180,7 @@ public class BallSettingUI : UIBase
             item.transform.SetParent(item.transform.parent.parent);
             if(tp != null)
             {
-                GameObjectPoolManager.Instance.UnusedGameObject(tp.gameObject);
+                tp.SetDisable();
             }
         }
 

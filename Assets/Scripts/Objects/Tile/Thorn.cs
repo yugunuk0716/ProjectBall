@@ -6,7 +6,6 @@ public class Thorn : ObjectTile
 {
     private Animator anim;
 
-
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -22,7 +21,7 @@ public class Thorn : ObjectTile
             bdp.transform.position = tb.transform.position;
             bdp.PlayParticle();
         }
-        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
+        tb.SetDisable();
 
         StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();

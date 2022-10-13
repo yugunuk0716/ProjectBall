@@ -32,7 +32,7 @@ public class Goal : ObjectTile
             ResetFlag(true);
         }
 
-        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
+        tb.SetDisable();
 
         StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();

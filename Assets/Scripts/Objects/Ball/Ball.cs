@@ -54,8 +54,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
         gm = IsometricManager.Instance.GetManager<GameManager>();
         sm = IsometricManager.Instance.GetManager<StageManager>();
-
-        Debug.Log(gm == null);
     }
 
     IEnumerator SetBaseVector()
@@ -117,44 +115,22 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
         myPos += direction;
 
-        if (gm.tileDict.ContainsKey(myPos))
+        ObjectTile tile = gm.tileDict[myPos];
+
+        transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
         {
-            ObjectTile tile = gm.tileDict[myPos];
-
-            transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
+            tile.InteractionTile(this);
+            if (!tile.myType.Equals(TileType.None))
             {
-                tile.InteractionTile(this);
-                if (!tile.myType.Equals(TileType.None))
-                {
-                    interactParticle.Play();
-                }
-                if (tile.myType.Equals(TileType.Slow))
-                {
-                    slowAnim.gameObject.SetActive(true);
-                    slowAnim.Play("SlowEffect");
-                }
-
-            });
-        }
-        else
-        {
-            BallDestroyParticle bdp = GameObjectPoolManager.Instance.GetGameObject("Effects/BallDestroyParticle", GameObjectPoolManager.Instance.transform).GetComponent<BallDestroyParticle>();
-
-            if (bdp != null)
-            {
-                bdp.transform.position = this.transform.position;
-                bdp.PlayParticle();
+                interactParticle.Play();
             }
-
-            GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
-            StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
-            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
-            if (!stageManager.isMapLoading)
+            if (tile.myType.Equals(TileType.Slow))
             {
-                ++gm.curDestroyedBallsCount;
-                gm.CheckFail();
+                slowAnim.gameObject.SetActive(true);
+                slowAnim.Play("SlowEffect");
             }
-        }
+        });
+
     }
 
     public void Rollin()
@@ -182,7 +158,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
         if(!sm.isMapLoading)
         {
-
             StopCoroutine(SetBaseVector());
         }
     }
@@ -197,7 +172,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void SetDisable()
     {
-        this.DOKill();
         GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
     }
 }
