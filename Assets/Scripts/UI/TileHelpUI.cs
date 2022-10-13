@@ -66,6 +66,10 @@ public class TileHelpUI : UIBase
 
     private void Update()
     {
+
+        
+        
+
 #if UNITY_ANDROID
         if (Input.touchCount != 1)
         {
@@ -79,8 +83,14 @@ public class TileHelpUI : UIBase
             start = pos.x;
         }
 
-        if (Input.GetTouch(0).phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetTouch(0).phase == TouchPhase.Ended/* && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)*/)
         {
+            GameObject obj = EventSystem.current.currentSelectedGameObject;
+            if (obj != null && !obj.name.Equals("HelpOnBtn"))
+            {
+                return;
+            }
+
             end = pos.x;
 
             if(Mathf.Abs(start - end) > 100 && pos.y < Screen.height * 0.75f & pos.y > Screen.height * 0.25f)

@@ -147,6 +147,14 @@ public class Ball : MonoBehaviour, IPoolableComponent
             }
 
             GameObjectPoolManager.Instance.UnusedGameObject(gameObject);
+            StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
+            GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+            if (!stageManager.isMapLoading)
+            {
+                Debug.Log("ㅇㅁㄴㅇㅁㄴ");
+                gm.curDestroyedBallsCount++;
+                gm.CheckFail();
+            }
         }
     }
 
@@ -175,8 +183,7 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
         if(!sm.isMapLoading)
         {
-            gm.curDestroyedBallsCount++;
-            gm.CheckClear();
+
             StopCoroutine(SetBaseVector());
         }
     }

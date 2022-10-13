@@ -16,7 +16,6 @@ public class TitleUI : MonoBehaviour
 
     private LifeManager lm;
     private UIManager um;
-    TileHelpUI tileHelp;
     public void Start()
     {
         ratioY = (float)Screen.height / 1920;
@@ -54,13 +53,8 @@ public class TitleUI : MonoBehaviour
             um.FindUI("WatchAddPanel").ScreenOn(true);
             return;
         }
-        if(tileHelp == null)
-        {
-            tileHelp = IsometricManager.Instance.GetManager<UIManager>().FindUI("HelpPanel").GetComponent<TileHelpUI>();
-        }
 
         lm.EnterStage();
-        tileHelp.MoveUI(false);
 
         titleBtns[1].interactable = false;
         

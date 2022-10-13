@@ -43,11 +43,13 @@ public class SettingPopUp : UIBase
 
         });
 
-        sideButton.onClick.AddListener(() => ScreenOn(false));
+        sideButton.onClick.AddListener(() =>
+        {
+            ScreenOn(false);
+        });
 
         stageUIButton.onClick.AddListener(() =>
         {
- 
             uimanager.FindUI("StageNumberPanel").ScreenOn(true);
         });
 

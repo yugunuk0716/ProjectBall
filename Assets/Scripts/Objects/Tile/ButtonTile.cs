@@ -33,6 +33,14 @@ public class ButtonTile : ObjectTile
         }
 
         GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
+
+        StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        if (!stageManager.isMapLoading)
+        {
+            gm.curDestroyedBallsCount++;
+            gm.CheckFail();
+        }
     }
 
     public new void Spawned()

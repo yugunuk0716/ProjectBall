@@ -25,6 +25,8 @@ public class StageManager : ManagerBase
     public List<StageDataSO> stageDataList = new List<StageDataSO>();
     private StageDataSO currentStageData;
 
+    TileHelpUI tileHelp;
+
     private GameManager gm;
     private SaveManager sm;
     private LifeManager lm;
@@ -62,31 +64,34 @@ public class StageManager : ManagerBase
 
         LoadStage(stageIndex);
 
+
     }
     public override void Load() { }
 
 
     public void LoadStage(int stageIndex)
     {
+        if (tileHelp == null)
+        {
+            tileHelp = IsometricManager.Instance.GetManager<UIManager>().FindUI("HelpPanel").GetComponent<TileHelpUI>();
+        }
+
         if (!isMapLoading)
         {
             isMapLoading = true;
 
             gm.StopGame();
+            tileHelp.MoveUI(false);
             GameManager.canInteract = false;
             gm.usableBallList.ForEach((x) =>
             {
                 GameObjectPoolManager.Instance.UnusedGameObject(x.gameObject);
             });
 
-
             bool isSameStageLoaded = false;
 
             int realIndex = stageIndex - 1;
             gm.SetStageText(stageIndex);
-
-            
-
 
             if (currentStageData == null) // first load
             {
@@ -95,13 +100,9 @@ public class StageManager : ManagerBase
             }
             else
             {
-
-               
                 if (currentStageData.Equals(stageDataList[realIndex])) // if curstage and target stage not same
                 {
-                  
                     isSameStageLoaded = true;
-                   
                 }
                 else
                 {
@@ -109,7 +110,6 @@ public class StageManager : ManagerBase
                 }
             }
            
-            
             sm.range = stageDataList[realIndex].range;
             sm.sheet = ((int)stageDataList[realIndex].eSheet).ToString();
 
@@ -120,7 +120,6 @@ public class StageManager : ManagerBase
                 {
                     sm.SetAnimationForMapLoading(item);
                 }
-
 
                 StartCoroutine(WaitUntilObjectTileCreated(() =>
                 {

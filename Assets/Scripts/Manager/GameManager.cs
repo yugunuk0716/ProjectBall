@@ -163,10 +163,6 @@ public class GameManager : ManagerBase
             ActiveGameOverPanel(true);
             OnClear(star, clearTime);
         }
-        else
-        {
-            CheckFail();
-        }
     }
 
     public IEnumerator Timer()
