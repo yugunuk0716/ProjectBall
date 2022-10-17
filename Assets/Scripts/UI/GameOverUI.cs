@@ -143,11 +143,11 @@ public class GameOverUI : UIBase
         switch (starCount)
         {
             case 2:
-                lm.heartCount++;
+                lm.IncreaseHeart(1);
                 break;
             case 3:
 
-                lm.heartCount += 2;
+                lm.IncreaseHeart(2);
                 break;
         }
 

@@ -45,12 +45,23 @@ public class LifeManager : ManagerBase
         hpUIl = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
         naUI = um.FindUI("NoAnyAdPanel").GetComponent<HeartProvideUI>();
         int plusHeartCount = totalSec / coolTime;
-        heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
+        IncreaseHeart(plusHeartCount);
 
 
         StartCoroutine(HeartCoolRoutine());
 
     }
+
+    public void IncreaseHeart(int amount)
+    {
+        heartCount = Mathf.Clamp(heartCount + amount, 0, 5);
+    }
+
+    public void DecreaseHeart(int amount)
+    {
+        heartCount = Mathf.Clamp(heartCount - amount, 0, 5);
+    }
+
 
     public bool CanEnterStage()
     {
@@ -59,7 +70,7 @@ public class LifeManager : ManagerBase
 
     public void EnterStage()
     {
-        heartCount--;
+        DecreaseHeart(1);
         if (ssUI != null && tsUI != null)
         {
             ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
@@ -118,7 +129,7 @@ public class LifeManager : ManagerBase
     {
         lastTime = DateTime.Now;
         currentTime = coolTime;
-        heartCount++;
+        IncreaseHeart(1);
         PlayerPrefs.SetString("startTime", lastTime.ToString());
         PlayerPrefs.SetInt("heartCount", heartCount);
     }
