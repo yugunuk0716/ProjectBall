@@ -140,8 +140,18 @@ public class GameOverUI : UIBase
 
         Sequence sequence = DOTween.Sequence();
 
+        switch (starCount)
+        {
+            case 2:
+                lm.heartCount++;
+                break;
+            case 3:
 
-       if(starCount > 0)
+                lm.heartCount += 2;
+                break;
+        }
+
+        if(starCount > 0)
         {
             starList[0].gameObject.SetActive(true);
             sequence.Append(starList[0].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>

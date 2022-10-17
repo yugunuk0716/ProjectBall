@@ -387,8 +387,12 @@ MonoBehaviour:
   - {fileID: 1118965356788226343}
   - {fileID: 4376220480328071931}
   - {fileID: 3641459133432516587}
-  heartCountText: {fileID: 33811853960457028}
-  heartCoolText: {fileID: 1965716383006023717}
+  heartCountText:
+  - {fileID: 33811853960457028}
+  - {fileID: 0}
+  heartCoolText:
+  - {fileID: 1965716383006023717}
+  - {fileID: 0}
 --- !u!1 &1669986552163860918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,7 +1428,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7477293457671275925}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
