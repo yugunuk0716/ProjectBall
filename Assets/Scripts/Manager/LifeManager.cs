@@ -11,7 +11,7 @@ public class LifeManager : ManagerBase
     int min = 0;
     int sec = 0;
 
-    public bool isADSkip = true;
+   // public bool isADSkip = false;
 
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
@@ -74,8 +74,8 @@ public class LifeManager : ManagerBase
         heartCount--;
         if (ssUI != null && tsUI != null)
         {
-            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
-            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
+            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", PlayerPrefs.GetInt("isRemovedAd")  == 1);
+            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", PlayerPrefs.GetInt("isRemovedAd") == 1);
         }
         lastTime = DateTime.Now;
         PlayerPrefs.SetString("startTime", lastTime.ToString());
@@ -119,8 +119,8 @@ public class LifeManager : ManagerBase
 
             if (ssUI != null && tsUI != null)
             {
-                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
-                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
+                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", PlayerPrefs.GetInt("isRemovedAd") == 1);
+                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", PlayerPrefs.GetInt("isRemovedAd") == 1);
             }
             yield return new WaitForSecondsRealtime(1f);
         }

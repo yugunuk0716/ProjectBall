@@ -78,6 +78,22 @@ public class IsometricManager : MonoBehaviour
         Application.targetFrameRate = 300;
 
         PlayerPrefs.SetInt("IsFirst", PlayerPrefs.GetInt("IsFirst",1));
+
+        IAPManager iapmanager = GetComponent<IAPManager>();
+
+
+        if (PlayerPrefs.GetInt("isRemovedAd") == 1)
+        {
+            iapmanager.iapBtn.alpha = 0;
+            iapmanager.iapBtn.blocksRaycasts = false;
+            iapmanager.iapBtn.interactable = false;
+        }
+        else
+        {
+            iapmanager.iapBtn.alpha = 1;
+            iapmanager.iapBtn.blocksRaycasts = true;
+            iapmanager.iapBtn.interactable = true;
+        }
         
 
         CanvasGroup tutoCanvas = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();

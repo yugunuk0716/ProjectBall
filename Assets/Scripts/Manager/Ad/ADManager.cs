@@ -25,6 +25,10 @@ public class ADManager : MonoBehaviour
     public void RemoveAd()
     {
         PlayerPrefs.SetInt("isRemovedAd", 1);
+        IAPManager iAPManager = GetComponent<IAPManager>();
+        iAPManager.iapBtn.alpha = 0;
+        iAPManager.iapBtn.blocksRaycasts = false;
+        iAPManager.iapBtn.interactable = false;
     }
 
     public void Failed()

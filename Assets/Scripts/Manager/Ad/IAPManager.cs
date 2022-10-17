@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class IAPManager : MonoBehaviour
 {
+    public CanvasGroup iapBtn;
     public string environment = "ROLL";
 
     async void Start()

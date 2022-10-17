@@ -83,8 +83,8 @@ public class StageScrollUI : UIBase
     {
         if (isADSkip)
         {
-            heartCountText.text = $"∞/∞";
-            heartCoolText.text = "∞ : ∞";
+            heartCountText.text = "∞";
+            heartCoolText.text = "∞";
             return;
         }
 
