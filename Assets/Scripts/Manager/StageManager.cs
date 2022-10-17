@@ -32,6 +32,8 @@ public class StageManager : ManagerBase
     private bool isFirstLoad = true;
     public bool isMapLoading = false;
 
+    [HideInInspector] public GameObject retryBtn;
+
     public override void Init()
     {
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
@@ -70,6 +72,11 @@ public class StageManager : ManagerBase
 
     public void LoadStage(int stageIndex)
     {
+        if (retryBtn)
+        {
+            retryBtn.gameObject.SetActive(false);
+        }
+
         if (tileHelp == null)
         {
             tileHelp = IsometricManager.Instance.GetManager<UIManager>().FindUI("HelpPanel").GetComponent<TileHelpUI>();
@@ -94,7 +101,6 @@ public class StageManager : ManagerBase
 
             if (currentStageData == null) // first load
             {
-               
                 currentStageData = stageDataList[realIndex];
             }
             else

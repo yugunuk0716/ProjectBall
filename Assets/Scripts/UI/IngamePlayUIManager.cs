@@ -58,7 +58,12 @@ public class IngamePlayUIManager : UIBase
             }
         });
     }
-    
+
+    private void Start()
+    {
+        IsometricManager.Instance.GetManager<StageManager>().retryBtn = retryBtn.gameObject;
+    }
+
     public override void Init()
     {
         StartCoroutine(CoInit());
@@ -90,7 +95,7 @@ public class IngamePlayUIManager : UIBase
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
         seq.Append(activedPanel.DOAnchorPosX(targetPos, 0.5f).SetEase(Ease.OutCubic));
-        seq.Join(activePanel.GetComponent<RectTransform>().DOAnchorPosX(posX, 0.4f).SetDelay(0.15f).SetEase(Ease.OutCubic).
+        seq.Join(activePanel.DOAnchorPosX(posX, 0.4f).SetDelay(0.15f).SetEase(Ease.OutCubic).
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
