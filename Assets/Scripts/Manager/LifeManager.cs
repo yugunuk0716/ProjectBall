@@ -17,7 +17,7 @@ public class LifeManager : ManagerBase
     private TitleSettingUI tsUI;
     private HeartProvideUI hpUIl;
     private HeartProvideUI naUI;
-    private int heartCount = 5;
+    public int heartCount = 5;
     private UIManager um;
 
 
