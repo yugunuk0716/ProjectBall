@@ -32,7 +32,15 @@ public class ButtonTile : ObjectTile
             sr.sprite = spriteList[1];
         }
 
-        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
+        tb.SetDisable();
+
+        StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        if (!stageManager.isMapLoading)
+        {
+            ++gm.curDestroyedBallsCount;
+            gm.CheckFail();
+        }
     }
 
     public new void Spawned()

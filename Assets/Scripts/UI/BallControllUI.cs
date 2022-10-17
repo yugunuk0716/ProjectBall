@@ -50,7 +50,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
     }
     public override void Load()
     {
-        // Do nothing
+       
     }
 
     private void Awake()
@@ -110,7 +110,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         rt.DOComplete();
         if (pressedTime > checkTime)
         {
-            swapUI.OnEndDrag(eventData);
+            swapUI.OnEndDrag();
         }
         else
         {
@@ -122,12 +122,31 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (Input.touchCount > 1)
+        {
+            GameManager.canInteract = false;
+            bPressed = false;
+            rt.DOComplete();
+            if (pressedTime > checkTime)
+            {
+                swapUI.OnEndDrag();
+            }
+            else
+            {
+                GameManager.canInteract = true;
+            }
+            pressedTime = 0f;
+        }
 
     }
 
     public void BeginSwapping()
     {
         swapUI.ballControllUI = this;
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        swapUI.transform.position = pos;
+
         swapUI.On(true);
 
         this.order = 10;

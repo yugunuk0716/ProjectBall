@@ -56,6 +56,11 @@ public class GameOverUI : UIBase
 
         reloadBtn.onClick.AddListener(() =>
         {
+            starList.ForEach((x) =>
+            {
+                x.gameObject.SetActive(false);
+            });
+
             if (isClear)
             {
                 sm.clearMapCount++;
@@ -77,6 +82,11 @@ public class GameOverUI : UIBase
 
         loadNextBtn.onClick.AddListener(() =>
         {
+            starList.ForEach((x) =>
+            {
+                x.gameObject.SetActive(false);
+            });
+
             if (!lm.CanEnterStage())
             {
                 print("광고보기");
@@ -118,6 +128,7 @@ public class GameOverUI : UIBase
 
     IEnumerator StarOnRoutine(int starCount, float clearTime)
     {
+
         reloadBtn.interactable = false;
         loadNextBtn.interactable = false;
 

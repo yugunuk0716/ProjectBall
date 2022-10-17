@@ -11,22 +11,25 @@ public class LifeManager : ManagerBase
     int min = 0;
     int sec = 0;
 
+    public bool isADSkip = true;
+
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
-<<<<<<< HEAD
     private HeartProvideUI hpUI;
-=======
-    private HeartProvideUI hpUIl;
     private HeartProvideUI naUI;
->>>>>>> origin/main
     private int heartCount = 5;
     private UIManager um;
 
+<<<<<<< HEAD
     private void Start()
     {
         Debug.Log("Start, Update 전부 지우기");
         IsometricManager.Instance.AddHearts.AddListener(AddingHeart);
+        IsometricManager.Instance.NoAdsEvent.AddListener(OnNoAdvertiseUI);
     }
+=======
+
+>>>>>>> origin/main
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -48,14 +51,11 @@ public class LifeManager : ManagerBase
         um = IsometricManager.Instance.GetManager<UIManager>();
         ssUI = um.FindUI("StageNumberPanel").GetComponent<StageScrollUI>();
         tsUI = um.FindUI("TitleSettingPopUp").GetComponent<TitleSettingUI>();
-<<<<<<< HEAD
         hpUI = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
-=======
-        hpUIl = um.FindUI("RewardSuppliedPanel").GetComponent<HeartProvideUI>();
         naUI = um.FindUI("NoAnyAdPanel").GetComponent<HeartProvideUI>();
->>>>>>> origin/main
         int plusHeartCount = totalSec / coolTime;
         heartCount = Mathf.Clamp(heartCount + plusHeartCount, 0, 5);
+
 
         StartCoroutine(HeartCoolRoutine());
 
@@ -78,8 +78,8 @@ public class LifeManager : ManagerBase
         heartCount--;
         if (ssUI != null && tsUI != null)
         {
-            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
-            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+            ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
+            tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
         }
         lastTime = DateTime.Now;
         PlayerPrefs.SetString("startTime", lastTime.ToString());
@@ -106,7 +106,6 @@ public class LifeManager : ManagerBase
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(1f);
 
             if(heartCount != 5)
             {
@@ -124,9 +123,10 @@ public class LifeManager : ManagerBase
 
             if (ssUI != null && tsUI != null)
             {
-                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}");
-                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}");
+                ssUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
+                tsUI.UpdateHeartText(heartCount, $"{min}:{sec}", isADSkip);
             }
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 
@@ -149,10 +149,11 @@ public class LifeManager : ManagerBase
     private void OnHeartProvideUI()
     {
         hpUI.ScreenOn(true);
+        um.FindUI("WatchAddPanel").GetComponent<AdPanel>().ScreenOn(false);
     }
 
     private void OnNoAdvertiseUI()
     {
-        hpUIl.ScreenOn(true);
+        naUI.ScreenOn(true);
     }
 }

@@ -55,6 +55,7 @@ public class TutorialManager : ManagerBase
 
     public IEnumerator StartTurotial()
     {
+        IsometricManager.Instance.GetManager<GameManager>().ballUIList.ForEach((x) => x.isTutoOrShooting = true);
         um.canvas[3].interactable = true;
         um.canvas[3].blocksRaycasts = true;
         um.canvas[3].DOFade(1f, .5f);

@@ -27,6 +27,11 @@ public class SwapUI : MonoBehaviour
 
     private void Update()
     {
+        if (Input.touchCount > 1)
+        {
+            On(false);
+        }
+
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;
         transform.position = pos;
@@ -51,7 +56,7 @@ public class SwapUI : MonoBehaviour
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDrag()
     {
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         

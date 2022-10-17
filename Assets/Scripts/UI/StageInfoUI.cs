@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine;
 
 public class StageInfoUI : UIBase
 {
@@ -55,6 +56,9 @@ public class StageInfoUI : UIBase
                 um.FindUI("WatchAddPanel").ScreenOn(true);
                 return;
             }
+
+            //IsometricManager.Instance.GetManager<GameManager>().StopGame();
+            Time.timeScale = 1;
             lm.EnterStage();
 
             sm.LoadStage(stageIndex);

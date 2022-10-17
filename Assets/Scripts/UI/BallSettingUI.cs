@@ -69,7 +69,7 @@ public class BallSettingUI : UIBase
             ballUI.directionSetBtn.onClick.RemoveAllListeners();
             ballUI.directionSetBtn.onClick.AddListener(() =>
             {
-                if (Input.touchCount > 1) return;
+                if (Input.touchCount > 1 || selectDirectionUI.ballControllUI != null) return;
 
                 if (isAdded) // return
                 {
@@ -78,11 +78,8 @@ public class BallSettingUI : UIBase
                 }
                 else // add
                 {
-                    if (selectDirectionUI.ballControllUI == null)
-                    {
-                        selectDirectionUI.Set(ballUI);
-                        selectDirectionUI.ScreenOn(true);
-                    }
+                    selectDirectionUI.Set(ballUI);
+                    selectDirectionUI.ScreenOn(true);
                 }
 
                 isAdded = !isAdded;
@@ -183,7 +180,7 @@ public class BallSettingUI : UIBase
             item.transform.SetParent(item.transform.parent.parent);
             if(tp != null)
             {
-                GameObjectPoolManager.Instance.UnusedGameObject(tp.gameObject);
+                tp.SetDisable();
             }
         }
 

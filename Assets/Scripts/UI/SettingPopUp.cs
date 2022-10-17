@@ -27,26 +27,43 @@ public class SettingPopUp : UIBase
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         GetCanvasGroup();
         menuButton.onClick.AddListener(() => ScreenOn(true));
-        resumeButton.onClick.AddListener(() => ScreenOn(false));
+        resumeButton.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1;
+            ScreenOn(false);
+        });
+
+        TileHelpUI tileHelp = uimanager.FindUI("HelpPanel").GetComponent<TileHelpUI>();
         homeButton.onClick.AddListener(() => 
         {
+            Time.timeScale = 1;
             ScreenOn(false);
             
             uimanager.canvas[0].gameObject.SetActive(true);
             uimanager.canvas[0].DOFade(1, 0.5f).SetUpdate(true);
             
             uimanager.canvas[1].DOFade(0, 0.5f).SetUpdate(true);
+
+            tileHelp.MoveUI(false);
+
         });
 
-        sideButton.onClick.AddListener(() => ScreenOn(false));
+        sideButton.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1;
+            ScreenOn(false);
+        });
 
         stageUIButton.onClick.AddListener(() =>
         {
- 
             uimanager.FindUI("StageNumberPanel").ScreenOn(true);
         });
 
-        quitButton.onClick.AddListener(() => Application.Quit());
+        quitButton.onClick.AddListener(() =>
+        {
+            Time.timeScale = 1;
+            Application.Quit();
+        });
 
         sfxButton.onClick.AddListener(() =>
         {
@@ -71,7 +88,11 @@ public class SettingPopUp : UIBase
     { 
         base.ScreenOn(on);
         isActive = on;
-        Time.timeScale = on ? 0 : 1;
+
+        if (true == on)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     public void CheckBack()

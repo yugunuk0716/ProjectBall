@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : ManagerBase
 {
@@ -86,6 +87,7 @@ public class GameManager : ManagerBase
 
         limitTime = stageData.countDown;
         maxBallCount = stageData.balls.Length;
+        curDestroyedBallsCount = 0;
 
         SetBallUI(stageData.balls.Length, isSameStageLoaded);
 
@@ -94,6 +96,7 @@ public class GameManager : ManagerBase
 
     public void CheckFail() 
     {
+        Debug.Log($"{ballUIList.Count} / {curDestroyedBallsCount} / {maxBallCount}");
         if(ballUIList.Count == 0 && goalList.FindAll(goal => !goal.isChecked).Count > 0 && curDestroyedBallsCount == maxBallCount)
         {
             StopGame(); 
@@ -165,6 +168,7 @@ public class GameManager : ManagerBase
         }
         else
         {
+            Debug.Log("gd");
             CheckFail();
         }
     }

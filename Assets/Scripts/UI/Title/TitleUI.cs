@@ -16,7 +16,6 @@ public class TitleUI : MonoBehaviour
 
     private LifeManager lm;
     private UIManager um;
-
     public void Start()
     {
         ratioY = (float)Screen.height / 1920;
@@ -34,6 +33,8 @@ public class TitleUI : MonoBehaviour
                 
             um.FindUI("TitleSettingPopUp").ScreenOn(true);
         });
+
+         
     }
 
 
@@ -52,6 +53,7 @@ public class TitleUI : MonoBehaviour
             um.FindUI("WatchAddPanel").ScreenOn(true);
             return;
         }
+
         lm.EnterStage();
 
         titleBtns[1].interactable = false;

@@ -6,7 +6,15 @@ public class Wall : ObjectTile
 {
     public override void InteractionTile(Ball tb)
     {
-        GameObjectPoolManager.Instance.UnusedGameObject(tb.gameObject);
+        tb.SetDisable();
+        StageManager stageManager = IsometricManager.Instance.GetManager<StageManager>();
+        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        if (!stageManager.isMapLoading)
+        {
+            ++gm.curDestroyedBallsCount;
+            gm.CheckFail();
+        }
+
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         sm.Play("Thorn");
     }
