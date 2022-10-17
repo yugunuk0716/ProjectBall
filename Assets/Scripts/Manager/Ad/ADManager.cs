@@ -8,6 +8,7 @@ public class ADManager : MonoBehaviour
 {
     private RewardedAd rewardedAd;
     private InterstitialAd interstitial;
+    private bool isRemovedAd = false;
 
 
     public void Awake()
@@ -21,6 +22,16 @@ public class ADManager : MonoBehaviour
         IsometricManager.Instance.ShowinterstitialAD.AddListener(ShowInterstitial);
     }
 
+    public void RemoveAd()
+    {
+        PlayerPrefs.SetInt("isRemovedAd", 1);
+    }
+
+    public void Failed()
+    {
+        Debug.LogWarning("Faild to buy Removeads");
+    }
+
 
     #region 전면광고
 
@@ -29,7 +40,7 @@ public class ADManager : MonoBehaviour
         int a = UnityEngine.Random.Range(0, 101);
 
 
-        if (interstitial.IsLoaded() && a < 20)
+        if (interstitial.IsLoaded() && a < 20 && PlayerPrefs.GetInt("isRemovedAd") == 0)
         {
             interstitial.Show();
             RequestInterstitial();
@@ -96,7 +107,7 @@ public class ADManager : MonoBehaviour
 
     public void ShowReward()
     {
-        if (rewardedAd.IsLoaded())
+        if (rewardedAd.IsLoaded() && PlayerPrefs.GetInt("isRemovedAd") == 0)
         {
             rewardedAd.Show();
             RequestRewards();

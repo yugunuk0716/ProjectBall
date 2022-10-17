@@ -3079,15 +3079,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a5f511b0d8142cba0aeb92d0b264c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  productId: com.DefaultCompany.ProjectBall.removeAd
+  productId: com.defaultcompany.projectball.removeads
   buttonType: 0
-  consumePurchase: 1
+  consumePurchase: 0
   onPurchaseComplete:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1237503442}
+        m_TargetAssemblyTypeName: ADManager, Assembly-CSharp
+        m_MethodName: RemoveAd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onPurchaseFailed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1237503442}
+        m_TargetAssemblyTypeName: ADManager, Assembly-CSharp
+        m_MethodName: Failed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   priceText: {fileID: 0}
@@ -4400,6 +4424,7 @@ GameObject:
   - component: {fileID: 1237503441}
   - component: {fileID: 1237503442}
   - component: {fileID: 1237503443}
+  - component: {fileID: 1237503444}
   m_Layer: 0
   m_Name: IsometricManager
   m_TagString: Untagged
@@ -4504,6 +4529,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690f58b920c38584cba18b63b34fa9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1237503444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237503438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e9e757d57c27964784c29bf133776a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  environment: ROLL
 --- !u!1 &1302267138
 GameObject:
   m_ObjectHideFlags: 0
@@ -7014,6 +7052,10 @@ PrefabInstance:
     - target: {fileID: 4246307515295252541, guid: a57d64ab90c5e4906b679ce7782801db, type: 3}
       propertyPath: m_Name
       value: NoAnyAdPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246307515295252541, guid: a57d64ab90c5e4906b679ce7782801db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4246307515295252542, guid: a57d64ab90c5e4906b679ce7782801db, type: 3}
       propertyPath: m_Pivot.x

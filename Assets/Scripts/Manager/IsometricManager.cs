@@ -78,6 +78,7 @@ public class IsometricManager : MonoBehaviour
         Application.targetFrameRate = 300;
 
         PlayerPrefs.SetInt("IsFirst", PlayerPrefs.GetInt("IsFirst",1));
+        
 
         CanvasGroup tutoCanvas = GetManager<UIManager>().canvas[3].GetComponent<CanvasGroup>();
 
@@ -115,6 +116,7 @@ public class IsometricManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("ClearMapsCount", 65);
         PlayerPrefs.SetInt("IsFirst", 0);
+        PlayerPrefs.SetInt("isRemovedAd", 0);
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>
             {
