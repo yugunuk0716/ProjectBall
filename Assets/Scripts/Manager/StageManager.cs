@@ -12,8 +12,6 @@ public class StageManager : ManagerBase
     public List<ObjectTile> objectTileList = new List<ObjectTile>();
     public List<GameObject> stageObjList = new List<GameObject>();
 
-
-
     public Action<string> SetDebugText;
     public Action FadeDebugText;
 
@@ -33,6 +31,7 @@ public class StageManager : ManagerBase
     private UIManager um;
     private bool isFirstLoad = true;
     public bool isMapLoading = false;
+
     public override void Init()
     {
         clearMapCount = PlayerPrefs.GetInt("ClearMapsCount", 0);
@@ -189,9 +188,7 @@ public class StageManager : ManagerBase
         {
             stageIndex = 1;
         }
-        Debug.Log("여기 주석 풀고 밑에거 지워");
-        //PlayerPrefs.SetInt("LastStage", stageIndex);
-        PlayerPrefs.SetInt("LastStage", 1);
+        PlayerPrefs.SetInt("LastStage", stageIndex);
 
     }
 

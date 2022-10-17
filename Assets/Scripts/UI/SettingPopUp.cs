@@ -61,7 +61,6 @@ public class SettingPopUp : UIBase
 
         quitButton.onClick.AddListener(() =>
         {
-            PlayerPrefs.SetInt("IsFirst", 1);
             Time.timeScale = 1;
             Application.Quit();
         });

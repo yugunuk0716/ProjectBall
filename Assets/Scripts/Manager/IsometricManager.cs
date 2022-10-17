@@ -107,7 +107,6 @@ public class IsometricManager : MonoBehaviour
 
     private void FirstCall()
     {
-        PlayerPrefs.SetInt("ClearMapsCount", 65);
         PlayerPrefs.SetInt("IsFirst", 0);
         GetManager<UIManager>().canvas[0].GetComponent<TitleUI>().
             titleBtns[1].onClick.AddListener(() =>
