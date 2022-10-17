@@ -11,7 +11,7 @@ public class LifeManager : ManagerBase
     int min = 0;
     int sec = 0;
 
-    public bool isADSkip = true;
+    public bool isADSkip = false;
 
     private StageScrollUI ssUI;
     private TitleSettingUI tsUI;
@@ -54,8 +54,7 @@ public class LifeManager : ManagerBase
 
     public bool CanEnterStage()
     {
-        return true;
-        //return heartCount > 0;
+        return heartCount > 0;
     }
 
     public void EnterStage()

@@ -467,6 +467,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 690459348}
     m_Modifications:
+    - target: {fileID: 83052255, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1635705197215900726, guid: fb7a056e3a466354fb6c64fa1a3dd171, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3032,7 +3036,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815565700}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -3868,7 +3872,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.5625, y: 1}
+    m_SensorSize: {x: 0.6257143, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
