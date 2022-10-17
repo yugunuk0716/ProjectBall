@@ -21,6 +21,7 @@ public class TutorialManager : ManagerBase
     private int shootTextCount = 2;
     private List<UnityAction> tempAction = new List<UnityAction>();
     private bool istuto = false;
+    private bool iscalled = false;
 
 
     public override void Init()
@@ -70,7 +71,7 @@ public class TutorialManager : ManagerBase
     {
         obj.gameObject.AddComponent<Canvas>();
         obj.gameObject.AddComponent<GraphicRaycaster>();
-        
+
         currentSelectedCanvas = obj.gameObject.GetComponent<Canvas>();
         currentSelectedCanvas.overrideSorting = true;
         currentSelectedCanvas.sortingOrder = 210;
@@ -82,39 +83,62 @@ public class TutorialManager : ManagerBase
         Destroy(obj.GetComponent<Canvas>());
     }
 
-    public UnityAction MakeDisposableAction(UnityAction inputAction,Button button)
+    public UnityAction MakeDisposableAction(UnityAction inputAction, Button button)
     {
         UnityAction action = null;
-        
+
         action = () =>
         {
             inputAction();
             button.onClick.RemoveListener(action);
         };
-        
+
         return action;
     }
 
     public void SelectBall()
     {
-        Debug.Log("SelectBall");
-        Debug.Log(ballCount);
-        tutoPanels.ForEach(x => x.DOFade(0, .5f));
-        tutoPanels[0].DOFade(1, .5f);
-
-        if (2 == ballCount)
+        if (iscalled)
         {
-            Confirm();
+            return;
         }
         else
         {
-            arrowText.offsetMax = new Vector2(arrowText.offsetMax.x + 380 * ballCount, arrowText.offsetMax.y);
+            Debug.Log("SelectBall");
+            Debug.Log(ballCount);
+            tutoPanels.ForEach(x => x.DOFade(0, .5f));
+            tutoPanels[0].DOFade(1, .5f);
 
-            MakeObjectHighLight(gm.ballUIList[ballCount].gameObject);
-            tempAction.Add(() => ChooseDir());
-            gm.ballUIList[ballCount].directionSetBtn.onClick.AddListener(
-                MakeDisposableAction(tempAction[^1], gm.ballUIList[ballCount].directionSetBtn));
+            if (ballCount == 2)
+            {
+                if (!iscalled)
+                {
+                    Confirm();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (!iscalled)
+                {
+                    arrowText.offsetMax = new Vector2(arrowText.offsetMax.x + 380 * ballCount, arrowText.offsetMax.y);
+
+                    MakeObjectHighLight(gm.ballUIList[ballCount].gameObject);
+                    tempAction.Add(() => ChooseDir());
+                    gm.ballUIList[ballCount].directionSetBtn.onClick.AddListener(
+                        MakeDisposableAction(tempAction[^1], gm.ballUIList[ballCount].directionSetBtn));
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
+
+
     }
 
     public void ChooseDir()
@@ -147,10 +171,11 @@ public class TutorialManager : ManagerBase
     public void Confirm()
     {
         Debug.Log("Confirm");
+        iscalled = true;
         tutoPanels.ForEach(x => x.DOFade(0, .5f));
         tutoPanels[2].DOFade(1, .5f);
 
-        Button confirmButton = gm.ballUIList[ballCount-1].transform.GetComponentInParent<BallSettingUI>().confirmBtn;
+        Button confirmButton = gm.ballUIList[ballCount - 1].transform.GetComponentInParent<BallSettingUI>().confirmBtn;
 
         MakeObjectHighLight(confirmButton.gameObject);
 
@@ -160,7 +185,7 @@ public class TutorialManager : ManagerBase
             StartCoroutine(Shoot());
         });
 
-        confirmButton.onClick.AddListener(MakeDisposableAction(tempAction[^1],confirmButton));
+        confirmButton.onClick.AddListener(MakeDisposableAction(tempAction[^1], confirmButton));
     }
 
     public IEnumerator Shoot()
@@ -192,10 +217,10 @@ public class TutorialManager : ManagerBase
         TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
 
         MakeObjectHighLight(timer.gameObject);
-        tutoPanels[4].GetComponent<Button>().onClick.AddListener(ShootTextChange);
+        tutoPanels[4].GetComponent<Button>().onClick.AddListener(MakeDisposableAction(ShootTextChange,tutoPanels[4].GetComponent<Button>()));
         tutoPanels[4].transform.GetChild(0).GetComponent<TextMeshProUGUI>().DOFade(0, 1f).SetLoops(-1, LoopType.Yoyo).SetUpdate(true);
         tutoPanels[4].transform.GetChild(1).GetComponent<CanvasGroup>().DOFade(1, 1f).SetUpdate(true);
-        
+
         Time.timeScale = 0;
     }
 
@@ -204,21 +229,23 @@ public class TutorialManager : ManagerBase
         Debug.Log("ShootTextChange");
         TextMeshProUGUI timer = IsometricManager.Instance.GetManager<UIManager>().uis[1].GetComponent<IngameUI>().timer_text;
         Tilemap map = IsometricManager.Instance.GetManager<SaveManager>().mainMap;
-        
+
 
         switch (shootTextCount)
         {
-            
+
             case 2:
                 tutoPanels[4].transform.GetChild(shootTextCount - 1).GetComponent<CanvasGroup>().DOFade(0, .5f).SetUpdate(true);
                 MakeObjectUnHighLight(timer.gameObject);
                 //DOTween.To(() => map.color, x => map.color = x, new Color(1,1,1,0), .5f).SetUpdate(true);
                 tutoPanels[4].transform.GetChild(shootTextCount).GetComponent<CanvasGroup>().DOFade(1, .5f).SetUpdate(true);
+                tutoPanels[4].GetComponent<Button>().onClick.AddListener(MakeDisposableAction(ShootTextChange, tutoPanels[4].GetComponent<Button>()));
                 break;
             case 3:
                 tutoPanels[4].DOFade(0, .5f).SetUpdate(true);
                 //DOTween.To(() => map.color, x => map.color = x, new Color(1, 1, 1, 1), .5f).SetUpdate(true);
                 Button shootbtn = GameObject.Find("ShootBtn").GetComponent<Button>();
+                um.canvas[3].gameObject.SetActive(false);
                 um.canvas[3].alpha = 0f;
                 um.canvas[3].interactable = false;
                 um.canvas[3].blocksRaycasts = false;
@@ -228,9 +255,11 @@ public class TutorialManager : ManagerBase
                 shootbtn.onClick.AddListener(MakeDisposableAction(() =>
                 {
                     Time.timeScale = 1;
+                    tempAction.Clear();
+
                     //tutoPanels[4].GetComponent<Button>().onClick.RemoveListener(ShootTextChange);
                 }, shootbtn));
-                
+
                 break;
         }
         shootTextCount++;
