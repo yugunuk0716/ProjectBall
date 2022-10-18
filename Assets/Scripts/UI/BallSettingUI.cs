@@ -24,7 +24,7 @@ public class BallSettingUI : UIBase
     public Action<bool> SwitchUI;  // seting to shoot.
 
     private UIManager um;
-
+    private GameManager gm;
     float width = 0f;
     float heightDevideFive;
 
@@ -141,7 +141,10 @@ public class BallSettingUI : UIBase
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        if(gm == null)
+        {
+            gm = IsometricManager.Instance.GetManager<GameManager>();
+        }
         gm.lastBallList.Clear();
 
         gm.ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
@@ -173,7 +176,6 @@ public class BallSettingUI : UIBase
         yield return new WaitForSeconds(0.2f);
 
         List<BallControllUI> ballUiList = gm.ballUIList;
-        ballUiList.ForEach((x) => x.SetInteractValues(false));
         foreach(var item in ballUiList)
         {
             TargetPointUI tp = item.transform.parent.GetComponent<TargetPointUI>();

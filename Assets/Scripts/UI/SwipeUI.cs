@@ -8,7 +8,7 @@ public class SwipeUI : MonoBehaviour
 	[SerializeField]
 	private Scrollbar scrollBar;              
 	[SerializeField]
-	private Transform[] circleContents;       
+	private Image[] circleContents;       
 	[SerializeField]
 	private float swipeTime = 0.2f;           
 
@@ -18,8 +18,8 @@ public class SwipeUI : MonoBehaviour
 	private int maxPage = 0;                  
 	private float startTouchX;                
 	private float endTouchX;                  
-	private bool isSwipeMode = false;         
-	private float circleContentScale = 1.3f;
+	public bool isSwipeMode = false;         
+	private float circleContentScale = 0.6f;
 
     [Header("Explain")]
     [SerializeField] [TextArea()]string[] descriptions;
@@ -38,17 +38,12 @@ public class SwipeUI : MonoBehaviour
 			scrollPageValues[i] = valueDistance * i;
 		}
 
-	
 		maxPage = transform.childCount;
-	}
+        SetScrollBarValue(0);
+        UpdateCircleContent();
+    }
 
-	private void Start()
-	{
-
-		SetScrollBarValue(0);
-	}
-
-	public void SetScrollBarValue(int index)
+    public void SetScrollBarValue(int index)
 	{
 		currentPage = index;
 		scrollBar.value = scrollPageValues[index];
@@ -56,6 +51,7 @@ public class SwipeUI : MonoBehaviour
 
 	private void Update()
 	{
+
         if (parentCvsGroup.alpha != 1) return;
         else
         {
@@ -65,12 +61,13 @@ public class SwipeUI : MonoBehaviour
                 isFirstTexting = false;
             }
         }
+
 		UpdateInput();
+        UpdateCircleContent();
 
-		UpdateCircleContent();
-	}
+    }
 
-	private void UpdateInput()
+    private void UpdateInput()
 	{
 
 		if (isSwipeMode == true) return;
@@ -114,16 +111,27 @@ public class SwipeUI : MonoBehaviour
 
 	public void UpdateSwipe(bool isBtnPressed = false, bool isLeft_btnPressed = false)
 	{
-        bool isLeft = startTouchX < endTouchX ? true : false;
+        bool isLeft;
 
-        if (isBtnPressed) isLeft = isLeft_btnPressed;
-
-        if (!isBtnPressed && Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 5)
+        if (isBtnPressed)
+        {
+            isLeft = isLeft_btnPressed;
+        }
+        else if (Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 10)
 		{
             isLeft = startTouchX < endTouchX;
 		}
+        else
+        {
+            Debug.Log("너가 불려야지 그치..?");
+            StartCoroutine(OnSwipeOneStep(currentPage));
+            return;
+        }
 
-		if (isLeft)
+        Debug.Log($"Pressed : {isBtnPressed}, isLeft_Btn : {isLeft_btnPressed}, LEFT : {isLeft}");
+
+
+        if (isLeft)
 		{
             if (currentPage == 0)
             {
@@ -171,13 +179,12 @@ public class SwipeUI : MonoBehaviour
 
 		isSwipeMode = false;
         Explain();
-	}
+    }
 
     bool isFirstTexting = true;
 
     private void Explain()
     {
-
         text.DOKill();
         text.text = string.Empty;
         text.DOText(descriptions[currentPage], 1.5f);
@@ -185,18 +192,45 @@ public class SwipeUI : MonoBehaviour
 
 	private void UpdateCircleContent()
 	{
-		
-		for (int i = 0; i < scrollPageValues.Length; ++i)
-		{
-			circleContents[i].localScale = Vector2.one;
-			circleContents[i].GetComponent<Image>().color = Color.white;
+        int index = 0;
+        int nextIndex = 0;
 
-		
-			if (scrollBar.value < scrollPageValues[i] + (valueDistance / 2) && scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
+        for (int i = 0; i < scrollPageValues.Length; ++i)
+		{
+            if (scrollBar.value < scrollPageValues[i] + (valueDistance / 2) && scrollBar.value > scrollPageValues[i] - (valueDistance / 2))
 			{
-				circleContents[i].localScale = Vector2.one * circleContentScale;
-				
-			}
+                index = i;
+                nextIndex = i + (scrollBar.value >= scrollPageValues[i] ? 1 : -1);
+                if(nextIndex == 5)
+                {
+                    index = 4;
+                    nextIndex = 3;
+                }
+
+                float a = 0, b = 0;
+
+                if (index > nextIndex)
+                {
+                    int temp = index;
+                    index = nextIndex;
+                    nextIndex = temp;
+                }
+
+                index = Mathf.Clamp(index, 0, scrollPageValues.Length);
+                nextIndex = Mathf.Clamp(nextIndex, 0, scrollPageValues.Length);
+
+                a = scrollBar.value - scrollPageValues[index];
+                b = scrollPageValues[nextIndex] - scrollBar.value;
+                float c = 1 + circleContentScale * a / valueDistance;
+                float d = 1 + circleContentScale * b / valueDistance;
+                circleContents[index].transform.localScale = Vector3.one * d;
+                circleContents[nextIndex].transform.localScale = Vector3.one * c;
+
+                circleContents[index].color = new Color(1, 1, 1, c - 1);
+                circleContents[nextIndex].color = new Color(1, 1, 1, d - 1);
+
+                break;
+            }
 		}
 	}
 }

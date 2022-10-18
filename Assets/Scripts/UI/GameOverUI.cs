@@ -27,7 +27,7 @@ public class GameOverUI : UIBase
     public bool isClear = false;
 
     private bool canRaiseStageIdx;
- 
+    Sequence sequence;
 
     public void OnGameOver(bool isClear)
     {
@@ -56,10 +56,7 @@ public class GameOverUI : UIBase
 
         reloadBtn.onClick.AddListener(() =>
         {
-            starList.ForEach((x) =>
-            {
-                x.gameObject.SetActive(false);
-            });
+           
 
             if (isClear)
             {
@@ -77,7 +74,7 @@ public class GameOverUI : UIBase
             canRaiseStageIdx = false;
             sm.LoadStage(sm.stageIndex);
             ScreenOn(false);
-            starList.ForEach(s => s.gameObject.SetActive(false));
+         
         });
 
         loadNextBtn.onClick.AddListener(() =>
@@ -138,7 +135,7 @@ public class GameOverUI : UIBase
         yield return new WaitForSeconds(0.75f);
 
 
-        Sequence sequence = DOTween.Sequence();
+        sequence = DOTween.Sequence();
 
         switch (starCount)
         {
@@ -205,8 +202,10 @@ public class GameOverUI : UIBase
     {
         if (!on)
         {
+            sequence.Kill();
             starList.ForEach(x =>
             {
+               
                 x.gameObject.SetActive(false);
                 x.transform.localScale = Vector3.one * 3;
             });

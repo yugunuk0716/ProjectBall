@@ -170,9 +170,9 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void Spawned()
     {
-        directionSetBtn.interactable = true;
+        //directionSetBtn.interactable = true;
+        //directionSetBtn.image.raycastTarget = true;
         directionSetBtn.onClick.RemoveAllListeners();
-        directionSetBtn.image.raycastTarget = true;
         directionImg.gameObject.SetActive(false);
         isTutoOrShooting = false;
     }
