@@ -49,11 +49,21 @@ public class IngamePlayUIManager : UIBase
         });
 
         StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
+        LifeManager lm = IsometricManager.Instance.GetManager<LifeManager>();
+        UIManager um = IsometricManager.Instance.GetManager<UIManager>();
 
         retryBtn.onClick.AddListener(() =>
         {
             if (GameManager.canInteract)
             {
+                if (!lm.CanEnterStage())
+                {
+                    print("광고보기");
+                    um.FindUI("WatchAddPanel").ScreenOn(true);
+                    return;
+                }
+
+                lm.EnterStage();
                 sm.LoadStage(sm.stageIndex);
             }
         });
