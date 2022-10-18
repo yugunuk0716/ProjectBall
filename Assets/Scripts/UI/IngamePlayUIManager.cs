@@ -24,9 +24,10 @@ public class IngamePlayUIManager : UIBase
     private Vector3 big = new Vector3(1.2f, 1.2f, 1.2f);
 
     Sequence seq;
-
     float width;
-    
+
+    private GameManager gm;
+
     IEnumerator CoInit()
     {
         yield return null;
@@ -101,6 +102,11 @@ public class IngamePlayUIManager : UIBase
 
     public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
+        if(gm == null)
+        {
+            gm = IsometricManager.Instance.GetManager<GameManager>();
+        }
+
         int targetPos = isSetPanelActive ? (int)(-width) : (int)(width);
         int posX = activedPanel == settingPanel ? 100 : 0;
         seq = DOTween.Sequence();
@@ -109,6 +115,7 @@ public class IngamePlayUIManager : UIBase
             OnComplete(() =>
             {
                 isSetPanelActive = !isSetPanelActive;
+                gm.ballUIList.ForEach((x) => x.SetInteractValues(isSetPanelActive));
             }));
 
         seq.AppendInterval(2.5f).OnComplete(() =>

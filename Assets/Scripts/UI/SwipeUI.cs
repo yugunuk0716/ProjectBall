@@ -18,7 +18,7 @@ public class SwipeUI : MonoBehaviour
 	private int maxPage = 0;                  
 	private float startTouchX;                
 	private float endTouchX;                  
-	private bool isSwipeMode = false;         
+	public bool isSwipeMode = false;         
 	private float circleContentScale = 0.6f;
 
     [Header("Explain")]
@@ -111,16 +111,27 @@ public class SwipeUI : MonoBehaviour
 
 	public void UpdateSwipe(bool isBtnPressed = false, bool isLeft_btnPressed = false)
 	{
-        bool isLeft = startTouchX < endTouchX ? true : false;
+        bool isLeft;
 
-        if (isBtnPressed) isLeft = isLeft_btnPressed;
-
-        if (!isBtnPressed && Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 5)
+        if (isBtnPressed)
+        {
+            isLeft = isLeft_btnPressed;
+        }
+        else if (Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 10)
 		{
             isLeft = startTouchX < endTouchX;
 		}
+        else
+        {
+            Debug.Log("너가 불려야지 그치..?");
+            StartCoroutine(OnSwipeOneStep(currentPage));
+            return;
+        }
 
-		if (isLeft)
+        Debug.Log($"Pressed : {isBtnPressed}, isLeft_Btn : {isLeft_btnPressed}, LEFT : {isLeft}");
+
+
+        if (isLeft)
 		{
             if (currentPage == 0)
             {
@@ -174,7 +185,6 @@ public class SwipeUI : MonoBehaviour
 
     private void Explain()
     {
-
         text.DOKill();
         text.text = string.Empty;
         text.DOText(descriptions[currentPage], 1.5f);

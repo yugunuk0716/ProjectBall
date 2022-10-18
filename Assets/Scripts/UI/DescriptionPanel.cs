@@ -32,8 +32,20 @@ public class DescriptionPanel : UIBase
             print("off");
         });
 
-        leftBtn.onClick.AddListener(() => helpSwipeUI.UpdateSwipe(true, false));
-        rightBtn.onClick.AddListener(() => helpSwipeUI.UpdateSwipe(true, true));
+        leftBtn.onClick.AddListener(() =>
+        {
+            if(!helpSwipeUI.isSwipeMode)
+            {
+                helpSwipeUI.UpdateSwipe(true, false);
+            }
+        });
+        rightBtn.onClick.AddListener(() =>
+        {
+            if (!helpSwipeUI.isSwipeMode)
+            {
+                helpSwipeUI.UpdateSwipe(true, true);
+            }
+        });
     }
 
     public override void Load()

@@ -2158,6 +2158,7 @@ MonoBehaviour:
   - {fileID: 1920949402852028711}
   - {fileID: 1920949401245258038}
   swipeTime: 0.2
+  isSwipeMode: 0
   descriptions:
   - 'Touch the Ball, then..
 
