@@ -2,24 +2,25 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class SwipeUI : MonoBehaviour
 {
-	[SerializeField]
-	private Scrollbar scrollBar;              
-	[SerializeField]
-	private Image[] circleContents;       
-	[SerializeField]
-	private float swipeTime = 0.2f;           
+	[SerializeField] private Scrollbar scrollBar;
+    [SerializeField] private Image[] circleContents;
 
+    private float swipeTime = 0.2f;           
 	private float[] scrollPageValues;         
 	private float valueDistance = 0;          
-	private int currentPage = 0;              
-	private int maxPage = 0;                  
 	private float startTouchX;                
-	private float endTouchX;                  
-	public bool isSwipeMode = false;         
-	private float circleContentScale = 0.6f;
+	private float endTouchX;               
+    private float circleContentScale = 0.6f;
+
+    private int currentPage = 0;
+    private int maxPage = 0;
+
+    bool isFirstTexting = true;
+	[HideInInspector] public bool isSwipeMode = false;
 
     [Header("Explain")]
     [SerializeField] [TextArea()]string[] descriptions;
@@ -30,7 +31,6 @@ public class SwipeUI : MonoBehaviour
     private void Awake()
 	{
 		scrollPageValues = new float[transform.childCount];
-
 		valueDistance = 1f / (scrollPageValues.Length - 1f);
 
 		for (int i = 0; i < scrollPageValues.Length; ++i)
@@ -51,15 +51,12 @@ public class SwipeUI : MonoBehaviour
 
 	private void Update()
 	{
-
         if (parentCvsGroup.alpha != 1) return;
-        else
+
+        if(isFirstTexting)
         {
-            if(isFirstTexting)
-            {
-                Explain();
-                isFirstTexting = false;
-            }
+            Explain();
+            isFirstTexting = false;
         }
 
 		UpdateInput();
@@ -76,12 +73,10 @@ public class SwipeUI : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(0))
 		{
-
 			startTouchX = Input.mousePosition.x;
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
-
 			endTouchX = Input.mousePosition.x;
 
 			UpdateSwipe();
@@ -117,13 +112,13 @@ public class SwipeUI : MonoBehaviour
         {
             isLeft = isLeft_btnPressed;
         }
-        else if (Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 10)
+        else if (Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 20
+            && EventSystem.current.currentSelectedGameObject == null)
 		{
             isLeft = startTouchX < endTouchX;
 		}
         else
         {
-            Debug.Log("너가 불려야지 그치..?");
             StartCoroutine(OnSwipeOneStep(currentPage));
             return;
         }
@@ -155,11 +150,11 @@ public class SwipeUI : MonoBehaviour
         }
 
 
-		StartCoroutine(OnSwipeOneStep(currentPage));
+		StartCoroutine(OnSwipeOneStep(currentPage, true));
 	}
 
 
-	private IEnumerator OnSwipeOneStep(int index)
+	private IEnumerator OnSwipeOneStep(int index, bool bUpdateText = false)
 	{
 		float start = scrollBar.value;
 		float current = 0;
@@ -178,10 +173,13 @@ public class SwipeUI : MonoBehaviour
 		}
 
 		isSwipeMode = false;
-        Explain();
+
+        if(bUpdateText)
+        {
+            Explain();
+        }
     }
 
-    bool isFirstTexting = true;
 
     private void Explain()
     {
