@@ -88,7 +88,6 @@ public class StageManager : ManagerBase
 
             gm.StopGame();
             tileHelp.MoveUI(false);
-            GameManager.canInteract = false;
             gm.usableBallList.ForEach((x) =>
             {
                 x.SetDisable();

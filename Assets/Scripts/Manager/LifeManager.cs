@@ -105,7 +105,6 @@ public class LifeManager : ManagerBase
             if(heartCount != 5)
             {
                 currentTime -= 1;
-             
             }
 
             min = currentTime / 60;
@@ -138,7 +137,9 @@ public class LifeManager : ManagerBase
     {
         lastTime = DateTime.Now;
         PlayerPrefs.SetString("startTime", lastTime.ToString());
-        PlayerPrefs.SetInt("heartCount", heartCount);
+        //PlayerPrefs.SetInt("heartCount", heartCount);
+        PlayerPrefs.SetInt("heartCount", 5);
+        Debug.Log("지우셈");
     }
 
     private void OnHeartProvideUI()

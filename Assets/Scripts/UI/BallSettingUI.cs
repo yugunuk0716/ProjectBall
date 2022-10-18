@@ -88,9 +88,6 @@ public class BallSettingUI : UIBase
         confirmBtn.onClick.AddListener(() =>
         {
             if (!GameManager.canInteract || selectDirectionUI.isSelecting) return;
-
-
-
             if (Input.touchCount > 1) return;
 
             if (gm.maxBallCount != gm.curSetBallCount)
@@ -116,7 +113,6 @@ public class BallSettingUI : UIBase
 
     public override void Load()
     {
-        
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
         for(int i = 0; i < arr.Length; i++)
         {
@@ -134,14 +130,15 @@ public class BallSettingUI : UIBase
         rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
-            GameManager.canInteract = true;
         }));
 
     }
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
-        if(gm == null)
+        GameManager.canInteract = false;
+
+        if (gm == null)
         {
             gm = IsometricManager.Instance.GetManager<GameManager>();
         }
@@ -186,7 +183,6 @@ public class BallSettingUI : UIBase
             }
         }
 
-        GameManager.canInteract = false;
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(heightDevideFive, 0.8f).SetEase(Ease.OutCubic));
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));
