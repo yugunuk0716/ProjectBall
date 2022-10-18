@@ -86,9 +86,13 @@ public class IngamePlayUIManager : UIBase
 
     }
 
-    private void SwitchUI(bool moveLeft, bool isForLoad) 
+    private void SwitchUI(bool moveLeft, bool isForLoad)
     {
-        if (isForLoad && isSetPanelActive) return;
+        if (isForLoad && isSetPanelActive)
+        {
+            GameManager.canInteract = true;
+            return;
+        }
 
         if (!moveLeft)
         {

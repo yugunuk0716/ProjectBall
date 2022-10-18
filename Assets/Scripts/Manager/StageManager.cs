@@ -183,7 +183,6 @@ public class StageManager : ManagerBase
 
     public void SaveStar(int curStageIndex, int starCount)
     {
-        //print(curStageIndex);
         PlayerPrefs.SetInt($"{curStageIndex}Stage", starCount);
     }
 

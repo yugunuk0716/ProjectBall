@@ -16,6 +16,7 @@ public class SettingPopUp : UIBase
 
     private UIManager uimanager;
     private StageManager stageManager;
+    private GameManager gm;
     private bool isActive = false;
 
     public override void Init()
@@ -23,6 +24,7 @@ public class SettingPopUp : UIBase
         uimanager = IsometricManager.Instance.GetManager<UIManager>();
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
         stageManager = IsometricManager.Instance.GetManager<StageManager>();
+        gm = IsometricManager.Instance.GetManager<GameManager>();
         GetCanvasGroup();
         menuButton.onClick.AddListener(() =>
         {
@@ -40,7 +42,11 @@ public class SettingPopUp : UIBase
         TileHelpUI tileHelp = uimanager.FindUI("HelpPanel").GetComponent<TileHelpUI>();
         homeButton.onClick.AddListener(() => 
         {
-            Time.timeScale = 1;
+            if (gm.isShooting) return;
+
+            gm.usableBallList.ForEach((x) => x.SetDisable());
+            gm.usableBallList.Clear();
+            Time.timeScale = 1; 
             ScreenOn(false);
             
             uimanager.canvas[0].gameObject.SetActive(true);

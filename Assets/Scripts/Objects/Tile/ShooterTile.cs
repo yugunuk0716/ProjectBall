@@ -16,10 +16,12 @@ public class ShooterTile : ObjectTile
     {
         jumpPad = GetComponentInParent<JumpPad>();
         GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
+        StageManager sm = IsometricManager.Instance.GetManager<StageManager>();
         gm.Shoot = () =>
         {
-            if (GameManager.canInteract)
+            if (GameManager.canInteract && !sm.isMapLoading)
             {
+                gm.isShooting = true;
                 Shoot();
             }
         };
@@ -44,7 +46,7 @@ public class ShooterTile : ObjectTile
 
         ball.transform.position = transform.position - new Vector3(0, 0.25f, 0) + ((Vector3)IsometricManager.GetRealDir(ball.shootDir) * 0.3f);
         
-        Vector2 shootDir = IsometricManager.GetIsoDir(ball.shootDir);
+        Vector2 shootDir = GetIsoDir(ball.shootDir);
         
         anim.SetFloat("MouseX", shootDir.x);
         anim.SetFloat("MouseY", shootDir.y);
@@ -60,6 +62,26 @@ public class ShooterTile : ObjectTile
         ballControllUI.SetDisable();
     }
 
+    public Vector2 GetIsoDir(TileDirection dir)
+    {
+        Vector2 vec = Vector2.zero;
+        switch (dir)
+        {
+            case TileDirection.RIGHTUP:
+                vec = Vector2.right;
+                break;
+            case TileDirection.LEFTDOWN:
+                vec = Vector2.left;
+                break;
+            case TileDirection.LEFTUP:
+                vec = Vector2.up;
+                break;
+            case TileDirection.RIGHTDOWN:
+                vec = Vector2.down;
+                break;
+        }
+        return vec;
+    }
 
     public void SetEnd()
     {

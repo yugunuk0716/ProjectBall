@@ -40,7 +40,6 @@ public class SwipeUI : MonoBehaviour
 
 		maxPage = transform.childCount;
         SetScrollBarValue(0);
-        UpdateCircleContent();
     }
 
     public void SetScrollBarValue(int index)

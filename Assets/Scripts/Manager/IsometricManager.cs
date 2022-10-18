@@ -99,12 +99,6 @@ public class IsometricManager : MonoBehaviour
         UpdateState(eUpdateState.Start);
     }
 
-    /* public void Update()
-     {
-         Debug.Log(Time.timeScale);
-     }
- */
-
     private void FirstCall()
     {
         PlayerPrefs.SetInt("IsFirst", 0);
@@ -116,26 +110,7 @@ public class IsometricManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public static Vector2 GetIsoDir(TileDirection dir) 
-    {
-        Vector2 vec = Vector2.zero;
-        switch (dir)
-        {
-            case TileDirection.RIGHTUP:
-                vec = Vector2.right;
-                break;
-            case TileDirection.LEFTDOWN:
-                vec = Vector2.left;
-                break;
-            case TileDirection.LEFTUP:
-                vec = Vector2.up;
-                break;
-            case TileDirection.RIGHTDOWN:
-                vec = Vector2.down;
-                break;
-        }
-        return vec;
-    }
+    
 
     public static Vector2 GetRealDir(TileDirection dir)
     {

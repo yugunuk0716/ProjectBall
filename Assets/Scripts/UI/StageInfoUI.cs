@@ -57,7 +57,6 @@ public class StageInfoUI : UIBase
                 return;
             }
 
-            //IsometricManager.Instance.GetManager<GameManager>().StopGame();
             Time.timeScale = 1;
             lm.EnterStage();
 
