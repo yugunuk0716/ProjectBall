@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class TitleSettingUI : UIBase
 {
@@ -11,6 +10,7 @@ public class TitleSettingUI : UIBase
     public Button sfxMuteBtn;
 
     public TextMeshProUGUI heartCountText;
+    public TextMeshProUGUI heartCoolText;
 
     public override void Init()
     {
@@ -35,11 +35,21 @@ public class TitleSettingUI : UIBase
         if (isADSkip)
         {
             heartCountText.text = $"∞/∞";
+            heartCoolText.text = "∞ : ∞";
             return;
         }
 
         heartCountText.text = $"{count}/5";
-        
+        heartCoolText.text = timer;
+
+        if (count != 5 && !heartCoolText.gameObject.activeSelf)
+        {
+            heartCoolText.gameObject.SetActive(true);
+        }
+        else if(count == 5 && heartCoolText.gameObject.activeSelf)
+        {
+            heartCoolText.gameObject.SetActive(false);
+        }
     }
 
     public override void Load()

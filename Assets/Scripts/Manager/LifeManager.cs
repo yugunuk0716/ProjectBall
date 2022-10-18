@@ -105,7 +105,6 @@ public class LifeManager : ManagerBase
             if(heartCount != 5)
             {
                 currentTime -= 1;
-             
             }
 
             min = currentTime / 60;
