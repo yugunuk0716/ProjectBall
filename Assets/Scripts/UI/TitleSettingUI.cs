@@ -1,9 +1,8 @@
 
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TitleSettingUI : UIBase
 {
@@ -12,7 +11,6 @@ public class TitleSettingUI : UIBase
     public Button sfxMuteBtn;
 
     public TextMeshProUGUI heartCountText;
-    public TextMeshProUGUI heartCoolText;
 
     public override void Init()
     {
@@ -28,6 +26,7 @@ public class TitleSettingUI : UIBase
             sm.Mute(AudioType.SFX);
             sfxMuteBtn.GetComponent<Image>().color = SoundManager.isSFXMute ? Color.gray : Color.white;
         });
+
     }
 
 
@@ -36,12 +35,11 @@ public class TitleSettingUI : UIBase
         if (isADSkip)
         {
             heartCountText.text = $"∞/∞";
-            heartCoolText.text = "∞ : ∞";
             return;
         }
 
         heartCountText.text = $"{count}/5";
-        heartCoolText.text = timer;
+        
     }
 
     public override void Load()
