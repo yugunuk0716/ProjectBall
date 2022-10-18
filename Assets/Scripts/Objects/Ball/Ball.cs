@@ -29,9 +29,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
     public float afCool;
     public float afLastTime;
 
-    public float curActiveTime = 0f;
-    public float maxActiveTime = 15f;
-
     public TileType collisionTileType;
     public TileDirection shootDir;
 
@@ -79,14 +76,9 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     private void Update()
     {
-        curActiveTime += Time.deltaTime;
-        if (curActiveTime >= maxActiveTime) gameObject.SetActive(false);
-
         Vector3 myPos = transform.position;
         myPos.z = transform.position.y * -0.1f + 1.7f;
         transform.position = myPos;
-
-
         sr.transform.Rotate(baseVec * 500 * Time.deltaTime); 
     }
 
@@ -115,33 +107,33 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
         myPos += direction;
 
-        ObjectTile tile = gm.tileDict[myPos];
-
-        transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
+        if(gm.tileDict.ContainsKey(myPos))
         {
-            tile.InteractionTile(this);
-            if (!tile.myType.Equals(TileType.None))
-            {
-                interactParticle.Play();
-            }
-            if (tile.myType.Equals(TileType.Slow))
-            {
-                slowAnim.gameObject.SetActive(true);
-                slowAnim.Play("SlowEffect");
-            }
-        });
+            ObjectTile tile = gm.tileDict[myPos];
 
+            transform.DOMove((Vector3)tile.worldPos, speed).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                tile.InteractionTile(this);
+                if (!tile.myType.Equals(TileType.None))
+                {
+                    interactParticle.Play();
+                }
+                if (tile.myType.Equals(TileType.Slow))
+                {
+                    slowAnim.gameObject.SetActive(true);
+                    slowAnim.Play("SlowEffect");
+                }
+            });
+        }
+        else
+        {
+            SetDisable();
+        }
     }
 
     public void Rollin()
     {
         StartCoroutine(SetBaseVector());
-    }
-
-   public void ColorChange(Color newColor)
-    {
-        currentColor = newColor;
-        sr.color = currentColor;
     }
 
     public void Despawned()
@@ -154,7 +146,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
         this.DOKill();
         speed = 0.4f;
-        curActiveTime = 0;
 
         if(!sm.isMapLoading)
         {
@@ -167,7 +158,6 @@ public class Ball : MonoBehaviour, IPoolableComponent
         gameObject.SetActive(false);
         slowAnim.gameObject.SetActive(false);
         speed = 0.4f;
-        ColorChange(Color.white);
     }
 
     public void SetDisable()

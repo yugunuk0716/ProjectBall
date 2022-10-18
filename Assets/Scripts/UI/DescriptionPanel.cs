@@ -12,17 +12,18 @@ public class DescriptionPanel : UIBase
 
     SwipeUI helpSwipeUI;
 
+
     public override void Init()
     {
         GetCanvasGroup();
         helpSwipeUI = GetComponentInChildren<SwipeUI>();
+        helpSwipeUI.parentCvsGroup = this.canvasGroup;
 
         descButton.onClick.AddListener(() =>
         {
             if (Input.touchCount > 1) return;
 
             ScreenOn(true);
-            print("on");
         });
 
         closeButton.onClick.AddListener(() =>

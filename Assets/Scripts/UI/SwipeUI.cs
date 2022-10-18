@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class SwipeUI : MonoBehaviour
 {
@@ -10,8 +11,6 @@ public class SwipeUI : MonoBehaviour
 	private Transform[] circleContents;       
 	[SerializeField]
 	private float swipeTime = 0.2f;           
-	[SerializeField]
-	private float swipeDistance = 50.0f;      
 
 	private float[] scrollPageValues;         
 	private float valueDistance = 0;          
@@ -20,17 +19,20 @@ public class SwipeUI : MonoBehaviour
 	private float startTouchX;                
 	private float endTouchX;                  
 	private bool isSwipeMode = false;         
-	private float circleContentScale = 1.3f;  
+	private float circleContentScale = 1.3f;
 
-	private void Awake()
+    [Header("Explain")]
+    [SerializeField] [TextArea()]string[] descriptions;
+    [SerializeField] Text text;
+
+    [HideInInspector] public CanvasGroup parentCvsGroup;
+
+    private void Awake()
 	{
-		
 		scrollPageValues = new float[transform.childCount];
-
 
 		valueDistance = 1f / (scrollPageValues.Length - 1f);
 
-		
 		for (int i = 0; i < scrollPageValues.Length; ++i)
 		{
 			scrollPageValues[i] = valueDistance * i;
@@ -54,6 +56,15 @@ public class SwipeUI : MonoBehaviour
 
 	private void Update()
 	{
+        if (parentCvsGroup.alpha != 1) return;
+        else
+        {
+            if(isFirstTexting)
+            {
+                Explain();
+                isFirstTexting = false;
+            }
+        }
 		UpdateInput();
 
 		UpdateCircleContent();
@@ -103,38 +114,37 @@ public class SwipeUI : MonoBehaviour
 
 	public void UpdateSwipe(bool isBtnPressed = false, bool isLeft_btnPressed = false)
 	{
-		
-		if (!isBtnPressed && Mathf.Abs(startTouchX - endTouchX) < swipeDistance)
-		{
-			
-			StartCoroutine(OnSwipeOneStep(currentPage));
-			return;
-		}
+        bool isLeft = startTouchX < endTouchX ? true : false;
 
-
-		bool isLeft = startTouchX < endTouchX ? true : false;
-
-      
         if (isBtnPressed) isLeft = isLeft_btnPressed;
 
-		
-		if (isLeft == true)
+        if (!isBtnPressed && Mathf.Abs(startTouchX - endTouchX) > (float)Screen.width / 5)
 		{
-			
-			if (currentPage == 0) return;
-
-			
-			currentPage--;
+            isLeft = startTouchX < endTouchX;
 		}
-	
+
+		if (isLeft)
+		{
+            if (currentPage == 0)
+            {
+                return;
+            }
+            else
+            {
+                --currentPage;
+            }
+        }
 		else
 		{
-	
-			if (currentPage == maxPage - 1) return;
-
-			
-			currentPage++;
-		}
+			if (currentPage == maxPage - 1)
+            {
+                return;
+            }
+            else
+            {
+                ++currentPage;
+            }
+        }
 
 
 		StartCoroutine(OnSwipeOneStep(currentPage));
@@ -160,7 +170,18 @@ public class SwipeUI : MonoBehaviour
 		}
 
 		isSwipeMode = false;
+        Explain();
 	}
+
+    bool isFirstTexting = true;
+
+    private void Explain()
+    {
+
+        text.DOKill();
+        text.text = string.Empty;
+        text.DOText(descriptions[currentPage], 1.5f);
+    }
 
 	private void UpdateCircleContent()
 	{

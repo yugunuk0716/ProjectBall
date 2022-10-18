@@ -20,8 +20,8 @@ public class StageScrollUI : UIBase
     UIManager um;
     public List<IntListBox> allContents = new List<IntListBox>();
 
-    public TextMeshProUGUI heartCountText;
-    public TextMeshProUGUI heartCoolText;
+    public TextMeshProUGUI[] heartCountText;
+    public TextMeshProUGUI[] heartCoolText;
 
     public override void Init()
     {
@@ -83,13 +83,19 @@ public class StageScrollUI : UIBase
     {
         if (isADSkip)
         {
-            heartCountText.text = "∞";
-            heartCoolText.text = "∞";
+            for (int i = 0; i < heartCountText.Length; i++)
+            {
+                heartCountText[i].text = "inf.";
+                heartCoolText[i].text = "inf.";
+            }
             return;
         }
 
-        heartCountText.text = $"{count}/5";
-        heartCoolText.text = timer;
+        for (int i = 0; i < heartCountText.Length; i++)
+        {
+            heartCountText[i].text = $"{count}/5";
+            heartCoolText[i].text = timer;
+        }
     }
 
     public override void Load()
