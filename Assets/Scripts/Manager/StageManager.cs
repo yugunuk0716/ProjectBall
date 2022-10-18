@@ -165,11 +165,11 @@ public class StageManager : ManagerBase
 
     public int CalcStar(float leftTime)
     {
-        if (leftTime > threeStarTime)
+        if (leftTime >= threeStarTime)
         {
             return 3;
         }
-        else if (leftTime > twoStarTime)
+        else if (leftTime >= twoStarTime)
         {
             return 2;
         }
