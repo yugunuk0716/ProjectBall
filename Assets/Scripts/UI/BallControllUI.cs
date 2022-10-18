@@ -104,8 +104,6 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
             return;
         }
 
-
-        GameManager.canInteract = false;
         bPressed = false;
         rt.DOComplete();
         if (pressedTime > checkTime)
@@ -114,17 +112,16 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         }
         else
         {
-            GameManager.canInteract = true;
+            //GameManager.canInteract = true;
         }
 
-        pressedTime = 0f;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (Input.touchCount > 1)
         {
-            GameManager.canInteract = false;
+            //GameManager.canInteract = false;
             bPressed = false;
             rt.DOComplete();
             if (pressedTime > checkTime)
@@ -133,7 +130,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
             }
             else
             {
-                GameManager.canInteract = true;
+                //GameManager.canInteract = true;
             }
             pressedTime = 0f;
         }

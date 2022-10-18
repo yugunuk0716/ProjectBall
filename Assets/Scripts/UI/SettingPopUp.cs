@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -18,15 +15,22 @@ public class SettingPopUp : UIBase
     public Button bgmButton;
 
     private UIManager uimanager;
-
+    private StageManager stageManager;
     private bool isActive = false;
 
     public override void Init()
     {
         uimanager = IsometricManager.Instance.GetManager<UIManager>();
         SoundManager sm = IsometricManager.Instance.GetManager<SoundManager>();
+        stageManager = IsometricManager.Instance.GetManager<StageManager>();
         GetCanvasGroup();
-        menuButton.onClick.AddListener(() => ScreenOn(true));
+        menuButton.onClick.AddListener(() =>
+        {
+            if(GameManager.canInteract && !stageManager.isMapLoading)
+            {
+                ScreenOn(true);
+            }
+        });
         resumeButton.onClick.AddListener(() =>
         {
             Time.timeScale = 1;

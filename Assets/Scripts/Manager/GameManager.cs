@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : ManagerBase
 {
@@ -28,9 +27,10 @@ public class GameManager : ManagerBase
     [HideInInspector] public int curSetBallCount;
     [HideInInspector] public bool isShooting = false;
     public bool isFirstBallNotArrived = true;
+    public bool isFirstMapLoad = true; // start game, and press start button-> 
 
-    public float limitTime = 2f;
-    public float firstTime = 0f;
+    private float limitTime = 2f;
+    private float firstTime = 0f;
     private float realTime;
 
     public Action<bool> ActiveGameOverPanel = null;
@@ -91,7 +91,11 @@ public class GameManager : ManagerBase
 
         SetBallUI(stageData.balls.Length, isSameStageLoaded);
 
-        canInteract = true;
+        if(isFirstMapLoad)
+        {
+            canInteract = true;
+            isFirstMapLoad = false;
+        }
     }
 
     public void CheckFail() 

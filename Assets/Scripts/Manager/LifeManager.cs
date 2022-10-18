@@ -138,7 +138,9 @@ public class LifeManager : ManagerBase
     {
         lastTime = DateTime.Now;
         PlayerPrefs.SetString("startTime", lastTime.ToString());
-        PlayerPrefs.SetInt("heartCount", heartCount);
+        //PlayerPrefs.SetInt("heartCount", heartCount);
+        PlayerPrefs.SetInt("heartCount", 5);
+        Debug.Log("지우셈");
     }
 
     private void OnHeartProvideUI()
