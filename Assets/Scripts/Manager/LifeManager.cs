@@ -163,7 +163,13 @@ public class LifeManager : ManagerBase
         int plusHeartCount = totalSec / coolTime;
 
         currentTime = PlayerPrefs.GetInt("remainTime", standard) - totalSec % coolTime;
+
         IncreaseHeart(plusHeartCount);
+
+        if(heartCount >= 5)
+        {
+            currentTime = coolTime;
+        }
         CheckTimer();
     }
 
