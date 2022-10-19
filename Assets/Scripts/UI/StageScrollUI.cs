@@ -31,7 +31,10 @@ public class StageScrollUI : UIBase
         um = IsometricManager.Instance.GetManager<UIManager>();
         settingPanel = IsometricManager.Instance.GetManager<UIManager>().FindUI("SettingPopUp");
       
-        closeBtn.onClick.AddListener(() => ScreenOn(false));
+        closeBtn.onClick.AddListener(() =>
+        {
+            ScreenOn(false);
+        });
         allContents.ForEach(c => c.UpdateContents += UpdateButtonListener);
 
         IsometricManager.Instance.GetManager<GameManager>().OnClear += (x, y) =>
@@ -57,7 +60,6 @@ public class StageScrollUI : UIBase
         myButton.onClick.RemoveAllListeners();
         myButton.onClick.AddListener(() =>
         {
-           
             if (canEnter)
             {
                 stageInfoPanel.ScreenOn(true, lastIndex, this);

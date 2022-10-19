@@ -133,7 +133,12 @@ public class Ball : MonoBehaviour, IPoolableComponent
 
     public void Rollin()
     {
-        StartCoroutine(SetBaseVector());
+        if(gameObject.activeSelf)
+            StartCoroutine(SetBaseVector());
+        else
+        {
+            print("에라이");
+        }
     }
 
     public void Despawned()

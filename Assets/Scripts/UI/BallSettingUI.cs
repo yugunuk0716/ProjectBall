@@ -25,6 +25,8 @@ public class BallSettingUI : UIBase
 
     private UIManager um;
     private GameManager gm;
+    private StageManager sm;
+
     float width = 0f;
     float heightDevideFive;
 
@@ -42,8 +44,9 @@ public class BallSettingUI : UIBase
 
         shootPanel.anchoredPosition = new Vector3(width, shootPanel.anchoredPosition.y, 0);
 
-        GameManager gm = IsometricManager.Instance.GetManager<GameManager>();
         um = IsometricManager.Instance.GetManager<UIManager>();
+        gm = IsometricManager.Instance.GetManager<GameManager>();
+        sm = IsometricManager.Instance.GetManager<StageManager>();
         gm.ActiveGameOverPanel += (x) => shootBtn.interactable = false;
         gm.MakeNewBallUI = (ball, isAutoSet, index) =>
         {
@@ -87,17 +90,18 @@ public class BallSettingUI : UIBase
         };
         confirmBtn.onClick.AddListener(() =>
         {
-            if (!GameManager.canInteract || selectDirectionUI.isSelecting) return;
+            if (!GameManager.canInteract || sm.isMapLoading || selectDirectionUI.isSelecting || Input.touchCount > 1)
+            {
+                return;
+            }
 
-
-
-            if (Input.touchCount > 1) return;
-
-            if (gm.maxBallCount != gm.curSetBallCount)
+            if (gm.maxBallCount != gm.curSetBallCount || gm.curSetBallCount <= 0) // more than zero
             {
                 um.FindUI("CantEnterPanel").ScreenOn(true);
                 return;
             }
+
+
 
             gm.ballUIList.ForEach((x) =>
             {
@@ -116,7 +120,6 @@ public class BallSettingUI : UIBase
 
     public override void Load()
     {
-        
         TargetPointUI[] arr = targetPointContent.GetComponentsInChildren<TargetPointUI>();
         for(int i = 0; i < arr.Length; i++)
         {
@@ -134,19 +137,14 @@ public class BallSettingUI : UIBase
         rollbackUISeq.Join(shootBtn.transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
         {
             SwitchUI(true);
-            GameManager.canInteract = true;
         }));
 
     }
 
     IEnumerator MoveBallUis(List<BallControllUI> list)
     {
-        if(gm == null)
-        {
-            gm = IsometricManager.Instance.GetManager<GameManager>();
-        }
+        GameManager.canInteract = false;
         gm.lastBallList.Clear();
-
         gm.ballUIList.Sort((x, y) => x.order.CompareTo(y.order));
         gm.ballUIList.ForEach((x) =>
         {
@@ -186,7 +184,6 @@ public class BallSettingUI : UIBase
             }
         }
 
-        GameManager.canInteract = false;
         Sequence changeUISeq2 = DOTween.Sequence();
         changeUISeq2.Append(shootBtn.GetComponent<RectTransform>().DOAnchorPosY(heightDevideFive, 0.8f).SetEase(Ease.OutCubic));
         changeUISeq2.Join(shootBtn.transform.DORotate(new Vector3(0, 0, 720), 0.8f, RotateMode.LocalAxisAdd));

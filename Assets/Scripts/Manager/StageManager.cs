@@ -88,7 +88,6 @@ public class StageManager : ManagerBase
 
             gm.StopGame();
             tileHelp.MoveUI(false);
-            GameManager.canInteract = false;
             gm.usableBallList.ForEach((x) =>
             {
                 x.SetDisable();
@@ -166,11 +165,11 @@ public class StageManager : ManagerBase
 
     public int CalcStar(float leftTime)
     {
-        if (leftTime > threeStarTime)
+        if (leftTime >= threeStarTime)
         {
             return 3;
         }
-        else if (leftTime > twoStarTime)
+        else if (leftTime >= twoStarTime)
         {
             return 2;
         }
@@ -185,7 +184,6 @@ public class StageManager : ManagerBase
 
     public void SaveStar(int curStageIndex, int starCount)
     {
-        //print(curStageIndex);
         PlayerPrefs.SetInt($"{curStageIndex}Stage", starCount);
     }
 

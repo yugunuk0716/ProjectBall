@@ -84,12 +84,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (Input.touchCount > 1) return;
-
-        if (isTutoOrShooting)
-        {
-            return;
-        }
+        if (Input.touchCount > 1 || isTutoOrShooting) return;
 
         bPressed = true;
     }
@@ -103,37 +98,23 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
         {
             return;
         }
-
-
-        GameManager.canInteract = false;
         bPressed = false;
         rt.DOComplete();
         if (pressedTime > checkTime)
         {
             swapUI.OnEndDrag();
         }
-        else
-        {
-            GameManager.canInteract = true;
-        }
-
-        pressedTime = 0f;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (Input.touchCount > 1)
         {
-            GameManager.canInteract = false;
             bPressed = false;
             rt.DOComplete();
             if (pressedTime > checkTime)
             {
                 swapUI.OnEndDrag();
-            }
-            else
-            {
-                GameManager.canInteract = true;
             }
             pressedTime = 0f;
         }
@@ -142,6 +123,7 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void BeginSwapping()
     {
+        GameManager.canInteract = false;
         swapUI.ballControllUI = this;
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;
@@ -170,8 +152,6 @@ public class BallControllUI : UIBase, IBeginDragHandler, IEndDragHandler, IDragH
 
     public void Spawned()
     {
-        //directionSetBtn.interactable = true;
-        //directionSetBtn.image.raycastTarget = true;
         directionSetBtn.onClick.RemoveAllListeners();
         directionImg.gameObject.SetActive(false);
         isTutoOrShooting = false;

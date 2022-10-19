@@ -151,7 +151,7 @@ public class GameOverUI : UIBase
         if(starCount > 0)
         {
             starList[0].gameObject.SetActive(true);
-            sequence.Append(starList[0].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+            sequence.Append(starList[0].transform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
             {
                 soundm.Play("Star");
                 if(starCount > 1)
@@ -161,7 +161,7 @@ public class GameOverUI : UIBase
             }));
             if(starCount > 1)
             {
-                sequence.Append(starList[1].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+                sequence.Append(starList[1].transform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
                 {
                     soundm.Play("Star");
                     if(starCount > 2)
@@ -172,30 +172,27 @@ public class GameOverUI : UIBase
             }
             if(starCount > 2)
             {
-                sequence.Append(starList[2].transform.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+                sequence.Append(starList[2].transform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
                 {
                     soundm.Play("Star");
                 }));
             }
         }
+        sequence.OnComplete(() =>
+        {
+            gm.clearParticle_Left.Play();
+            gm.clearParticle_Right.Play();
+            soundm.Play("Trumpet");
+
+            canRaiseStageIdx = true;
+
+            reloadBtn.interactable = true;
+            loadNextBtn.interactable = isClear;
+            isClear = false;
+        });
 
         
-
-
-        gm.clearParticle_Left.Play();
-        gm.clearParticle_Right.Play();
-
-        yield return new WaitForSeconds(0.25f);
-        soundm.Play("Trumpet");
-
-        canRaiseStageIdx = true;
-
-        reloadBtn.interactable = true;
-        loadNextBtn.interactable = isClear;
-
-
-        
-        isClear = false;
+      
     }
 
     public override void ScreenOn(bool on)

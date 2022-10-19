@@ -55,7 +55,7 @@ public class IngamePlayUIManager : UIBase
 
         retryBtn.onClick.AddListener(() =>
         {
-            if (GameManager.canInteract)
+            if (GameManager.canInteract && !sm.isMapLoading)
             {
                 if (!lm.CanEnterStage())
                 {
@@ -86,9 +86,13 @@ public class IngamePlayUIManager : UIBase
 
     }
 
-    private void SwitchUI(bool moveLeft, bool isForLoad) 
+    private void SwitchUI(bool moveLeft, bool isForLoad)
     {
-        if (isForLoad && isSetPanelActive) return;
+        if (isForLoad && isSetPanelActive)
+        {
+            GameManager.canInteract = true;
+            return;
+        }
 
         if (!moveLeft)
         {
@@ -102,7 +106,8 @@ public class IngamePlayUIManager : UIBase
 
     public void MoveUI(RectTransform activedPanel, RectTransform activePanel)
     {
-        if(gm == null)
+        GameManager.canInteract = false;
+        if (gm == null)
         {
             gm = IsometricManager.Instance.GetManager<GameManager>();
         }
@@ -116,6 +121,10 @@ public class IngamePlayUIManager : UIBase
             {
                 isSetPanelActive = !isSetPanelActive;
                 gm.ballUIList.ForEach((x) => x.SetInteractValues(isSetPanelActive));
+                if(isSetPanelActive)
+                {
+                    GameManager.canInteract = true;
+                }
             }));
 
         seq.AppendInterval(2.5f).OnComplete(() =>
